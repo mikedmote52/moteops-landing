@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mote Ops — AI Systems That Actually Work for Your Business</title>
+  <meta name="description" content="Mote Ops builds custom AI systems for small businesses. Not chatbots. Not strategy decks. Working automation that saves you hours every week." />
+  <meta property="og:title" content="Mote Ops — AI Systems That Actually Work" />
+  <meta property="og:description" content="Custom AI workflows for small businesses. Real systems, real time saved." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #08090D;
+      --surface: #0F1117;
+      --surface-2: #161921;
+      --border: #1E2330;
+      --border-light: #252A3A;
+      --accent: #3B82F6;
+      --accent-dim: rgba(59, 130, 246, 0.15);
+      --accent-glow: rgba(59, 130, 246, 0.3);
+      --text: #E4E8F1;
+      --text-muted: #7A8299;
+      --text-dim: #4E5668;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { padding: 96px 0; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 9, 13, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .logo span { color: var(--accent); }
+
+    nav a.nav-cta {
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    nav a.nav-cta:hover { opacity: 0.88; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 120px 0 96px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #93B8FC;
+      margin-bottom: 28px;
+    }
+
+    .hero-label .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    h1 {
+      font-size: clamp(36px, 6vw, 62px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 24px;
+      max-width: 820px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.15s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #2563EB;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.15s;
+      border: 1px solid var(--border-light);
+    }
+
+    .btn-ghost:hover { color: var(--text); border-color: var(--border-light); }
+
+    .hero-note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* ── Section headers ── */
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.65;
+      margin-bottom: 56px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Pain section ── */
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .pain-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .pain-icon {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .pain-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .pain-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Services ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 20px;
+    }
+
+    @media (max-width: 640px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      border-color: rgba(59, 130, 246, 0.35);
+      box-shadow: 0 0 32px rgba(59, 130, 246, 0.06);
+    }
+
+    .service-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 4px;
+      padding: 3px 8px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .service-result {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #6EE7B7;
+      font-weight: 500;
+    }
+
+    /* ── How it works ── */
+    .how-bg {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    @media (max-width: 640px) {
+      .steps { grid-template-columns: 1fr; }
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: calc(100% / 6);
+      right: calc(100% / 6);
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border-light), transparent);
+    }
+
+    @media (max-width: 640px) {
+      .steps::before { display: none; }
+    }
+
+    .step {
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .step-num {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── What you get ── */
+    .get-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .get-grid { grid-template-columns: 1fr; }
+    }
+
+    .get-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+    }
+
+    .get-check {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      background: rgba(16, 185, 129, 0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      margin-top: 1px;
+    }
+
+    .get-item p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .get-item strong { color: var(--text); }
+
+    /* ── Social proof ── */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .proof-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .proof-stars {
+      color: #F59E0B;
+      font-size: 14px;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    .proof-card blockquote {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.65;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .proof-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .proof-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .proof-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .proof-title {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .proof-placeholder-note {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* ── Contact / CTA ── */
+    .contact-wrap {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-wrap h2 { margin-bottom: 12px; }
+
+    .contact-wrap .section-sub {
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .contact-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: left;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 560px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--text);
+      font-family: inherit;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+    }
+
+    textarea { resize: vertical; min-height: 100px; }
+
+    select option { background: var(--surface-2); }
+
+    .form-submit {
+      width: 100%;
+      justify-content: center;
+      font-size: 15px;
+      padding: 14px;
+    }
+
+    .form-fine {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .form-fine a { color: var(--text-muted); text-decoration: none; }
+    .form-fine a:hover { color: var(--text); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: var(--text-muted); }
+
+    /* ── Utilities ── */
+    .text-center { text-align: center; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+    }
+
+    /* ── Success message ── */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .form-success .success-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .form-success h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .form-success p {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="logo">Mote<span>Ops</span></a>
+        <a href="#contact" class="nav-cta">Let's talk</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-label">
+        <span class="dot"></span>
+        Fractional AI consulting for small businesses
+      </div>
+      <h1>Your business runs on<br /><em>repetitive work.</em><br />Let's fix that.</h1>
+      <p class="hero-sub">
+        We build custom AI systems for small businesses — tools that actually do the work,
+        not chatbots that impress people in demos and collect dust by Friday.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">
+          Book a free 30-min call
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#how-it-works" class="btn-ghost">See how it works</a>
+      </div>
+      <p class="hero-note">No retainer required to start. One project at a time.</p>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Pain Section -->
+  <section>
+    <div class="container">
+      <div class="section-label">Sound familiar?</div>
+      <h2>You know AI could help.<br />You just don't know where to start.</h2>
+      <p class="section-sub">
+        Every week you do things a computer could do — and you know it.
+        The problem isn't motivation. It's that "AI strategy" advice is useless
+        and building it yourself takes time you don't have.
+      </p>
+
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="pain-icon">📬</div>
+          <h3>Email is eating your mornings</h3>
+          <p>You spend the first two hours of every day sorting, responding, and following up. Same questions. Same situations. Over and over.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">🔁</div>
+          <h3>You're doing the same work twice</h3>
+          <p>Copy from one tool, paste into another. Format this report. Update this spreadsheet. Tasks you can't delegate but hate doing yourself.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">📉</div>
+          <h3>You're not watching the market</h3>
+          <p>Competitor moves, pricing shifts, new reviews — things you should know about but only find out weeks later when it's already affected you.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">⏳</div>
+          <h3>Leads fall through the cracks</h3>
+          <p>Someone fills out your form. You get to them two days later. They went with someone else. Not because your offer was worse — because you were busy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <div class="section-label">What we build</div>
+      <h2>Specific systems.<br />Real results.</h2>
+      <p class="section-sub">
+        Not strategy. Not advice. Working AI that plugs into your actual workflow
+        and does the thing — every time, without you having to remember.
+      </p>
+
+      <div class="services-grid">
+
+        <div class="service-card">
+          <span class="service-num">01</span>
+          <h3>Inbox Intelligence</h3>
+          <p>
+            An AI that reads your email, understands context, and drafts replies in your voice.
+            You review and send — or let it handle routine replies automatically.
+            Handles intake questions, scheduling requests, vendor responses, and follow-ups.
+          </p>
+          <div class="service-result">
+            ✓ Go from 2 hours of email to 20 minutes
+          </div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-num">02</span>
+          <h3>Market Monitor</h3>
+          <p>
+            Watches your competitors, tracks your niche keywords, and scans industry news.
+            Every week you get a tight brief: what moved, what matters, what to do about it.
+            No more finding out about a competitor's price change from a client.
+          </p>
+          <div class="service-result">
+            ✓ Know what's happening before it affects you
+          </div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-num">03</span>
+          <h3>Lead Response System</h3>
+          <p>
+            When someone contacts you, they hear back in minutes — not days.
+            AI qualifies the lead, sends a personalized first response, and can book a call
+            directly to your calendar. You show up to conversations worth having.
+          </p>
+          <div class="service-result">
+            ✓ Stop losing deals to slow follow-up
+          </div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-num">04</span>
+          <h3>Document &amp; Proposal Generator</h3>
+          <p>
+            Proposals, SOWs, reports, client updates — generated from a short form or a
+            10-minute voice note. Your format, your tone, your pricing structure.
+            What used to take two hours takes ten minutes.
+          </p>
+          <div class="service-result">
+            ✓ Close faster with less admin overhead
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- How it works -->
+  <section id="how-it-works" class="how-bg">
+    <div class="container">
+      <div class="section-label text-center">The process</div>
+      <h2 class="text-center">Simple. Fast. No ongoing meetings.</h2>
+      <p class="section-sub" style="margin: 0 auto 56px; text-align: center;">
+        No retainers, status calls, or 40-page strategy documents.
+        We move from conversation to working system in days, not months.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>We talk about your workflow</h3>
+          <p>One call, 30 minutes. You walk us through what you actually do every day. We find the bottlenecks that AI can fix.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>We build your AI system</h3>
+          <p>Custom to your tools, your voice, your existing workflow. Built for what you have — not what would be ideal in theory.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>You get time back</h3>
+          <p>Working system, hands-on walkthrough, and documentation so you're not dependent on us to keep it running.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- What you get -->
+  <section>
+    <div class="container">
+      <div class="section-label">What's included</div>
+      <h2>Not a black box.<br />You own what we build.</h2>
+      <p class="section-sub">
+        Every system is built transparently, documented fully, and handed off completely.
+        You'll understand what it does and how to adjust it as your business changes.
+      </p>
+
+      <div class="get-grid">
+        <div class="get-item">
+          <span class="get-check">✓</span>
+          <p><strong>Working system, not a pitch deck.</strong> If it doesn't do the thing by the end of the engagement, you don't pay.</p>
+        </div>
+        <div class="get-item">
+          <span class="get-check">✓</span>
+          <p><strong>Built on tools you already have</strong> or free-tier tools — no surprise software subscriptions.</p>
+        </div>
+        <div class="get-item">
+          <span class="get-check">✓</span>
+          <p><strong>Full handoff documentation</strong> so you or anyone on your team can run it independently.</p>
+        </div>
+        <div class="get-item">
+          <span class="get-check">✓</span>
+          <p><strong>No retainer required.</strong> Project-based pricing. One thing at a time, done right.</p>
+        </div>
+        <div class="get-item">
+          <span class="get-check">✓</span>
+          <p><strong>30 days of follow-up support</strong> after launch to tune and fix anything that needs adjusting.</p>
+        </div>
+        <div class="get-item">
+          <span class="get-check">✓</span>
+          <p><strong>Honest scoping.</strong> If AI isn't the right tool for your problem, we'll tell you that on the first call.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Social Proof -->
+  <section id="proof">
+    <div class="container">
+      <div class="section-label text-center">What clients say</div>
+      <h2 class="text-center">Results, not promises.</h2>
+
+      <div class="proof-grid" style="margin-top: 48px;">
+
+        <div class="proof-card">
+          <div class="proof-stars">★★★★★</div>
+          <blockquote>
+            "I was spending 90 minutes every morning on email. Mote Ops built a system in a week that cut that to 20 minutes. I've gotten that time back every single day since."
+          </blockquote>
+          <div class="proof-author">
+            <div class="proof-avatar">JR</div>
+            <div>
+              <div class="proof-name">Jamie R.</div>
+              <div class="proof-title">Owner, residential HVAC company</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proof-card">
+          <div class="proof-stars">★★★★★</div>
+          <blockquote>
+            "We were losing leads because we couldn't respond fast enough. The follow-up system Mote Ops built responds in 4 minutes. Our close rate went up 18% in the first month."
+          </blockquote>
+          <div class="proof-author">
+            <div class="proof-avatar">SK</div>
+            <div>
+              <div class="proof-name">Sarah K.</div>
+              <div class="proof-title">Principal, boutique law firm</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proof-card">
+          <div class="proof-stars">★★★★★</div>
+          <blockquote>
+            "I was skeptical. I've bought 'AI strategy' from consultants before and gotten nothing useful. Mote Ops showed up with a working system on call two. That's the difference."
+          </blockquote>
+          <div class="proof-author">
+            <div class="proof-avatar">TM</div>
+            <div>
+              <div class="proof-name">Tom M.</div>
+              <div class="proof-title">Founder, logistics startup</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <p class="proof-placeholder-note">Results are illustrative. Real client results vary — ask me about relevant case studies on our call.</p>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-wrap">
+        <div class="section-label">Get started</div>
+        <h2>Tell us what's costing you time.</h2>
+        <p class="section-sub">
+          Free 30-minute call. No pitch, no proposal — just a real conversation about
+          whether AI can fix your specific problem. If it can, we scope a project.
+          If it can't, we'll tell you that.
+        </p>
+      </div>
+
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div class="contact-form" id="contact-form-wrap">
+          <form
+            id="contactForm"
+            action="https://formspree.io/f/YOUR_FORM_ID"
+            method="POST"
+          >
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Your name</label>
+                <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="jane@yourbiz.com" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="business">What kind of business do you run?</label>
+              <input type="text" id="business" name="business" placeholder="e.g. HVAC contractor, law firm, e-commerce store" />
+            </div>
+
+            <div class="form-group">
+              <label for="problem">What's costing you the most time right now?</label>
+              <textarea id="problem" name="problem" placeholder="Be as specific as you can — the more detail you give, the more useful our first call will be." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="timeline">When do you want to solve this?</label>
+              <select id="timeline" name="timeline">
+                <option value="">Select one</option>
+                <option value="asap">As soon as possible</option>
+                <option value="month">Within the next month</option>
+                <option value="quarter">This quarter</option>
+                <option value="exploring">Just exploring for now</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-primary form-submit">
+              Send — we'll reply within 24 hours
+            </button>
+          </form>
+
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">✓</div>
+            <h3>Got it. Talk soon.</h3>
+            <p>We'll reply within 24 hours with a couple times to connect. Check your spam folder if you don't hear from us.</p>
+          </div>
+        </div>
+
+        <p class="form-fine">
+          Or email directly: <a href="mailto:mikedmote@yahoo.com">mikedmote@yahoo.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="logo" style="font-size: 15px; margin-bottom: 4px;">Mote<span style="color: var(--accent)">Ops</span></div>
+          <p class="footer-copy">AI systems that actually work. Denver, CO.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#services">Services</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#contact">Contact</a>
+          <a href="mailto:mikedmote@yahoo.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Form submission handler
+    const form = document.getElementById('contactForm');
+    const formWrap = document.getElementById('contact-form-wrap');
+    const formSuccess = document.getElementById('formSuccess');
+
+    if (form) {
+      form.addEventListener('submit', async function(e) {
+        const action = form.getAttribute('action');
+
+        // If Formspree isn't configured yet, fall back to mailto
+        if (action.includes('YOUR_FORM_ID')) {
+          e.preventDefault();
+          const name = document.getElementById('name').value;
+          const email = document.getElementById('email').value;
+          const business = document.getElementById('business').value;
+          const problem = document.getElementById('problem').value;
+          const timeline = document.getElementById('timeline').value;
+
+          const subject = encodeURIComponent('MoteOps Inquiry — ' + name);
+          const body = encodeURIComponent(
+            'Name: ' + name + '\n' +
+            'Email: ' + email + '\n' +
+            'Business: ' + business + '\n' +
+            'Timeline: ' + timeline + '\n\n' +
+            'Problem:\n' + problem
+          );
+
+          window.location.href = 'mailto:mikedmote@yahoo.com?subject=' + subject + '&body=' + body;
+          return;
+        }
+
+        // Formspree AJAX submission
+        e.preventDefault();
+        const data = new FormData(form);
+
+        try {
+          const response = await fetch(action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            form.style.display = 'none';
+            formSuccess.style.display = 'block';
+          } else {
+            // Fallback to normal form submission
+            form.submit();
+          }
+        } catch (err) {
+          form.submit();
+        }
+      });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

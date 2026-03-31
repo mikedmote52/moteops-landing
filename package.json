@@ -1,0 +1,14 @@
+{
+  "name": "moteops-landing",
+  "version": "1.0.0",
+  "description": "Landing page for Mote Ops — fractional AI consulting for small businesses",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site — no build step required'",
+    "deploy": "npx vercel --prod"
+  },
+  "keywords": ["ai-consulting", "automation", "small-business"],
+  "author": "Mike Mote <mikedmote@yahoo.com>",
+  "license": "UNLICENSED",
+  "private": true
+}
