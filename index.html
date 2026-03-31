@@ -1511,11 +1511,24 @@
                 <option value="">Select your industry</option>
                 <option value="professional">Professional services (consulting, legal, accounting)</option>
                 <option value="ecommerce">E-commerce / retail</option>
-                <option value="realestate">Real estate</option>
-                <option value="healthcare">Healthcare / medical</option>
+                <option value="realestate">Real estate / property management</option>
+                <option value="healthcare">Healthcare / medical / dental</option>
                 <option value="childcare">Childcare / education / daycare</option>
                 <option value="construction">Construction / trades / home services</option>
                 <option value="marketing">Marketing / creative agency</option>
+                <option value="restaurant">Restaurant / food service</option>
+                <option value="fitness">Fitness / wellness (gyms, studios, trainers)</option>
+                <option value="salon">Salon / beauty / spa</option>
+                <option value="automotive">Automotive (repair, dealerships)</option>
+                <option value="veterinary">Veterinary / pet services</option>
+                <option value="nonprofit">Non-profit / community org</option>
+                <option value="hospitality">Hospitality (hotels, vacation rentals, Airbnb)</option>
+                <option value="cleaning">Cleaning / janitorial services</option>
+                <option value="photography">Photography / videography / events</option>
+                <option value="it">IT / managed services / tech support</option>
+                <option value="insurance">Insurance / financial services</option>
+                <option value="transportation">Transportation / logistics</option>
+                <option value="agriculture">Agriculture / farming</option>
                 <option value="other">Other</option>
               </select>
             </div>
@@ -1530,6 +1543,16 @@
                 <button class="choice-btn" data-group="team-size" data-val="35">31–50 people</button>
                 <button class="choice-btn" data-group="team-size" data-val="60">50+ people</button>
               </div>
+            </div>
+
+            <div class="q-group">
+              <label class="q-label">What's your business name? <span style="color: var(--text-dim); font-weight: 400;">(optional)</span></label>
+              <input class="quiz-select" type="text" id="q-biz-name" placeholder="Acme Landscaping Co." style="appearance: none; background-image: none;" />
+            </div>
+
+            <div class="q-group">
+              <label class="q-label">Got a website? Drop it here <span style="color: var(--text-dim); font-weight: 400;">(optional)</span></label>
+              <input class="quiz-select" type="url" id="q-biz-url" placeholder="yoursite.com" style="appearance: none; background-image: none;" />
             </div>
 
             <div class="quiz-nav">
@@ -1751,6 +1774,8 @@
     const quizState = {
       answers: {
         bizType: '',
+        bizName: '',
+        bizUrl: '',
         teamSize: 0,
         email: 5,
         scheduling: 3,
@@ -1807,6 +1832,12 @@
 
     document.addEventListener('change', function(e) {
       if (e.target.id === 'q-biz-type') quizState.answers.bizType = e.target.value;
+      if (e.target.id === 'q-biz-name') quizState.answers.bizName = e.target.value.trim();
+      if (e.target.id === 'q-biz-url')  quizState.answers.bizUrl  = e.target.value.trim();
+    });
+    document.addEventListener('input', function(e) {
+      if (e.target.id === 'q-biz-name') quizState.answers.bizName = e.target.value.trim();
+      if (e.target.id === 'q-biz-url')  quizState.answers.bizUrl  = e.target.value.trim();
     });
 
     // ── Progress bar ──
@@ -1918,6 +1949,30 @@
       quizState.results = { recoverable, annualHours, annualValue, grade, gradeClass, insight };
     }
 
+    // ── Industry-specific recommendation ──
+
+    var industryRecs = {
+      restaurant:    { icon: '🍽️', name: 'AI Order & Reservation Management',        desc: 'Automate phone orders, reservation confirmations, and review responses so your staff can focus on the floor.',        roi: 'Avg. 10+ hrs/wk saved on phone & admin' },
+      realestate:    { icon: '🏡', name: 'AI Lead Qualification & Follow-up',          desc: 'Auto-respond to Zillow/Realtor leads within minutes, schedule showings, and follow up on open house visitors automatically.', roi: 'Avg. 3× faster lead response time' },
+      childcare:     { icon: '🧒', name: 'Parent Communication & Enrollment System',   desc: 'Automate enrollment inquiries, waitlist updates, daily parent reports, and billing reminders in one connected flow.',    roi: 'Avg. 8 hrs/wk saved on parent comms' },
+      salon:         { icon: '💇', name: 'Smart Booking & Client Retention',           desc: 'Automated appointment reminders, no-show follow-ups, and rebooking campaigns that keep your chair full.',                roi: 'Clients report 20–30% fewer no-shows' },
+      healthcare:    { icon: '🏥', name: 'Patient Intake & Scheduling Automation',     desc: 'Digital intake forms, appointment reminders, and insurance verification prep — handled before the patient walks in.',    roi: 'Avg. 12 hrs/wk saved on front desk work' },
+      fitness:       { icon: '🏋️', name: 'Member Engagement & Scheduling',            desc: 'Class booking, attendance tracking, automated check-ins, and retention outreach for members who go quiet.',              roi: 'Avg. 15% improvement in member retention' },
+      automotive:    { icon: '🔧', name: 'Service Appointment & Follow-up System',     desc: 'Automated appointment scheduling, service reminders, and post-visit review requests without extra staff time.',         roi: 'Avg. 6 hrs/wk saved on scheduling & follow-up' },
+      veterinary:    { icon: '🐾', name: 'Pet Owner Communication System',             desc: 'Vaccination reminders, appointment scheduling, and prescription refill notifications — all automated.',                  roi: 'Avg. 8 hrs/wk saved on client outreach' },
+      hospitality:   { icon: '🏨', name: 'Guest Communication & Booking Optimization', desc: 'Automated check-in instructions, review requests, and pricing optimization alerts to maximize occupancy.',             roi: 'Avg. 2× more 5-star reviews captured' },
+      cleaning:      { icon: '🧹', name: 'Job Scheduling & Client Communication',      desc: 'Automated booking confirmations, recurring schedule management, and invoice automation to eliminate admin overhead.',    roi: 'Avg. 7 hrs/wk recovered from admin tasks' },
+      photography:   { icon: '📷', name: 'Client Booking & Gallery Delivery',          desc: 'Inquiry auto-response, contract sending, and gallery delivery automation so you spend time shooting, not emailing.',    roi: 'Avg. 5 hrs/wk saved on client admin' },
+      it:            { icon: '💻', name: 'Ticket Triage & Client Reporting',           desc: 'Auto-categorize support tickets, generate client reports, and monitor SLAs — without manual tracking.',                 roi: 'Avg. 10 hrs/wk saved on ticket management' },
+      insurance:     { icon: '📋', name: 'Lead Nurture & Policy Renewal',              desc: 'Automated quote follow-ups, renewal reminders, and claims status updates so no opportunity slips through.',             roi: 'Avg. 25% improvement in renewal close rate' },
+      nonprofit:     { icon: '🤝', name: 'Donor Communication & Volunteer Coordination', desc: 'Donation acknowledgments, volunteer scheduling, and campaign updates handled automatically at any scale.',            roi: 'Avg. 12 hrs/wk saved on outreach & coordination' }
+    };
+
+    function computeIndustryRecommendation() {
+      var bizType = quizState.answers.bizType;
+      return industryRecs[bizType] || null;
+    }
+
     // ── AI Recommendations engine ──
 
     function computeRecommendations() {
@@ -1980,7 +2035,17 @@
       }
 
       recs.sort(function(x, y) { return y.score - x.score; });
-      return recs.slice(0, 3);
+      recs = recs.slice(0, 3);
+
+      // Prepend industry-specific rec as the top recommendation
+      var industryRec = computeIndustryRecommendation();
+      if (industryRec) {
+        industryRec.isIndustryRec = true;
+        recs.unshift(industryRec);
+        if (recs.length > 3) recs = recs.slice(0, 3);
+      }
+
+      return recs;
     }
 
     function renderRecommendations() {
@@ -1989,13 +2054,22 @@
       var el = document.getElementById('recSection');
       if (!el || recs.length === 0) return;
 
-      var html = '<div class="rec-section-label">Your Top AI Opportunities</div><div class="rec-cards">';
+      var bizName = quizState.answers.bizName;
+      var label = bizName
+        ? 'Top AI Opportunities for ' + bizName
+        : 'Your Top AI Opportunities';
+
+      var html = '<div class="rec-section-label">' + label + '</div><div class="rec-cards">';
       recs.forEach(function(rec) {
+        var badge = rec.isIndustryRec
+          ? '<span style="font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:#93B8FC;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);border-radius:4px;padding:2px 8px;margin-left:8px;">Built for your industry</span>'
+          : '';
         html +=
           '<div class="rec-card">' +
             '<div class="rec-card-top">' +
               '<span class="rec-card-icon">' + rec.icon + '</span>' +
               '<strong class="rec-card-name">' + rec.name + '</strong>' +
+              badge +
             '</div>' +
             '<p class="rec-card-desc">' + rec.desc + '</p>' +
             '<span class="rec-card-roi">' + rec.roi + '</span>' +
@@ -2027,11 +2101,35 @@
       var r = quizState.results;
       if (!r) return;
 
+      var bizName = quizState.answers.bizName;
+      var bizUrl  = quizState.answers.bizUrl;
+
       var gradeEl = document.getElementById('savingsGrade');
       gradeEl.className = 'savings-grade ' + r.gradeClass;
       gradeEl.textContent = r.grade;
 
-      document.getElementById('savingsInsight').textContent = r.insight;
+      // Personalize the insight
+      var insight = r.insight;
+      if (bizName) {
+        insight = 'For ' + bizName + ': ' + insight;
+      }
+      document.getElementById('savingsInsight').textContent = insight;
+
+      // Personalize the CTA block
+      var ctaEl = document.querySelector('.results-cta');
+      if (ctaEl) {
+        var ctaHtml = '<p>Want the full breakdown?</p>';
+        if (bizName) {
+          ctaHtml += '<span>For ' + bizName + ', we estimate ' + r.recoverable + ' hours/week recoverable — we\'ll show you exactly which tasks to automate first.</span>';
+        } else {
+          ctaHtml += '<span>We\'ll show you exactly which tasks to automate first — and what to build first.</span>';
+        }
+        if (bizUrl) {
+          var displayUrl = bizUrl.replace(/^https?:\/\//, '');
+          ctaHtml += '<div style="margin-top:10px;font-size:12px;color:var(--accent);font-weight:500;">📎 We\'ll review ' + displayUrl + ' before our call to prepare specific recommendations for your business.</div>';
+        }
+        ctaEl.innerHTML = ctaHtml;
+      }
 
       // Reset stat displays before animating
       document.getElementById('stat-weekly').textContent = '0';
@@ -2077,9 +2175,17 @@
         var r     = quizState.results;
 
         var bizLabels = {
-          professional: 'Professional services', ecommerce: 'E-commerce',
-          realestate: 'Real estate', healthcare: 'Healthcare',
-          childcare: 'Childcare / education', construction: 'Construction / trades', marketing: 'Marketing / agency', other: 'Other'
+          professional: 'Professional services', ecommerce: 'E-commerce / retail',
+          realestate: 'Real estate / property management', healthcare: 'Healthcare / medical / dental',
+          childcare: 'Childcare / education / daycare', construction: 'Construction / trades / home services',
+          marketing: 'Marketing / creative agency', restaurant: 'Restaurant / food service',
+          fitness: 'Fitness / wellness', salon: 'Salon / beauty / spa',
+          automotive: 'Automotive', veterinary: 'Veterinary / pet services',
+          nonprofit: 'Non-profit / community org', hospitality: 'Hospitality',
+          cleaning: 'Cleaning / janitorial', photography: 'Photography / videography / events',
+          it: 'IT / managed services / tech support', insurance: 'Insurance / financial services',
+          transportation: 'Transportation / logistics', agriculture: 'Agriculture / farming',
+          other: 'Other'
         };
         var aiLabels = {
           active: 'Uses it regularly', tried: 'Tried once or twice',
@@ -2111,6 +2217,8 @@
             bestTime: a.bestTime || null
           },
           business: {
+            name:     a.bizName || null,
+            website:  a.bizUrl  || null,
             industry: bizLabels[a.bizType] || a.bizType,
             teamSize: teamLabel
           },
@@ -2157,8 +2265,10 @@
             'Best time to reach: ' + (a.bestTime || 'Not specified'),
             '',
             'BUSINESS PROFILE',
-            'Industry: '  + (bizLabels[a.bizType] || a.bizType),
-            'Team size: ' + teamLabel,
+            'Business name: ' + (a.bizName || 'Not provided'),
+            'Website: '       + (a.bizUrl  || 'Not provided'),
+            'Industry: '      + (bizLabels[a.bizType] || a.bizType),
+            'Team size: '     + teamLabel,
             '',
             'TIME DRAINS (hours / week)',
             'Email: '                   + a.email      + ' hrs',
@@ -2193,11 +2303,20 @@
         var fine     = document.getElementById('quizFine');
 
         if (card) {
+          var bizName = a.bizName;
+          var bizUrl  = a.bizUrl;
+          var successMsg = bizName
+            ? 'We\'ll review ' + bizName + '\'s profile before we reach out — expect to hear from us within 24 hours.'
+            : 'We\'ll review your savings estimate before we reach out — expect to hear from us within 24 hours.';
+          var websiteLine = bizUrl
+            ? '<p style="font-size:13px;color:var(--accent);margin-top:10px;">📎 We\'ll also take a look at ' + bizUrl.replace(/^https?:\/\//, '') + ' before the call.</p>'
+            : '';
           card.innerHTML =
             '<div class="quiz-success">' +
             '<div class="success-icon-big">✓</div>' +
             '<h3>You\'re on the list. Talk soon.</h3>' +
-            '<p>We\'ll review your savings estimate before we reach out — expect to hear from us within 24 hours.</p>' +
+            '<p>' + successMsg + '</p>' +
+            websiteLine +
             '</div>';
         }
         if (progress) progress.style.display = 'none';
