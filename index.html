@@ -1115,6 +1115,62 @@
       white-space: nowrap;
     }
 
+    /* ── AI Recommendations ── */
+    .rec-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .rec-cards { display: grid; gap: 10px; }
+
+    .rec-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      transition: border-color 0.2s;
+    }
+
+    .rec-card:hover { border-color: rgba(59,130,246,0.35); }
+
+    .rec-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .rec-card-icon { font-size: 18px; line-height: 1; }
+
+    .rec-card-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+
+    .rec-card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .rec-card-roi {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6EE7B7;
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 4px;
+      padding: 4px 10px;
+      display: inline-block;
+    }
+
     /* ── Success message ── */
     .form-success {
       display: none;
@@ -1603,6 +1659,8 @@
                 <p>Want the full breakdown?</p>
                 <span>We'll show you exactly which tasks to automate first — and what to build first.</span>
               </div>
+
+              <div id="recSection" style="margin-top: 24px;"></div>
             </div>
 
             <div class="quiz-nav">
@@ -1702,7 +1760,9 @@
         bestTime: ''
       },
       currentStep: 1,
-      results: null
+      results: null,
+      recommendations: [],
+      utmParams: {}
     };
 
     // ── Sliders ──
@@ -1857,6 +1917,93 @@
       quizState.results = { recoverable, annualHours, annualValue, grade, gradeClass, insight };
     }
 
+    // ── AI Recommendations engine ──
+
+    function computeRecommendations() {
+      var a = quizState.answers;
+      var recs = [];
+
+      if (a.email >= 5) {
+        recs.push({
+          icon: '📬',
+          name: 'AI Email Triage System',
+          desc: 'Automatically sort, prioritize, and draft responses. Your team gets back ~' + a.email + ' hours/week on email alone.',
+          roi: 'Est. ' + Math.round(a.email * 0.65) + ' hrs/wk recovered',
+          score: a.email
+        });
+      }
+      if (a.scheduling >= 4) {
+        recs.push({
+          icon: '📅',
+          name: 'Smart Client Intake & Scheduling',
+          desc: 'Auto-respond to inquiries in 60 seconds, book appointments, and follow up automatically.',
+          roi: 'Est. ' + Math.round(a.scheduling * 0.65) + ' hrs/wk recovered',
+          score: a.scheduling
+        });
+      }
+      if (a.data >= 3) {
+        recs.push({
+          icon: '🔄',
+          name: 'Automated Reporting & Data Sync',
+          desc: 'Connect your tools so data flows automatically. No more copy-pasting between spreadsheets and CRMs.',
+          roi: 'Est. ' + Math.round(a.data * 0.7) + ' hrs/wk recovered',
+          score: a.data
+        });
+      }
+      if (a.docs >= 2) {
+        recs.push({
+          icon: '📝',
+          name: 'AI Proposal Generator',
+          desc: 'Turn a 45-minute proposal into a 4-minute review. Custom proposals generated from templates + client context.',
+          roi: 'Est. ' + Math.round(a.docs * 0.75) + ' hrs/wk recovered',
+          score: a.docs
+        });
+      }
+      if (a.frustration === 'all' || a.frustration === 'manual') {
+        recs.push({
+          icon: '🗺️',
+          name: 'Full Workflow Audit',
+          desc: "We'll map your entire operation and identify every automation opportunity.",
+          roi: 'Avg. 15–25 hrs/wk identified per audit',
+          score: 3
+        });
+      }
+      if (a.aiExp === 'none' || a.aiExp === 'curious') {
+        recs.push({
+          icon: '🚀',
+          name: 'AI Onboarding Package',
+          desc: "We'll set up your first 3 AI workflows and train your team to use them confidently.",
+          roi: 'Most clients save 8+ hrs/wk after onboarding',
+          score: 2.5
+        });
+      }
+
+      recs.sort(function(x, y) { return y.score - x.score; });
+      return recs.slice(0, 3);
+    }
+
+    function renderRecommendations() {
+      var recs = computeRecommendations();
+      quizState.recommendations = recs;
+      var el = document.getElementById('recSection');
+      if (!el || recs.length === 0) return;
+
+      var html = '<div class="rec-section-label">Your Top AI Opportunities</div><div class="rec-cards">';
+      recs.forEach(function(rec) {
+        html +=
+          '<div class="rec-card">' +
+            '<div class="rec-card-top">' +
+              '<span class="rec-card-icon">' + rec.icon + '</span>' +
+              '<strong class="rec-card-name">' + rec.name + '</strong>' +
+            '</div>' +
+            '<p class="rec-card-desc">' + rec.desc + '</p>' +
+            '<span class="rec-card-roi">' + rec.roi + '</span>' +
+          '</div>';
+      });
+      html += '</div>';
+      el.innerHTML = html;
+    }
+
     // ── Animated number counter ──
 
     function animateNumber(elementId, target, prefix, suffix, duration) {
@@ -1895,17 +2042,31 @@
         animateNumber('stat-annual', r.annualHours,  '',  '', 1100);
         animateNumber('stat-value',  r.annualValue,  '$', '', 1300);
       }, 200);
+
+      renderRecommendations();
     }
 
     // ── Contact form submission ──
 
+    var WEBHOOK_URL = 'https://n8n.example.com/webhook/moteops-lead';
+
     document.addEventListener('DOMContentLoaded', function() {
       initSliders();
+
+      // Capture UTM parameters from URL for source tracking
+      var urlParams = new URLSearchParams(window.location.search);
+      quizState.utmParams = {
+        utm_source:   urlParams.get('utm_source')   || null,
+        utm_medium:   urlParams.get('utm_medium')   || null,
+        utm_campaign: urlParams.get('utm_campaign') || null,
+        utm_content:  urlParams.get('utm_content')  || null,
+        utm_term:     urlParams.get('utm_term')     || null
+      };
 
       var quizForm = document.getElementById('quizContactForm');
       if (!quizForm) return;
 
-      quizForm.addEventListener('submit', function(e) {
+      quizForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         var name  = document.getElementById('c-name').value.trim();
@@ -1935,43 +2096,95 @@
           a.teamSize <= 20 ? '16–30 people':
           a.teamSize <= 35 ? '31–50 people': '50+ people';
 
-        var lines = [
-          '=== MOTE OPS — AI SAVINGS ASSESSMENT ===',
-          '',
-          'CONTACT',
-          'Name: '  + name,
-          'Email: ' + email,
-          'Phone: ' + (phone || 'Not provided'),
-          'Best time to reach: ' + (a.bestTime || 'Not specified'),
-          '',
-          'BUSINESS PROFILE',
-          'Industry: '   + (bizLabels[a.bizType] || a.bizType),
-          'Team size: '  + teamLabel,
-          '',
-          'TIME DRAINS (hours / week)',
-          'Email: '                    + a.email        + ' hrs',
-          'Scheduling & follow-ups: '  + a.scheduling   + ' hrs',
-          'Data entry & reports: '     + a.data         + ' hrs',
-          'Proposals & documents: '    + a.docs         + ' hrs',
-          'Total weekly waste: '       + (a.email + a.scheduling + a.data + a.docs) + ' hrs',
-          '',
-          'AI EXPERIENCE',
-          'Current AI usage: '      + (aiLabels[a.aiExp]           || a.aiExp),
-          'Biggest frustration: '   + (frustLabels[a.frustration]  || a.frustration),
-          '',
-          'SAVINGS ESTIMATE',
-          'Hours recoverable / week: ' + (r ? r.recoverable             : 'N/A'),
-          'Annual hours saved: '       + (r ? r.annualHours             : 'N/A'),
-          'Estimated annual value: $'  + (r ? r.annualValue.toLocaleString() : 'N/A'),
-          'Savings grade: '            + (r ? r.grade                   : 'N/A'),
-          '',
-          '— Submitted via MoteOps.com savings assessment —'
-        ];
+        // Disable submit button while sending
+        var submitBtn = quizForm.querySelector('[type="submit"]');
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
 
-        var subject = encodeURIComponent('MoteOps Assessment — ' + name + ' (' + (bizLabels[a.bizType] || 'Business') + ')');
-        var body    = encodeURIComponent(lines.join('\n'));
+        // Build webhook payload
+        var payload = {
+          timestamp: new Date().toISOString(),
+          contact: {
+            name:     name,
+            email:    email,
+            phone:    phone || null,
+            bestTime: a.bestTime || null
+          },
+          business: {
+            industry: bizLabels[a.bizType] || a.bizType,
+            teamSize: teamLabel
+          },
+          timedrains: {
+            email:       a.email,
+            scheduling:  a.scheduling,
+            dataEntry:   a.data,
+            proposals:   a.docs,
+            totalWeekly: a.email + a.scheduling + a.data + a.docs
+          },
+          aiExperience: aiLabels[a.aiExp]          || a.aiExp,
+          frustration:  frustLabels[a.frustration] || a.frustration,
+          savings: r ? {
+            weeklyHours: r.recoverable,
+            annualHours: r.annualHours,
+            annualValue: r.annualValue,
+            grade:       r.grade
+          } : null,
+          recommendations: quizState.recommendations.map(function(rec) { return rec.name; }),
+          utm: quizState.utmParams
+        };
 
-        window.location.href = 'mailto:mikedmote@yahoo.com?subject=' + subject + '&body=' + body;
+        // Attempt webhook; fall back to mailto on failure
+        var webhookOk = false;
+        try {
+          var resp = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (resp.ok) webhookOk = true;
+        } catch (err) {
+          // Network error or webhook unreachable — use mailto fallback
+        }
+
+        if (!webhookOk) {
+          var lines = [
+            '=== MOTE OPS — AI SAVINGS ASSESSMENT ===',
+            '',
+            'CONTACT',
+            'Name: '  + name,
+            'Email: ' + email,
+            'Phone: ' + (phone || 'Not provided'),
+            'Best time to reach: ' + (a.bestTime || 'Not specified'),
+            '',
+            'BUSINESS PROFILE',
+            'Industry: '  + (bizLabels[a.bizType] || a.bizType),
+            'Team size: ' + teamLabel,
+            '',
+            'TIME DRAINS (hours / week)',
+            'Email: '                   + a.email      + ' hrs',
+            'Scheduling & follow-ups: ' + a.scheduling + ' hrs',
+            'Data entry & reports: '    + a.data       + ' hrs',
+            'Proposals & documents: '   + a.docs       + ' hrs',
+            'Total weekly waste: '      + (a.email + a.scheduling + a.data + a.docs) + ' hrs',
+            '',
+            'AI EXPERIENCE',
+            'Current AI usage: '    + (aiLabels[a.aiExp]          || a.aiExp),
+            'Biggest frustration: ' + (frustLabels[a.frustration] || a.frustration),
+            '',
+            'SAVINGS ESTIMATE',
+            'Hours recoverable / week: ' + (r ? r.recoverable               : 'N/A'),
+            'Annual hours saved: '       + (r ? r.annualHours               : 'N/A'),
+            'Estimated annual value: $'  + (r ? r.annualValue.toLocaleString() : 'N/A'),
+            'Savings grade: '            + (r ? r.grade                     : 'N/A'),
+            '',
+            'RECOMMENDED SERVICES',
+            quizState.recommendations.map(function(rec) { return '- ' + rec.name; }).join('\n'),
+            '',
+            '— Submitted via MoteOps.com savings assessment —'
+          ];
+          var subject = encodeURIComponent('MoteOps Assessment — ' + name + ' (' + (bizLabels[a.bizType] || 'Business') + ')');
+          var body    = encodeURIComponent(lines.join('\n'));
+          window.location.href = 'mailto:mikedmote@yahoo.com?subject=' + subject + '&body=' + body;
+        }
 
         // Show success state
         var card     = document.getElementById('quizCard');
