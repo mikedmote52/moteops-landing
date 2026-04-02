@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mote Ops — Project Dashboard</title>
+  <meta name="description" content="Mote Ops project ecosystem — AI automation consulting infrastructure, tools, and strategy." />
+  <meta property="og:title" content="Mote Ops — Project Dashboard" />
+  <meta property="og:description" content="The full Mote Ops ecosystem: consulting, automation tools, market intelligence, and go-to-market infrastructure." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #08090D;
+      --surface: #0F1117;
+      --surface-2: #161921;
+      --border: #1E2330;
+      --border-light: #252A3A;
+      --accent: #3B82F6;
+      --accent-dim: rgba(59, 130, 246, 0.15);
+      --accent-glow: rgba(59, 130, 246, 0.3);
+      --green: #22C55E;
+      --green-dim: rgba(34, 197, 94, 0.12);
+      --amber: #F59E0B;
+      --amber-dim: rgba(245, 158, 11, 0.12);
+      --red: #EF4444;
+      --purple: #A855F7;
+      --purple-dim: rgba(168, 85, 247, 0.12);
+      --text: #E4E8F1;
+      --text-muted: #7A8299;
+      --text-dim: #4E5668;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 9, 13, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 80px 0 48px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 18px;
+      max-width: 640px;
+      margin: 0 auto 32px;
+    }
+
+    /* ── Stats Row ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .stat-card .number {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--accent);
+    }
+
+    .stat-card .label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ── Section Headers ── */
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header h2 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-top: 4px;
+    }
+
+    section.content { padding: 48px 0; }
+
+    /* ── Project Cards ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.25s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-2px);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .project-card.live::before { background: var(--green); }
+    .project-card.ready::before { background: var(--amber); }
+    .project-card.prototype::before { background: var(--purple); }
+    .project-card.intel::before { background: var(--accent); }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .card-top h3 {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+
+    .badge.live { background: var(--green-dim); color: var(--green); }
+    .badge.ready { background: var(--amber-dim); color: var(--amber); }
+    .badge.prototype { background: var(--purple-dim); color: var(--purple); }
+    .badge.intel { background: var(--accent-dim); color: var(--accent); }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .meta-tag {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .card-link:hover { gap: 10px; }
+    .card-link svg { width: 14px; height: 14px; }
+
+    /* ── Plays / Opportunity Table ── */
+    .plays-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .plays-table th {
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plays-table td {
+      padding: 16px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .plays-table tr:last-child td { border-bottom: none; }
+
+    .plays-table tr {
+      transition: background 0.15s;
+    }
+
+    .plays-table tbody tr:hover { background: var(--surface); }
+
+    .play-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .play-model {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .prob-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .prob-bar {
+      width: 80px;
+      height: 6px;
+      background: var(--surface-2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .prob-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.6s ease;
+    }
+
+    .prob-val {
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 36px;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .timeline-dot {
+      position: absolute;
+      left: -32px;
+      top: 6px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      background: var(--bg);
+    }
+
+    .timeline-item.active .timeline-dot {
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .timeline-phase {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .timeline-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .timeline-target {
+      margin-top: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .project-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .plays-table { font-size: 13px; }
+      .plays-table th, .plays-table td { padding: 10px 8px; }
+      .hero { padding: 48px 0 32px; }
+      .nav-links { gap: 16px; }
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .fade-up:nth-child(1) { animation-delay: 0.05s; }
+    .fade-up:nth-child(2) { animation-delay: 0.1s; }
+    .fade-up:nth-child(3) { animation-delay: 0.15s; }
+    .fade-up:nth-child(4) { animation-delay: 0.2s; }
+    .fade-up:nth-child(5) { animation-delay: 0.25s; }
+    .fade-up:nth-child(6) { animation-delay: 0.3s; }
+
+    /* ── Table wrapper ── */
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .table-wrap .plays-table th {
+      background: var(--surface-2);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">mote<span>ops</span></a>
+    <div class="nav-links">
+      <a href="#infrastructure">Infrastructure</a>
+      <a href="#intelligence">Intelligence</a>
+      <a href="#plays">Opportunities</a>
+      <a href="#roadmap">Roadmap</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="container">
+    <h1>The <span>Mote Ops</span> Ecosystem</h1>
+    <p>Fractional AI consulting for small businesses. This is the full system — strategy, tooling, market intelligence, and go-to-market infrastructure.</p>
+
+    <div class="stats-row">
+      <div class="stat-card fade-up">
+        <div class="number">19</div>
+        <div class="label">Industries Served</div>
+      </div>
+      <div class="stat-card fade-up">
+        <div class="number">57</div>
+        <div class="label">Automations Cataloged</div>
+      </div>
+      <div class="stat-card fade-up">
+        <div class="number">6</div>
+        <div class="label">Revenue Plays</div>
+      </div>
+      <div class="stat-card fade-up">
+        <div class="number">5.8x</div>
+        <div class="label">Avg Client ROI</div>
+      </div>
+      <div class="stat-card fade-up">
+        <div class="number">150+</div>
+        <div class="label">System Files</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Infrastructure -->
+<section class="content" id="infrastructure">
+  <div class="container">
+    <div class="section-header">
+      <h2>Infrastructure</h2>
+      <p>Production systems, sales tools, and operational backbone</p>
+    </div>
+    <div class="project-grid">
+
+      <div class="project-card live fade-up">
+        <div class="card-top">
+          <h3>Landing Page & Lead Capture</h3>
+          <span class="badge live">Live</span>
+        </div>
+        <p class="card-desc">Interactive 21-industry questionnaire with real-time savings calculator. Captures leads via webhook, grades opportunity quality, delivers personalized AI recommendations.</p>
+        <div class="card-meta">
+          <span class="meta-tag">HTML / JS</span>
+          <span class="meta-tag">GitHub Pages</span>
+          <span class="meta-tag">82 KB</span>
+        </div>
+        <a class="card-link" href="https://mikedmote52.github.io/moteops-landing/" target="_blank">
+          Visit live site
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </div>
+
+      <div class="project-card ready fade-up">
+        <div class="card-top">
+          <h3>Proposal Engine</h3>
+          <span class="badge ready">Built</span>
+        </div>
+        <p class="card-desc">Full-stack PDF proposal generator. Takes quiz responses, runs them through industry-specific templates, produces 15-30 page branded proposals with ROI projections and implementation timelines. Email delivery built in.</p>
+        <div class="card-meta">
+          <span class="meta-tag">Python / Flask</span>
+          <span class="meta-tag">ReportLab</span>
+          <span class="meta-tag">Render Deploy</span>
+          <span class="meta-tag">SMTP</span>
+        </div>
+      </div>
+
+      <div class="project-card live fade-up">
+        <div class="card-top">
+          <h3>Service Catalog</h3>
+          <span class="badge live">Complete</span>
+        </div>
+        <p class="card-desc">Master reference for all AI automation services. 19 industries, 57 specific deliverable automations. Each entry includes tool stack, setup hours, monthly cost, and ROI calculation.</p>
+        <div class="card-meta">
+          <span class="meta-tag">1,182 lines</span>
+          <span class="meta-tag">19 verticals</span>
+          <span class="meta-tag">55 KB</span>
+        </div>
+      </div>
+
+      <div class="project-card ready fade-up">
+        <div class="card-top">
+          <h3>Outreach Playbook</h3>
+          <span class="badge ready">Ready</span>
+        </div>
+        <p class="card-desc">Complete go-to-market toolkit. 6-tier pricing strategy, 3 Reddit posts ready to publish, LinkedIn templates, Upwork proposal library with 8 tailored proposals, and full sales funnel mapping.</p>
+        <div class="card-meta">
+          <span class="meta-tag">Reddit</span>
+          <span class="meta-tag">LinkedIn</span>
+          <span class="meta-tag">Upwork</span>
+          <span class="meta-tag">Sales Funnel</span>
+        </div>
+      </div>
+
+      <div class="project-card live fade-up">
+        <div class="card-top">
+          <h3>Intelligence Dashboard</h3>
+          <span class="badge live">Active</span>
+        </div>
+        <p class="card-desc">Real-time operational status tracker. Monitors system health across all projects, tracks next-action priorities, and surfaces blockers.</p>
+        <div class="card-meta">
+          <span class="meta-tag">HTML</span>
+          <span class="meta-tag">Self-contained</span>
+        </div>
+      </div>
+
+      <div class="project-card prototype fade-up">
+        <div class="card-top">
+          <h3>Prototypes</h3>
+          <span class="badge prototype">Experimental</span>
+        </div>
+        <p class="card-desc">Earlier-stage experiments: an alternative proposal generator UI, an AI hustle evaluator quiz, and a digital product starter kit landing page. Feeding ideas into the main system.</p>
+        <div class="card-meta">
+          <span class="meta-tag">3 prototypes</span>
+          <span class="meta-tag">HTML / JS</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Intelligence -->
+<section class="content" id="intelligence">
+  <div class="container">
+    <div class="section-header">
+      <h2>Market Intelligence</h2>
+      <p>Automated research, opportunity scoring, and strategic analysis</p>
+    </div>
+    <div class="project-grid">
+
+      <div class="project-card intel fade-up">
+        <div class="card-top">
+          <h3>Trend Monitor</h3>
+          <span class="badge intel">Automated</span>
+        </div>
+        <p class="card-desc">Python script that scans Reddit, news sources, and market signals daily across 7 key queries. Tracks 15+ signal keywords and generates timestamped market intelligence reports.</p>
+        <div class="card-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">Daily cadence</span>
+          <span class="meta-tag">7 queries</span>
+        </div>
+      </div>
+
+      <div class="project-card intel fade-up">
+        <div class="card-top">
+          <h3>Opportunity Scorer</h3>
+          <span class="badge intel">Automated</span>
+        </div>
+        <p class="card-desc">Weighted scoring engine that evaluates opportunities across 7 criteria: time to revenue, passive potential, startup cost, income ceiling, competition, tool fit, and compounding potential.</p>
+        <div class="card-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">7 weighted criteria</span>
+          <span class="meta-tag">28-point scale</span>
+        </div>
+      </div>
+
+      <div class="project-card intel fade-up">
+        <div class="card-top">
+          <h3>Knowledge Vault</h3>
+          <span class="badge intel">22 files</span>
+        </div>
+        <p class="card-desc">Interconnected knowledge system built for Obsidian. 10 business model concepts, 6 detailed play simulations with probability models, market evidence with verified revenue data, and a convergence strategy tying it all together.</p>
+        <div class="card-meta">
+          <span class="meta-tag">Obsidian</span>
+          <span class="meta-tag">Wikilinks</span>
+          <span class="meta-tag">Probability Models</span>
+        </div>
+      </div>
+
+      <div class="project-card intel fade-up">
+        <div class="card-top">
+          <h3>Opportunities Database</h3>
+          <span class="badge intel">Tracking</span>
+        </div>
+        <p class="card-desc">Structured JSON database tracking 61 total opportunities. 10 vetted, 3 ready to deploy, 3 in active simulation. Includes probability calibration system with Brier Score tracking for estimate accuracy.</p>
+        <div class="card-meta">
+          <span class="meta-tag">JSON</span>
+          <span class="meta-tag">61 opportunities</span>
+          <span class="meta-tag">Calibrated</span>
+        </div>
+      </div>
+
+      <div class="project-card intel fade-up">
+        <div class="card-top">
+          <h3>Competitive Analysis</h3>
+          <span class="badge intel">Updated</span>
+        </div>
+        <p class="card-desc">Deep competitive landscape mapping. 8+ competitors tracked in AI receptionist space. Pricing analysis, feature comparison, and gap identification across all 6 plays.</p>
+        <div class="card-meta">
+          <span class="meta-tag">8+ competitors</span>
+          <span class="meta-tag">6 markets</span>
+        </div>
+      </div>
+
+      <div class="project-card intel fade-up">
+        <div class="card-top">
+          <h3>Research Archive</h3>
+          <span class="badge intel">Daily</span>
+        </div>
+        <p class="card-desc">Timestamped market scan archive. Each report covers AI side hustles, automation trends, home services tech, consulting signals, and micro-SaaS opportunities. Running since March 30.</p>
+        <div class="card-meta">
+          <span class="meta-tag">6 reports</span>
+          <span class="meta-tag">Multi-source</span>
+          <span class="meta-tag">Daily</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Plays -->
+<section class="content" id="plays">
+  <div class="container">
+    <div class="section-header">
+      <h2>Revenue Plays</h2>
+      <p>Six opportunities ranked by probability of reaching $1K/month</p>
+    </div>
+    <div class="table-wrap">
+      <table class="plays-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Play</th>
+            <th>Model</th>
+            <th>Build Time</th>
+            <th>Probability</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color: var(--text-dim);">6</td>
+            <td>
+              <div class="play-name">Fractional AI Consultant</div>
+              <div class="play-model">$2K–8K/mo retainers</div>
+            </td>
+            <td>Service</td>
+            <td>1 week</td>
+            <td>
+              <div class="prob-bar-wrap">
+                <div class="prob-bar"><div class="prob-bar-fill" style="width:48%; background: var(--green);"></div></div>
+                <span class="prob-val" style="color: var(--green);">48%</span>
+              </div>
+            </td>
+            <td><span class="badge live" style="font-size:10px;">Active</span></td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-dim);">2</td>
+            <td>
+              <div class="play-name">Review Response System</div>
+              <div class="play-model">SaaS — $49–149/mo</div>
+            </td>
+            <td>SaaS</td>
+            <td>2–3 weeks</td>
+            <td>
+              <div class="prob-bar-wrap">
+                <div class="prob-bar"><div class="prob-bar-fill" style="width:35%; background: var(--amber);"></div></div>
+                <span class="prob-val" style="color: var(--amber);">35%</span>
+              </div>
+            </td>
+            <td><span class="badge ready" style="font-size:10px;">Phase 2</span></td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-dim);">1</td>
+            <td>
+              <div class="play-name">Missed Call Text-Back</div>
+              <div class="play-model">SaaS — $149–299/mo</div>
+            </td>
+            <td>SaaS</td>
+            <td>2 weeks</td>
+            <td>
+              <div class="prob-bar-wrap">
+                <div class="prob-bar"><div class="prob-bar-fill" style="width:30%; background: var(--amber);"></div></div>
+                <span class="prob-val" style="color: var(--amber);">30%</span>
+              </div>
+            </td>
+            <td><span class="badge ready" style="font-size:10px;">Phase 2</span></td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-dim);">3</td>
+            <td>
+              <div class="play-name">InstantProposal</div>
+              <div class="play-model">Freemium SaaS</div>
+            </td>
+            <td>SaaS</td>
+            <td>Deployed</td>
+            <td>
+              <div class="prob-bar-wrap">
+                <div class="prob-bar"><div class="prob-bar-fill" style="width:25%; background: var(--amber);"></div></div>
+                <span class="prob-val" style="color: var(--amber);">25%</span>
+              </div>
+            </td>
+            <td><span class="badge prototype" style="font-size:10px;">If time</span></td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-dim);">4</td>
+            <td>
+              <div class="play-name">Vertical n8n Packs</div>
+              <div class="play-model">Digital product bundles</div>
+            </td>
+            <td>Product</td>
+            <td>3–4 weeks</td>
+            <td>
+              <div class="prob-bar-wrap">
+                <div class="prob-bar"><div class="prob-bar-fill" style="width:25%; background: var(--amber);"></div></div>
+                <span class="prob-val" style="color: var(--amber);">25%</span>
+              </div>
+            </td>
+            <td><span class="badge prototype" style="font-size:10px;">Month 6+</span></td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-dim);">5</td>
+            <td>
+              <div class="play-name">SMS Business Assistant</div>
+              <div class="play-model">SaaS — AI over text</div>
+            </td>
+            <td>SaaS</td>
+            <td>4–6 weeks</td>
+            <td>
+              <div class="prob-bar-wrap">
+                <div class="prob-bar"><div class="prob-bar-fill" style="width:20%; background: var(--text-dim);"></div></div>
+                <span class="prob-val" style="color: var(--text-dim);">20%</span>
+              </div>
+            </td>
+            <td><span class="badge prototype" style="font-size:10px;">Month 12+</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Roadmap -->
+<section class="content" id="roadmap">
+  <div class="container">
+    <div class="section-header">
+      <h2>Scaling Roadmap</h2>
+      <p>Five-phase plan from bootstrap to $20K+/month</p>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item active">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 1 — Months 1–3</div>
+        <div class="timeline-title">Bootstrap with Consulting</div>
+        <div class="timeline-desc">Build fractional AI consultant practice. Land 2–3 retainer clients. Generate case studies and cash to fund everything else.</div>
+        <div class="timeline-target">Target: $4K–9K/mo</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 2 — Months 3–6</div>
+        <div class="timeline-title">Add Product Plays</div>
+        <div class="timeline-desc">Leverage consulting clients into product customers. Implement missed-call and review-response systems. Bundle consulting + product for hybrid revenue.</div>
+        <div class="timeline-target">Target: $7.5K–12K/mo</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 3 — Months 6–12</div>
+        <div class="timeline-title">Vertical Expansion</div>
+        <div class="timeline-desc">Expand beyond home services into dental, real estate, fitness, legal. Reuse proven automations across verticals.</div>
+        <div class="timeline-target">Target: $15K–25K/mo</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 4 — Months 12–18</div>
+        <div class="timeline-title">Productize as Templates</div>
+        <div class="timeline-desc">Package experience into n8n template bundles. Create industry-specific automation packs. Passive income layer begins compounding.</div>
+        <div class="timeline-target">Target: $20K–40K/mo</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 5 — Months 18–24</div>
+        <div class="timeline-title">Scale or Acquire</div>
+        <div class="timeline-desc">Decision point: stay solo at high margin or hire for 10x growth. Use cash flow to acquire distressed products or double down on winners.</div>
+        <div class="timeline-target">Target: $20K–85K/mo</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>Mote Ops &mdash; AI automation consulting for small businesses</p>
+    <p style="margin-top: 8px;"><a href="https://mikedmote52.github.io/moteops-landing/">moteops landing</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
