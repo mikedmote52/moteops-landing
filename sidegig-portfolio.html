@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Side Gig Bot — AI Business Portfolio</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0e17;--card:#111827;--card-hover:#1a2332;--border:#1e293b;
+  --text:#e2e8f0;--text-dim:#94a3b8;--text-bright:#f8fafc;
+  --green:#10b981;--green-glow:rgba(16,185,129,.25);
+  --yellow:#f59e0b;--yellow-glow:rgba(245,158,11,.2);
+  --blue:#3b82f6;--blue-glow:rgba(59,130,246,.2);
+  --gray:#64748b;--gray-glow:rgba(100,116,139,.15);
+  --purple:#a78bfa;--red:#ef4444;--cyan:#22d3ee;
+  --accent:#6366f1;--accent-glow:rgba(99,102,241,.3);
+  --radius:12px;
+}
+html{font-size:15px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.5;min-height:100vh;padding-bottom:4rem}
+
+/* ── Header ── */
+.header{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 100%);border-bottom:1px solid var(--border);padding:1.25rem 1rem;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.logo{display:flex;align-items:center;gap:.6rem}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.logo h1{font-size:1.15rem;font-weight:700;color:var(--text-bright);letter-spacing:-.02em}
+.logo span{font-size:.75rem;color:var(--text-dim);display:block;font-weight:400;letter-spacing:.03em}
+.sys-status{display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--green);background:rgba(16,185,129,.1);padding:.35rem .75rem;border-radius:20px;border:1px solid rgba(16,185,129,.2)}
+.sys-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse-dot 2s infinite}
+
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 var(--green-glow)}50%{opacity:.7;box-shadow:0 0 0 6px transparent}}
+
+/* ── Summary Bar ── */
+.summary{max-width:1200px;margin:1rem auto;padding:0 1rem}
+.summary-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem}
+.sum-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem .6rem;text-align:center;transition:transform .2s}
+.sum-card:hover{transform:translateY(-2px)}
+.sum-num{font-size:1.6rem;font-weight:800;line-height:1}
+.sum-label{font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-top:.25rem}
+.sum-card.total .sum-num{color:var(--text-bright)}
+.sum-card.active .sum-num{color:var(--green);text-shadow:0 0 20px var(--green-glow)}
+.sum-card.ready .sum-num{color:var(--yellow)}
+.sum-card.sim .sum-num{color:var(--blue)}
+.sum-card.research .sum-num{color:var(--gray)}
+.sum-card.deployed .sum-num{color:var(--green)}
+
+/* ── Section Titles ── */
+.section{max-width:1200px;margin:1.5rem auto .75rem;padding:0 1rem}
+.section h2{font-size:1rem;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:.5rem}
+.section h2::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── Project Cards ── */
+.cards{max-width:1200px;margin:0 auto;padding:0 1rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:.75rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .3s ease}
+.card:hover{border-color:rgba(99,102,241,.3);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+
+/* Mote Ops special */
+.card.mote-ops{border:2px solid var(--green);box-shadow:0 0 30px var(--green-glow),inset 0 0 30px rgba(16,185,129,.03);animation:glow-border 3s ease-in-out infinite}
+@keyframes glow-border{0%,100%{box-shadow:0 0 20px var(--green-glow),inset 0 0 20px rgba(16,185,129,.02)}50%{box-shadow:0 0 40px var(--green-glow),0 0 60px rgba(16,185,129,.1),inset 0 0 30px rgba(16,185,129,.05)}}
+
+.card-top{padding:1rem 1rem .75rem;display:flex;flex-direction:column;gap:.6rem}
+.card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.card-id{font-size:.65rem;color:var(--text-dim);font-family:'SF Mono',monospace;letter-spacing:.05em}
+.card-title{font-size:1.05rem;font-weight:700;color:var(--text-bright);line-height:1.25}
+.card-desc{font-size:.82rem;color:var(--text-dim);line-height:1.4}
+
+/* Status badges */
+.badge{font-size:.65rem;font-weight:600;padding:.2rem .55rem;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;flex-shrink:0}
+.badge.deployed{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.badge.active{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3);animation:badge-pulse 2s infinite}
+.badge.ready{background:rgba(245,158,11,.12);color:var(--yellow);border:1px solid rgba(245,158,11,.25)}
+.badge.simulation{background:rgba(59,130,246,.12);color:var(--blue);border:1px solid rgba(59,130,246,.25)}
+.badge.research{background:rgba(100,116,139,.12);color:var(--gray);border:1px solid rgba(100,116,139,.25)}
+@keyframes badge-pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+.building-tag{display:inline-flex;align-items:center;gap:.3rem;font-size:.7rem;font-weight:700;color:var(--green);background:rgba(16,185,129,.1);padding:.2rem .6rem;border-radius:4px;margin-top:.1rem;animation:badge-pulse 1.5s infinite}
+.building-tag::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse-dot 1.5s infinite}
+
+/* Metrics row */
+.metrics{display:flex;gap:1rem;padding:.6rem 1rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.metric{display:flex;flex-direction:column}
+.metric-val{font-size:.85rem;font-weight:700;color:var(--text-bright)}
+.metric-label{font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em}
+
+/* Probability gauge */
+.gauge-wrap{display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;border-top:1px solid var(--border)}
+.gauge{position:relative;width:48px;height:48px;flex-shrink:0}
+.gauge svg{transform:rotate(-90deg)}
+.gauge-bg{fill:none;stroke:var(--border);stroke-width:4}
+.gauge-fill{fill:none;stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .8s ease}
+.gauge-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:var(--text-bright)}
+.gauge-label{font-size:.72rem;color:var(--text-dim)}
+
+/* Expand area */
+.card-expand{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1)}
+.card.open .card-expand{max-height:2000px}
+.expand-inner{padding:1rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:.75rem}
+.expand-section h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:.3rem;font-weight:600}
+.expand-section p,.expand-section li{font-size:.82rem;color:var(--text-dim);line-height:1.5}
+.expand-section ul{padding-left:1.2rem}
+.expand-section li{margin-bottom:.2rem}
+.expand-section li::marker{color:var(--accent)}
+
+.live-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .9rem;border-radius:8px;font-size:.8rem;font-weight:600;text-decoration:none;transition:all .2s}
+.live-btn.green{background:var(--green);color:#000}.live-btn.green:hover{box-shadow:0 0 20px var(--green-glow)}
+.live-btn.accent{background:var(--accent);color:#fff}.live-btn.accent:hover{box-shadow:0 0 20px var(--accent-glow)}
+
+.chevron{margin-left:auto;transition:transform .3s;color:var(--text-dim);font-size:.8rem}
+.card.open .chevron{transform:rotate(180deg)}
+
+/* ── Rankings ── */
+.rankings{max-width:1200px;margin:0 auto;padding:0 1rem}
+.rank-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.rank-table th{font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);padding:.6rem .75rem;text-align:left;background:rgba(99,102,241,.05);border-bottom:1px solid var(--border);font-weight:600}
+.rank-table td{padding:.55rem .75rem;font-size:.82rem;border-bottom:1px solid var(--border)}
+.rank-table tr:last-child td{border-bottom:none}
+.rank-table tr:hover td{background:rgba(99,102,241,.03)}
+.rank-num{font-weight:800;color:var(--accent);width:28px}
+.rank-score{font-weight:700;color:var(--text-bright)}
+.rank-bar{height:6px;border-radius:3px;background:var(--border);overflow:hidden;min-width:60px}
+.rank-bar-fill{height:100%;border-radius:3px;transition:width .6s ease}
+
+/* ── Active Systems ── */
+.systems{max-width:1200px;margin:0 auto;padding:0 1rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.75rem}
+.sys-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;display:flex;align-items:center;gap:.75rem}
+.sys-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.sys-icon.running{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.2)}
+.sys-icon.scheduled{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.2)}
+.sys-info{flex:1}
+.sys-name{font-size:.85rem;font-weight:600;color:var(--text-bright)}
+.sys-detail{font-size:.72rem;color:var(--text-dim)}
+.sys-badge{font-size:.6rem;padding:.15rem .45rem;border-radius:10px;font-weight:600}
+.sys-badge.on{background:rgba(16,185,129,.15);color:var(--green)}
+.sys-badge.sched{background:rgba(59,130,246,.12);color:var(--blue)}
+
+/* ── Revenue ── */
+.revenue{max-width:1200px;margin:0 auto;padding:0 1rem}
+.rev-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem}
+.rev-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.rev-current{font-size:2.2rem;font-weight:800;color:var(--text-bright)}
+.rev-label{font-size:.75rem;color:var(--text-dim);margin-bottom:.15rem}
+.rev-projected{font-size:1.1rem;font-weight:700;color:var(--green)}
+.rev-bars{display:flex;flex-direction:column;gap:.5rem}
+.rev-row{display:flex;align-items:center;gap:.6rem}
+.rev-row-name{font-size:.75rem;color:var(--text-dim);width:140px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rev-row-bar{flex:1;height:10px;background:var(--border);border-radius:5px;overflow:hidden;position:relative}
+.rev-row-fill{height:100%;border-radius:5px;transition:width .8s ease}
+.rev-row-val{font-size:.75rem;font-weight:700;color:var(--text-bright);width:70px;text-align:right;flex-shrink:0}
+
+/* ── Footer ── */
+.footer{max-width:1200px;margin:2rem auto 0;padding:1rem;text-align:center;font-size:.72rem;color:var(--text-dim);border-top:1px solid var(--border)}
+
+/* Mobile */
+@media(max-width:768px){
+  .summary-grid{grid-template-columns:repeat(3,1fr)}
+  .cards{grid-template-columns:1fr}
+  .systems{grid-template-columns:1fr}
+  .header-inner{justify-content:center;text-align:center}
+  .rank-table{font-size:.75rem}
+  .rank-table th,.rank-table td{padding:.45rem .5rem}
+}
+@media(max-width:420px){
+  .summary-grid{grid-template-columns:repeat(2,1fr)}
+  html{font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🤖</div>
+      <div>
+        <h1>Side Gig Bot</h1>
+        <span>AI Business Portfolio — 7 Opportunities</span>
+      </div>
+    </div>
+    <div class="sys-status"><span class="sys-dot"></span> Systems Online</div>
+  </div>
+</header>
+
+<!-- Summary Bar -->
+<div class="summary">
+  <div class="summary-grid">
+    <div class="sum-card total"><div class="sum-num">7</div><div class="sum-label">Total</div></div>
+    <div class="sum-card active"><div class="sum-num">1</div><div class="sum-label">Active Build</div></div>
+    <div class="sum-card ready"><div class="sum-num">2</div><div class="sum-label">Ready</div></div>
+    <div class="sum-card sim"><div class="sum-num">2</div><div class="sum-label">Simulation</div></div>
+    <div class="sum-card research"><div class="sum-num">1</div><div class="sum-label">Research</div></div>
+    <div class="sum-card deployed"><div class="sum-num">1</div><div class="sum-label">Deployed</div></div>
+  </div>
+</div>
+
+<!-- Project Cards -->
+<div class="section"><h2>Opportunity Pipeline</h2></div>
+<div class="cards" id="cards">
+
+  <!-- OPP-006: Mote Ops (ACTIVE) -->
+  <div class="card mote-ops" onclick="toggle(this)">
+    <div class="card-top">
+      <div class="card-header">
+        <div>
+          <div class="card-id">OPP-006</div>
+          <div class="card-title">Mote Ops — Fractional AI Consulting</div>
+          <div class="building-tag">BUILDING NOW</div>
+        </div>
+        <span class="badge active">Active</span>
+      </div>
+      <div class="card-desc">Fractional AI automation consulting for SMBs — packaging everything we've built into a service offering.</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><span class="metric-val">1 week</span><span class="metric-label">Build Time</span></div>
+      <div class="metric"><span class="metric-val">$0</span><span class="metric-label">Cost</span></div>
+      <div class="metric"><span class="metric-val">$2K-8K/mo</span><span class="metric-label">Retainer</span></div>
+      <div class="metric"><span class="metric-val">$5K-25K</span><span class="metric-label">Projects</span></div>
+    </div>
+    <div class="gauge-wrap">
+      <div class="gauge">
+        <svg viewBox="0 0 48 48"><circle class="gauge-bg" cx="24" cy="24" r="20"/><circle class="gauge-fill" cx="24" cy="24" r="20" stroke="var(--green)" stroke-dasharray="125.66" stroke-dashoffset="69.11"/></svg>
+        <div class="gauge-text">45%</div>
+      </div>
+      <div class="gauge-label">Probability of first client within 60 days — <strong style="color:var(--green)">highest rated</strong></div>
+    </div>
+    <span class="chevron">▾</span>
+    <div class="card-expand"><div class="expand-inner">
+      <div class="expand-section"><h4>What's Built</h4>
+        <ul>
+          <li>Landing page live at mikedmote52.github.io/moteops-landing</li>
+          <li>21-industry questionnaire with savings calculator</li>
+          <li>AI recommendations engine + proposal generator (Render)</li>
+          <li>Website analyzer via OpenRouter</li>
+          <li>Service catalog covering 19 industries</li>
+          <li>Full outreach playbook + 3 Reddit posts drafted + 8 Upwork proposals ready</li>
+        </ul>
+      </div>
+      <div class="expand-section"><h4>Automated Systems</h4>
+        <ul>
+          <li>Daily prospect scanner runs at 8am</li>
+          <li>Weekly content calendar generated every Monday</li>
+        </ul>
+      </div>
+      <div class="expand-section"><h4>Next Steps</h4>
+        <ul>
+          <li>Publish 3 Reddit posts</li>
+          <li>Submit 8 Upwork proposals</li>
+          <li>Set up Yahoo app password + professional Gmail</li>
+        </ul>
+      </div>
+      <a href="https://mikedmote52.github.io/moteops-landing/" target="_blank" class="live-btn green">🌐 VIEW SITE</a>
+    </div></div>
+  </div>
+
+  <!-- OPP-003: InstantProposal -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-top">
+      <div class="card-header">
+        <div>
+          <div class="card-id">OPP-003</div>
+          <div class="card-title">InstantProposal — AI Proposal Generator</div>
+        </div>
+        <span class="badge deployed">Deployed</span>
+      </div>
+      <div class="card-desc">Contractors describe a job, get a branded proposal PDF in 60 seconds. Freemium model live.</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><span class="metric-val">Done</span><span class="metric-label">Build</span></div>
+      <div class="metric"><span class="metric-val">$0</span><span class="metric-label">Cost</span></div>
+      <div class="metric"><span class="metric-val">$9.99/mo</span><span class="metric-label">Revenue</span></div>
+      <div class="metric"><span class="metric-val">Free 5/mo</span><span class="metric-label">Freemium</span></div>
+    </div>
+    <div class="gauge-wrap">
+      <div class="gauge">
+        <svg viewBox="0 0 48 48"><circle class="gauge-bg" cx="24" cy="24" r="20"/><circle class="gauge-fill" cx="24" cy="24" r="20" stroke="var(--green)" stroke-dasharray="125.66" stroke-dashoffset="75.4"/></svg>
+        <div class="gauge-text">40%</div>
+      </div>
+      <div class="gauge-label">Probability Product Hunt drives 100+ signups</div>
+    </div>
+    <span class="chevron">▾</span>
+    <div class="card-expand"><div class="expand-inner">
+      <div class="expand-section"><h4>Status</h4><p>Live and functional. Free tier gives 5 proposals/month, unlimited at $9.99/month.</p></div>
+      <div class="expand-section"><h4>Next Steps</h4>
+        <ul>
+          <li>Pivot targeting toward offline contractors (not yet digital)</li>
+          <li>SEO blog posts to capture search traffic</li>
+          <li>Product Hunt launch for initial traction burst</li>
+        </ul>
+      </div>
+      <a href="https://mikedmote52.github.io/instant-proposal/" target="_blank" class="live-btn green">🚀 VIEW LIVE</a>
+    </div></div>
+  </div>
+
+  <!-- OPP-001: Missed-Call Text-Back -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-top">
+      <div class="card-header">
+        <div>
+          <div class="card-id">OPP-001</div>
+          <div class="card-title">AI Missed-Call Text-Back</div>
+        </div>
+        <span class="badge ready">Ready</span>
+      </div>
+      <div class="card-desc">Instantly texts back missed calls for plumbers/HVAC/electricians, qualifies leads via SMS, books appointments.</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><span class="metric-val">2 weeks</span><span class="metric-label">Build</span></div>
+      <div class="metric"><span class="metric-val">$0-20</span><span class="metric-label">Cost</span></div>
+      <div class="metric"><span class="metric-val">$149-299/mo</span><span class="metric-label">Per Client</span></div>
+    </div>
+    <div class="gauge-wrap">
+      <div class="gauge">
+        <svg viewBox="0 0 48 48"><circle class="gauge-bg" cx="24" cy="24" r="20"/><circle class="gauge-fill" cx="24" cy="24" r="20" stroke="var(--yellow)" stroke-dasharray="125.66" stroke-dashoffset="90.47"/></svg>
+        <div class="gauge-text">28%</div>
+      </div>
+      <div class="gauge-label">First client within 60 days</div>
+    </div>
+    <span class="chevron">▾</span>
+    <div class="card-expand"><div class="expand-inner">
+      <div class="expand-section"><h4>Evidence</h4>
+        <ul>
+          <li>Wayne Conn Plumbing recovered $6,285 in 2 weeks using similar system</li>
+          <li>Missed calls cost contractors $45K-$120K/year in lost revenue</li>
+          <li>Contractor AI adoption doubled from 17% to 38% year-over-year</li>
+        </ul>
+      </div>
+      <div class="expand-section"><h4>Competition</h4><p>GoHighLevel dominates but is overpriced and complex for single-operator shops. Our edge: simpler, cheaper, n8n-powered.</p></div>
+      <div class="expand-section"><h4>Next Steps</h4>
+        <ul>
+          <li>Build n8n workflow: Twilio → AI SMS → Calendar booking</li>
+          <li>Create landing page targeting contractors not on GoHighLevel</li>
+        </ul>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- OPP-002: Review Response -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-top">
+      <div class="card-header">
+        <div>
+          <div class="card-id">OPP-002</div>
+          <div class="card-title">AI Review Response System</div>
+        </div>
+        <span class="badge ready">Ready</span>
+      </div>
+      <div class="card-desc">AI monitors Google/Yelp reviews, drafts personalized responses, sends for one-tap approval via text.</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><span class="metric-val">2-3 weeks</span><span class="metric-label">Build</span></div>
+      <div class="metric"><span class="metric-val">$0</span><span class="metric-label">Cost</span></div>
+      <div class="metric"><span class="metric-val">$49-99/mo</span><span class="metric-label">Per Client</span></div>
+    </div>
+    <div class="gauge-wrap">
+      <div class="gauge">
+        <svg viewBox="0 0 48 48"><circle class="gauge-bg" cx="24" cy="24" r="20"/><circle class="gauge-fill" cx="24" cy="24" r="20" stroke="var(--yellow)" stroke-dasharray="125.66" stroke-dashoffset="81.68"/></svg>
+        <div class="gauge-text">35%</div>
+      </div>
+      <div class="gauge-label">First client within 60 days</div>
+    </div>
+    <span class="chevron">▾</span>
+    <div class="card-expand"><div class="expand-inner">
+      <div class="expand-section"><h4>Evidence</h4>
+        <ul>
+          <li>Google confirmed review responses affect local search ranking</li>
+          <li>Podium/Birdeye charge $300+/mo — priced out of single-location market</li>
+        </ul>
+      </div>
+      <div class="expand-section"><h4>Next Steps</h4>
+        <ul>
+          <li>Build n8n workflow: Google Business Profile → AI draft → SMS approval</li>
+          <li>Price at $49/mo — undercuts Podium by 80%</li>
+        </ul>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- OPP-004: Automation Packs -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-top">
+      <div class="card-header">
+        <div>
+          <div class="card-id">OPP-004</div>
+          <div class="card-title">Vertical n8n Automation Packs</div>
+        </div>
+        <span class="badge simulation">Simulation</span>
+      </div>
+      <div class="card-desc">Bundled n8n workflows for specific industries — 8-12 workflows per vertical, ready to install.</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><span class="metric-val">3-4 weeks</span><span class="metric-label">Build</span></div>
+      <div class="metric"><span class="metric-val">$0</span><span class="metric-label">Cost</span></div>
+      <div class="metric"><span class="metric-val">$79-149</span><span class="metric-label">Per Pack</span></div>
+      <div class="metric"><span class="metric-val">$29/mo</span><span class="metric-label">Subscription</span></div>
+    </div>
+    <span class="chevron">▾</span>
+    <div class="card-expand"><div class="expand-inner">
+      <div class="expand-section"><h4>Market Context</h4><p>n8n marketplace grew to 9,022+ templates. Third-party marketplaces have emerged, validating demand for curated workflow bundles. Vertical packaging adds value over individual templates.</p></div>
+      <div class="expand-section"><h4>Model</h4><p>One-time purchase at $79-149 per pack, or $29/month subscription with updates. Could cross-sell with Mote Ops consulting.</p></div>
+    </div></div>
+  </div>
+
+  <!-- OPP-005: SMS Assistant -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-top">
+      <div class="card-header">
+        <div>
+          <div class="card-id">OPP-005</div>
+          <div class="card-title">SMS-Based AI Business Assistant</div>
+        </div>
+        <span class="badge simulation">Simulation</span>
+      </div>
+      <div class="card-desc">Text-based AI assistant for small business owners — answer questions, run reports, manage tasks via SMS.</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><span class="metric-val">4-6 weeks</span><span class="metric-label">Build</span></div>
+      <div class="metric"><span class="metric-val">$20-50/mo</span><span class="metric-label">Cost</span></div>
+      <div class="metric"><span class="metric-val">$19-49/mo</span><span class="metric-label">Revenue</span></div>
+    </div>
+    <span class="chevron">▾</span>
+    <div class="card-expand"><div class="expand-inner">
+      <div class="expand-section"><h4>Concept</h4><p>SMS-native interface means zero onboarding friction. Small business owners text questions and get instant answers about their business. Lower margin but high stickiness and potential for upsell into consulting.</p></div>
+    </div></div>
+  </div>
+
+  <!-- OPP-007: Dead Lead Reactivation -->
+  <div class="card" onclick="toggle(this)">
+    <div class="card-top">
+      <div class="card-header">
+        <div>
+          <div class="card-id">OPP-007</div>
+          <div class="card-title">AI Dead Lead Reactivation</div>
+        </div>
+        <span class="badge research">Research</span>
+      </div>
+      <div class="card-desc">AI texts old leads in contractor's database to rebook jobs — performance-based pricing.</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><span class="metric-val">3-5 days</span><span class="metric-label">Build</span></div>
+      <div class="metric"><span class="metric-val">$20-50</span><span class="metric-label">Cost</span></div>
+      <div class="metric"><span class="metric-val">$2K-5K</span><span class="metric-label">Per Campaign</span></div>
+      <div class="metric"><span class="metric-val">10-15%</span><span class="metric-label">Rev Share</span></div>
+    </div>
+    <span class="chevron">▾</span>
+    <div class="card-expand"><div class="expand-inner">
+      <div class="expand-section"><h4>Synergy</h4><p>Natural bundle with OPP-001 (Missed-Call Text-Back). Sell as a "win-back + never-miss" package to contractors. Performance-based pricing lowers barrier to entry.</p></div>
+      <div class="expand-section"><h4>Next Steps</h4>
+        <ul>
+          <li>Validate with 2-3 contractor interviews</li>
+          <li>Design campaign workflow template</li>
+          <li>Model unit economics at different lead volumes</li>
+        </ul>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- Rankings -->
+<div class="section" style="margin-top:2rem"><h2>Strategy Rankings</h2></div>
+<div class="rankings">
+  <table class="rank-table">
+    <thead><tr><th>#</th><th>Opportunity</th><th>Score</th><th>Visual</th><th>Strategy</th></tr></thead>
+    <tbody>
+      <tr><td class="rank-num">1</td><td style="color:var(--text-bright);font-weight:600">Mote Ops — Consulting</td><td class="rank-score">92</td><td><div class="rank-bar"><div class="rank-bar-fill" style="width:92%;background:linear-gradient(90deg,var(--green),var(--cyan))"></div></div></td><td style="color:var(--text-dim)">Highest revenue ceiling, leverages all builds</td></tr>
+      <tr><td class="rank-num">2</td><td style="color:var(--text-bright);font-weight:600">AI Review Response</td><td class="rank-score">78</td><td><div class="rank-bar"><div class="rank-bar-fill" style="width:78%;background:linear-gradient(90deg,var(--yellow),var(--green))"></div></div></td><td style="color:var(--text-dim)">Highest close probability, low build effort</td></tr>
+      <tr><td class="rank-num">3</td><td style="color:var(--text-bright);font-weight:600">Missed-Call Text-Back</td><td class="rank-score">74</td><td><div class="rank-bar"><div class="rank-bar-fill" style="width:74%;background:linear-gradient(90deg,var(--yellow),var(--green))"></div></div></td><td style="color:var(--text-dim)">Strong evidence, proven ROI case study</td></tr>
+      <tr><td class="rank-num">4</td><td style="color:var(--text-bright);font-weight:600">InstantProposal</td><td class="rank-score">68</td><td><div class="rank-bar"><div class="rank-bar-fill" style="width:68%;background:linear-gradient(90deg,var(--blue),var(--green))"></div></div></td><td style="color:var(--text-dim)">Already deployed, needs distribution push</td></tr>
+      <tr><td class="rank-num">5</td><td style="color:var(--text-bright);font-weight:600">Dead Lead Reactivation</td><td class="rank-score">61</td><td><div class="rank-bar"><div class="rank-bar-fill" style="width:61%;background:linear-gradient(90deg,var(--blue),var(--purple))"></div></div></td><td style="color:var(--text-dim)">Fast build, bundles with OPP-001</td></tr>
+      <tr><td class="rank-num">6</td><td style="color:var(--text-bright);font-weight:600">n8n Automation Packs</td><td class="rank-score">52</td><td><div class="rank-bar"><div class="rank-bar-fill" style="width:52%;background:var(--blue)"></div></div></td><td style="color:var(--text-dim)">Crowded market, differentiation needed</td></tr>
+      <tr><td class="rank-num">7</td><td style="color:var(--text-bright);font-weight:600">SMS Business Assistant</td><td class="rank-score">41</td><td><div class="rank-bar"><div class="rank-bar-fill" style="width:41%;background:var(--gray)"></div></div></td><td style="color:var(--text-dim)">Thin margins, long build, needs validation</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Active Systems -->
+<div class="section" style="margin-top:2rem"><h2>Active Systems</h2></div>
+<div class="systems">
+  <div class="sys-card">
+    <div class="sys-icon running">🔍</div>
+    <div class="sys-info"><div class="sys-name">Daily Prospect Scanner</div><div class="sys-detail">Runs daily at 8:00 AM — Mote Ops</div></div>
+    <span class="sys-badge on">Active</span>
+  </div>
+  <div class="sys-card">
+    <div class="sys-icon scheduled">📅</div>
+    <div class="sys-info"><div class="sys-name">Weekly Content Calendar</div><div class="sys-detail">Generates every Monday — Mote Ops</div></div>
+    <span class="sys-badge sched">Scheduled</span>
+  </div>
+  <div class="sys-card">
+    <div class="sys-icon scheduled">📡</div>
+    <div class="sys-info"><div class="sys-name">Opportunity Research Scanner</div><div class="sys-detail">Continuous market monitoring</div></div>
+    <span class="sys-badge on">Active</span>
+  </div>
+</div>
+
+<!-- Revenue Tracker -->
+<div class="section" style="margin-top:2rem"><h2>Revenue Tracker</h2></div>
+<div class="revenue">
+  <div class="rev-card">
+    <div class="rev-header">
+      <div>
+        <div class="rev-label">Current Monthly Revenue</div>
+        <div class="rev-current">$0</div>
+      </div>
+      <div style="text-align:right">
+        <div class="rev-label">Projected if All Hit Target</div>
+        <div class="rev-projected">$11,586 — $33,645/mo</div>
+      </div>
+    </div>
+    <div class="rev-bars">
+      <div class="rev-row">
+        <span class="rev-row-name">Mote Ops</span>
+        <div class="rev-row-bar"><div class="rev-row-fill" style="width:80%;background:linear-gradient(90deg,var(--green),var(--cyan))"></div></div>
+        <span class="rev-row-val">$2K-8K</span>
+      </div>
+      <div class="rev-row">
+        <span class="rev-row-name">Mote Ops Projects</span>
+        <div class="rev-row-bar"><div class="rev-row-fill" style="width:100%;background:linear-gradient(90deg,var(--accent),var(--purple))"></div></div>
+        <span class="rev-row-val">$5K-25K</span>
+      </div>
+      <div class="rev-row">
+        <span class="rev-row-name">Dead Lead Campaigns</span>
+        <div class="rev-row-bar"><div class="rev-row-fill" style="width:40%;background:var(--blue)"></div></div>
+        <span class="rev-row-val">$2K-5K</span>
+      </div>
+      <div class="rev-row">
+        <span class="rev-row-name">Missed-Call (x5 clients)</span>
+        <div class="rev-row-bar"><div class="rev-row-fill" style="width:30%;background:var(--yellow)"></div></div>
+        <span class="rev-row-val">$745-1.5K</span>
+      </div>
+      <div class="rev-row">
+        <span class="rev-row-name">Reviews (x10 clients)</span>
+        <div class="rev-row-bar"><div class="rev-row-fill" style="width:20%;background:var(--yellow)"></div></div>
+        <span class="rev-row-val">$490-990</span>
+      </div>
+      <div class="rev-row">
+        <span class="rev-row-name">InstantProposal (x35)</span>
+        <div class="rev-row-bar"><div class="rev-row-fill" style="width:8%;background:var(--green)"></div></div>
+        <span class="rev-row-val">$350</span>
+      </div>
+      <div class="rev-row">
+        <span class="rev-row-name">SMS Assistant (x20)</span>
+        <div class="rev-row-bar"><div class="rev-row-fill" style="width:5%;background:var(--gray)"></div></div>
+        <span class="rev-row-val">$380-980</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Side Gig Bot v2.0 — Last updated April 2, 2026 — Powered by Claude + n8n + Determination</div>
+
+<script>
+function toggle(card){card.classList.toggle('open')}
+// Animate gauge fills on scroll
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.gauge-fill').forEach(g=>{g.style.transition='stroke-dashoffset .8s ease'})}})},{threshold:.3});
+document.querySelectorAll('.card').forEach(c=>observer.observe(c));
+// Animate rank bars
+const rankObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.rank-bar-fill').forEach(b=>{const w=b.style.width;b.style.width='0';requestAnimationFrame(()=>{requestAnimationFrame(()=>{b.style.transition='width .8s ease';b.style.width=w})})});rankObs.unobserve(e.target)}})},{threshold:.2});
+document.querySelectorAll('.rank-table').forEach(t=>rankObs.observe(t));
+// Animate revenue bars
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.rev-row-fill').forEach(b=>{const w=b.style.width;b.style.width='0';requestAnimationFrame(()=>{requestAnimationFrame(()=>{b.style.transition='width .8s ease';b.style.width=w})})});revObs.unobserve(e.target)}})},{threshold:.2});
+document.querySelectorAll('.rev-card').forEach(c=>revObs.observe(c));
+</script>
+</body>
+</html>
