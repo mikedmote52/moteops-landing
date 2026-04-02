@@ -1,1563 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Side Gig Bot — Intelligence Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #08080d;
-            color: #c8c8d8;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #0c0c14 0%, #141428 100%);
-            border-bottom: 1px solid #1e1e3a;
-            padding: 1.5rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(12px);
-        }
-
-        .header-inner {
-            max-width: 1440px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #7c6cf7 0%, #00e8b0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            font-size: 0.9rem;
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 2rem;
-            font-size: 0.85rem;
-            color: #6a6a8a;
-        }
-
-        .header-stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-
-        .header-stat-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #5a5a7a;
-        }
-
-        .header-stat-value {
-            color: #7c6cf7;
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .live-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(0,232,176,0.08);
-            border: 1px solid rgba(0,232,176,0.3);
-            color: #00e8b0;
-            padding: 0.4rem 0.9rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .live-dot {
-            width: 7px; height: 7px;
-            background: #00e8b0;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-        .date-display { color: #6a6a8a; }
-
-        /* Main */
-        main {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Daily Brief */
-        .daily-brief {
-            background: linear-gradient(135deg, #12122a 0%, #1a1a3a 100%);
-            border: 1px solid #2a2a4e;
-            border-radius: 14px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .daily-brief::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #7c6cf7 0%, #00e8b0 50%, #7c6cf7 100%);
-            background-size: 200% auto;
-            animation: shimmer 3s linear infinite;
-        }
-
-        @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-
-        .brief-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #7c6cf7;
-            margin-bottom: 0.75rem;
-        }
-
-        .brief-text {
-            font-size: 1.05rem;
-            color: #e0e0f0;
-            line-height: 1.7;
-        }
-
-        /* Stats Row */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: #10101e;
-            border: 1px solid #1e1e3a;
-            border-radius: 10px;
-            padding: 1.25rem;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-number.green { color: #00e8b0; }
-        .stat-number.purple { color: #7c6cf7; }
-        .stat-number.blue { color: #4ea8de; }
-        .stat-number.amber { color: #f0a030; }
-        .stat-number.red { color: #e05060; }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: #6a6a8a;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Thesis Cards */
-        .thesis-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .thesis-card {
-            background: #10101e;
-            border: 1px solid #1e1e3a;
-            border-radius: 10px;
-            padding: 1.5rem;
-        }
-
-        .thesis-card .brief-label { margin-bottom: 0.5rem; }
-        .thesis-card .brief-label.weekly { color: #4ea8de; }
-        .thesis-card .brief-label.monthly { color: #f0a030; }
-
-        .thesis-text {
-            font-size: 0.95rem;
-            color: #b0b0c8;
-            line-height: 1.6;
-        }
-
-        /* Tabs */
-        .tab-bar {
-            display: flex;
-            gap: 0;
-            border-bottom: 1px solid #1e1e3a;
-            margin-bottom: 2rem;
-            overflow-x: auto;
-        }
-
-        .tab-btn {
-            padding: 0.75rem 1.5rem;
-            background: none;
-            border: none;
-            color: #6a6a8a;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .tab-btn:hover { color: #a0a0c0; }
-
-        .tab-btn.active {
-            color: #7c6cf7;
-            border-bottom-color: #7c6cf7;
-        }
-
-        .tab-count {
-            display: inline-block;
-            background: rgba(124,108,247,0.15);
-            color: #7c6cf7;
-            font-size: 0.75rem;
-            padding: 0.1rem 0.5rem;
-            border-radius: 10px;
-            margin-left: 0.4rem;
-        }
-
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
-
-        /* Opportunity Cards */
-        .opp-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .opp-card {
-            background: linear-gradient(135deg, #12122a, #161636);
-            border: 1px solid #2a2a4e;
-            border-radius: 12px;
-            padding: 1.5rem;
-            position: relative;
-            transition: all 0.25s ease;
-        }
-
-        .opp-card:hover {
-            border-color: #7c6cf7;
-            box-shadow: 0 6px 24px rgba(124,108,247,0.12);
-            transform: translateY(-2px);
-        }
-
-        .opp-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .opp-name {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #f0f0ff;
-            flex: 1;
-            padding-right: 1rem;
-        }
-
-        .tier-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.25rem 0.6rem;
-            border-radius: 5px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .tier-1 { background: rgba(0,232,176,0.12); color: #00e8b0; }
-        .tier-2 { background: rgba(78,168,222,0.12); color: #4ea8de; }
-        .tier-3 { background: rgba(106,106,138,0.15); color: #8a8aa0; }
-
-        .opp-status {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            margin-bottom: 0.75rem;
-        }
-
-        .status-ready_to_deploy { background: rgba(0,232,176,0.12); color: #00e8b0; }
-        .status-deployed { background: rgba(124,108,247,0.15); color: #b8a7ff; }
-        .status-in_simulation { background: rgba(240,160,48,0.12); color: #f0a030; }
-        .status-research { background: rgba(78,168,222,0.12); color: #4ea8de; }
-
-        .opp-desc {
-            font-size: 0.9rem;
-            color: #8a8aa8;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        /* Probability Timeline Sparkline */
-        .prob-timeline {
-            margin-bottom: 1rem;
-            padding: 0.75rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-        }
-
-        .prob-timeline-label {
-            font-size: 0.7rem;
-            color: #5a5a7a;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-
-        .prob-sparkline {
-            width: 100%;
-            height: 30px;
-        }
-
-        .opp-meta-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .opp-meta-item {
-            background: rgba(255,255,255,0.03);
-            border-radius: 6px;
-            padding: 0.6rem 0.75rem;
-        }
-
-        .opp-meta-label {
-            font-size: 0.7rem;
-            color: #5a5a7a;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .opp-meta-value {
-            font-size: 0.9rem;
-            color: #d0d0e0;
-            font-weight: 600;
-        }
-
-        /* Simulation Bar */
-        .sim-section { margin-bottom: 1rem; }
-
-        .sim-row {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .sim-label {
-            font-size: 0.78rem;
-            color: #6a6a8a;
-            width: 150px;
-            flex-shrink: 0;
-        }
-
-        .sim-bar-bg {
-            flex: 1;
-            height: 6px;
-            background: #1a1a30;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .sim-bar-fill {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.6s ease;
-        }
-
-        .sim-bar-fill.high { background: linear-gradient(90deg, #00e8b0, #00c898); }
-        .sim-bar-fill.med { background: linear-gradient(90deg, #f0a030, #d08828); }
-        .sim-bar-fill.low { background: linear-gradient(90deg, #e05060, #c04050); }
-
-        .sim-pct {
-            font-size: 0.8rem;
-            font-weight: 700;
-            width: 40px;
-            text-align: right;
-            color: #a0a0c0;
-        }
-
-        /* Evidence Toggle */
-        .evidence-toggle {
-            background: none;
-            border: 1px solid #2a2a4e;
-            color: #6a6a8a;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .evidence-toggle:hover { border-color: #7c6cf7; color: #a0a0c0; }
-
-        .evidence-list {
-            display: none;
-            margin-top: 0.75rem;
-            padding: 0.75rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-        }
-
-        .evidence-list.open { display: block; }
-
-        .evidence-item {
-            font-size: 0.85rem;
-            color: #8a8aa8;
-            padding: 0.4rem 0;
-            padding-left: 1rem;
-            position: relative;
-            line-height: 1.5;
-        }
-
-        .evidence-item::before {
-            content: '>';
-            position: absolute;
-            left: 0;
-            color: #00e8b0;
-            font-weight: 700;
-        }
-
-        /* Deployed link */
-        .deployed-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: #7c6cf7;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 0.5rem;
-            transition: color 0.2s;
-        }
-
-        .deployed-link:hover { color: #00e8b0; }
-
-        /* Signals Feed */
-        .signal-feed { display: grid; gap: 0.75rem; }
-
-        .signal-card {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            background: #10101e;
-            border: 1px solid #1e1e3a;
-            border-radius: 10px;
-            padding: 1rem 1.25rem;
-            transition: all 0.2s;
-        }
-
-        .signal-card:hover {
-            border-color: #2a2a5e;
-            transform: translateX(3px);
-        }
-
-        .signal-impact {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px; height: 36px;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            flex-shrink: 0;
-        }
-
-        .impact-high { background: rgba(0,232,176,0.1); color: #00e8b0; }
-        .impact-medium { background: rgba(240,160,48,0.1); color: #f0a030; }
-        .impact-low { background: rgba(106,106,138,0.1); color: #8a8aa0; }
-
-        .signal-content { flex: 1; }
-
-        .signal-text-main {
-            font-size: 0.95rem;
-            color: #d0d0e0;
-            margin-bottom: 0.25rem;
-        }
-
-        .signal-source {
-            font-size: 0.8rem;
-            color: #5a5a7a;
-        }
-
-        /* Deployed Assets */
-        .deployed-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-        }
-
-        .deployed-card {
-            background: #10101e;
-            border: 1px solid #1e1e3a;
-            border-radius: 10px;
-            padding: 1.25rem;
-        }
-
-        .deployed-name {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #e0e0f0;
-            margin-bottom: 0.5rem;
-        }
-
-        .deployed-meta {
-            font-size: 0.85rem;
-            color: #6a6a8a;
-            margin-bottom: 0.5rem;
-        }
-
-        .deployed-status-tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-        }
-
-        .dst-live { background: rgba(0,232,176,0.12); color: #00e8b0; }
-        .dst-built { background: rgba(124,108,247,0.12); color: #b8a7ff; }
-        .dst-active { background: rgba(78,168,222,0.12); color: #4ea8de; }
-
-        /* Rejected */
-        .rejected-list { display: grid; gap: 0.5rem; }
-
-        .rejected-item {
-            display: flex;
-            gap: 1rem;
-            align-items: baseline;
-            background: #10101e;
-            border: 1px solid #1a1a2e;
-            border-radius: 8px;
-            padding: 0.9rem 1.25rem;
-        }
-
-        .rejected-name {
-            font-weight: 600;
-            color: #8a8aa0;
-            min-width: 180px;
-            text-decoration: line-through;
-            text-decoration-color: rgba(224,80,96,0.3);
-        }
-
-        .rejected-reason {
-            font-size: 0.85rem;
-            color: #5a5a7a;
-        }
-
-        /* Decisions */
-        .decision-list { display: grid; gap: 0.75rem; }
-
-        .decision-card {
-            background: linear-gradient(135deg, #1a1220, #201430);
-            border: 1px solid #3a2850;
-            border-left: 3px solid #7c6cf7;
-            border-radius: 10px;
-            padding: 1.25rem;
-            transition: all 0.2s;
-        }
-
-        .decision-card.toggled-do {
-            background: linear-gradient(135deg, #1a2a1a, #203a20);
-            border-left-color: #00e8b0;
-            opacity: 0.75;
-        }
-
-        .decision-card.toggled-skip {
-            background: linear-gradient(135deg, #2a1a1a, #3a2020);
-            border-left-color: #e05060;
-            opacity: 0.6;
-        }
-
-        .decision-label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.4rem;
-        }
-
-        .decision-urgent { color: #e05060; }
-        .decision-normal { color: #f0a030; }
-
-        .decision-text {
-            font-size: 0.95rem;
-            color: #d0d0e0;
-            line-height: 1.5;
-            margin-bottom: 0.75rem;
-        }
-
-        .decision-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .decision-btn {
-            padding: 0.4rem 0.9rem;
-            border: 1px solid;
-            background: none;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .decision-btn-do {
-            color: #00e8b0;
-            border-color: #00e8b0;
-        }
-
-        .decision-btn-do:hover {
-            background: rgba(0,232,176,0.1);
-        }
-
-        .decision-btn-skip {
-            color: #e05060;
-            border-color: #e05060;
-        }
-
-        .decision-btn-skip:hover {
-            background: rgba(224,80,96,0.1);
-        }
-
-        /* Predictions Panel */
-        .predictions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .prediction-card {
-            background: linear-gradient(135deg, #12122a, #161636);
-            border: 1px solid #2a2a4e;
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.25s ease;
-        }
-
-        .prediction-card:hover {
-            border-color: #7c6cf7;
-            box-shadow: 0 6px 24px rgba(124,108,247,0.12);
-            transform: translateY(-2px);
-        }
-
-        .prediction-claim {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #f0f0ff;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .prediction-meta {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .prediction-meta-item {
-            background: rgba(255,255,255,0.03);
-            border-radius: 6px;
-            padding: 0.6rem 0.75rem;
-        }
-
-        .prediction-meta-label {
-            font-size: 0.7rem;
-            color: #5a5a7a;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .prediction-meta-value {
-            font-size: 0.9rem;
-            color: #d0d0e0;
-            font-weight: 600;
-        }
-
-        .prediction-countdown {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 0.75rem;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .countdown-urgent {
-            background: rgba(224,80,96,0.15);
-            color: #e05060;
-            border: 1px solid rgba(224,80,96,0.3);
-        }
-
-        .countdown-medium {
-            background: rgba(240,160,48,0.15);
-            color: #f0a030;
-            border: 1px solid rgba(240,160,48,0.3);
-        }
-
-        .countdown-relaxed {
-            background: rgba(0,232,176,0.15);
-            color: #00e8b0;
-            border: 1px solid rgba(0,232,176,0.3);
-        }
-
-        /* Calibration Section */
-        .calibration-panel {
-            background: linear-gradient(135deg, #12122a 0%, #1a1a3a 100%);
-            border: 1px solid #2a2a4e;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .calibration-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .calibration-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #7c6cf7;
-        }
-
-        .calibration-toggle {
-            font-size: 1.2rem;
-            color: #7c6cf7;
-            transition: transform 0.2s;
-        }
-
-        .calibration-toggle.open {
-            transform: rotate(180deg);
-        }
-
-        .calibration-content {
-            display: none;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #2a2a4e;
-        }
-
-        .calibration-content.open {
-            display: grid;
-        }
-
-        .calibration-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .calibration-item {
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            padding: 1rem;
-        }
-
-        .calibration-label {
-            font-size: 0.7rem;
-            color: #5a5a7a;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.4rem;
-        }
-
-        .calibration-value {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #d0d0e0;
-            margin-bottom: 0.25rem;
-        }
-
-        .calibration-meta {
-            font-size: 0.75rem;
-            color: #6a6a8a;
-        }
-
-        .base-rates-list {
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1rem;
-        }
-
-        .base-rate-item {
-            display: grid;
-            grid-template-columns: 1fr 80px;
-            gap: 1rem;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .base-rate-item:last-child {
-            border-bottom: none;
-        }
-
-        .base-rate-name {
-            font-size: 0.85rem;
-            color: #c8c8d8;
-        }
-
-        .base-rate-value {
-            font-weight: 700;
-            color: #7c6cf7;
-            text-align: right;
-        }
-
-        .learning-entry {
-            background: rgba(0,0,0,0.2);
-            border-left: 3px solid #4ea8de;
-            border-radius: 6px;
-            padding: 0.75rem;
-            margin-top: 0.5rem;
-            font-size: 0.85rem;
-        }
-
-        .learning-date {
-            color: #5a5a7a;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 0.05em;
-        }
-
-        .learning-type {
-            color: #4ea8de;
-            font-weight: 600;
-            margin: 0.3rem 0;
-        }
-
-        .learning-insight {
-            color: #8a8aa8;
-            line-height: 1.5;
-        }
-
-        /* Next Steps in opp card */
-        .next-steps { margin-top: 0.75rem; }
-
-        .next-step-item {
-            font-size: 0.82rem;
-            color: #7a7a9a;
-            padding: 0.3rem 0 0.3rem 1rem;
-            position: relative;
-        }
-
-        .next-step-item::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: #7c6cf7;
-        }
-
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 4rem;
-            color: #6a6a8a;
-            font-size: 1.1rem;
-        }
-
-        .loading-spinner {
-            width: 40px; height: 40px;
-            border: 3px solid #1e1e3a;
-            border-top-color: #7c6cf7;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Error */
-        .error-msg {
-            background: rgba(224,80,96,0.08);
-            border: 1px solid rgba(224,80,96,0.3);
-            border-radius: 10px;
-            padding: 1.5rem;
-            color: #e05060;
-            text-align: center;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #3a3a5a;
-            font-size: 0.8rem;
-            border-top: 1px solid #1a1a2e;
-            margin-top: 3rem;
-        }
-
-        /* Demo Mode */
-        .demo-toggle {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(124,108,247,0.08);
-            border: 1px solid rgba(124,108,247,0.3);
-            color: #7c6cf7;
-            padding: 0.4rem 0.9rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-
-        .demo-toggle:hover {
-            background: rgba(124,108,247,0.15);
-            border-color: rgba(124,108,247,0.5);
-        }
-
-        .demo-toggle.active {
-            background: rgba(0,232,176,0.1);
-            border-color: rgba(0,232,176,0.4);
-            color: #00e8b0;
-        }
-
-        body.demo-mode .calibration-panel,
-        body.demo-mode #panel-rejected,
-        body.demo-mode #panel-predictions,
-        body.demo-mode #panel-decisions,
-        body.demo-mode .sim-section,
-        body.demo-mode .prob-timeline,
-        body.demo-mode .evidence-toggle,
-        body.demo-mode .evidence-list,
-        body.demo-mode .next-steps { display: none !important; }
-
-        body.demo-mode .tab-btn[data-tab="rejected"],
-        body.demo-mode .tab-btn[data-tab="predictions"],
-        body.demo-mode .tab-btn[data-tab="decisions"] { display: none; }
-
-        body.demo-mode .logo::after {
-            content: ' × Mote Ops';
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #00e8b0;
-        }
-
-        body.demo-mode .opp-card {
-            border-color: #2a2a5e;
-        }
-
-        /* Evolution Tracker */
-        .evolution-bar {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: rgba(124,108,247,0.06);
-            border: 1px solid #1e1e3a;
-            border-radius: 8px;
-            padding: 0.75rem 1.25rem;
-            margin-bottom: 1.5rem;
-            font-size: 0.85rem;
-        }
-
-        .evolution-label {
-            color: #5a5a7a;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        .evolution-cycles {
-            display: flex;
-            gap: 0.3rem;
-        }
-
-        .cycle-dot {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            background: #2a2a4e;
-        }
-
-        .cycle-dot.completed { background: #7c6cf7; }
-        .cycle-dot.current { background: #00e8b0; box-shadow: 0 0 6px rgba(0,232,176,0.4); }
-
-        .evolution-text {
-            color: #8a8aa8;
-            flex: 1;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .stats-row { grid-template-columns: repeat(3, 1fr); }
-            .thesis-row { grid-template-columns: 1fr; }
-            .opp-grid { grid-template-columns: 1fr; }
-            .header-stats { flex-direction: column; gap: 0.5rem; }
-        }
-
-        @media (max-width: 600px) {
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
-            main { padding: 1rem; }
-            header { padding: 1rem; }
-            .opp-meta-grid { grid-template-columns: 1fr; }
-            .header-right { flex-direction: column; gap: 0.5rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mote Ops — Mission Control</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0e17;--surface:#111827;--card:#1a2234;--border:#2a3548;
+  --text:#e2e8f0;--muted:#94a3b8;--accent:#3b82f6;
+  --green:#22c55e;--yellow:#eab308;--blue:#3b82f6;--red:#ef4444;--purple:#a855f7;--cyan:#06b6d4;
+  --green-bg:rgba(34,197,94,.12);--yellow-bg:rgba(234,179,8,.12);--blue-bg:rgba(59,130,246,.12);--red-bg:rgba(239,68,68,.12);--purple-bg:rgba(168,85,247,.12);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;padding:0 0 4rem}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Header */
+.header{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);padding:1.5rem 1rem;text-align:center;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header h1{font-size:1.4rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(135deg,#60a5fa,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header .subtitle{color:var(--muted);font-size:.75rem;margin-top:.25rem;letter-spacing:.05em}
+.header .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.5)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(34,197,94,0)}}
+
+/* Stats bar */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;padding:.75rem 1rem;background:var(--surface);border-bottom:1px solid var(--border)}
+.stat{text-align:center}
+.stat .num{font-size:1.25rem;font-weight:700;color:var(--accent)}
+.stat .label{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+
+/* Section */
+.section{padding:1rem}
+.section-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:.75rem;transition:border-color .2s}
+.card:hover{border-color:var(--accent)}
+.card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem}
+.card-title{font-size:.9rem;font-weight:600}
+.badge{font-size:.6rem;padding:3px 8px;border-radius:20px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.badge-live{background:var(--green-bg);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.badge-auto{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(59,130,246,.3)}
+.badge-action{background:var(--yellow-bg);color:var(--yellow);border:1px solid rgba(234,179,8,.3)}
+.badge-built{background:var(--purple-bg);color:var(--purple);border:1px solid rgba(168,85,247,.3)}
+.badge-blocked{background:var(--red-bg);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.card-desc{font-size:.8rem;color:var(--muted);margin-bottom:.5rem}
+.card-meta{display:flex;flex-wrap:wrap;gap:.5rem;font-size:.7rem;color:var(--muted)}
+.meta-tag{background:rgba(255,255,255,.05);padding:2px 8px;border-radius:6px}
+
+/* Funnel */
+.funnel{display:flex;flex-direction:column;gap:2px;padding:0 1rem}
+.funnel-step{display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:.78rem;position:relative}
+.funnel-step .step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;flex-shrink:0}
+.funnel-step .arrow{color:var(--muted);font-size:.7rem;text-align:center;flex-shrink:0}
+.funnel-connector{width:2px;height:12px;background:var(--border);margin-left:2rem}
+.f-blue .step-num{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(59,130,246,.3)}
+.f-green .step-num{background:var(--green-bg);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.f-yellow .step-num{background:var(--yellow-bg);color:var(--yellow);border:1px solid rgba(234,179,8,.3)}
+.f-purple .step-num{background:var(--purple-bg);color:var(--purple);border:1px solid rgba(168,85,247,.3)}
+.f-cyan .step-num{background:rgba(6,182,212,.12);color:var(--cyan);border:1px solid rgba(6,182,212,.3)}
+
+/* Pricing */
+.pricing-grid{display:grid;grid-template-columns:1fr;gap:.5rem}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem;text-align:center}
+.price-card .price{font-size:1.1rem;font-weight:700;color:var(--accent)}
+.price-card .tier{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:.15rem}
+.price-card .detail{font-size:.72rem;color:var(--muted);margin-top:.25rem}
+
+/* Verticals */
+.verticals{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem}
+.vert{font-size:.62rem;padding:3px 7px;border-radius:6px;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border)}
+.vert.hot{background:var(--green-bg);color:var(--green);border-color:rgba(34,197,94,.25)}
+
+/* Action items */
+.action-list{list-style:none}
+.action-list li{display:flex;align-items:flex-start;gap:.5rem;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.8rem}
+.action-list li:last-child{border:0}
+.action-icon{font-size:.9rem;flex-shrink:0;margin-top:1px}
+
+/* Alert banner */
+.alert{margin:1rem;padding:.75rem 1rem;border-radius:10px;font-size:.78rem;display:flex;align-items:flex-start;gap:.5rem}
+.alert-warn{background:var(--red-bg);border:1px solid rgba(239,68,68,.3);color:var(--red)}
+.alert-warn strong{color:#fca5a5}
+
+/* Market intel */
+.intel-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.intel-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.6rem;text-align:center}
+.intel-card .val{font-size:1rem;font-weight:700}
+.intel-card .lbl{font-size:.6rem;color:var(--muted);text-transform:uppercase;margin-top:.15rem}
+
+/* Timestamp */
+.timestamp{text-align:center;padding:1rem;font-size:.65rem;color:var(--muted)}
+
+@media(min-width:640px){
+  .stats-bar{grid-template-columns:repeat(4,1fr);max-width:600px;margin:0 auto}
+  .section{max-width:600px;margin:0 auto}
+  .funnel{max-width:600px;margin:0 auto}
+  .alert{max-width:600px;margin:1rem auto}
+  .pricing-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
 </head>
 <body>
-    <header>
-        <div class="header-inner">
-            <div class="logo">Side Gig Bot</div>
-            <div class="header-right">
-                <div class="header-stats" id="header-stats"></div>
-                <button class="demo-toggle" id="demo-toggle" onclick="document.body.classList.toggle('demo-mode'); this.classList.toggle('active'); this.textContent = this.classList.contains('active') ? '← Back to Intel' : 'Client Demo Mode';">Client Demo Mode</button>
-                <div class="live-badge"><span class="live-dot"></span> Live Intelligence</div>
-                <div class="date-display" id="header-date"></div>
-            </div>
-        </div>
-    </header>
 
-    <main>
-        <div id="loading" class="loading">
-            <div class="loading-spinner"></div>
-            Loading intelligence data...
-        </div>
-        <div id="content" style="display:none;">
-            <!-- Daily Brief -->
-            <div class="daily-brief">
-                <div class="brief-label">Daily Intelligence Brief</div>
-                <div class="brief-text" id="daily-brief"></div>
-            </div>
+<!-- HEADER -->
+<div class="header">
+  <h1><span class="pulse"></span> Mote Ops Mission Control</h1>
+  <div class="subtitle">Session 4 &middot; Updated April 2, 2026</div>
+</div>
 
-            <!-- Evolution Tracker -->
-            <div class="evolution-bar" id="evolution-bar"></div>
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat"><div class="num">3</div><div class="label">Live Systems</div></div>
+  <div class="stat"><div class="num" style="color:var(--blue)">3</div><div class="label">Automations</div></div>
+  <div class="stat"><div class="num" style="color:var(--yellow)">5</div><div class="label">Need Action</div></div>
+  <div class="stat"><div class="num" style="color:var(--red)">$0</div><div class="label">Revenue</div></div>
+</div>
 
-            <!-- Stats Row -->
-            <div class="stats-row" id="stats-row"></div>
+<!-- CRITICAL ALERT -->
+<div class="alert alert-warn">
+  <span style="font-size:1.1rem">&#9888;</span>
+  <div><strong>Pattern detected:</strong> 3 sessions of planning, zero market contact. All systems built. Execution is the only remaining variable.</div>
+</div>
 
-            <!-- Thesis Cards -->
-            <div class="thesis-row">
-                <div class="thesis-card">
-                    <div class="brief-label weekly">Weekly Thesis</div>
-                    <div class="thesis-text" id="weekly-thesis"></div>
-                </div>
-                <div class="thesis-card">
-                    <div class="brief-label monthly">Monthly Outlook</div>
-                    <div class="thesis-text" id="monthly-outlook"></div>
-                </div>
-            </div>
+<!-- SECTION 1: ACTIVE PROJECTS -->
+<div class="section">
+  <div class="section-title">Active Projects</div>
 
-            <!-- Calibration Panel -->
-            <div class="calibration-panel" id="calibration-panel"></div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Landing Page + Quiz</div>
+      <span class="badge badge-live">&#9679; Live</span>
+    </div>
+    <div class="card-desc">21-industry interactive questionnaire with savings calculator, personalized AI recommendations, business name + website capture, contact form.</div>
+    <div class="card-meta">
+      <span class="meta-tag">GitHub Pages</span>
+      <span class="meta-tag">$0/mo</span>
+    </div>
+    <div style="margin-top:.5rem"><a href="https://mikedmote52.github.io/moteops-landing/" style="font-size:.75rem">mikedmote52.github.io/moteops-landing/ &#8599;</a></div>
+  </div>
 
-            <!-- Tabs -->
-            <div class="tab-bar" id="tab-bar"></div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Intelligence Dashboard v3</div>
+      <span class="badge badge-live">&#9679; Live</span>
+    </div>
+    <div class="card-desc">Research Cycle 3 data. 61 opportunities scanned, 10 vetted, 6 active plays. Client demo mode, evolution tracker, Brier score calibration.</div>
+    <div class="card-meta">
+      <span class="meta-tag">GitHub Pages</span>
+      <span class="meta-tag">Demo Mode</span>
+    </div>
+    <div style="margin-top:.5rem"><a href="https://mikedmote52.github.io/moteops-landing/sidegigbot.html" style="font-size:.75rem">sidegigbot.html &#8599;</a></div>
+  </div>
 
-            <!-- Tab Panels -->
-            <div id="panel-opportunities" class="tab-panel active"></div>
-            <div id="panel-signals" class="tab-panel"></div>
-            <div id="panel-deployed" class="tab-panel"></div>
-            <div id="panel-rejected" class="tab-panel"></div>
-            <div id="panel-decisions" class="tab-panel"></div>
-            <div id="panel-predictions" class="tab-panel"></div>
-        </div>
-        <div id="error" style="display:none;"></div>
-    </main>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Proposal Engine</div>
+      <span class="badge badge-built">Built</span>
+    </div>
+    <div class="card-desc">PDF generator (reportlab) + email sender + Flask webhook handler. Generates personalized proposals from quiz data. Render deployment configured.</div>
+    <div class="card-meta">
+      <span class="meta-tag">Python/Flask</span>
+      <span class="meta-tag">Render (free)</span>
+      <span class="meta-tag">render.yaml ready</span>
+    </div>
+  </div>
 
-    <footer>
-        <span id="footer-updated"></span> &middot; Data: <code>data/opportunities.json</code> &middot; Side Gig Bot v3 &middot; Research Cycle 3
-    </footer>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Website Analyzer</div>
+      <span class="badge badge-built">Built</span>
+    </div>
+    <div class="card-desc">Scrapes prospect websites, analyzes with OpenRouter/Haiku, generates technology and automation opportunity insights for proposals.</div>
+    <div class="card-meta">
+      <span class="meta-tag">Python</span>
+      <span class="meta-tag">OpenRouter API</span>
+      <span class="meta-tag">Claude Haiku</span>
+    </div>
+  </div>
+</div>
 
-    <script>
-    (function() {
-        const $ = id => document.getElementById(id);
+<!-- SECTION 2: AUTOMATED SYSTEMS -->
+<div class="section">
+  <div class="section-title">Automated Systems Running</div>
 
-        // Set header date
-        $('header-date').textContent = new Date().toLocaleDateString('en-US', {
-            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-        });
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Daily Prospect Scanner</div>
+      <span class="badge badge-auto">&#9889; Auto</span>
+    </div>
+    <div class="card-desc">Scans Reddit + Upwork for AI automation leads matching Mote Ops service catalog. Scores and ranks opportunities.</div>
+    <div class="card-meta">
+      <span class="meta-tag">8:00 AM Daily</span>
+      <span class="meta-tag">4 scans logged</span>
+      <span class="meta-tag">61 opportunities found</span>
+    </div>
+  </div>
 
-        // Load data — try fetch first (works on servers), fall back to embedded data (works on file://)
-        const EMBEDDED_DATA = {"lastUpdated":"2026-04-01T16:00:00Z","researchCycle":3,"schemaVersion":"2.0","summary":{"totalOpportunitiesScanned":61,"vetted":10,"readyToDeploy":2,"inSimulation":2,"rejected":37},"dailyBrief":"Research Cycle 3 brings significant market validation. The AI consulting market hits $11.07B in 2026 with 26.2% CAGR — fractional CAIO demand is accelerating faster than supply of qualified leaders. Mid-market retainers now command $15K-30K/month, validating our positioning even at the SMB tier. Meanwhile, the missed-call text-back space has gotten more competitive — GoHighLevel added Voice AI, and AgentZap and Donna AI are both active — but the pain data is stronger than ever at $45K-120K in annual losses per contractor. The consulting industry is bifurcating into global scale providers and niche boutiques, which is exactly the Mote Ops thesis. Priority: close first consulting client within 30 days.","weeklyThesis":"The fractional AI consulting play just got stronger. The consulting industry is splitting into two camps — massive firms and specialized boutiques — with the mid-market collapsing. This validates the Mote Ops positioning as a niche AI implementation boutique. Fractional CAIO retainers at mid-market are $15K-30K/month, which means even at the SMB tier at $2K-5K/month, we're dramatically underpriced relative to the value delivered. The key insight from this cycle: 67% of small businesses using AI automation saw 20%+ revenue growth, but most need implementation help. The product plays (missed-call, review response) face stiffer competition from GoHighLevel and vertical-specific startups, but the consulting play has LESS competition because it requires human expertise that can't be commoditized.","monthlyOutlook":"AI consulting services market projected at $11.07B for 2026, growing to $90.99B by 2035. The agentic AI wave is shifting from 'what could AI do' to 'what should individual agents achieve' — businesses want dozens of small specialized agents, not one monolithic AI. This plays directly into the consulting model (we help design and deploy the agent architecture) and the n8n template packs (pre-built agent workflows). Competitive landscape: missed-call space getting crowded (GoHighLevel Voice AI, AgentZap, Donna AI, LeadTruffle, Sameday), but the consulting/implementation lane remains wide open. The meta-trend holds: people making real money are selling AI implementation, not building consumer AI tools.","calibration":{"totalPredictions":7,"resolvedPredictions":0,"brierScore":null,"calibrationStatus":"Cycle 3 — Probabilities updated with new market data","baseRates":{"productMarketFit":{"value":0.35,"label":"Product reaches 10+ paying customers","source":"Historical SaaS baseline"},"verticalizationEffect":{"value":0.55,"label":"Vertical-specific SaaS outperforms horizontal","source":"Gartner 2025"},"consultingConversion":{"value":0.4,"label":"Service offering converts to paying client","source":"Sales baseline"},"fractionalCaioRetainerConversion":{"value":0.52,"label":"Fractional CAIO: client in 60 days","source":"Updated with April 2026 market validation"}},"learnings":[{"date":"2026-03-20","type":"market_validation","insight":"Vertical-specific SaaS for home services (plumber/HVAC) is validated by multiple case studies showing ROI, but competitive intensity is rising."},{"date":"2026-03-30","type":"probability_update","insight":"All plays trended up or flat as more evidence emerged. Fractional CAIO showing strongest signal."},{"date":"2026-03-30","type":"strategic_insight","insight":"Service/consulting layer is the true differentiator. Products alone are commoditizing. Adding implementation services (e.g., 'we deploy your AI system') may be the unlock."},{"date":"2026-04-01","type":"probability_update","insight":"Play 6 probability increased to 52% based on new evidence: fractional CAIO demand accelerating, consulting industry bifurcation validates niche positioning, $15K-30K/month retainer range at mid-market means SMB tier ($2K-5K/month) is dramatically underpriced."},{"date":"2026-04-01","type":"competitive_shift","insight":"Play 1 probability decreased from 35% to 30%. GoHighLevel Voice AI, AgentZap, and Donna AI have entered the missed-call space. Lane is narrower. Differentiation must come from vertical expertise and done-for-you implementation, not the product alone."},{"date":"2026-04-01","type":"market_validation","insight":"67% of AI-adopting SMBs saw 20%+ revenue growth (McKinsey). This is the strongest ROI datapoint for consulting pitch. Frame as: 'Companies like yours that implement AI automation see 20% revenue growth. We make that happen in 90 days.'"}]},"opportunities":[{"id":"opp-001","name":"AI Missed-Call Text-Back for Home Services","status":"ready_to_deploy","tier":1,"category":"Vertical SaaS","description":"AI system that instantly texts back missed calls for plumbers/HVAC/electricians, qualifies the lead via SMS, and books appointments.","revenueModel":"$149-299/month per business","competitorAnalysis":"Avoca AI ($47.8M raised) targets enterprise. GoHighLevel added Voice AI. AgentZap, Donna AI, LeadTruffle active in the space. Direct-to-contractor lane at $149-299/month getting narrower but pain is well-documented.","simulation":{"probabilityFirstClient60Days":0.3,"probabilityRevenue1kMonth6Mo":0.22,"probabilityRevenue5kMonth12Mo":0.1,"estimatedBuildTime":"2 weeks","estimatedCostToLaunch":"$0-20","moatStrength":"Low-Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.3},{"cycle":2,"date":"2026-03-30","value":0.35},{"cycle":3,"date":"2026-04-01","value":0.3}],"predictions":[{"claim":"Get first customer inquiry within 60 days","probability":0.3,"resolutionDate":"2026-05-29"}],"evidence":["BookedIn verified $51,312 MRR on TrustMRR (13% MoM growth)","Only 14% of small businesses have integrated AI","Avoca AI raised $47.8M — validates market","Wayne Conn Plumbing: $6,285 revenue in 2 weeks from AI receptionist","Rodriguez Plumbing: 47 jobs/month booked from AI, ~$15K recovered","Aire Serv HVAC: after-hours bookings jumped from 58 to 208","Missed calls cost contractors $45K-$120K annually (InstantBusinessPro, 2026)","GoHighLevel Voice AI now answers inbound calls and books appointments","AgentZap: leading AI receptionist for plumbers, 24/7 emergency detection","Donna AI: users see 3x increase in booked appointments"],"nextSteps":["Build n8n workflow: Twilio → AI SMS → Calendar booking","Create landing page targeting plumber/HVAC contractors","Differentiate from GoHighLevel: offer done-for-you setup + vertical expertise","Target contractors not already on GoHighLevel platform"]},{"id":"opp-002","name":"AI Review Response System for Local Businesses","status":"ready_to_deploy","tier":1,"category":"Vertical SaaS","description":"AI monitors Google/Yelp reviews, drafts personalized responses, sends for one-tap approval via text.","revenueModel":"$49-99/month per business","simulation":{"probabilityFirstClient60Days":0.35,"probabilityRevenue1kMonth6Mo":0.25,"probabilityRevenue5kMonth12Mo":0.12,"estimatedBuildTime":"2-3 weeks","estimatedCostToLaunch":"$0","moatStrength":"Low-Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.28},{"cycle":2,"date":"2026-03-30","value":0.35},{"cycle":3,"date":"2026-04-01","value":0.35}],"predictions":[{"claim":"Build working prototype by mid-April","probability":0.65,"resolutionDate":"2026-04-15"}],"evidence":["Google confirmed review responses affect local search ranking","BigIdeasDB validated centralized review management need","Podium/Birdeye priced out of single-location market"],"nextSteps":["Build n8n workflow: Google Business Profile → AI → SMS approval","Demo with sample reviews","Price at $49/month, undercut Podium by 80%"]},{"id":"opp-003","name":"InstantProposal — AI Proposal Generator","status":"deployed","tier":1,"category":"Micro-SaaS","deployedUrl":"https://mikedmote52.github.io/instant-proposal/","description":"Web tool where contractors describe a job and get a branded proposal PDF in 60 seconds.","revenueModel":"Freemium: free 5/month, $9.99/month unlimited","simulation":{"probabilityRevenue500Month3Mo":0.25,"probabilityRevenue2kMonth6Mo":0.15,"probabilityRevenue5kMonth12Mo":0.08,"estimatedBuildTime":"Built — deployed","estimatedCostToLaunch":"$0","moatStrength":"Low — competition intensified"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.25},{"cycle":2,"date":"2026-03-30","value":0.25},{"cycle":3,"date":"2026-04-01","value":0.25}],"predictions":[{"claim":"Product Hunt launch drives 100+ signups","probability":0.4,"resolutionDate":"2026-04-30"}],"evidence":["238k+ complaints validate proposal writing as pain point","First quote usually wins the job","Proposal Genie: 50K+ users on Upwork","Bookipi offering free AI proposals","Market evolving to structured revenue systems"],"nextSteps":["PIVOT: Target offline contractors, not freelancers","SEO blog posts for contractor keywords","Product Hunt launch","Add AI description generation"]},{"id":"opp-004","name":"Vertical n8n Automation Packs","status":"in_simulation","tier":2,"category":"Digital Products","description":"Bundled n8n workflows for specific industries. 8-12 workflows per vertical.","revenueModel":"$79-149 per pack or $29/month","simulation":{"probabilityRevenue500Month3Mo":0.25,"probabilityRevenue2kMonth6Mo":0.12,"estimatedBuildTime":"3-4 weeks","estimatedCostToLaunch":"$0","moatStrength":"Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.2},{"cycle":2,"date":"2026-03-30","value":0.25},{"cycle":3,"date":"2026-04-01","value":0.25}],"predictions":[{"claim":"Dental practice pack sells 5 copies","probability":0.3,"resolutionDate":"2026-06-30"}],"evidence":["One creator documented $3,200/mo from 5 templates","No vertical-specific packs found","n8n marketplace: 6,137+ workflows","Mega-packs flooding market at $30","Agentic AI trend: businesses want dozens of specialized agents per business"],"nextSteps":["Fix n8n API connection (404 error, URL may need update)","Research dental practice workflows","Build first pack: Dental AI Stack","Price at $149, include implementation upsell at $5K"]},{"id":"opp-005","name":"SMS-Based AI Business Assistant","status":"in_simulation","tier":2,"category":"Vertical SaaS","description":"AI assistant over SMS. No app, no login. Business owners text for help with responses, quotes, scheduling.","revenueModel":"$19-49/month","simulation":{"probabilityRevenue500Month6Mo":0.2,"estimatedBuildTime":"4-6 weeks","estimatedCostToLaunch":"$20-50/mo","moatStrength":"Medium-High"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.18},{"cycle":2,"date":"2026-03-30","value":0.2},{"cycle":3,"date":"2026-04-01","value":0.2}],"evidence":["Apple RCS support in iOS 18","83% of businesses using AI for SMS support","RCS adopters seeing 2-3x higher click-through"],"nextSteps":["Prototype Twilio → AI pipeline","Test with 3-5 local businesses","Calculate unit economics"]},{"id":"opp-006","name":"Fractional AI Implementation Consultant","status":"active_pursuit","tier":1,"category":"Service / Consulting","description":"Position as fractional CAIO for small-to-mid-market businesses. 8-20 hours/month per client. Help identify AI opportunities, select tools, implement workflows, measure ROI. No product to build.","revenueModel":"$2K-$8K/month retainer, $5K-$25K projects","simulation":{"probabilityFirstClient60Days":0.52,"probabilityRevenue1kMonth6Mo":0.6,"estimatedBuildTime":"1 week (packaging)","estimatedCostToLaunch":"$0","moatStrength":"Medium-High"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.4},{"cycle":2,"date":"2026-03-30","value":0.45},{"cycle":3,"date":"2026-04-01","value":0.52}],"predictions":[{"claim":"Land first AI implementation client by May 31","probability":0.52,"resolutionDate":"2026-05-31"}],"evidence":["91% mid-market using AI, only 34% feel transformed","70% execs need outside help","Full-time CAIO costs $400K+ — fractional at 20-40% cost","68% small businesses using AI, most need optimization","88% of orgs using AI in at least one function","AI consulting market: $11.07B in 2026, 26.2% CAGR to $90.99B by 2035","Fractional CAIO retainers at mid-market: $15K-30K/month","67% of SMBs using AI saw 20%+ revenue growth (McKinsey)","Consulting industry bifurcating: global players + niche boutiques, mid-market collapsing","Faye Digital launched fractional CAIO services specifically for mid-market (validates positioning)","Demand for fractional CAIOs accelerating faster than supply of qualified leaders"],"nextSteps":["Package 90-Day AI Transformation offer with tiered pricing","Create AI readiness assessment quiz (doubles as lead gen)","Build service page on moteops-landing site","Identify 10 local businesses to pitch this week","LinkedIn content: 3 posts about AI implementation ROI","Reach out to mom's daycare for case study #1","Draft 5 cold outreach email templates"]}],"rejectedOpportunities":[{"name":"AI-powered FAQ generator for websites","reason":"HubSpot, Zendesk, and Intercom already built this in. No differentiation."},{"name":"Generic chatbot builder","reason":"Market flooded with low-cost options (ChatBase, Chatwidget). Commoditized."},{"name":"Email cold outreach automation","reason":"Apollo, Hunter, Lemlist dominate. Regulatory risk (GDPR, CAN-SPAM) makes margins thin."},{"name":"Social media content scheduler for personal brands","reason":"Buffer, Hootsuite, Later compete on features and price. No unique angle."},{"name":"AI-powered time tracking for freelancers","reason":"Toggl, Harvest, Clockify already solution-complete. Switching costs are high."},{"name":"Automated invoice generator","reason":"Stripe Invoicing, Wave, QuickBooks have this. Customer acquisition cost prohibitive."},{"name":"Lead scoring for sales teams","reason":"Salesforce, HubSpot, Outreach integrated it. Enterprise adoption is low-moat."},{"name":"Generic chatbot marketplace","reason":"GPTStore proved consumer interest in ChatGPT assistants is low. B2B 'marketplaces' have terrible unit economics."},{"name":"AI tool aggregator / directory","reason":"Futuretools, There's an AI for That already exist. SEO arbitrage play not defensible."},{"name":"Generic AI voice agent platform","reason":"GoHighLevel, AgentZap, Donna AI already competing. No differentiation without vertical focus."}],"signals":[{"date":"2026-03-20","signal":"BookedIn validated $51,312 MRR on TrustMRR with 13% MoM growth","source":"TrustMRR","impact":"high"},{"date":"2026-03-20","signal":"Only 14% of small businesses have integrated AI solutions","source":"McKinsey / Industry Analysis","impact":"high"},{"date":"2026-03-20","signal":"Avoca AI raised $47.8M Series B, validating enterprise missed-call market","source":"TechCrunch","impact":"high"},{"date":"2026-03-20","signal":"Wayne Conn Plumbing: $6,285 revenue from AI receptionist in 2 weeks","source":"Case study / Client data","impact":"high"},{"date":"2026-03-20","signal":"Missed calls cost contractors average $50K annually","source":"Industry research","impact":"high"},{"date":"2026-03-25","signal":"Google Search rankings favor businesses with review responses","source":"Google Search Central","impact":"high"},{"date":"2026-03-25","signal":"Podium and Birdeye priced out of single-location market at $99+/month","source":"Pricing research","impact":"medium"},{"date":"2026-03-28","signal":"n8n marketplace now has 6,137+ workflows available","source":"n8n marketplace","impact":"medium"},{"date":"2026-03-28","signal":"One n8n creator documented $3,200/month from selling 5 templates","source":"Community reports / Case study","impact":"medium"},{"date":"2026-03-30","signal":"Micro-SaaS segment growing 30% annually, projected $15.7B to $59.6B by 2030","source":"Industry analysis","impact":"medium"},{"date":"2026-03-30","signal":"91% of mid-market companies using AI, but only 34% feel 'transformed'","source":"McKinsey 2025 AI Report","impact":"high"},{"date":"2026-03-30","signal":"70% of C-suite executives say they need outside help with AI implementation","source":"Harvard Business Review / Executive Survey","impact":"high"},{"date":"2026-03-30","signal":"88% of organizations are using AI in at least one business function","source":"Gartner 2025 AI Adoption Report","impact":"high"},{"date":"2026-03-30","signal":"Full-time Chief AI Officer costs $400K+ annually; fractional model at 20-40% of cost","source":"Salary analysis / Market research","impact":"high"},{"date":"2026-03-30","signal":"Faye Digital launches fractional CAIO services for mid-market","source":"PRNewswire","impact":"medium"},{"date":"2026-03-30","signal":"Apple iOS 18 adds RCS support, enabling richer SMS experiences","source":"Apple WWDC","impact":"medium"},{"date":"2026-03-30","signal":"SaaS industry now at $375B total market size, accelerating consolidation","source":"Industry research","impact":"medium"},{"date":"2026-04-01","signal":"AI consulting market: $11.07B in 2026, growing 26.2% CAGR to $90.99B by 2035","source":"ColorWhistle / Market Research","impact":"high"},{"date":"2026-04-01","signal":"67% of small businesses using AI automation saw 20%+ revenue growth","source":"McKinsey 2025 Report","impact":"high"},{"date":"2026-04-01","signal":"Fractional CAIO retainers: $15K-30K/month at mid-market level","source":"Faye Digital / Sprinklenet","impact":"high"},{"date":"2026-04-01","signal":"Consulting industry bifurcating: global players + niche boutiques, mid-market collapsing","source":"AlphaSense / Digitus Consulting","impact":"high"},{"date":"2026-04-01","signal":"GoHighLevel Voice AI now handles inbound calls and books appointments directly","source":"GHL Services","impact":"high"},{"date":"2026-04-01","signal":"Missed calls cost contractors $45K-$120K annually (up from previous estimates)","source":"InstantBusinessPro.ai","impact":"high"},{"date":"2026-04-01","signal":"Agentic AI focus shift: dozens of small specialized agents per business, not monolithic AI","source":"PwC / AI Business","impact":"medium"},{"date":"2026-04-01","signal":"37% of small businesses use AI, 71% planning to increase investment","source":"Market research","impact":"high"}],"deployedAssets":[{"name":"InstantProposal","url":"https://mikedmote52.github.io/instant-proposal/","status":"live","type":"saas-product","deployedDate":"2026-03-15"},{"name":"AI Automation Starter Kit","url":null,"status":"built_not_listed","type":"digital-product","deployedDate":"2026-03-20"},{"name":"AI Hustle Evaluator","url":null,"status":"built_not_deployed","type":"tool","deployedDate":"2026-03-25"},{"name":"Daily Research Scanner","url":null,"status":"active","type":"automation","schedule":"8am daily","deployedDate":"2026-03-25"},{"name":"Side Gig Bot Intelligence Dashboard","url":"https://mikedmote52.github.io/moteops-landing/sidegigbot.html","status":"live","type":"intelligence-dashboard","deployedDate":"2026-04-01"},{"name":"Mote Ops Landing Page","url":"https://mikedmote52.github.io/moteops-landing/","status":"live","type":"lead-generation","deployedDate":"2026-03-31"}]};
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Weekly Content Calendar</div>
+      <span class="badge badge-auto">&#9889; Auto</span>
+    </div>
+    <div class="card-desc">Generates LinkedIn, Instagram, and Reddit posts every Monday. Content aligned with outreach playbook templates and target verticals.</div>
+    <div class="card-meta">
+      <span class="meta-tag">Mondays 7:00 AM</span>
+      <span class="meta-tag">3 channels</span>
+    </div>
+  </div>
 
-        fetch('./data/opportunities.json')
-            .then(r => { if(!r.ok) throw new Error('fetch failed'); return r.json(); })
-            .then(render)
-            .catch(() => {
-                // file:// protocol blocks fetch — use embedded data instead
-                render(EMBEDDED_DATA);
-            });
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Side Gig Research Scanner</div>
+      <span class="badge badge-auto">&#9889; Auto</span>
+    </div>
+    <div class="card-desc">Market intelligence gathering across AI consulting trends, competitor moves, and pricing signals. Feeds into dashboard and playbook updates.</div>
+    <div class="card-meta">
+      <span class="meta-tag">8:00 AM Daily</span>
+      <span class="meta-tag">Trend monitoring</span>
+    </div>
+  </div>
+</div>
 
-        function render(data) {
-            $('loading').style.display = 'none';
-            $('content').style.display = 'block';
+<!-- SECTION 3: STRATEGY -->
+<div class="section">
+  <div class="section-title">Strategy &amp; Pricing</div>
 
-            // Brief
-            $('daily-brief').textContent = data.dailyBrief || '';
-            $('weekly-thesis').textContent = data.weeklyThesis || '';
-            $('monthly-outlook').textContent = data.monthlyOutlook || '';
+  <div class="card" style="margin-bottom:1rem">
+    <div class="card-title" style="margin-bottom:.5rem">Dual-Track Model</div>
+    <div class="card-desc" style="margin-bottom:.75rem">
+      <strong style="color:var(--green)">Track 1:</strong> Consulting revenue now. Fractional AI automation. $500 audits converting to multi-thousand implementations and retainers.<br>
+      <strong style="color:var(--purple)">Track 2:</strong> AI Readiness Index. Every quiz completion = benchmarking data. 6-12 month accumulation phase, then productize industry reports.
+    </div>
+  </div>
 
-            // Header stats (Research Cycle & Last Scan)
-            const lastScanDate = new Date(data.lastUpdated);
-            const lastScanFormatted = lastScanDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-            $('header-stats').innerHTML = `
-                <div class="header-stat-item">
-                    <div class="header-stat-label">Research Cycle</div>
-                    <div class="header-stat-value">${data.researchCycle || 0}</div>
-                </div>
-                <div class="header-stat-item">
-                    <div class="header-stat-label">Last Scan</div>
-                    <div class="header-stat-value">${lastScanFormatted}</div>
-                </div>
-            `;
+  <div class="pricing-grid">
+    <div class="price-card" style="border-color:rgba(34,197,94,.3)">
+      <div class="price">$500</div>
+      <div class="tier">AI Audit</div>
+      <div class="detail">1-2hr deep dive + recs doc</div>
+    </div>
+    <div class="price-card" style="border-color:rgba(59,130,246,.3)">
+      <div class="price">$2.5-7.5K</div>
+      <div class="tier">Implementation</div>
+      <div class="detail">1-3 weeks, 1-3 workflows</div>
+    </div>
+    <div class="price-card" style="border-color:rgba(168,85,247,.3)">
+      <div class="price">$1-2.5K/mo</div>
+      <div class="tier">Retainer</div>
+      <div class="detail">Ongoing optimization</div>
+    </div>
+  </div>
 
-            // Footer timestamp
-            if (data.lastUpdated) {
-                const d = new Date(data.lastUpdated);
-                $('footer-updated').textContent = 'Last scan: ' + d.toLocaleString();
-            }
+  <div class="card" style="margin-top:.75rem">
+    <div class="card-title" style="margin-bottom:.35rem;font-size:.8rem">Target Verticals (21 industries, 57 automations)</div>
+    <div class="verticals">
+      <span class="vert hot">Childcare &#9733;</span>
+      <span class="vert hot">Cleaning &#9733;</span>
+      <span class="vert hot">Veterinary &#9733;</span>
+      <span class="vert">HVAC</span><span class="vert">Plumbing</span><span class="vert">Legal</span>
+      <span class="vert">Real Estate</span><span class="vert">Dental</span><span class="vert">Auto Repair</span>
+      <span class="vert">Landscaping</span><span class="vert">Restaurants</span><span class="vert">Fitness</span>
+      <span class="vert">Accounting</span><span class="vert">Salons</span><span class="vert">Insurance</span>
+      <span class="vert">E-commerce</span><span class="vert">Photography</span><span class="vert">Tutoring</span>
+      <span class="vert">Pet Services</span><span class="vert">Home Staging</span><span class="vert">Event Planning</span>
+    </div>
+    <div style="margin-top:.4rem;font-size:.65rem;color:var(--muted)">&#9733; = Underserved, highest opportunity</div>
+  </div>
+</div>
 
-            // Stats
-            const s = data.summary || {};
-            $('stats-row').innerHTML = [
-                { n: s.totalOpportunitiesScanned||0, l:'Scanned', c:'purple' },
-                { n: s.vetted||0, l:'Vetted', c:'blue' },
-                { n: s.readyToDeploy||0, l:'Ready', c:'green' },
-                { n: s.inSimulation||0, l:'Simulating', c:'amber' },
-                { n: s.rejected||0, l:'Rejected', c:'red' }
-            ].map(x => `
-                <div class="stat-card">
-                    <div class="stat-number ${x.c}">${x.n}</div>
-                    <div class="stat-label">${x.l}</div>
-                </div>
-            `).join('');
+<!-- SECTION 4: MARKET INTEL -->
+<div class="section">
+  <div class="section-title">Market Intelligence</div>
+  <div class="intel-grid">
+    <div class="intel-card"><div class="val" style="color:var(--green)">$11.07B</div><div class="lbl">AI Consulting Market 2026</div></div>
+    <div class="intel-card"><div class="val" style="color:var(--cyan)">26.2%</div><div class="lbl">CAGR Growth</div></div>
+    <div class="intel-card"><div class="val" style="color:var(--purple)">$15-30K/mo</div><div class="lbl">Fractional CAIO Rate</div></div>
+    <div class="intel-card"><div class="val" style="color:var(--green)">67%</div><div class="lbl">AI SMBs w/ 20%+ Rev Growth</div></div>
+  </div>
+</div>
 
-            // Evolution Tracker
-            const totalCycles = data.researchCycle || 1;
-            const cyclesHtml = Array.from({length: Math.max(totalCycles, 5)}, (_, i) => {
-                let cls = 'cycle-dot';
-                if (i < totalCycles - 1) cls += ' completed';
-                else if (i === totalCycles - 1) cls += ' current';
-                return '<div class="' + cls + '"></div>';
-            }).join('');
-            $('evolution-bar').innerHTML = '<div class="evolution-label">Research Cycle</div><div class="evolution-cycles">' + cyclesHtml + '</div><div class="evolution-text">Cycle ' + totalCycles + ' — ' + (data.summary.totalOpportunitiesScanned||0) + ' opportunities scanned, ' + (data.calibration?.learnings?.entries?.length||0) + ' learnings logged</div>';
+<!-- SECTION 5: NEEDS ACTION -->
+<div class="section">
+  <div class="section-title">Ready to Deploy — Needs Human Action</div>
 
-            // Calibration Panel
-            renderCalibration(data.calibration);
+  <div class="card">
+    <ul class="action-list">
+      <li>
+        <span class="action-icon">&#128308;</span>
+        <div><strong>Post 3 Reddit threads</strong> — copy-paste ready in outreach/READY-TO-POST.md. Targets: r/smallbusiness, r/Entrepreneur, r/ChatGPT</div>
+      </li>
+      <li>
+        <span class="action-icon">&#128308;</span>
+        <div><strong>Submit 8 Upwork proposals</strong> — drafted with tailored intros. Top 2 are $1,200 jobs. In outreach/upwork-proposals.md</div>
+      </li>
+      <li>
+        <span class="action-icon">&#128993;</span>
+        <div><strong>Contact mom's daycare</strong> — first AI audit candidate. Free case study to build portfolio and testimonial.</div>
+      </li>
+      <li>
+        <span class="action-icon">&#128993;</span>
+        <div><strong>Purchase moteops.com</strong> — available at $11.25/yr. Not purchased yet.</div>
+      </li>
+      <li>
+        <span class="action-icon">&#128993;</span>
+        <div><strong>Set up Yahoo app password</strong> — required for SMTP email sending from proposal engine.</div>
+      </li>
+      <li>
+        <span class="action-icon">&#128993;</span>
+        <div><strong>Create moteops@gmail.com</strong> — professional email for client-facing communications.</div>
+      </li>
+      <li>
+        <span class="action-icon">&#128993;</span>
+        <div><strong>Fix n8n API connection</strong> — returns 404. Check API key permissions at mikedmote.app.n8n.cloud</div>
+      </li>
+    </ul>
+  </div>
+</div>
 
-            // Tabs
-            const opps = data.opportunities || [];
-            const sigs = data.signals || [];
-            const deployed = data.deployedAssets || [];
-            const rejected = data.rejectedOpportunities || [];
-            const predictions = collectPredictions(opps);
+<!-- SECTION 6: ASSETS BUILT -->
+<div class="section">
+  <div class="section-title">Assets Built</div>
 
-            const tabs = [
-                { id:'opportunities', label:'Opportunities', count: opps.length },
-                { id:'signals', label:'Signals', count: sigs.length },
-                { id:'deployed', label:'Deployed', count: deployed.length },
-                { id:'rejected', label:'Rejected', count: rejected.length },
-                { id:'decisions', label:'Decisions', count: '' },
-                { id:'predictions', label:'Predictions', count: predictions.length }
-            ];
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Service Catalog</div>
+      <span class="badge badge-built">Complete</span>
+    </div>
+    <div class="card-desc">19 industries, 57 specific automations, all deliverable with off-the-shelf tools. 55KB, 1,182 lines.</div>
+  </div>
 
-            $('tab-bar').innerHTML = tabs.map((t,i) => `
-                <button class="tab-btn${i===0?' active':''}" data-tab="${t.id}">
-                    ${t.label}${t.count!==''?`<span class="tab-count">${t.count}</span>`:''}
-                </button>
-            `).join('');
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Outreach Playbook</div>
+      <span class="badge badge-built">Complete</span>
+    </div>
+    <div class="card-desc">Reddit/LinkedIn/email templates, weekly rhythm schedule, DM scripts, cold email sequences with 3-touch follow-up cadence.</div>
+  </div>
 
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-                    btn.classList.add('active');
-                    $('panel-'+btn.dataset.tab).classList.add('active');
-                });
-            });
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Competitive Analysis</div>
+      <span class="badge badge-built">Complete</span>
+    </div>
+    <div class="card-desc">Market positioning research. 80% of businesses report AI consulting doesn't deliver. 95% of enterprise GenAI pilots fail (MIT). Our edge: narrow scope, proven automations, measurable results.</div>
+  </div>
 
-            // Opportunities
-            $('panel-opportunities').innerHTML = '<div class="opp-grid">' + opps.map(renderOpp).join('') + '</div>';
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Knowledge Vault</div>
+      <span class="badge badge-built">Complete</span>
+    </div>
+    <div class="card-desc">22 interconnected markdown files. Obsidian-compatible. Session protocol enforces structured learning between sessions.</div>
+  </div>
 
-            // Signals
-            $('panel-signals').innerHTML = '<div class="signal-feed">' + sigs.map(renderSignal).join('') + '</div>';
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">DBA Research</div>
+      <span class="badge badge-built">Complete</span>
+    </div>
+    <div class="card-desc">California/LA County business registration research for Mote Ops.</div>
+  </div>
+</div>
 
-            // Deployed
-            $('panel-deployed').innerHTML = '<div class="deployed-grid">' + deployed.map(renderDeployed).join('') + '</div>';
+<!-- SECTION 7: PIPELINE FUNNEL -->
+<div class="section">
+  <div class="section-title">Pipeline / Funnel</div>
+</div>
 
-            // Rejected
-            $('panel-rejected').innerHTML = '<div class="rejected-list">' + rejected.map(renderRejected).join('') + '</div>';
+<div class="funnel">
+  <div class="funnel-step f-blue"><div class="step-num">1</div><div>Prospect takes <strong>21-industry quiz</strong> on landing page</div></div>
+  <div class="funnel-connector"></div>
+  <div class="funnel-step f-blue"><div class="step-num">2</div><div>Sees personalized <strong>savings calculator</strong> results</div></div>
+  <div class="funnel-connector"></div>
+  <div class="funnel-step f-blue"><div class="step-num">3</div><div>Gets industry-specific <strong>AI recommendations</strong> (real tools, costs, ROI)</div></div>
+  <div class="funnel-connector"></div>
+  <div class="funnel-step f-green"><div class="step-num">4</div><div><strong>Contact capture</strong> — business name, website URL, email</div></div>
+  <div class="funnel-connector"></div>
+  <div class="funnel-step f-cyan"><div class="step-num">5</div><div><strong>Website analyzer</strong> scrapes their site, identifies tech stack + gaps</div></div>
+  <div class="funnel-connector"></div>
+  <div class="funnel-step f-purple"><div class="step-num">6</div><div>Auto-generated <strong>personalized PDF proposal</strong> via proposal engine</div></div>
+  <div class="funnel-connector"></div>
+  <div class="funnel-step f-purple"><div class="step-num">7</div><div><strong>Email delivery</strong> — proposal sent with follow-up sequence</div></div>
+  <div class="funnel-connector"></div>
+  <div class="funnel-step f-yellow"><div class="step-num">8</div><div><strong>Discovery call</strong> — 30 min, qualify fit, identify biggest pain</div></div>
+  <div class="funnel-connector"></div>
+  <div class="funnel-step f-yellow"><div class="step-num">9</div><div><strong>$500 AI Audit</strong> — 1-2hr deep dive + written recs (foot-in-door)</div></div>
+  <div class="funnel-connector"></div>
+  <div class="funnel-step f-green"><div class="step-num">10</div><div><strong>$2.5-7.5K Implementation</strong> — 1-3 workflows built, tested, handed off</div></div>
+  <div class="funnel-connector"></div>
+  <div class="funnel-step f-green" style="border-color:rgba(34,197,94,.4)"><div class="step-num">11</div><div><strong>$1-2.5K/mo Retainer</strong> — ongoing optimization + new automations &#127919;</div></div>
+</div>
 
-            // Decisions
-            renderDecisions(opps);
+<!-- OUTREACH RHYTHM -->
+<div class="section" style="margin-top:1rem">
+  <div class="section-title">Weekly Outreach Rhythm</div>
+  <div class="card">
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:.25rem .75rem;font-size:.78rem">
+      <strong style="color:var(--blue)">Mon</strong><span>Post 1 LinkedIn thought leadership post</span>
+      <strong style="color:var(--green)">Tue</strong><span>Comment on 5-10 Reddit threads in target subs</span>
+      <strong style="color:var(--purple)">Wed</strong><span>Send 3-5 personalized cold emails</span>
+      <strong style="color:var(--yellow)">Thu</strong><span>Post 1 Reddit value-first thread</span>
+      <strong style="color:var(--cyan)">Fri</strong><span>Follow up on all open conversations</span>
+    </div>
+  </div>
+</div>
 
-            // Predictions
-            renderPredictions(predictions);
-        }
+<!-- GO-TO-MARKET CHANNELS -->
+<div class="section">
+  <div class="section-title">Go-to-Market Channels (Priority Order)</div>
+  <div class="card">
+    <div style="font-size:.78rem;display:flex;flex-direction:column;gap:.4rem">
+      <div><strong style="color:var(--green)">1. Reddit</strong> <span style="color:var(--muted)">— Lowest friction. 3 posts ready. Value-first, DMs convert.</span></div>
+      <div><strong style="color:var(--blue)">2. Upwork</strong> <span style="color:var(--muted)">— 8 proposals drafted. Build profile + reviews fast.</span></div>
+      <div><strong style="color:var(--purple)">3. LinkedIn</strong> <span style="color:var(--muted)">— Weekly posts. Compounds over 4+ weeks.</span></div>
+      <div><strong style="color:var(--yellow)">4. Warm Network</strong> <span style="color:var(--muted)">— Mom's daycare = case study #1.</span></div>
+      <div><strong style="color:var(--cyan)">5. Cold Email</strong> <span style="color:var(--muted)">— 5 well-researched targets, not 50 blasted.</span></div>
+    </div>
+  </div>
+</div>
 
-        function renderCalibration(cal) {
-            if (!cal) return;
+<!-- COMPETITIVE EDGE -->
+<div class="section">
+  <div class="section-title">Competitive Positioning</div>
+  <div class="card">
+    <div style="font-size:.78rem;color:var(--muted)">
+      <div style="margin-bottom:.4rem"><strong style="color:var(--text)">"The Boring Middle"</strong> — Not AI magic. Working systems with measurable ROI in 1-3 weeks.</div>
+      <div style="margin-bottom:.4rem"><span style="color:var(--red)">80%</span> of businesses say AI consulting doesn't deliver impact. <span style="color:var(--red)">95%</span> of enterprise GenAI pilots fail.</div>
+      <div style="margin-bottom:.4rem">Our edge: <strong style="color:var(--green)">narrow scope</strong>, <strong style="color:var(--green)">proven automations</strong>, <strong style="color:var(--green)">measurable results</strong>, <strong style="color:var(--green)">outcomes-based pricing</strong>.</div>
+      <div>Specialists command <strong style="color:var(--accent)">30-40% premium</strong> over generalists. New entrants: GoHighLevel Voice AI, AgentZap, Donna AI.</div>
+    </div>
+  </div>
+</div>
 
-            const toggle = () => {
-                const content = panel.querySelector('.calibration-content');
-                const icon = panel.querySelector('.calibration-toggle');
-                content.classList.toggle('open');
-                icon.classList.toggle('open');
-            };
+<div class="timestamp">
+  Mote Ops Mission Control &middot; Generated April 2, 2026 &middot; Session 4<br>
+  <span style="color:var(--yellow)">&#9889; Execution mode. Ship or it doesn't count.</span>
+</div>
 
-            const baseRatesHtml = Object.entries(cal.baseRates || {}).map(([k, v]) => `
-                <div class="base-rate-item">
-                    <div class="base-rate-name">${escHtml(v.label || k)}</div>
-                    <div class="base-rate-value">${Math.round(v.value * 100)}%</div>
-                </div>
-            `).join('');
-
-            const learningsHtml = (cal.learnings?.entries || []).map(entry => `
-                <div class="learning-entry">
-                    <div class="learning-date">${entry.date}</div>
-                    <div class="learning-type">${(entry.type || '').replace(/_/g, ' ')}</div>
-                    <div class="learning-insight">${escHtml(entry.insight)}</div>
-                </div>
-            `).join('');
-
-            const html = `
-                <div class="calibration-header" onclick="this.parentElement.querySelector('.calibration-content').classList.toggle('open'); this.parentElement.querySelector('.calibration-toggle').classList.toggle('open');">
-                    <div class="calibration-title">📊 Calibration & Base Rates</div>
-                    <div class="calibration-toggle">▼</div>
-                </div>
-                <div class="calibration-content">
-                    <div class="calibration-grid">
-                        <div class="calibration-item">
-                            <div class="calibration-label">Total Predictions</div>
-                            <div class="calibration-value">${cal.totalPredictions || 0}</div>
-                            <div class="calibration-meta">Active forecasts</div>
-                        </div>
-                        <div class="calibration-item">
-                            <div class="calibration-label">Resolved</div>
-                            <div class="calibration-value">${cal.resolvedPredictions || 0}</div>
-                            <div class="calibration-meta">Outcomes tracked</div>
-                        </div>
-                        <div class="calibration-item">
-                            <div class="calibration-label">Brier Score</div>
-                            <div class="calibration-value">${cal.brierScore !== null ? cal.brierScore.toFixed(3) : 'Pending'}</div>
-                            <div class="calibration-meta">Lower is better (0 = perfect)</div>
-                        </div>
-                        <div class="calibration-item">
-                            <div class="calibration-label">Status</div>
-                            <div class="calibration-value">${escHtml(cal.calibrationStatus || 'Tracking')}</div>
-                            <div class="calibration-meta">Forecast quality</div>
-                        </div>
-                    </div>
-                    ${baseRatesHtml ? `<div class="base-rates-list"><strong style="color:#7c6cf7;font-size:0.85rem;">Base Rates (Prior Probabilities)</strong>${baseRatesHtml}</div>` : ''}
-                    ${learningsHtml ? `<div style="margin-top:1rem;"><strong style="color:#7c6cf7;font-size:0.85rem;">Learning Entries</strong>${learningsHtml}</div>` : ''}
-                </div>
-            `;
-
-            $('calibration-panel').innerHTML = html;
-        }
-
-        function collectPredictions(opps) {
-            const preds = [];
-            opps.forEach(opp => {
-                if (opp.predictions && Array.isArray(opp.predictions)) {
-                    opp.predictions.forEach(pred => {
-                        preds.push({
-                            ...pred,
-                            opportunityName: opp.name,
-                            opportunityId: opp.id
-                        });
-                    });
-                }
-            });
-            return preds;
-        }
-
-        function renderPredictions(predictions) {
-            if (!predictions || predictions.length === 0) {
-                $('panel-predictions').innerHTML = '<div style="padding:2rem;text-align:center;color:#6a6a8a;">No active predictions yet. Create opportunities with prediction data.</div>';
-                return;
-            }
-
-            const html = predictions.map(pred => {
-                const resDate = new Date(pred.resolutionDate);
-                const today = new Date();
-                const daysRemaining = Math.ceil((resDate - today) / (1000 * 60 * 60 * 24));
-                let urgency = 'relaxed';
-                let countdownClass = 'countdown-relaxed';
-                if (daysRemaining <= 30) {
-                    urgency = 'URGENT';
-                    countdownClass = 'countdown-urgent';
-                } else if (daysRemaining <= 60) {
-                    urgency = 'MEDIUM';
-                    countdownClass = 'countdown-medium';
-                }
-
-                return `
-                    <div class="prediction-card">
-                        <div class="prediction-claim">${escHtml(pred.claim)}</div>
-                        <div class="prediction-meta">
-                            <div class="prediction-meta-item">
-                                <div class="prediction-meta-label">Probability</div>
-                                <div class="prediction-meta-value">${Math.round(pred.probability * 100)}%</div>
-                            </div>
-                            <div class="prediction-meta-item">
-                                <div class="prediction-meta-label">From Opportunity</div>
-                                <div class="prediction-meta-value">${escHtml(pred.opportunityName)}</div>
-                            </div>
-                        </div>
-                        <div class="prediction-countdown ${countdownClass}">
-                            ⏱️ ${daysRemaining} days remaining (${resDate.toLocaleDateString('en-US', {month:'short', day:'numeric'})})
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            $('panel-predictions').innerHTML = '<div class="predictions-grid">' + html + '</div>';
-        }
-
-        function renderOpp(opp) {
-            const sim = opp.simulation || {};
-            const simRows = Object.entries(sim)
-                .filter(([k]) => k.startsWith('probability'))
-                .map(([k, v]) => {
-                    const label = k.replace('probability','')
-                        .replace(/([A-Z])/g, ' $1')
-                        .replace(/(\d+)/g, ' $1')
-                        .replace(/^\s+/,'')
-                        .replace(/\s+/g, ' ');
-                    const pct = Math.round(v * 100);
-                    const cls = pct >= 35 ? 'high' : pct >= 20 ? 'med' : 'low';
-                    return `<div class="sim-row">
-                        <span class="sim-label">${label}</span>
-                        <div class="sim-bar-bg"><div class="sim-bar-fill ${cls}" style="width:${pct}%"></div></div>
-                        <span class="sim-pct">${pct}%</span>
-                    </div>`;
-                }).join('');
-
-            // Probability Timeline Sparkline
-            const probHistory = opp.probabilityHistory || [];
-            let sparklineHtml = '';
-            if (probHistory.length > 0) {
-                const svgHtml = renderProbabilitySparkline(probHistory);
-                sparklineHtml = `
-                    <div class="prob-timeline">
-                        <div class="prob-timeline-label">Probability History</div>
-                        ${svgHtml}
-                    </div>
-                `;
-            }
-
-            const evidenceId = 'ev-' + opp.id;
-            const evidenceHtml = (opp.evidence||[]).map(e =>
-                `<div class="evidence-item">${escHtml(e)}</div>`
-            ).join('');
-
-            const nextHtml = (opp.nextSteps||[]).map(s =>
-                `<div class="next-step-item">${escHtml(s)}</div>`
-            ).join('');
-
-            const deployedLink = opp.deployedUrl
-                ? `<a class="deployed-link" href="${escHtml(opp.deployedUrl)}" target="_blank">View Live ↗</a>`
-                : '';
-
-            return `<div class="opp-card">
-                <div class="opp-header">
-                    <span class="opp-name">${escHtml(opp.name)}</span>
-                    <span class="tier-badge tier-${opp.tier||3}">Tier ${opp.tier||'?'}</span>
-                </div>
-                <span class="opp-status status-${opp.status||''}">${(opp.status||'').replace(/_/g,' ')}</span>
-                ${deployedLink}
-                <div class="opp-desc">${escHtml(opp.description||'')}</div>
-                ${sparklineHtml}
-                <div class="opp-meta-grid">
-                    <div class="opp-meta-item">
-                        <div class="opp-meta-label">Revenue Model</div>
-                        <div class="opp-meta-value">${escHtml(opp.revenueModel||'TBD')}</div>
-                    </div>
-                    <div class="opp-meta-item">
-                        <div class="opp-meta-label">Build Time</div>
-                        <div class="opp-meta-value">${escHtml(sim.estimatedBuildTime||'TBD')}</div>
-                    </div>
-                    <div class="opp-meta-item">
-                        <div class="opp-meta-label">Launch Cost</div>
-                        <div class="opp-meta-value">${escHtml(sim.estimatedCostToLaunch||'$0')}</div>
-                    </div>
-                    <div class="opp-meta-item">
-                        <div class="opp-meta-label">Moat</div>
-                        <div class="opp-meta-value">${escHtml(sim.moatStrength||'TBD')}</div>
-                    </div>
-                </div>
-                ${simRows ? '<div class="sim-section">'+simRows+'</div>' : ''}
-                ${evidenceHtml ? `<button class="evidence-toggle" onclick="toggleEvidence('${evidenceId}',this)">Show Evidence (${opp.evidence.length})</button>
-                <div class="evidence-list" id="${evidenceId}">${evidenceHtml}</div>` : ''}
-                ${nextHtml ? '<div class="next-steps">'+nextHtml+'</div>' : ''}
-            </div>`;
-        }
-
-        function renderProbabilitySparkline(history) {
-            if (history.length < 2) {
-                return '<svg class="prob-sparkline" viewBox="0 0 200 30"><text x="100" y="15" text-anchor="middle" fill="#5a5a7a" font-size="10">Need more data</text></svg>';
-            }
-
-            const values = history.map(h => h.value);
-            const minVal = Math.min(...values);
-            const maxVal = Math.max(...values);
-            const range = maxVal - minVal || 1;
-            const w = 200;
-            const h = 30;
-            const padding = 5;
-            const graphW = w - 2 * padding;
-            const graphH = h - 2 * padding;
-            const step = graphW / (values.length - 1);
-
-            const points = values.map((v, i) => {
-                const x = padding + i * step;
-                const y = padding + graphH - ((v - minVal) / range) * graphH;
-                return `${x},${y}`;
-            }).join(' ');
-
-            const colorVal = Math.round(values[values.length - 1] * 100);
-            let color = '#e05060';
-            if (colorVal >= 35) color = '#00e8b0';
-            else if (colorVal >= 20) color = '#f0a030';
-
-            return `<svg class="prob-sparkline" viewBox="0 0 200 30">
-                <polyline points="${points}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="${padding + (values.length - 1) * step}" cy="${padding + graphH - ((values[values.length - 1] - minVal) / range) * graphH}" r="3" fill="${color}"/>
-            </svg>`;
-        }
-
-        function renderSignal(sig) {
-            const impact = sig.impact || 'medium';
-            return `<div class="signal-card">
-                <div class="signal-impact impact-${impact}">${impact.slice(0,1).toUpperCase()}</div>
-                <div class="signal-content">
-                    <div class="signal-text-main">${escHtml(sig.signal)}</div>
-                    <div class="signal-source">${escHtml(sig.source||'')} &middot; ${sig.date||''}</div>
-                </div>
-            </div>`;
-        }
-
-        function renderDeployed(asset) {
-            const statusMap = { live:'dst-live', built_not_listed:'dst-built', built_not_deployed:'dst-built', active:'dst-active' };
-            const cls = statusMap[asset.status] || 'dst-built';
-            const link = asset.url ? `<a class="deployed-link" href="${escHtml(asset.url)}" target="_blank">View ↗</a>` : '';
-            const price = asset.suggestedPrice ? ` &middot; ${escHtml(asset.suggestedPrice)}` : '';
-            return `<div class="deployed-card">
-                <div class="deployed-name">${escHtml(asset.name)}</div>
-                <div class="deployed-meta">${escHtml(asset.type||'')}${price}</div>
-                <span class="deployed-status-tag ${cls}">${(asset.status||'').replace(/_/g,' ')}</span>
-                ${link}
-            </div>`;
-        }
-
-        function renderRejected(r) {
-            return `<div class="rejected-item">
-                <span class="rejected-name">${escHtml(r.name)}</span>
-                <span class="rejected-reason">${escHtml(r.reason)}</span>
-            </div>`;
-        }
-
-        function renderDecisions(opps) {
-            const decisions = [
-                { urgent:true, text:'EXECUTE: Post the 3 Reddit threads (r/smallbusiness, r/Entrepreneur, r/automation). Copy-paste ready in outreach/READY-TO-POST.md. Three sessions of planning with zero market contact.' },
-                { urgent:true, text:'EXECUTE: Submit top 2 Upwork proposals ($1,200 AI automation jobs). Templates in outreach/upwork-proposals.md.' },
-                { urgent:true, text:'EXECUTE: Contact mom\'s daycare to schedule AI audit. This is your first case study — it costs nothing and proves the model.' },
-                { urgent:true, text:'Fix n8n API connection — URL returning 404. Check API key permissions at https://mikedmote.app.n8n.cloud. Needed for all automation workflows.' },
-                { urgent:false, text:'Package the 90-Day AI Transformation consulting offer with tiered pricing ($500 audit / $2.5K-7.5K implementation / $1-2.5K retainer).' },
-                { urgent:false, text:'Set up professional email (moteops@gmail.com) and deploy proposal webhook to Render.' },
-                { urgent:false, text:'Write 3 LinkedIn posts about AI implementation ROI using the McKinsey 67% revenue growth stat.' },
-                { urgent:false, text:'Product Hunt launch for InstantProposal — target 100+ signups.' }
-            ];
-
-            $('panel-decisions').innerHTML = '<div class="decision-list">' + decisions.map((d, idx) => `
-                <div class="decision-card" data-decision-idx="${idx}">
-                    <div class="decision-label ${d.urgent?'decision-urgent':'decision-normal'}">${d.urgent?'Urgent':'Can Wait'}</div>
-                    <div class="decision-text">${escHtml(d.text)}</div>
-                    <div class="decision-buttons">
-                        <button class="decision-btn decision-btn-do" onclick="toggleDecision(${idx}, 'do')">✓ Do This</button>
-                        <button class="decision-btn decision-btn-skip" onclick="toggleDecision(${idx}, 'skip')">✕ Skip</button>
-                    </div>
-                </div>
-            `).join('') + '</div>';
-        }
-
-        function escHtml(str) {
-            if (!str) return '';
-            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-        }
-
-        // Global toggles
-        window.toggleEvidence = function(id, btn) {
-            const el = document.getElementById(id);
-            el.classList.toggle('open');
-            btn.textContent = el.classList.contains('open')
-                ? 'Hide Evidence'
-                : 'Show Evidence (' + el.querySelectorAll('.evidence-item').length + ')';
-        };
-
-        window.toggleDecision = function(idx, action) {
-            const card = document.querySelector(`[data-decision-idx="${idx}"]`);
-            if (!card) return;
-            card.classList.remove('toggled-do', 'toggled-skip');
-            if (action === 'do') {
-                card.classList.toggle('toggled-do');
-            } else if (action === 'skip') {
-                card.classList.toggle('toggled-skip');
-            }
-        };
-    })();
-    </script>
 </body>
 </html>
