@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Side Gig Bot — Intelligence Dashboard</title>
+    <title>Side Gig Bot v4 — AI Growth Engine</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -18,7 +18,6 @@
             min-height: 100vh;
         }
 
-        /* Header */
         header {
             background: linear-gradient(135deg, #0c0c14 0%, #141428 100%);
             border-bottom: 1px solid #1e1e3a;
@@ -105,16 +104,12 @@
 
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-        .date-display { color: #6a6a8a; }
-
-        /* Main */
         main {
             max-width: 1440px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        /* Daily Brief */
         .daily-brief {
             background: linear-gradient(135deg, #12122a 0%, #1a1a3a 100%);
             border: 1px solid #2a2a4e;
@@ -152,10 +147,9 @@
             line-height: 1.7;
         }
 
-        /* Stats Row */
         .stats-row {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
             margin-bottom: 2rem;
         }
@@ -187,32 +181,32 @@
             letter-spacing: 0.05em;
         }
 
-        /* Thesis Cards */
-        .thesis-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .quick-actions {
+            display: flex;
+            gap: 0.75rem;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
-        .thesis-card {
-            background: #10101e;
-            border: 1px solid #1e1e3a;
-            border-radius: 10px;
-            padding: 1.5rem;
+        .action-btn {
+            background: linear-gradient(135deg, rgba(124,108,247,0.1), rgba(0,232,176,0.05));
+            border: 1px solid #2a2a4e;
+            color: #7c6cf7;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .thesis-card .brief-label { margin-bottom: 0.5rem; }
-        .thesis-card .brief-label.weekly { color: #4ea8de; }
-        .thesis-card .brief-label.monthly { color: #f0a030; }
-
-        .thesis-text {
-            font-size: 0.95rem;
-            color: #b0b0c8;
-            line-height: 1.6;
+        .action-btn:hover {
+            border-color: #7c6cf7;
+            box-shadow: 0 4px 12px rgba(124,108,247,0.2);
+            transform: translateY(-1px);
         }
 
-        /* Tabs */
         .tab-bar {
             display: flex;
             gap: 0;
@@ -255,427 +249,599 @@
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
 
-        /* Opportunity Cards */
-        .opp-grid {
+        /* Cards Grid */
+        .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .opp-card {
+        .card {
             background: linear-gradient(135deg, #12122a, #161636);
             border: 1px solid #2a2a4e;
             border-radius: 12px;
             padding: 1.5rem;
-            position: relative;
             transition: all 0.25s ease;
         }
 
-        .opp-card:hover {
+        .card:hover {
             border-color: #7c6cf7;
             box-shadow: 0 6px 24px rgba(124,108,247,0.12);
             transform: translateY(-2px);
         }
 
-        .opp-header {
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 1rem;
         }
 
-        .opp-name {
+        .card-title {
             font-size: 1.15rem;
             font-weight: 700;
             color: #f0f0ff;
-            flex: 1;
-            padding-right: 1rem;
         }
 
-        .tier-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.25rem 0.6rem;
-            border-radius: 5px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .tier-1 { background: rgba(0,232,176,0.12); color: #00e8b0; }
-        .tier-2 { background: rgba(78,168,222,0.12); color: #4ea8de; }
-        .tier-3 { background: rgba(106,106,138,0.15); color: #8a8aa0; }
-
-        .opp-status {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            margin-bottom: 0.75rem;
-        }
-
-        .status-ready_to_deploy { background: rgba(0,232,176,0.12); color: #00e8b0; }
-        .status-deployed { background: rgba(124,108,247,0.15); color: #b8a7ff; }
-        .status-in_simulation { background: rgba(240,160,48,0.12); color: #f0a030; }
-        .status-research { background: rgba(78,168,222,0.12); color: #4ea8de; }
-
-        .opp-desc {
+        .card-subtitle {
             font-size: 0.9rem;
             color: #8a8aa8;
-            margin-bottom: 1rem;
-            line-height: 1.5;
+            margin-top: 0.25rem;
         }
 
-        /* Probability Timeline Sparkline */
-        .prob-timeline {
-            margin-bottom: 1rem;
-            padding: 0.75rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-        }
-
-        .prob-timeline-label {
-            font-size: 0.7rem;
-            color: #5a5a7a;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-
-        .prob-sparkline {
-            width: 100%;
-            height: 30px;
-        }
-
-        .opp-meta-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .opp-meta-item {
-            background: rgba(255,255,255,0.03);
-            border-radius: 6px;
-            padding: 0.6rem 0.75rem;
-        }
-
-        .opp-meta-label {
-            font-size: 0.7rem;
-            color: #5a5a7a;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .opp-meta-value {
-            font-size: 0.9rem;
-            color: #d0d0e0;
-            font-weight: 600;
-        }
-
-        /* Simulation Bar */
-        .sim-section { margin-bottom: 1rem; }
-
-        .sim-row {
+        .card-actions {
             display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.5rem;
+            gap: 0.5rem;
         }
 
-        .sim-label {
-            font-size: 0.78rem;
-            color: #6a6a8a;
-            width: 150px;
-            flex-shrink: 0;
-        }
-
-        .sim-bar-bg {
-            flex: 1;
-            height: 6px;
-            background: #1a1a30;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .sim-bar-fill {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.6s ease;
-        }
-
-        .sim-bar-fill.high { background: linear-gradient(90deg, #00e8b0, #00c898); }
-        .sim-bar-fill.med { background: linear-gradient(90deg, #f0a030, #d08828); }
-        .sim-bar-fill.low { background: linear-gradient(90deg, #e05060, #c04050); }
-
-        .sim-pct {
-            font-size: 0.8rem;
-            font-weight: 700;
-            width: 40px;
-            text-align: right;
-            color: #a0a0c0;
-        }
-
-        /* Evidence Toggle */
-        .evidence-toggle {
-            background: none;
-            border: 1px solid #2a2a4e;
-            color: #6a6a8a;
+        .small-btn {
+            background: rgba(124,108,247,0.1);
+            border: 1px solid rgba(124,108,247,0.3);
+            color: #7c6cf7;
             padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.8rem;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .evidence-toggle:hover { border-color: #7c6cf7; color: #a0a0c0; }
+        .small-btn:hover {
+            background: rgba(124,108,247,0.2);
+            border-color: #7c6cf7;
+        }
 
-        .evidence-list {
+        .small-btn.danger {
+            color: #e05060;
+            border-color: rgba(224,80,96,0.3);
+            background: rgba(224,80,96,0.05);
+        }
+
+        .small-btn.danger:hover {
+            background: rgba(224,80,96,0.15);
+            border-color: #e05060;
+        }
+
+        /* Modal */
+        .modal {
             display: none;
-            margin-top: 0.75rem;
-            padding: 0.75rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-        }
-
-        .evidence-list.open { display: block; }
-
-        .evidence-item {
-            font-size: 0.85rem;
-            color: #8a8aa8;
-            padding: 0.4rem 0;
-            padding-left: 1rem;
-            position: relative;
-            line-height: 1.5;
-        }
-
-        .evidence-item::before {
-            content: '>';
-            position: absolute;
-            left: 0;
-            color: #00e8b0;
-            font-weight: 700;
-        }
-
-        /* Deployed link */
-        .deployed-link {
-            display: inline-flex;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
             align-items: center;
-            gap: 0.4rem;
-            color: #7c6cf7;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 0.5rem;
-            transition: color 0.2s;
+            justify-content: center;
+            padding: 1rem;
         }
 
-        .deployed-link:hover { color: #00e8b0; }
-
-        /* Signals Feed */
-        .signal-feed { display: grid; gap: 0.75rem; }
-
-        .signal-card {
+        .modal.open {
             display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            background: #10101e;
+        }
+
+        .modal-content {
+            background: #12122a;
+            border: 1px solid #2a2a4e;
+            border-radius: 14px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f0f0ff;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #c8c8d8;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            background: #0a0a12;
             border: 1px solid #1e1e3a;
-            border-radius: 10px;
-            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            padding: 0.75rem;
+            color: #c8c8d8;
+            font-family: inherit;
+            font-size: 0.95rem;
             transition: all 0.2s;
         }
 
-        .signal-card:hover {
-            border-color: #2a2a5e;
-            transform: translateX(3px);
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #7c6cf7;
+            box-shadow: 0 0 0 3px rgba(124,108,247,0.1);
         }
 
-        .signal-impact {
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .slider-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-label-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #c8c8d8;
+        }
+
+        .slider-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #7c6cf7;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #1a1a30;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c6cf7, #00e8b0);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(124,108,247,0.4);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c6cf7, #00e8b0);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(124,108,247,0.4);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn.primary {
+            background: linear-gradient(135deg, #7c6cf7, #5a4fd0);
+            color: white;
+        }
+
+        .modal-btn.primary:hover {
+            box-shadow: 0 6px 20px rgba(124,108,247,0.3);
+        }
+
+        .modal-btn.secondary {
+            background: #1a1a30;
+            color: #7c6cf7;
+            border: 1px solid #2a2a4e;
+        }
+
+        .modal-btn.secondary:hover {
+            border-color: #7c6cf7;
+            background: #22223a;
+        }
+
+        .close-modal {
+            float: right;
+            font-size: 1.5rem;
+            color: #6a6a8a;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+        }
+
+        .close-modal:hover { color: #7c6cf7; }
+
+        /* List styles */
+        .list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .list-item {
+            background: #10101e;
+            border: 1px solid #1e1e3a;
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: all 0.2s;
+        }
+
+        .list-item:hover {
+            border-color: #2a2a4e;
+        }
+
+        .list-item-content {
+            flex: 1;
+        }
+
+        .list-item-title {
+            font-weight: 600;
+            color: #d0d0e0;
+            margin-bottom: 0.25rem;
+        }
+
+        .list-item-meta {
+            font-size: 0.85rem;
+            color: #6a6a8a;
+        }
+
+        /* Kanban */
+        .kanban {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .kanban-col {
+            background: #10101e;
+            border: 1px solid #1e1e3a;
+            border-radius: 10px;
+            padding: 1.5rem;
+            min-height: 400px;
+        }
+
+        .kanban-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #c8c8d8;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #2a2a4e;
+        }
+
+        .kanban-cards {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .kanban-card {
+            background: #161636;
+            border: 1px solid #2a2a4e;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: move;
+            transition: all 0.2s;
+        }
+
+        .kanban-card:hover {
+            border-color: #7c6cf7;
+            box-shadow: 0 4px 12px rgba(124,108,247,0.1);
+        }
+
+        .kanban-card-title {
+            font-weight: 600;
+            color: #d0d0e0;
+            margin-bottom: 0.5rem;
+        }
+
+        .kanban-card-prob {
+            font-size: 0.8rem;
+            color: #7c6cf7;
+            font-weight: 700;
+        }
+
+        /* Score display */
+        .score-ring {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px; height: 36px;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            flex-shrink: 0;
+            font-size: 1.8rem;
+            font-weight: 800;
+            position: relative;
         }
 
+        .score-high {
+            background: rgba(0,232,176,0.1);
+            color: #00e8b0;
+            border: 2px solid rgba(0,232,176,0.3);
+        }
+
+        .score-med {
+            background: rgba(240,160,48,0.1);
+            color: #f0a030;
+            border: 2px solid rgba(240,160,48,0.3);
+        }
+
+        .score-low {
+            background: rgba(224,80,96,0.1);
+            color: #e05060;
+            border: 2px solid rgba(224,80,96,0.3);
+        }
+
+        .probability-bar {
+            width: 100%;
+            height: 8px;
+            background: #1a1a30;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .probability-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7c6cf7, #00e8b0);
+            border-radius: 4px;
+        }
+
+        /* Charts */
+        .chart-container {
+            margin: 1.5rem 0;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bar {
+            width: 100%;
+            background: linear-gradient(180deg, #7c6cf7, #5a4fd0);
+            border-radius: 4px 4px 0 0;
+            min-height: 20px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+            box-shadow: 0 4px 12px rgba(124,108,247,0.3);
+        }
+
+        .bar-label {
+            font-size: 0.75rem;
+            color: #6a6a8a;
+            text-align: center;
+            width: 100%;
+        }
+
+        .bar-value {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #7c6cf7;
+            position: absolute;
+            bottom: 100%;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Status badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-research { background: rgba(78,168,222,0.12); color: #4ea8de; }
+        .status-simulation { background: rgba(240,160,48,0.12); color: #f0a030; }
+        .status-ready { background: rgba(0,232,176,0.12); color: #00e8b0; }
+        .status-deployed { background: rgba(124,108,247,0.12); color: #b8a7ff; }
+        .status-active { background: rgba(0,232,176,0.12); color: #00e8b0; }
+        .status-paused { background: rgba(224,80,96,0.12); color: #e05060; }
+
+        /* Impact badges */
         .impact-high { background: rgba(0,232,176,0.1); color: #00e8b0; }
         .impact-medium { background: rgba(240,160,48,0.1); color: #f0a030; }
         .impact-low { background: rgba(106,106,138,0.1); color: #8a8aa0; }
 
-        .signal-content { flex: 1; }
+        .impact-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
 
-        .signal-text-main {
-            font-size: 0.95rem;
-            color: #d0d0e0;
+        /* Responsive */
+        @media (max-width: 768px) {
+            main { padding: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .header-stats { gap: 1rem; font-size: 0.75rem; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .tab-bar { gap: 0.5rem; }
+            .tab-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+        }
+
+        .hidden { display: none; }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            margin-top: 0.75rem;
+        }
+
+        .breakdown-item {
+            background: rgba(0,0,0,0.2);
+            padding: 0.5rem;
+            border-radius: 5px;
+            color: #8a8aa8;
+        }
+
+        .breakdown-label {
+            font-weight: 600;
+            color: #a0a0c0;
+        }
+
+        .revenue-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .revenue-stat {
+            background: linear-gradient(135deg, #1a1a3a, #121228);
+            border: 1px solid #2a2a4e;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .revenue-stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #00e8b0;
             margin-bottom: 0.25rem;
         }
 
-        .signal-source {
-            font-size: 0.8rem;
-            color: #5a5a7a;
-        }
-
-        /* Deployed Assets */
-        .deployed-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-        }
-
-        .deployed-card {
-            background: #10101e;
-            border: 1px solid #1e1e3a;
-            border-radius: 10px;
-            padding: 1.25rem;
-        }
-
-        .deployed-name {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #e0e0f0;
-            margin-bottom: 0.5rem;
-        }
-
-        .deployed-meta {
+        .revenue-stat-label {
             font-size: 0.85rem;
             color: #6a6a8a;
-            margin-bottom: 0.5rem;
-        }
-
-        .deployed-status-tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
             text-transform: uppercase;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
+            letter-spacing: 0.05em;
         }
 
-        .dst-live { background: rgba(0,232,176,0.12); color: #00e8b0; }
-        .dst-built { background: rgba(124,108,247,0.12); color: #b8a7ff; }
-        .dst-active { background: rgba(78,168,222,0.12); color: #4ea8de; }
+        .timeline {
+            display: grid;
+            gap: 1rem;
+        }
 
-        /* Rejected */
-        .rejected-list { display: grid; gap: 0.5rem; }
-
-        .rejected-item {
+        .timeline-item {
             display: flex;
             gap: 1rem;
-            align-items: baseline;
-            background: #10101e;
-            border: 1px solid #1a1a2e;
-            border-radius: 8px;
-            padding: 0.9rem 1.25rem;
         }
 
-        .rejected-name {
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #7c6cf7;
+            margin-top: 0.4rem;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            color: #6a6a8a;
             font-weight: 600;
-            color: #8a8aa0;
-            min-width: 180px;
-            text-decoration: line-through;
-            text-decoration-color: rgba(224,80,96,0.3);
+            margin-bottom: 0.25rem;
         }
 
-        .rejected-reason {
-            font-size: 0.85rem;
-            color: #5a5a7a;
-        }
-
-        /* Decisions */
-        .decision-list { display: grid; gap: 0.75rem; }
-
-        .decision-card {
-            background: linear-gradient(135deg, #1a1220, #201430);
-            border: 1px solid #3a2850;
-            border-left: 3px solid #7c6cf7;
-            border-radius: 10px;
-            padding: 1.25rem;
-            transition: all 0.2s;
-        }
-
-        .decision-card.toggled-do {
-            background: linear-gradient(135deg, #1a2a1a, #203a20);
-            border-left-color: #00e8b0;
-            opacity: 0.75;
-        }
-
-        .decision-card.toggled-skip {
-            background: linear-gradient(135deg, #2a1a1a, #3a2020);
-            border-left-color: #e05060;
-            opacity: 0.6;
-        }
-
-        .decision-label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.4rem;
-        }
-
-        .decision-urgent { color: #e05060; }
-        .decision-normal { color: #f0a030; }
-
-        .decision-text {
+        .timeline-text {
             font-size: 0.95rem;
             color: #d0d0e0;
-            line-height: 1.5;
-            margin-bottom: 0.75rem;
         }
 
-        .decision-buttons {
+        .win-loss-display {
             display: flex;
-            gap: 0.5rem;
-        }
-
-        .decision-btn {
-            padding: 0.4rem 0.9rem;
-            border: 1px solid;
-            background: none;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .decision-btn-do {
-            color: #00e8b0;
-            border-color: #00e8b0;
-        }
-
-        .decision-btn-do:hover {
-            background: rgba(0,232,176,0.1);
-        }
-
-        .decision-btn-skip {
-            color: #e05060;
-            border-color: #e05060;
-        }
-
-        .decision-btn-skip:hover {
-            background: rgba(224,80,96,0.1);
-        }
-
-        /* Predictions Panel */
-        .predictions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.5rem;
+            margin: 1.5rem 0;
         }
 
-        .prediction-card {
+        .win-loss-stat {
+            flex: 1;
+            text-align: center;
+        }
+
+        .win-loss-number {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .win-loss-label {
+            font-size: 0.8rem;
+            color: #6a6a8a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .win-loss-stat.wins .win-loss-number { color: #00e8b0; }
+        .win-loss-stat.losses .win-loss-number { color: #e05060; }
+
+        .pattern-card {
             background: linear-gradient(135deg, #12122a, #161636);
             border: 1px solid #2a2a4e;
             border-radius: 12px;
@@ -683,773 +849,1366 @@
             transition: all 0.25s ease;
         }
 
-        .prediction-card:hover {
+        .pattern-card:hover {
             border-color: #7c6cf7;
             box-shadow: 0 6px 24px rgba(124,108,247,0.12);
             transform: translateY(-2px);
         }
 
-        .prediction-claim {
-            font-size: 1rem;
-            font-weight: 600;
+        .pattern-name {
+            font-size: 1.15rem;
+            font-weight: 700;
             color: #f0f0ff;
-            margin-bottom: 1rem;
-            line-height: 1.5;
+            margin-bottom: 0.75rem;
         }
 
-        .prediction-meta {
+        .pattern-desc {
+            font-size: 0.9rem;
+            color: #8a8aa8;
+            margin-bottom: 1rem;
+        }
+
+        .pattern-meta {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0.75rem;
             margin-bottom: 1rem;
-        }
-
-        .prediction-meta-item {
-            background: rgba(255,255,255,0.03);
-            border-radius: 6px;
-            padding: 0.6rem 0.75rem;
-        }
-
-        .prediction-meta-label {
-            font-size: 0.7rem;
-            color: #5a5a7a;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .prediction-meta-value {
-            font-size: 0.9rem;
-            color: #d0d0e0;
-            font-weight: 600;
-        }
-
-        .prediction-countdown {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 0.75rem;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .countdown-urgent {
-            background: rgba(224,80,96,0.15);
-            color: #e05060;
-            border: 1px solid rgba(224,80,96,0.3);
-        }
-
-        .countdown-medium {
-            background: rgba(240,160,48,0.15);
-            color: #f0a030;
-            border: 1px solid rgba(240,160,48,0.3);
-        }
-
-        .countdown-relaxed {
-            background: rgba(0,232,176,0.15);
-            color: #00e8b0;
-            border: 1px solid rgba(0,232,176,0.3);
-        }
-
-        /* Calibration Section */
-        .calibration-panel {
-            background: linear-gradient(135deg, #12122a 0%, #1a1a3a 100%);
-            border: 1px solid #2a2a4e;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .calibration-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .calibration-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #7c6cf7;
-        }
-
-        .calibration-toggle {
-            font-size: 1.2rem;
-            color: #7c6cf7;
-            transition: transform 0.2s;
-        }
-
-        .calibration-toggle.open {
-            transform: rotate(180deg);
-        }
-
-        .calibration-content {
-            display: none;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #2a2a4e;
-        }
-
-        .calibration-content.open {
-            display: grid;
-        }
-
-        .calibration-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .calibration-item {
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            padding: 1rem;
-        }
-
-        .calibration-label {
-            font-size: 0.7rem;
-            color: #5a5a7a;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.4rem;
-        }
-
-        .calibration-value {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #d0d0e0;
-            margin-bottom: 0.25rem;
-        }
-
-        .calibration-meta {
-            font-size: 0.75rem;
-            color: #6a6a8a;
-        }
-
-        .base-rates-list {
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1rem;
-        }
-
-        .base-rate-item {
-            display: grid;
-            grid-template-columns: 1fr 80px;
-            gap: 1rem;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .base-rate-item:last-child {
-            border-bottom: none;
-        }
-
-        .base-rate-name {
-            font-size: 0.85rem;
-            color: #c8c8d8;
-        }
-
-        .base-rate-value {
-            font-weight: 700;
-            color: #7c6cf7;
-            text-align: right;
-        }
-
-        .learning-entry {
-            background: rgba(0,0,0,0.2);
-            border-left: 3px solid #4ea8de;
-            border-radius: 6px;
-            padding: 0.75rem;
-            margin-top: 0.5rem;
-            font-size: 0.85rem;
-        }
-
-        .learning-date {
-            color: #5a5a7a;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 0.05em;
-        }
-
-        .learning-type {
-            color: #4ea8de;
-            font-weight: 600;
-            margin: 0.3rem 0;
-        }
-
-        .learning-insight {
-            color: #8a8aa8;
-            line-height: 1.5;
-        }
-
-        /* Next Steps in opp card */
-        .next-steps { margin-top: 0.75rem; }
-
-        .next-step-item {
-            font-size: 0.82rem;
-            color: #7a7a9a;
-            padding: 0.3rem 0 0.3rem 1rem;
-            position: relative;
-        }
-
-        .next-step-item::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: #7c6cf7;
-        }
-
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 4rem;
-            color: #6a6a8a;
-            font-size: 1.1rem;
-        }
-
-        .loading-spinner {
-            width: 40px; height: 40px;
-            border: 3px solid #1e1e3a;
-            border-top-color: #7c6cf7;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Error */
-        .error-msg {
-            background: rgba(224,80,96,0.08);
-            border: 1px solid rgba(224,80,96,0.3);
-            border-radius: 10px;
-            padding: 1.5rem;
-            color: #e05060;
-            text-align: center;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #3a3a5a;
             font-size: 0.8rem;
-            border-top: 1px solid #1a1a2e;
-            margin-top: 3rem;
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .stats-row { grid-template-columns: repeat(3, 1fr); }
-            .thesis-row { grid-template-columns: 1fr; }
-            .opp-grid { grid-template-columns: 1fr; }
-            .header-stats { flex-direction: column; gap: 0.5rem; }
+        .pattern-meta-item {
+            background: rgba(0,0,0,0.2);
+            padding: 0.5rem;
+            border-radius: 5px;
+            color: #8a8aa8;
         }
 
-        @media (max-width: 600px) {
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
-            main { padding: 1rem; }
-            header { padding: 1rem; }
-            .opp-meta-grid { grid-template-columns: 1fr; }
-            .header-right { flex-direction: column; gap: 0.5rem; }
+        .pattern-meta-label {
+            font-weight: 600;
+            color: #a0a0c0;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #6a6a8a;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-inner">
-            <div class="logo">Side Gig Bot</div>
-            <div class="header-right">
-                <div class="header-stats" id="header-stats"></div>
-                <div class="live-badge"><span class="live-dot"></span> Live Intelligence</div>
-                <div class="date-display" id="header-date"></div>
-            </div>
-        </div>
-    </header>
 
-    <main>
-        <div id="loading" class="loading">
-            <div class="loading-spinner"></div>
-            Loading intelligence data...
-        </div>
-        <div id="content" style="display:none;">
-            <!-- Daily Brief -->
-            <div class="daily-brief">
-                <div class="brief-label">Daily Intelligence Brief</div>
-                <div class="brief-text" id="daily-brief"></div>
-            </div>
-
-            <!-- Stats Row -->
-            <div class="stats-row" id="stats-row"></div>
-
-            <!-- Thesis Cards -->
-            <div class="thesis-row">
-                <div class="thesis-card">
-                    <div class="brief-label weekly">Weekly Thesis</div>
-                    <div class="thesis-text" id="weekly-thesis"></div>
-                </div>
-                <div class="thesis-card">
-                    <div class="brief-label monthly">Monthly Outlook</div>
-                    <div class="thesis-text" id="monthly-outlook"></div>
-                </div>
-            </div>
-
-            <!-- Calibration Panel -->
-            <div class="calibration-panel" id="calibration-panel"></div>
-
-            <!-- Tabs -->
-            <div class="tab-bar" id="tab-bar"></div>
-
-            <!-- Tab Panels -->
-            <div id="panel-opportunities" class="tab-panel active"></div>
-            <div id="panel-signals" class="tab-panel"></div>
-            <div id="panel-deployed" class="tab-panel"></div>
-            <div id="panel-rejected" class="tab-panel"></div>
-            <div id="panel-decisions" class="tab-panel"></div>
-            <div id="panel-predictions" class="tab-panel"></div>
-        </div>
-        <div id="error" style="display:none;"></div>
-    </main>
-
-    <footer>
-        <span id="footer-updated"></span> &middot; Data: <code>data/opportunities.json</code> &middot; Side Gig Bot v2
-    </footer>
-
-    <script>
-    (function() {
-        const $ = id => document.getElementById(id);
-
-        // Set header date
-        $('header-date').textContent = new Date().toLocaleDateString('en-US', {
-            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-        });
-
-        // Load data — try fetch first (works on servers), fall back to embedded data (works on file://)
-        const EMBEDDED_DATA = {"lastUpdated":"2026-03-30T16:00:00Z","researchCycle":2,"schemaVersion":"2.0","summary":{"totalOpportunitiesScanned":53,"vetted":9,"readyToDeploy":3,"inSimulation":3,"rejected":35},"dailyBrief":"Home services AI receptionist space is heating up fast — Avoca raised $47.8M and case studies show plumbers recovering $6K-$15K/month from missed calls. But the funded players are all enterprise-priced, leaving the $149-299/month direct-to-contractor lane wide open. Strongest new signal: fractional AI consulting for mid-market firms — 70% of execs say they need outside help but only 34% have transformed. This is a high-ticket, zero-build opportunity worth simulating.","weeklyThesis":"Vertical-specific AI services for non-tech businesses remain the highest probability path. The data is now bifurcating into two clear lanes: (1) low-ticket recurring SaaS plays targeting home services contractors at $49-299/month, where the build-it-yourself approach still works because funded competitors price themselves out; and (2) high-ticket consulting/implementation plays at $2K-8K/month per client, where zero build is required — just expertise and process. The fractional AI consultant model may be the fastest path to meaningful revenue because it requires no code, no product, and the demand signal is screaming.","monthlyOutlook":"AI agent market growing 47% YoY ($8B→$11.78B). Answer Engine Optimization is the new SEO but getting crowded at the top — better as a consulting angle than a tool play. White-label AI for agencies is the highest-MRR category on TrustMRR. The meta-trend: the people making real money are selling AI implementation to businesses, not building consumer AI tools. Mastercard's launch of a virtual CFO AI for SMBs signals big tech is entering the space — solo plays need to be niche-specific or relationship-driven to survive.","calibration":{"description":"Tracks how well the system's probability estimates match actual outcomes. Based on Philip Tetlock's superforecasting framework.","methodology":"Brier Score (lower = better, 0 = perfect, 0.25 = coin flip).","totalPredictions":6,"resolvedPredictions":0,"brierScore":null,"calibrationStatus":"Baseline established","baseRates":{"microSaasFirst1kMRR":{"value":0.30,"label":"Micro-SaaS to $1K MRR","source":"RockingWeb: 70% under $1K/month"},"freelanceConsultingFirst3Clients":{"value":0.55,"label":"Consulting: 3 clients in 90 days","source":"~55% with demonstrable skill"},"coldOutreachResponseRate":{"value":0.03,"label":"Cold outreach response rate","source":"1-5% typical, 3% midpoint"},"aiConsultingConversionRate":{"value":0.40,"label":"AI consulting pitch conversion","source":"Industry baseline 35-45%"},"productLaunchFirstMonthTraction":{"value":0.35,"label":"Product launch gets 10+ signups","source":"SaaS benchmark data"},"contractorPhoneIntegration":{"value":0.25,"label":"Contractor adopts phone AI","source":"Tech adoption rate for trades"}},"learnings":{"entries":[{"date":"2026-03-30","type":"baseline_established","insight":"System initialized. Probabilities anchored to base rates from industry data."},{"date":"2026-03-25","type":"signal_validation","insight":"Avoca's $47.8M Series B validates home services AI receptionist market."},{"date":"2026-03-20","type":"market_shift","insight":"Mid-market shift from DIY AI to fractional implementation services."}]}},"opportunities":[{"id":"opp-001","name":"AI Missed-Call Text-Back for Home Services","status":"ready_to_deploy","tier":1,"category":"Vertical SaaS","description":"AI system that instantly texts back missed calls for plumbers/HVAC/electricians, qualifies the lead via SMS, and books appointments.","revenueModel":"$149-299/month per business","competitorAnalysis":"Avoca AI raised $47.8M but targets enterprise. Direct-to-contractor lane at $149-299/month remains open.","simulation":{"probabilityFirstClient60Days":0.35,"probabilityRevenue1kMonth6Mo":0.25,"probabilityRevenue5kMonth12Mo":0.12,"estimatedBuildTime":"2 weeks","estimatedCostToLaunch":"$0-20","moatStrength":"Low-Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.30},{"cycle":2,"date":"2026-03-30","value":0.35}],"predictions":[{"claim":"Get first customer inquiry within 60 days","probability":0.35,"resolutionDate":"2026-05-29"}],"evidence":["BookedIn verified $51,312 MRR on TrustMRR (13% MoM growth)","Only 14% of small businesses have integrated AI","Avoca AI raised $47.8M — validates market","Wayne Conn Plumbing: $6,285 revenue in 2 weeks from AI receptionist","Rodriguez Plumbing: 47 jobs/month booked from voicemail, ~$15K recovered","Aire Serv HVAC: after-hours bookings jumped from 58 to 208","Average plumber misses 28% of calls, costing $50K+/year"],"nextSteps":["Build n8n workflow: Twilio → AI SMS → Calendar booking","Create landing page for plumber/HVAC AI receptionist","Draft cold outreach templates","Build ROI calculator"]},{"id":"opp-002","name":"AI Review Response System for Local Businesses","status":"ready_to_deploy","tier":1,"category":"Vertical SaaS","description":"AI monitors Google/Yelp reviews, drafts personalized responses, sends for one-tap approval via text.","revenueModel":"$49-99/month per business","simulation":{"probabilityFirstClient60Days":0.35,"probabilityRevenue1kMonth6Mo":0.25,"probabilityRevenue5kMonth12Mo":0.12,"estimatedBuildTime":"2-3 weeks","estimatedCostToLaunch":"$0","moatStrength":"Low-Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.28},{"cycle":2,"date":"2026-03-30","value":0.35}],"predictions":[{"claim":"Build working prototype by mid-April","probability":0.70,"resolutionDate":"2026-04-15"}],"evidence":["Google confirmed review responses affect local search ranking","BigIdeasDB validated centralized review management need","Podium/Birdeye priced out of single-location market"],"nextSteps":["Build n8n workflow: Google Business Profile → AI → SMS approval","Demo with sample reviews","Price at $49/month"]},{"id":"opp-003","name":"InstantProposal — AI Proposal Generator","status":"deployed","tier":1,"category":"Micro-SaaS","deployedUrl":"https://mikedmote52.github.io/instant-proposal/","description":"Web tool where contractors describe a job and get a branded proposal PDF in 60 seconds.","revenueModel":"Freemium: free 5/month, $9.99/month unlimited","simulation":{"probabilityRevenue500Month3Mo":0.25,"probabilityRevenue2kMonth6Mo":0.15,"probabilityRevenue5kMonth12Mo":0.08,"estimatedBuildTime":"Built — deployed","estimatedCostToLaunch":"$0","moatStrength":"Low — competition intensified"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.25},{"cycle":2,"date":"2026-03-30","value":0.25}],"predictions":[{"claim":"Product Hunt launch drives 100+ signups","probability":0.40,"resolutionDate":"2026-04-30"}],"evidence":["238k+ complaints validate proposal writing as pain point","First quote usually wins the job","Proposal Genie: 50K+ users on Upwork","Bookipi offering free AI proposals","Market evolving to structured revenue systems"],"nextSteps":["PIVOT: Target offline contractors, not freelancers","SEO blog posts for contractor keywords","Product Hunt launch","Add AI description generation"]},{"id":"opp-004","name":"Vertical n8n Automation Packs","status":"in_simulation","tier":2,"category":"Digital Products","description":"Bundled n8n workflows for specific industries. 8-12 workflows per vertical.","revenueModel":"$79-149 per pack or $29/month","simulation":{"probabilityRevenue500Month3Mo":0.25,"probabilityRevenue2kMonth6Mo":0.12,"estimatedBuildTime":"3-4 weeks","estimatedCostToLaunch":"$0","moatStrength":"Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.20},{"cycle":2,"date":"2026-03-30","value":0.25}],"predictions":[{"claim":"Dental practice pack sells 5 copies","probability":0.30,"resolutionDate":"2026-06-30"}],"evidence":["One creator documented $3,200/mo from 5 templates","No vertical-specific packs found","n8n marketplace: 6,137+ workflows","Mega-packs flooding market at $30"],"nextSteps":["Authenticate n8n","Research dental practice workflows","Build first pack: Dental AI Stack","Price at $149"]},{"id":"opp-005","name":"SMS-Based AI Business Assistant","status":"in_simulation","tier":2,"category":"Vertical SaaS","description":"AI assistant over SMS. No app, no login. Business owners text for help with responses, quotes, scheduling.","revenueModel":"$19-49/month","simulation":{"probabilityRevenue500Month6Mo":0.20,"estimatedBuildTime":"4-6 weeks","estimatedCostToLaunch":"$20-50/mo","moatStrength":"Medium-High"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.18},{"cycle":2,"date":"2026-03-30","value":0.20}],"evidence":["Apple RCS support in iOS 18","83% of businesses using AI for SMS support","RCS adopters seeing 2-3x higher click-through"],"nextSteps":["Prototype Twilio → AI pipeline","Test with 3-5 local businesses","Calculate unit economics"]},{"id":"opp-006","name":"Fractional AI Implementation Consultant","status":"research","tier":1,"category":"Service / Consulting","description":"Position as fractional CAIO for small-to-mid-market businesses. 8-20 hours/month per client. No product to build.","revenueModel":"$2K-$8K/month retainer, $5K-$25K projects","simulation":{"probabilityFirstClient60Days":0.45,"probabilityRevenue1kMonth6Mo":0.55,"estimatedBuildTime":"1 week (packaging)","estimatedCostToLaunch":"$0","moatStrength":"Medium-High"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.40},{"cycle":2,"date":"2026-03-30","value":0.45}],"predictions":[{"claim":"Land first AI implementation client by May 31","probability":0.45,"resolutionDate":"2026-05-31"}],"evidence":["91% mid-market using AI, only 34% feel transformed","70% execs need outside help","Full-time CAIO costs $400K+ — fractional at 20-30% cost","68% small businesses using AI, most need optimization","88% of orgs using AI in at least one function"],"nextSteps":["Package 90-Day AI Transformation offer","Create AI readiness assessment","Build service description + pricing","Identify 10 local businesses to pitch","LinkedIn content about AI implementation"]}],"rejectedOpportunities":[{"name":"Generic AI prompt packs","reason":"Market saturated. No differentiation."},{"name":"Faceless YouTube channels","reason":"YouTube crackdown early 2026. Policy risk."},{"name":"AI art on print-on-demand","reason":"Margins too thin. Market flooded."},{"name":"Generic chatbot wrapper","reason":"Commoditized. No moat."},{"name":"AEO audit tool","reason":"HubSpot, Semrush, Profound all competing."},{"name":"Oddsly acquisition ($7k)","reason":"Sports betting. Legal complexity. Not aligned."},{"name":"IndiePilot acquisition ($3.6k)","reason":"Only 3 subscribers, $24 MRR. No traction."},{"name":"AI ad creative generator","reason":"Crush AI growing 94% MoM. Canva has AI. Too competitive."},{"name":"Generic n8n mega-template pack","reason":"4K-8K template mega-bundles at $30. Race to bottom."}],"signals":[{"date":"2026-03-30","signal":"AI agent market: $8B → $11.78B in 2026 (47% YoY growth)","source":"Market research","impact":"high"},{"date":"2026-03-30","signal":"Only 14% of small businesses have embedded AI into operations","source":"Fortune","impact":"high"},{"date":"2026-03-30","signal":"70%+ of SMB owners say they'd benefit from AI implementation help","source":"US Chamber of Commerce","impact":"high"},{"date":"2026-03-30","signal":"Google AI Overviews now on 40%+ of searches","source":"Semrush","impact":"medium"},{"date":"2026-03-30","signal":"Reddit marketing agency: $50k MRR, 75% margin, 100% inbound","source":"TrustMRR verified","impact":"high"},{"date":"2026-03-30","signal":"n8n template marketplace: 6,137+ community workflows","source":"n8n.io","impact":"medium"},{"date":"2026-03-30","signal":"Apple RCS support in iOS 18 — rich business messaging","source":"Industry reports","impact":"medium"},{"date":"2026-03-30","signal":"ChatDash: $47k MRR, 49% MoM growth","source":"TrustMRR verified","impact":"medium"},{"date":"2026-03-30","signal":"Avoca AI raised $47.8M for home services AI","source":"Tracxn/Getlatka","impact":"high"},{"date":"2026-03-30","signal":"Wayne Conn Plumbing: AI receptionist $6,285 in 2 weeks","source":"ResultantAI case study","impact":"high"},{"date":"2026-03-30","signal":"Rodriguez Plumbing: 47 jobs/month from AI, ~$15K recovered","source":"Donna AI case study","impact":"high"},{"date":"2026-03-30","signal":"91% mid-market using AI, only 34% transformed","source":"RSM US / Deloitte","impact":"high"},{"date":"2026-03-30","signal":"70% mid-market execs need outside AI help","source":"RSM US / Deloitte","impact":"high"},{"date":"2026-03-30","signal":"Mastercard launched virtual CFO AI for SMBs","source":"Fortune","impact":"medium"},{"date":"2026-03-30","signal":"Proposal Genie: 50K+ freelancers — niche getting claimed","source":"ProposalGenie.ai","impact":"medium"},{"date":"2026-03-30","signal":"n8n mega-packs flooding Gumroad at $30","source":"Gumroad scan","impact":"medium"},{"date":"2026-03-30","signal":"68% US small businesses using AI regularly","source":"Adra Tech Systems","impact":"high"}],"deployedAssets":[{"name":"InstantProposal","url":"https://mikedmote52.github.io/instant-proposal/","status":"live","type":"micro-saas","deployedDate":"2026-03-30"},{"name":"AI Automation Starter Kit","status":"built_not_listed","type":"digital-product","suggestedPrice":"$19"},{"name":"AI Hustle Evaluator","status":"built_not_deployed","type":"lead-gen-tool"},{"name":"Daily Research Scanner","status":"active","type":"automation","schedule":"8am daily"}]};
-
-        fetch('./data/opportunities.json')
-            .then(r => { if(!r.ok) throw new Error('fetch failed'); return r.json(); })
-            .then(render)
-            .catch(() => {
-                // file:// protocol blocks fetch — use embedded data instead
-                render(EMBEDDED_DATA);
-            });
-
-        function render(data) {
-            $('loading').style.display = 'none';
-            $('content').style.display = 'block';
-
-            // Brief
-            $('daily-brief').textContent = data.dailyBrief || '';
-            $('weekly-thesis').textContent = data.weeklyThesis || '';
-            $('monthly-outlook').textContent = data.monthlyOutlook || '';
-
-            // Header stats (Research Cycle & Last Scan)
-            const lastScanDate = new Date(data.lastUpdated);
-            const lastScanFormatted = lastScanDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-            $('header-stats').innerHTML = `
+<header>
+    <div class="header-inner">
+        <div class="logo">Side Gig Bot v4</div>
+        <div class="header-right">
+            <div class="header-stats">
                 <div class="header-stat-item">
-                    <div class="header-stat-label">Research Cycle</div>
-                    <div class="header-stat-value">${data.researchCycle || 0}</div>
+                    <div class="header-stat-label">Ideas</div>
+                    <div class="header-stat-value" id="ideaCount">0</div>
                 </div>
                 <div class="header-stat-item">
-                    <div class="header-stat-label">Last Scan</div>
-                    <div class="header-stat-value">${lastScanFormatted}</div>
+                    <div class="header-stat-label">Experiments</div>
+                    <div class="header-stat-value" id="expCount">0</div>
                 </div>
-            `;
-
-            // Footer timestamp
-            if (data.lastUpdated) {
-                const d = new Date(data.lastUpdated);
-                $('footer-updated').textContent = 'Last scan: ' + d.toLocaleString();
-            }
-
-            // Stats
-            const s = data.summary || {};
-            $('stats-row').innerHTML = [
-                { n: s.totalOpportunitiesScanned||0, l:'Scanned', c:'purple' },
-                { n: s.vetted||0, l:'Vetted', c:'blue' },
-                { n: s.readyToDeploy||0, l:'Ready', c:'green' },
-                { n: s.inSimulation||0, l:'Simulating', c:'amber' },
-                { n: s.rejected||0, l:'Rejected', c:'red' }
-            ].map(x => `
-                <div class="stat-card">
-                    <div class="stat-number ${x.c}">${x.n}</div>
-                    <div class="stat-label">${x.l}</div>
+                <div class="header-stat-item">
+                    <div class="header-stat-label">Revenue</div>
+                    <div class="header-stat-value" id="totalRevenue">$0</div>
                 </div>
-            `).join('');
+            </div>
+            <div class="live-badge">
+                <div class="live-dot"></div>
+                Active
+            </div>
+        </div>
+    </div>
+</header>
 
-            // Calibration Panel
-            renderCalibration(data.calibration);
+<main>
+    <!-- COMMAND CENTER -->
+    <div class="daily-brief">
+        <div class="brief-label">Daily Brief</div>
+        <div class="brief-text" id="dailyBrief">Loading brief...</div>
+    </div>
 
-            // Tabs
-            const opps = data.opportunities || [];
-            const sigs = data.signals || [];
-            const deployed = data.deployedAssets || [];
-            const rejected = data.rejectedOpportunities || [];
-            const predictions = collectPredictions(opps);
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-number purple" id="statPlays">6</div>
+            <div class="stat-label">Plays</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number green" id="statActive">0</div>
+            <div class="stat-label">Active</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number blue" id="statSignals">24</div>
+            <div class="stat-label">Signals</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number amber" id="statRevenueMRR">$0</div>
+            <div class="stat-label">MRR</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number red" id="statWinRate">0%</div>
+            <div class="stat-label">Win Rate</div>
+        </div>
+    </div>
 
-            const tabs = [
-                { id:'opportunities', label:'Opportunities', count: opps.length },
-                { id:'signals', label:'Signals', count: sigs.length },
-                { id:'deployed', label:'Deployed', count: deployed.length },
-                { id:'rejected', label:'Rejected', count: rejected.length },
-                { id:'decisions', label:'Decisions', count: '' },
-                { id:'predictions', label:'Predictions', count: predictions.length }
-            ];
+    <div class="quick-actions">
+        <button class="action-btn" onclick="openAddIdeaModal()">+ Add Idea</button>
+        <button class="action-btn" onclick="openAddExperimentModal()">+ Log Experiment</button>
+        <button class="action-btn" onclick="openAddSignalModal()">+ Add Signal</button>
+        <button class="action-btn" onclick="openAddPlayModal()">+ New Play</button>
+        <button class="action-btn" onclick="openAddRevenueModal()">+ Log Revenue</button>
+    </div>
 
-            $('tab-bar').innerHTML = tabs.map((t,i) => `
-                <button class="tab-btn${i===0?' active':''}" data-tab="${t.id}">
-                    ${t.label}${t.count!==''?`<span class="tab-count">${t.count}</span>`:''}
-                </button>
-            `).join('');
+    <!-- TABS -->
+    <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('plays')">
+            Plays Pipeline <span class="tab-count" id="playsCount">6</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('ideas')">
+            Idea Lab <span class="tab-count" id="ideasCount">0</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('experiments')">
+            Experiment Tracker <span class="tab-count" id="expsCount">0</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('signals')">
+            Signals <span class="tab-count" id="signalsCount">24</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('revenue')">
+            Revenue Tracker <span class="tab-count" id="revenueCount">0</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('builder')">
+            AI Builder <span class="tab-count">7</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('improvements')">
+            UI Ideas <span class="tab-count" id="improvementsCount">5</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('settings')">
+            Settings
+        </button>
+    </div>
 
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-                    btn.classList.add('active');
-                    $('panel-'+btn.dataset.tab).classList.add('active');
-                });
-            });
+    <!-- PLAYS PIPELINE TAB -->
+    <div id="plays" class="tab-panel active">
+        <div style="margin-bottom: 1rem; display: flex; gap: 0.75rem;">
+            <button class="action-btn" onclick="toggleKanban()">Toggle Kanban View</button>
+        </div>
+        <div id="playsGrid" class="card-grid"></div>
+        <div id="playsKanban" class="kanban" style="display: none;"></div>
+    </div>
 
-            // Opportunities
-            $('panel-opportunities').innerHTML = '<div class="opp-grid">' + opps.map(renderOpp).join('') + '</div>';
+    <!-- IDEA LAB TAB -->
+    <div id="ideas" class="tab-panel">
+        <div class="card-grid" id="ideasGrid"></div>
+        <div id="ideasEmpty" class="empty-state">
+            <div class="empty-state-icon">💡</div>
+            <div class="empty-state-text">No ideas yet. Click the "Add Idea" button to get started!</div>
+        </div>
+    </div>
 
-            // Signals
-            $('panel-signals').innerHTML = '<div class="signal-feed">' + sigs.map(renderSignal).join('') + '</div>';
+    <!-- EXPERIMENTS TAB -->
+    <div id="experiments" class="tab-panel">
+        <div id="experimentsList" class="list"></div>
+        <div id="experimentsEmpty" class="empty-state">
+            <div class="empty-state-icon">🧪</div>
+            <div class="empty-state-text">No experiments logged. Start tracking your tests!</div>
+        </div>
+    </div>
 
-            // Deployed
-            $('panel-deployed').innerHTML = '<div class="deployed-grid">' + deployed.map(renderDeployed).join('') + '</div>';
+    <!-- SIGNALS TAB -->
+    <div id="signals" class="tab-panel">
+        <div id="signalsList" class="list"></div>
+    </div>
 
-            // Rejected
-            $('panel-rejected').innerHTML = '<div class="rejected-list">' + rejected.map(renderRejected).join('') + '</div>';
+    <!-- REVENUE TRACKER TAB -->
+    <div id="revenue" class="tab-panel">
+        <div class="revenue-summary">
+            <div class="revenue-stat">
+                <div class="revenue-stat-value" id="totalRevenueDisplay">$0</div>
+                <div class="revenue-stat-label">Total Revenue</div>
+            </div>
+            <div class="revenue-stat">
+                <div class="revenue-stat-value" id="mrrDisplay">$0</div>
+                <div class="revenue-stat-label">Monthly Recurring</div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <div style="font-size: 0.9rem; font-weight: 600; color: #c8c8d8; margin-bottom: 1rem;">Revenue by Month</div>
+            <div class="bar-chart" id="revenueChart"></div>
+        </div>
+        <div id="revenueList" class="list"></div>
+        <div id="revenueEmpty" class="empty-state">
+            <div class="empty-state-icon">💰</div>
+            <div class="empty-state-text">No revenue logged yet.</div>
+        </div>
+    </div>
 
-            // Decisions
-            renderDecisions(opps);
+    <!-- AI BUILDER TAB -->
+    <div id="builder" class="tab-panel">
+        <div class="card-grid" id="builderGrid"></div>
+    </div>
 
-            // Predictions
-            renderPredictions(predictions);
-        }
+    <!-- UI IMPROVEMENTS TAB -->
+    <div id="improvements" class="tab-panel">
+        <div id="improvementsList" class="list"></div>
+    </div>
 
-        function renderCalibration(cal) {
-            if (!cal) return;
+    <!-- SETTINGS TAB -->
+    <div id="settings" class="tab-panel">
+        <div class="card" style="margin-bottom: 2rem;">
+            <div class="card-title">Data Management</div>
+            <div style="color: #8a8aa8; margin: 1.5rem 0;">
+                <p style="margin-bottom: 1rem;">Total Ideas: <strong id="dataStatsIdeas">0</strong></p>
+                <p style="margin-bottom: 1rem;">Total Experiments: <strong id="dataStatsExperiments">0</strong></p>
+                <p style="margin-bottom: 1rem;">Total Signals: <strong id="dataStatsSignals">0</strong></p>
+                <p style="margin-bottom: 1rem;">Total Revenue Entries: <strong id="dataStatsRevenue">0</strong></p>
+                <p>Total Plays: <strong id="dataStatsPlays">0</strong></p>
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button class="action-btn" onclick="exportData()">Export Data (JSON)</button>
+                <button class="action-btn" onclick="document.getElementById('importFile').click()">Import Data</button>
+                <input type="file" id="importFile" style="display: none;" onchange="importData(event)">
+                <button class="action-btn" style="color: #e05060; border-color: #e05060;" onclick="resetData()">Reset All</button>
+            </div>
+        </div>
+    </div>
+</main>
 
-            const toggle = () => {
-                const content = panel.querySelector('.calibration-content');
-                const icon = panel.querySelector('.calibration-toggle');
-                content.classList.toggle('open');
-                icon.classList.toggle('open');
+<!-- MODALS -->
+<div id="addIdeaModal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal('addIdeaModal')">×</button>
+        <div class="modal-title">Add New Idea</div>
+        <form onsubmit="saveIdea(event)">
+            <div class="form-group">
+                <label class="form-label">Idea Name</label>
+                <input type="text" id="ideaName" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Category</label>
+                <select id="ideaCategory" class="form-select">
+                    <option value="SaaS">SaaS</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Digital Products">Digital Products</option>
+                    <option value="Templates">Templates</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea id="ideaDescription" class="form-textarea"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Revenue Model</label>
+                <input type="text" id="ideaRevenueModel" class="form-input" placeholder="e.g., $99/month">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Estimated Build Time (weeks)</label>
+                <input type="number" id="ideaBuildTime" class="form-input" min="1" value="4">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Startup Cost ($)</label>
+                <input type="number" id="ideaStartupCost" class="form-input" min="0" value="0">
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label class="form-label">Scoring Criteria (1-5 scale)</label>
+                <div class="slider-group">
+                    <div class="slider-label-row">
+                        <span class="slider-label">Time to Revenue</span>
+                        <span class="slider-value" id="scoreTimeValue">3</span>
+                    </div>
+                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreTime" oninput="document.getElementById('scoreTimeValue').textContent = this.value; updateIdeaScore()">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-label-row">
+                        <span class="slider-label">Passive Potential</span>
+                        <span class="slider-value" id="scorePassiveValue">3</span>
+                    </div>
+                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scorePassive" oninput="document.getElementById('scorePassiveValue').textContent = this.value; updateIdeaScore()">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-label-row">
+                        <span class="slider-label">Low Startup Cost</span>
+                        <span class="slider-value" id="scoreCostValue">3</span>
+                    </div>
+                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreCost" oninput="document.getElementById('scoreCostValue').textContent = this.value; updateIdeaScore()">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-label-row">
+                        <span class="slider-label">Income Ceiling</span>
+                        <span class="slider-value" id="scoreIncomeValue">3</span>
+                    </div>
+                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreIncome" oninput="document.getElementById('scoreIncomeValue').textContent = this.value; updateIdeaScore()">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-label-row">
+                        <span class="slider-label">Low Competition</span>
+                        <span class="slider-value" id="scoreCompValue">3</span>
+                    </div>
+                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreComp" oninput="document.getElementById('scoreCompValue').textContent = this.value; updateIdeaScore()">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-label-row">
+                        <span class="slider-label">Tool Fit (n8n/AI)</span>
+                        <span class="slider-value" id="scoreToolValue">3</span>
+                    </div>
+                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreTool" oninput="document.getElementById('scoreToolValue').textContent = this.value; updateIdeaScore()">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-label-row">
+                        <span class="slider-label">Compounding Potential</span>
+                        <span class="slider-value" id="scoreCompoundValue">3</span>
+                    </div>
+                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreCompound" oninput="document.getElementById('scoreCompoundValue').textContent = this.value; updateIdeaScore()">
+                </div>
+            </div>
+
+            <div style="background: rgba(124,108,247,0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
+                <div style="font-size: 0.85rem; color: #6a6a8a; margin-bottom: 0.25rem;">Overall Score</div>
+                <div style="font-size: 2rem; font-weight: 800; color: #7c6cf7;" id="overallScore">21/35</div>
+            </div>
+
+            <div class="modal-buttons">
+                <button type="submit" class="modal-btn primary">Create Idea</button>
+                <button type="button" class="modal-btn secondary" onclick="closeModal('addIdeaModal')">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="addExperimentModal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal('addExperimentModal')">×</button>
+        <div class="modal-title">Log Experiment</div>
+        <form onsubmit="saveExperiment(event)">
+            <div class="form-group">
+                <label class="form-label">Hypothesis</label>
+                <textarea id="expHypothesis" class="form-textarea" required></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Test Method</label>
+                <textarea id="expMethod" class="form-textarea" required></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Metric to Measure</label>
+                <input type="text" id="expMetric" class="form-input" required placeholder="e.g., signups, conversion rate">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Start Date</label>
+                <input type="date" id="expStartDate" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Status</label>
+                <select id="expStatus" class="form-select">
+                    <option value="running">Running</option>
+                    <option value="completed">Completed</option>
+                    <option value="failed">Failed</option>
+                </select>
+            </div>
+            <div class="form-group" id="expResultsGroup" style="display: none;">
+                <label class="form-label">Results</label>
+                <textarea id="expResults" class="form-textarea"></textarea>
+            </div>
+            <div class="form-group" id="expLearningGroup" style="display: none;">
+                <label class="form-label">Learning Extracted</label>
+                <textarea id="expLearning" class="form-textarea"></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button type="submit" class="modal-btn primary">Log Experiment</button>
+                <button type="button" class="modal-btn secondary" onclick="closeModal('addExperimentModal')">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="addSignalModal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal('addSignalModal')">×</button>
+        <div class="modal-title">Add Signal</div>
+        <form onsubmit="saveSignal(event)">
+            <div class="form-group">
+                <label class="form-label">Date</label>
+                <input type="date" id="signalDate" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Signal</label>
+                <textarea id="signalText" class="form-textarea" required placeholder="What signal did you observe?"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Source</label>
+                <input type="text" id="signalSource" class="form-input" required placeholder="e.g., Twitter, Customer feedback, News">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Impact</label>
+                <select id="signalImpact" class="form-select">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button type="submit" class="modal-btn primary">Add Signal</button>
+                <button type="button" class="modal-btn secondary" onclick="closeModal('addSignalModal')">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="addPlayModal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal('addPlayModal')">×</button>
+        <div class="modal-title">Create New Play</div>
+        <form onsubmit="savePlay(event)">
+            <div class="form-group">
+                <label class="form-label">Play Name</label>
+                <input type="text" id="playName" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea id="playDescription" class="form-textarea" required></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Status</label>
+                <select id="playStatus" class="form-select">
+                    <option value="research">Research</option>
+                    <option value="simulation">Simulation</option>
+                    <option value="ready">Ready</option>
+                    <option value="deployed">Deployed</option>
+                    <option value="active">Active</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Probability (%)</label>
+                <input type="number" id="playProbability" class="form-input" min="0" max="100" value="50">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Category</label>
+                <input type="text" id="playCategory" class="form-input" placeholder="e.g., SaaS, Consulting">
+            </div>
+            <div class="modal-buttons">
+                <button type="submit" class="modal-btn primary">Create Play</button>
+                <button type="button" class="modal-btn secondary" onclick="closeModal('addPlayModal')">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="addRevenueModal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal('addRevenueModal')">×</button>
+        <div class="modal-title">Log Revenue</div>
+        <form onsubmit="saveRevenue(event)">
+            <div class="form-group">
+                <label class="form-label">Date</label>
+                <input type="date" id="revDate" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Amount ($)</label>
+                <input type="number" id="revAmount" class="form-input" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Source / Client</label>
+                <input type="text" id="revSource" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Type</label>
+                <select id="revType" class="form-select">
+                    <option value="one-time">One-time</option>
+                    <option value="recurring">Recurring (Monthly)</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button type="submit" class="modal-btn primary">Log Revenue</button>
+                <button type="button" class="modal-btn secondary" onclick="closeModal('addRevenueModal')">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="editPlayModal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal('editPlayModal')">×</button>
+        <div class="modal-title">Edit Play</div>
+        <form onsubmit="updatePlay(event)">
+            <div class="form-group">
+                <label class="form-label">Probability (%)</label>
+                <input type="number" id="editPlayProb" class="form-input" min="0" max="100">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Status</label>
+                <select id="editPlayStatus" class="form-select">
+                    <option value="research">Research</option>
+                    <option value="simulation">Simulation</option>
+                    <option value="ready">Ready</option>
+                    <option value="deployed">Deployed</option>
+                    <option value="active">Active</option>
+                    <option value="paused">Paused</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Notes</label>
+                <textarea id="editPlayNotes" class="form-textarea"></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button type="submit" class="modal-btn primary">Update</button>
+                <button type="button" class="modal-btn secondary" onclick="closeModal('editPlayModal')">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+const EMBEDDED_DATA = {"lastUpdated":"2026-04-01T16:00:00Z","researchCycle":3,"schemaVersion":"2.0","summary":{"totalOpportunitiesScanned":61,"vetted":10,"readyToDeploy":2,"inSimulation":2,"rejected":37},"dailyBrief":"Research Cycle 3 brings significant market validation. The AI consulting market hits $11.07B in 2026 with 26.2% CAGR — fractional CAIO demand is accelerating faster than supply of qualified leaders. Mid-market retainers now command $15K-30K/month, validating our positioning even at the SMB tier. Meanwhile, the missed-call text-back space has gotten more competitive — GoHighLevel added Voice AI, and AgentZap and Donna AI are both active — but the pain data is stronger than ever at $45K-120K in annual losses per contractor. The consulting industry is bifurcating into global scale providers and niche boutiques, which is exactly the Mote Ops thesis. Priority: close first consulting client within 30 days.","weeklyThesis":"The fractional AI consulting play just got stronger. The consulting industry is splitting into two camps — massive firms and specialized boutiques — with the mid-market collapsing. This validates the Mote Ops positioning as a niche AI implementation boutique. Fractional CAIO retainers at mid-market are $15K-30K/month, which means even at the SMB tier at $2K-5K/month, we're dramatically underpriced relative to the value delivered. The key insight from this cycle: 67% of small businesses using AI automation saw 20%+ revenue growth, but most need implementation help. The product plays (missed-call, review response) face stiffer competition from GoHighLevel and vertical-specific startups, but the consulting play has LESS competition because it requires human expertise that can't be commoditized.","monthlyOutlook":"AI consulting services market projected at $11.07B for 2026, growing to $90.99B by 2035. The agentic AI wave is shifting from 'what could AI do' to 'what should individual agents achieve' — businesses want dozens of small specialized agents, not one monolithic AI. This plays directly into the consulting model (we help design and deploy the agent architecture) and the n8n template packs (pre-built agent workflows). Competitive landscape: missed-call space getting crowded (GoHighLevel Voice AI, AgentZap, Donna AI, LeadTruffle, Sameday), but the consulting/implementation lane remains wide open. The meta-trend holds: people making real money are selling AI implementation, not building consumer AI tools.","calibration":{"totalPredictions":7,"resolvedPredictions":0,"brierScore":null,"calibrationStatus":"Cycle 3 — Probabilities updated with new market data","baseRates":{"productMarketFit":{"value":0.35,"label":"Product reaches 10+ paying customers","source":"Historical SaaS baseline"},"verticalizationEffect":{"value":0.55,"label":"Vertical-specific SaaS outperforms horizontal","source":"Gartner 2025"},"consultingConversion":{"value":0.4,"label":"Service offering converts to paying client","source":"Sales baseline"},"fractionalCaioRetainerConversion":{"value":0.52,"label":"Fractional CAIO: client in 60 days","source":"Updated with April 2026 market validation"}},"learnings":[{"date":"2026-03-20","type":"market_validation","insight":"Vertical-specific SaaS for home services (plumber/HVAC) is validated by multiple case studies showing ROI, but competitive intensity is rising."},{"date":"2026-03-30","type":"probability_update","insight":"All plays trended up or flat as more evidence emerged. Fractional CAIO showing strongest signal."},{"date":"2026-03-30","type":"strategic_insight","insight":"Service/consulting layer is the true differentiator. Products alone are commoditizing. Adding implementation services (e.g., 'we deploy your AI system') may be the unlock."},{"date":"2026-04-01","type":"probability_update","insight":"Play 6 probability increased to 52% based on new evidence: fractional CAIO demand accelerating, consulting industry bifurcation validates niche positioning, $15K-30K/month retainer range at mid-market means SMB tier ($2K-5K/month) is dramatically underpriced."},{"date":"2026-04-01","type":"competitive_shift","insight":"Play 1 probability decreased from 35% to 30%. GoHighLevel Voice AI, AgentZap, and Donna AI have entered the missed-call space. Lane is narrower. Differentiation must come from vertical expertise and done-for-you implementation, not the product alone."},{"date":"2026-04-01","type":"market_validation","insight":"67% of AI-adopting SMBs saw 20%+ revenue growth (McKinsey). This is the strongest ROI datapoint for consulting pitch. Frame as: 'Companies like yours that implement AI automation see 20% revenue growth. We make that happen in 90 days.'"}]},"opportunities":[{"id":"opp-001","name":"AI Missed-Call Text-Back for Home Services","status":"ready_to_deploy","tier":1,"category":"Vertical SaaS","description":"AI system that instantly texts back missed calls for plumbers/HVAC/electricians, qualifies the lead via SMS, and books appointments.","revenueModel":"$149-299/month per business","competitorAnalysis":"Avoca AI ($47.8M raised) targets enterprise. GoHighLevel added Voice AI. AgentZap, Donna AI, LeadTruffle active in the space. Direct-to-contractor lane at $149-299/month getting narrower but pain is well-documented.","simulation":{"probabilityFirstClient60Days":0.3,"probabilityRevenue1kMonth6Mo":0.22,"probabilityRevenue5kMonth12Mo":0.1,"estimatedBuildTime":"2 weeks","estimatedCostToLaunch":"$0-20","moatStrength":"Low-Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.3},{"cycle":2,"date":"2026-03-30","value":0.35},{"cycle":3,"date":"2026-04-01","value":0.3}],"predictions":[{"claim":"Get first customer inquiry within 60 days","probability":0.3,"resolutionDate":"2026-05-29"}],"evidence":["BookedIn verified $51,312 MRR on TrustMRR (13% MoM growth)","Only 14% of small businesses have integrated AI","Avoca AI raised $47.8M — validates market","Wayne Conn Plumbing: $6,285 revenue in 2 weeks from AI receptionist","Rodriguez Plumbing: 47 jobs/month booked from AI, ~$15K recovered","Aire Serv HVAC: after-hours bookings jumped from 58 to 208","Missed calls cost contractors $45K-$120K annually (InstantBusinessPro, 2026)","GoHighLevel Voice AI now answers inbound calls and books appointments","AgentZap: leading AI receptionist for plumbers, 24/7 emergency detection","Donna AI: users see 3x increase in booked appointments"],"nextSteps":["Build n8n workflow: Twilio → AI SMS → Calendar booking","Create landing page targeting plumber/HVAC contractors","Differentiate from GoHighLevel: offer done-for-you setup + vertical expertise","Target contractors not already on GoHighLevel platform"]},{"id":"opp-002","name":"AI Review Response System for Local Businesses","status":"ready_to_deploy","tier":1,"category":"Vertical SaaS","description":"AI monitors Google/Yelp reviews, drafts personalized responses, sends for one-tap approval via text.","revenueModel":"$49-99/month per business","simulation":{"probabilityFirstClient60Days":0.35,"probabilityRevenue1kMonth6Mo":0.25,"probabilityRevenue5kMonth12Mo":0.12,"estimatedBuildTime":"2-3 weeks","estimatedCostToLaunch":"$0","moatStrength":"Low-Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.28},{"cycle":2,"date":"2026-03-30","value":0.35},{"cycle":3,"date":"2026-04-01","value":0.35}],"predictions":[{"claim":"Build working prototype by mid-April","probability":0.65,"resolutionDate":"2026-04-15"}],"evidence":["Google confirmed review responses affect local search ranking","BigIdeasDB validated centralized review management need","Podium/Birdeye priced out of single-location market"],"nextSteps":["Build n8n workflow: Google Business Profile → AI → SMS approval","Demo with sample reviews","Price at $49/month, undercut Podium by 80%"]},{"id":"opp-003","name":"InstantProposal — AI Proposal Generator","status":"deployed","tier":1,"category":"Micro-SaaS","deployedUrl":"https://mikedmote52.github.io/instant-proposal/","description":"Web tool where contractors describe a job and get a branded proposal PDF in 60 seconds.","revenueModel":"Freemium: free 5/month, $9.99/month unlimited","simulation":{"probabilityRevenue500Month3Mo":0.25,"probabilityRevenue2kMonth6Mo":0.15,"probabilityRevenue5kMonth12Mo":0.08,"estimatedBuildTime":"Built — deployed","estimatedCostToLaunch":"$0","moatStrength":"Low — competition intensified"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.25},{"cycle":2,"date":"2026-03-30","value":0.25},{"cycle":3,"date":"2026-04-01","value":0.25}],"predictions":[{"claim":"Product Hunt launch drives 100+ signups","probability":0.4,"resolutionDate":"2026-04-30"}],"evidence":["238k+ complaints validate proposal writing as pain point","First quote usually wins the job","Proposal Genie: 50K+ users on Upwork","Bookipi offering free AI proposals","Market evolving to structured revenue systems"],"nextSteps":["PIVOT: Target offline contractors, not freelancers","SEO blog posts for contractor keywords","Product Hunt launch","Add AI description generation"]},{"id":"opp-004","name":"Vertical n8n Automation Packs","status":"in_simulation","tier":2,"category":"Digital Products","description":"Bundled n8n workflows for specific industries. 8-12 workflows per vertical.","revenueModel":"$79-149 per pack or $29/month","simulation":{"probabilityRevenue500Month3Mo":0.25,"probabilityRevenue2kMonth6Mo":0.12,"estimatedBuildTime":"3-4 weeks","estimatedCostToLaunch":"$0","moatStrength":"Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.2},{"cycle":2,"date":"2026-03-30","value":0.25},{"cycle":3,"date":"2026-04-01","value":0.25}],"predictions":[{"claim":"Dental practice pack sells 5 copies","probability":0.3,"resolutionDate":"2026-06-30"}],"evidence":["One creator documented $3,200/mo from 5 templates","No vertical-specific packs found","n8n marketplace: 6,137+ workflows","Mega-packs flooding market at $30","Agentic AI trend: businesses want dozens of specialized agents per business"],"nextSteps":["Fix n8n API connection (404 error, URL may need update)","Research dental practice workflows","Build first pack: Dental AI Stack","Price at $149, include implementation upsell at $5K"]},{"id":"opp-005","name":"SMS-Based AI Business Assistant","status":"in_simulation","tier":2,"category":"Vertical SaaS","description":"AI assistant over SMS. No app, no login. Business owners text for help with responses, quotes, scheduling.","revenueModel":"$19-49/month","simulation":{"probabilityRevenue500Month6Mo":0.2,"estimatedBuildTime":"4-6 weeks","estimatedCostToLaunch":"$20-50/mo","moatStrength":"Medium-High"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.18},{"cycle":2,"date":"2026-03-30","value":0.2},{"cycle":3,"date":"2026-04-01","value":0.2}],"evidence":["Apple RCS support in iOS 18","83% of businesses using AI for SMS support","RCS adopters seeing 2-3x higher click-through"],"nextSteps":["Prototype Twilio → AI pipeline","Test with 3-5 local businesses","Calculate unit economics"]},{"id":"opp-006","name":"Fractional AI Implementation Consultant","status":"active_pursuit","tier":1,"category":"Service / Consulting","description":"Position as fractional CAIO for small-to-mid-market businesses. 8-20 hours/month per client. Help identify AI opportunities, select tools, implement workflows, measure ROI. No product to build.","revenueModel":"$2K-$8K/month retainer, $5K-$25K projects","simulation":{"probabilityFirstClient60Days":0.52,"probabilityRevenue1kMonth6Mo":0.6,"estimatedBuildTime":"1 week (packaging)","estimatedCostToLaunch":"$0","moatStrength":"Medium-High"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.4},{"cycle":2,"date":"2026-03-30","value":0.45},{"cycle":3,"date":"2026-04-01","value":0.52}],"predictions":[{"claim":"Land first AI implementation client by May 31","probability":0.52,"resolutionDate":"2026-05-31"}],"evidence":["91% mid-market using AI, only 34% feel transformed","70% execs need outside help","Full-time CAIO costs $400K+ — fractional at 20-40% cost","68% small businesses using AI, most need optimization","88% of orgs using AI in at least one function","AI consulting market: $11.07B in 2026, 26.2% CAGR to $90.99B by 2035","Fractional CAIO retainers at mid-market: $15K-30K/month","67% of SMBs using AI saw 20%+ revenue growth (McKinsey)","Consulting industry bifurcating: global players + niche boutiques, mid-market collapsing","Faye Digital launched fractional CAIO services specifically for mid-market (validates positioning)","Demand for fractional CAIOs accelerating faster than supply of qualified leaders"],"nextSteps":["Package 90-Day AI Transformation offer with tiered pricing","Create AI readiness assessment quiz (doubles as lead gen)","Build service page on moteops-landing site","Identify 10 local businesses to pitch this week","LinkedIn content: 3 posts about AI implementation ROI","Reach out to mom's daycare for case study #1","Draft 5 cold outreach email templates"]}],"signals":[{"date":"2026-03-20","signal":"BookedIn validated $51,312 MRR on TrustMRR with 13% MoM growth","source":"TrustMRR","impact":"high"},{"date":"2026-03-20","signal":"Only 14% of small businesses have integrated AI solutions","source":"McKinsey / Industry Analysis","impact":"high"},{"date":"2026-03-20","signal":"Avoca AI raised $47.8M Series B, validating enterprise missed-call market","source":"TechCrunch","impact":"high"},{"date":"2026-03-20","signal":"Wayne Conn Plumbing: $6,285 revenue from AI receptionist in 2 weeks","source":"Case study / Client data","impact":"high"},{"date":"2026-03-20","signal":"Missed calls cost contractors average $50K annually","source":"Industry research","impact":"high"},{"date":"2026-03-25","signal":"Google Search rankings favor businesses with review responses","source":"Google Search Central","impact":"high"},{"date":"2026-03-25","signal":"Podium and Birdeye priced out of single-location market at $99+/month","source":"Pricing research","impact":"medium"},{"date":"2026-03-28","signal":"n8n marketplace now has 6,137+ workflows available","source":"n8n marketplace","impact":"medium"},{"date":"2026-03-28","signal":"One n8n creator documented $3,200/month from selling 5 templates","source":"Community reports / Case study","impact":"medium"},{"date":"2026-03-30","signal":"Micro-SaaS segment growing 30% annually, projected $15.7B to $59.6B by 2030","source":"Industry analysis","impact":"medium"},{"date":"2026-03-30","signal":"91% of mid-market companies using AI, but only 34% feel 'transformed'","source":"McKinsey 2025 AI Report","impact":"high"},{"date":"2026-03-30","signal":"70% of C-suite executives say they need outside help with AI implementation","source":"Harvard Business Review / Executive Survey","impact":"high"},{"date":"2026-03-30","signal":"88% of organizations are using AI in at least one business function","source":"Gartner 2025 AI Adoption Report","impact":"high"},{"date":"2026-03-30","signal":"Full-time Chief AI Officer costs $400K+ annually; fractional model at 20-40% of cost","source":"Salary analysis / Market research","impact":"high"},{"date":"2026-03-30","signal":"Faye Digital launches fractional CAIO services for mid-market","source":"PRNewswire","impact":"medium"},{"date":"2026-03-30","signal":"Apple iOS 18 adds RCS support, enabling richer SMS experiences","source":"Apple WWDC","impact":"medium"},{"date":"2026-03-30","signal":"SaaS industry now at $375B total market size, accelerating consolidation","source":"Industry research","impact":"medium"},{"date":"2026-04-01","signal":"AI consulting market: $11.07B in 2026, growing 26.2% CAGR to $90.99B by 2035","source":"ColorWhistle / Market Research","impact":"high"},{"date":"2026-04-01","signal":"67% of small businesses using AI automation saw 20%+ revenue growth","source":"McKinsey 2025 Report","impact":"high"},{"date":"2026-04-01","signal":"Fractional CAIO retainers: $15K-30K/month at mid-market level","source":"Faye Digital / Sprinklenet","impact":"high"},{"date":"2026-04-01","signal":"Consulting industry bifurcating: global players + niche boutiques, mid-market collapsing","source":"AlphaSense / Digitus Consulting","impact":"high"},{"date":"2026-04-01","signal":"GoHighLevel Voice AI now handles inbound calls and books appointments directly","source":"GHL Services","impact":"high"},{"date":"2026-04-01","signal":"Missed calls cost contractors $45K-$120K annually (up from previous estimates)","source":"InstantBusinessPro.ai","impact":"high"},{"date":"2026-04-01","signal":"Agentic AI focus shift: dozens of small specialized agents per business, not monolithic AI","source":"PwC / AI Business","impact":"medium"},{"date":"2026-04-01","signal":"37% of small businesses use AI, 71% planning to increase investment","source":"Market research","impact":"high"}],"deployedAssets":[{"name":"InstantProposal","url":"https://mikedmote52.github.io/instant-proposal/","status":"live","type":"saas-product","deployedDate":"2026-03-15"},{"name":"AI Automation Starter Kit","url":null,"status":"built_not_listed","type":"digital-product","deployedDate":"2026-03-20"},{"name":"AI Hustle Evaluator","url":null,"status":"built_not_deployed","type":"tool","deployedDate":"2026-03-25"},{"name":"Daily Research Scanner","url":null,"status":"active","type":"automation","schedule":"8am daily","deployedDate":"2026-03-25"},{"name":"Side Gig Bot Intelligence Dashboard","url":"https://mikedmote52.github.io/moteops-landing/sidegigbot.html","status":"live","type":"intelligence-dashboard","deployedDate":"2026-04-01"},{"name":"Mote Ops Landing Page","url":"https://mikedmote52.github.io/moteops-landing/","status":"live","type":"lead-generation","deployedDate":"2026-03-31"}]};
+
+const DEFAULT_IMPROVEMENTS = [
+    {
+        id: 1,
+        description: "Add collaboration features (share experiments with team)",
+        priority: "P2",
+        status: "idea"
+    },
+    {
+        id: 2,
+        description: "Create predictive scoring for ideas based on historical data",
+        priority: "P1",
+        status: "planned"
+    },
+    {
+        id: 3,
+        description: "Add data visualization dashboard with charts and trends",
+        priority: "P1",
+        status: "idea"
+    },
+    {
+        id: 4,
+        description: "Build email digest notifications for weekly summary",
+        priority: "P2",
+        status: "idea"
+    },
+    {
+        id: 5,
+        description: "Add goal tracking and milestone system",
+        priority: "P2",
+        status: "idea"
+    }
+];
+
+const AI_BUILDER_PATTERNS = [
+    {
+        id: 1,
+        name: "Automation Arbitrage",
+        description: "Build micro-automation tools that solve specific problems and sell them repeatedly.",
+        examples: ["Missed-call responder", "Review response automation", "Invoice generator"],
+        timeToRevenue: "4-8 weeks",
+        startupCost: "$0-500",
+        competition: "Medium",
+        fitScore: 4.2
+    },
+    {
+        id: 2,
+        name: "Vertical SaaS",
+        description: "Specialized SaaS for a specific industry (plumbers, dentists, etc)",
+        examples: ["Home services scheduling", "Contractor payment tracking", "Dental practice booking"],
+        timeToRevenue: "8-12 weeks",
+        startupCost: "$0-1000",
+        competition: "High",
+        fitScore: 4.0
+    },
+    {
+        id: 3,
+        name: "Micro-SaaS",
+        description: "Small, focused SaaS product solving one specific problem.",
+        examples: ["InstantProposal", "Email template builder", "Form-to-DB converter"],
+        timeToRevenue: "6-10 weeks",
+        startupCost: "$0",
+        competition: "Very High",
+        fitScore: 3.8
+    },
+    {
+        id: 4,
+        name: "Content Flywheel",
+        description: "Build reputation + audience through content, then monetize.",
+        examples: ["AI tutorial blog + templates", "YouTube automation course", "LinkedIn content newsletter"],
+        timeToRevenue: "12-24 weeks",
+        startupCost: "$0-100",
+        competition: "Very High",
+        fitScore: 3.2
+    },
+    {
+        id: 5,
+        name: "Fractional Consulting",
+        description: "Position yourself as a fractional expert (CAIO, CTO, etc.)",
+        examples: ["Fractional AI consultant", "Freelance n8n architect", "Interim product lead"],
+        timeToRevenue: "2-4 weeks",
+        startupCost: "$0",
+        competition: "Medium",
+        fitScore: 4.5
+    },
+    {
+        id: 6,
+        name: "Template Packs",
+        description: "Bundle workflows/templates for specific use cases and sell bundles.",
+        examples: ["n8n automation packs", "Zapier workflow library", "Notion template collection"],
+        timeToRevenue: "4-6 weeks",
+        startupCost: "$0",
+        competition: "Medium",
+        fitScore: 4.1
+    },
+    {
+        id: 7,
+        name: "SMS AI Assistant",
+        description: "No-app AI assistant accessed via SMS for convenience.",
+        examples: ["Text-based business helper", "SMS scheduling assistant", "Quote generator via text"],
+        timeToRevenue: "6-8 weeks",
+        startupCost: "$20-100/mo",
+        competition: "Low",
+        fitScore: 3.9
+    }
+];
+
+let appState = {
+    plays: [],
+    ideas: [],
+    experiments: [],
+    signals: [],
+    revenue: [],
+    improvements: [],
+    kanbanView: false
+};
+
+function initializeApp() {
+    loadFromLocalStorage();
+    if (!appState.plays || appState.plays.length === 0) {
+        appState.plays = EMBEDDED_DATA.opportunities.map(opp => ({
+            id: opp.id,
+            name: opp.name,
+            description: opp.description,
+            status: opp.status,
+            category: opp.category,
+            probability: (opp.simulation?.probabilityFirstClient60Days || 0) * 100,
+            notes: '',
+            evidence: opp.evidence || []
+        }));
+        appState.signals = EMBEDDED_DATA.signals;
+        appState.improvements = DEFAULT_IMPROVEMENTS;
+        saveToLocalStorage();
+    }
+    renderApp();
+}
+
+function loadFromLocalStorage() {
+    const stored = localStorage.getItem('sidegigbot-v4');
+    if (stored) {
+        appState = JSON.parse(stored);
+    }
+}
+
+function saveToLocalStorage() {
+    localStorage.setItem('sidegigbot-v4', JSON.stringify(appState));
+}
+
+function renderApp() {
+    updateHeader();
+    renderPlays();
+    renderIdeas();
+    renderExperiments();
+    renderSignals();
+    renderRevenue();
+    renderImprovements();
+    renderBuilder();
+    updateDataStats();
+}
+
+function updateHeader() {
+    document.getElementById('dailyBrief').textContent = EMBEDDED_DATA.dailyBrief;
+    document.getElementById('statPlays').textContent = appState.plays.length;
+    document.getElementById('statActive').textContent = appState.plays.filter(p => p.status === 'active').length;
+    document.getElementById('statSignals').textContent = appState.signals.length;
+    document.getElementById('ideaCount').textContent = appState.ideas.length;
+    document.getElementById('expCount').textContent = appState.experiments.length;
+
+    const totalRevenue = appState.revenue.reduce((sum, r) => sum + r.amount, 0);
+    const mrrRevenue = appState.revenue.filter(r => r.type === 'recurring').reduce((sum, r) => sum + r.amount, 0);
+
+    document.getElementById('totalRevenue').textContent = '$' + totalRevenue.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    document.getElementById('statRevenueMRR').textContent = '$' + mrrRevenue.toLocaleString('en-US', { maximumFractionDigits: 0 });
+
+    const experiments = appState.experiments;
+    const completed = experiments.filter(e => e.status === 'completed').length;
+    const failed = experiments.filter(e => e.status === 'failed').length;
+    const winRate = experiments.length > 0 ? Math.round((completed / experiments.length) * 100) : 0;
+    document.getElementById('statWinRate').textContent = winRate + '%';
+}
+
+function renderPlays() {
+    const grid = document.getElementById('playsGrid');
+    const kanban = document.getElementById('playsKanban');
+
+    if (appState.kanbanView) {
+        grid.style.display = 'none';
+        kanban.style.display = 'grid';
+
+        const statuses = ['research', 'simulation', 'ready', 'deployed', 'active', 'paused'];
+        kanban.innerHTML = statuses.map(status => {
+            const playsInStatus = appState.plays.filter(p => p.status === status);
+            const statusLabels = {
+                research: 'Research',
+                simulation: 'Simulation',
+                ready: 'Ready',
+                deployed: 'Deployed',
+                active: 'Active',
+                paused: 'Paused'
             };
-
-            const baseRatesHtml = Object.entries(cal.baseRates || {}).map(([k, v]) => `
-                <div class="base-rate-item">
-                    <div class="base-rate-name">${escHtml(v.label || k)}</div>
-                    <div class="base-rate-value">${Math.round(v.value * 100)}%</div>
-                </div>
-            `).join('');
-
-            const learningsHtml = (cal.learnings?.entries || []).map(entry => `
-                <div class="learning-entry">
-                    <div class="learning-date">${entry.date}</div>
-                    <div class="learning-type">${(entry.type || '').replace(/_/g, ' ')}</div>
-                    <div class="learning-insight">${escHtml(entry.insight)}</div>
-                </div>
-            `).join('');
-
-            const html = `
-                <div class="calibration-header" onclick="this.parentElement.querySelector('.calibration-content').classList.toggle('open'); this.parentElement.querySelector('.calibration-toggle').classList.toggle('open');">
-                    <div class="calibration-title">📊 Calibration & Base Rates</div>
-                    <div class="calibration-toggle">▼</div>
-                </div>
-                <div class="calibration-content">
-                    <div class="calibration-grid">
-                        <div class="calibration-item">
-                            <div class="calibration-label">Total Predictions</div>
-                            <div class="calibration-value">${cal.totalPredictions || 0}</div>
-                            <div class="calibration-meta">Active forecasts</div>
-                        </div>
-                        <div class="calibration-item">
-                            <div class="calibration-label">Resolved</div>
-                            <div class="calibration-value">${cal.resolvedPredictions || 0}</div>
-                            <div class="calibration-meta">Outcomes tracked</div>
-                        </div>
-                        <div class="calibration-item">
-                            <div class="calibration-label">Brier Score</div>
-                            <div class="calibration-value">${cal.brierScore !== null ? cal.brierScore.toFixed(3) : 'Pending'}</div>
-                            <div class="calibration-meta">Lower is better (0 = perfect)</div>
-                        </div>
-                        <div class="calibration-item">
-                            <div class="calibration-label">Status</div>
-                            <div class="calibration-value">${escHtml(cal.calibrationStatus || 'Tracking')}</div>
-                            <div class="calibration-meta">Forecast quality</div>
-                        </div>
+            return `
+                <div class="kanban-col">
+                    <div class="kanban-title">${statusLabels[status]}</div>
+                    <div class="kanban-cards">
+                        ${playsInStatus.map(play => `
+                            <div class="kanban-card">
+                                <div class="kanban-card-title">${play.name}</div>
+                                <div class="kanban-card-prob">${play.probability.toFixed(0)}% prob</div>
+                            </div>
+                        `).join('')}
                     </div>
-                    ${baseRatesHtml ? `<div class="base-rates-list"><strong style="color:#7c6cf7;font-size:0.85rem;">Base Rates (Prior Probabilities)</strong>${baseRatesHtml}</div>` : ''}
-                    ${learningsHtml ? `<div style="margin-top:1rem;"><strong style="color:#7c6cf7;font-size:0.85rem;">Learning Entries</strong>${learningsHtml}</div>` : ''}
                 </div>
             `;
-
-            $('calibration-panel').innerHTML = html;
-        }
-
-        function collectPredictions(opps) {
-            const preds = [];
-            opps.forEach(opp => {
-                if (opp.predictions && Array.isArray(opp.predictions)) {
-                    opp.predictions.forEach(pred => {
-                        preds.push({
-                            ...pred,
-                            opportunityName: opp.name,
-                            opportunityId: opp.id
-                        });
-                    });
-                }
-            });
-            return preds;
-        }
-
-        function renderPredictions(predictions) {
-            if (!predictions || predictions.length === 0) {
-                $('panel-predictions').innerHTML = '<div style="padding:2rem;text-align:center;color:#6a6a8a;">No active predictions yet. Create opportunities with prediction data.</div>';
-                return;
-            }
-
-            const html = predictions.map(pred => {
-                const resDate = new Date(pred.resolutionDate);
-                const today = new Date();
-                const daysRemaining = Math.ceil((resDate - today) / (1000 * 60 * 60 * 24));
-                let urgency = 'relaxed';
-                let countdownClass = 'countdown-relaxed';
-                if (daysRemaining <= 30) {
-                    urgency = 'URGENT';
-                    countdownClass = 'countdown-urgent';
-                } else if (daysRemaining <= 60) {
-                    urgency = 'MEDIUM';
-                    countdownClass = 'countdown-medium';
-                }
-
-                return `
-                    <div class="prediction-card">
-                        <div class="prediction-claim">${escHtml(pred.claim)}</div>
-                        <div class="prediction-meta">
-                            <div class="prediction-meta-item">
-                                <div class="prediction-meta-label">Probability</div>
-                                <div class="prediction-meta-value">${Math.round(pred.probability * 100)}%</div>
-                            </div>
-                            <div class="prediction-meta-item">
-                                <div class="prediction-meta-label">From Opportunity</div>
-                                <div class="prediction-meta-value">${escHtml(pred.opportunityName)}</div>
-                            </div>
-                        </div>
-                        <div class="prediction-countdown ${countdownClass}">
-                            ⏱️ ${daysRemaining} days remaining (${resDate.toLocaleDateString('en-US', {month:'short', day:'numeric'})})
-                        </div>
+        }).join('');
+    } else {
+        kanban.style.display = 'none';
+        grid.style.display = 'grid';
+        grid.innerHTML = appState.plays.map(play => `
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">${play.name}</div>
+                        <div class="card-subtitle">${play.category}</div>
                     </div>
-                `;
-            }).join('');
-
-            $('panel-predictions').innerHTML = '<div class="predictions-grid">' + html + '</div>';
-        }
-
-        function renderOpp(opp) {
-            const sim = opp.simulation || {};
-            const simRows = Object.entries(sim)
-                .filter(([k]) => k.startsWith('probability'))
-                .map(([k, v]) => {
-                    const label = k.replace('probability','')
-                        .replace(/([A-Z])/g, ' $1')
-                        .replace(/(\d+)/g, ' $1')
-                        .replace(/^\s+/,'')
-                        .replace(/\s+/g, ' ');
-                    const pct = Math.round(v * 100);
-                    const cls = pct >= 35 ? 'high' : pct >= 20 ? 'med' : 'low';
-                    return `<div class="sim-row">
-                        <span class="sim-label">${label}</span>
-                        <div class="sim-bar-bg"><div class="sim-bar-fill ${cls}" style="width:${pct}%"></div></div>
-                        <span class="sim-pct">${pct}%</span>
-                    </div>`;
-                }).join('');
-
-            // Probability Timeline Sparkline
-            const probHistory = opp.probabilityHistory || [];
-            let sparklineHtml = '';
-            if (probHistory.length > 0) {
-                const svgHtml = renderProbabilitySparkline(probHistory);
-                sparklineHtml = `
-                    <div class="prob-timeline">
-                        <div class="prob-timeline-label">Probability History</div>
-                        ${svgHtml}
-                    </div>
-                `;
-            }
-
-            const evidenceId = 'ev-' + opp.id;
-            const evidenceHtml = (opp.evidence||[]).map(e =>
-                `<div class="evidence-item">${escHtml(e)}</div>`
-            ).join('');
-
-            const nextHtml = (opp.nextSteps||[]).map(s =>
-                `<div class="next-step-item">${escHtml(s)}</div>`
-            ).join('');
-
-            const deployedLink = opp.deployedUrl
-                ? `<a class="deployed-link" href="${escHtml(opp.deployedUrl)}" target="_blank">View Live ↗</a>`
-                : '';
-
-            return `<div class="opp-card">
-                <div class="opp-header">
-                    <span class="opp-name">${escHtml(opp.name)}</span>
-                    <span class="tier-badge tier-${opp.tier||3}">Tier ${opp.tier||'?'}</span>
-                </div>
-                <span class="opp-status status-${opp.status||''}">${(opp.status||'').replace(/_/g,' ')}</span>
-                ${deployedLink}
-                <div class="opp-desc">${escHtml(opp.description||'')}</div>
-                ${sparklineHtml}
-                <div class="opp-meta-grid">
-                    <div class="opp-meta-item">
-                        <div class="opp-meta-label">Revenue Model</div>
-                        <div class="opp-meta-value">${escHtml(opp.revenueModel||'TBD')}</div>
-                    </div>
-                    <div class="opp-meta-item">
-                        <div class="opp-meta-label">Build Time</div>
-                        <div class="opp-meta-value">${escHtml(sim.estimatedBuildTime||'TBD')}</div>
-                    </div>
-                    <div class="opp-meta-item">
-                        <div class="opp-meta-label">Launch Cost</div>
-                        <div class="opp-meta-value">${escHtml(sim.estimatedCostToLaunch||'$0')}</div>
-                    </div>
-                    <div class="opp-meta-item">
-                        <div class="opp-meta-label">Moat</div>
-                        <div class="opp-meta-value">${escHtml(sim.moatStrength||'TBD')}</div>
+                    <div class="card-actions">
+                        <button class="small-btn" onclick="openEditPlayModal('${play.id}')">Edit</button>
+                        <button class="small-btn danger" onclick="deletePlay('${play.id}')">×</button>
                     </div>
                 </div>
-                ${simRows ? '<div class="sim-section">'+simRows+'</div>' : ''}
-                ${evidenceHtml ? `<button class="evidence-toggle" onclick="toggleEvidence('${evidenceId}',this)">Show Evidence (${opp.evidence.length})</button>
-                <div class="evidence-list" id="${evidenceId}">${evidenceHtml}</div>` : ''}
-                ${nextHtml ? '<div class="next-steps">'+nextHtml+'</div>' : ''}
-            </div>`;
-        }
-
-        function renderProbabilitySparkline(history) {
-            if (history.length < 2) {
-                return '<svg class="prob-sparkline" viewBox="0 0 200 30"><text x="100" y="15" text-anchor="middle" fill="#5a5a7a" font-size="10">Need more data</text></svg>';
-            }
-
-            const values = history.map(h => h.value);
-            const minVal = Math.min(...values);
-            const maxVal = Math.max(...values);
-            const range = maxVal - minVal || 1;
-            const w = 200;
-            const h = 30;
-            const padding = 5;
-            const graphW = w - 2 * padding;
-            const graphH = h - 2 * padding;
-            const step = graphW / (values.length - 1);
-
-            const points = values.map((v, i) => {
-                const x = padding + i * step;
-                const y = padding + graphH - ((v - minVal) / range) * graphH;
-                return `${x},${y}`;
-            }).join(' ');
-
-            const colorVal = Math.round(values[values.length - 1] * 100);
-            let color = '#e05060';
-            if (colorVal >= 35) color = '#00e8b0';
-            else if (colorVal >= 20) color = '#f0a030';
-
-            return `<svg class="prob-sparkline" viewBox="0 0 200 30">
-                <polyline points="${points}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="${padding + (values.length - 1) * step}" cy="${padding + graphH - ((values[values.length - 1] - minVal) / range) * graphH}" r="3" fill="${color}"/>
-            </svg>`;
-        }
-
-        function renderSignal(sig) {
-            const impact = sig.impact || 'medium';
-            return `<div class="signal-card">
-                <div class="signal-impact impact-${impact}">${impact.slice(0,1).toUpperCase()}</div>
-                <div class="signal-content">
-                    <div class="signal-text-main">${escHtml(sig.signal)}</div>
-                    <div class="signal-source">${escHtml(sig.source||'')} &middot; ${sig.date||''}</div>
+                <div style="font-size: 0.85rem; color: #8a8aa8; margin-bottom: 1rem;">${play.description}</div>
+                <div style="margin-bottom: 1rem;">
+                    <div style="font-size: 0.75rem; color: #6a6a8a; margin-bottom: 0.5rem;">Probability</div>
+                    <input type="range" min="0" max="100" value="${play.probability}" class="playProbSlider" data-id="${play.id}" oninput="updatePlayProb('${play.id}', this.value)">
+                    <div style="text-align: center; margin-top: 0.5rem; color: #7c6cf7; font-weight: 700;">${play.probability.toFixed(0)}%</div>
                 </div>
-            </div>`;
-        }
+                <div style="margin-bottom: 1rem;">
+                    <span class="status-badge status-${play.status}">${play.status}</span>
+                </div>
+                ${play.notes ? `<div style="font-size: 0.85rem; color: #8a8aa8; background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 6px;">${play.notes}</div>` : ''}
+            </div>
+        `).join('');
+    }
 
-        function renderDeployed(asset) {
-            const statusMap = { live:'dst-live', built_not_listed:'dst-built', built_not_deployed:'dst-built', active:'dst-active' };
-            const cls = statusMap[asset.status] || 'dst-built';
-            const link = asset.url ? `<a class="deployed-link" href="${escHtml(asset.url)}" target="_blank">View ↗</a>` : '';
-            const price = asset.suggestedPrice ? ` &middot; ${escHtml(asset.suggestedPrice)}` : '';
-            return `<div class="deployed-card">
-                <div class="deployed-name">${escHtml(asset.name)}</div>
-                <div class="deployed-meta">${escHtml(asset.type||'')}${price}</div>
-                <span class="deployed-status-tag ${cls}">${(asset.status||'').replace(/_/g,' ')}</span>
-                ${link}
-            </div>`;
-        }
+    document.getElementById('playsCount').textContent = appState.plays.length;
+}
 
-        function renderRejected(r) {
-            return `<div class="rejected-item">
-                <span class="rejected-name">${escHtml(r.name)}</span>
-                <span class="rejected-reason">${escHtml(r.reason)}</span>
-            </div>`;
-        }
+function renderIdeas() {
+    const grid = document.getElementById('ideasGrid');
+    const empty = document.getElementById('ideasEmpty');
 
-        function renderDecisions(opps) {
-            const decisions = [
-                { urgent:true, text:'Deploy InstantProposal — it\'s live on GitHub Pages but needs traffic. Write SEO content or prep a Product Hunt launch.' },
-                { urgent:true, text:'Pick primary niche: Missed-call text-back (service play, needs outreach) or Proposal Generator (product play, needs SEO)?' },
-                { urgent:true, text:'Connect n8n — needed to build automation workflows for the missed-call service and template packs.' },
-                { urgent:false, text:'Do you have connections in home services, real estate, or contracting? One warm intro changes the entire distribution strategy.' },
-                { urgent:false, text:'Create a Gumroad account for listing the AI Automation Starter Kit ($19).' },
-                { urgent:false, text:'Should the bot research acquiring TrustMRR startups under $5k?' }
-            ];
+    if (appState.ideas.length === 0) {
+        grid.style.display = 'none';
+        empty.style.display = 'block';
+        document.getElementById('ideasCount').textContent = '0';
+        return;
+    }
 
-            $('panel-decisions').innerHTML = '<div class="decision-list">' + decisions.map((d, idx) => `
-                <div class="decision-card" data-decision-idx="${idx}">
-                    <div class="decision-label ${d.urgent?'decision-urgent':'decision-normal'}">${d.urgent?'Urgent':'Can Wait'}</div>
-                    <div class="decision-text">${escHtml(d.text)}</div>
-                    <div class="decision-buttons">
-                        <button class="decision-btn decision-btn-do" onclick="toggleDecision(${idx}, 'do')">✓ Do This</button>
-                        <button class="decision-btn decision-btn-skip" onclick="toggleDecision(${idx}, 'skip')">✕ Skip</button>
+    grid.style.display = 'grid';
+    empty.style.display = 'none';
+
+    const sorted = [...appState.ideas].sort((a, b) => b.score - a.score);
+
+    grid.innerHTML = sorted.map(idea => {
+        const scoreClass = idea.score >= 24 ? 'score-high' : idea.score >= 18 ? 'score-med' : 'score-low';
+        return `
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">${idea.name}</div>
+                        <div class="card-subtitle">${idea.category}</div>
                     </div>
+                    <div class="score-ring ${scoreClass}">${idea.score}</div>
                 </div>
-            `).join('') + '</div>';
-        }
+                <div style="font-size: 0.85rem; color: #8a8aa8; margin-bottom: 1rem;">${idea.description}</div>
+                <div style="font-size: 0.85rem; color: #6a6a8a; margin-bottom: 0.5rem;"><strong>Revenue Model:</strong> ${idea.revenueModel}</div>
+                <div style="font-size: 0.85rem; color: #6a6a8a; margin-bottom: 1rem;"><strong>Build Time:</strong> ${idea.buildTime}w | <strong>Cost:</strong> $${idea.startupCost}</div>
+                <div class="score-breakdown">
+                    <div class="breakdown-item"><span class="breakdown-label">Time to Revenue</span> ${idea.timeToRevenue}/5</div>
+                    <div class="breakdown-item"><span class="breakdown-label">Passive</span> ${idea.passive}/5</div>
+                    <div class="breakdown-item"><span class="breakdown-label">Low Cost</span> ${idea.lowCost}/5</div>
+                    <div class="breakdown-item"><span class="breakdown-label">Income Ceiling</span> ${idea.incomeCeiling}/5</div>
+                    <div class="breakdown-item"><span class="breakdown-label">Competition</span> ${idea.competition}/5</div>
+                    <div class="breakdown-item"><span class="breakdown-label">Tool Fit</span> ${idea.toolFit}/5</div>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="small-btn" onclick="promoteIdea('${idea.id}')">→ Play</button>
+                    <button class="small-btn danger" onclick="deleteIdea('${idea.id}')">×</button>
+                </div>
+            </div>
+        `;
+    }).join('');
 
-        function escHtml(str) {
-            if (!str) return '';
-            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-        }
+    document.getElementById('ideasCount').textContent = appState.ideas.length;
+}
 
-        // Global toggles
-        window.toggleEvidence = function(id, btn) {
-            const el = document.getElementById(id);
-            el.classList.toggle('open');
-            btn.textContent = el.classList.contains('open')
-                ? 'Hide Evidence'
-                : 'Show Evidence (' + el.querySelectorAll('.evidence-item').length + ')';
+function renderExperiments() {
+    const list = document.getElementById('experimentsList');
+    const empty = document.getElementById('experimentsEmpty');
+
+    if (appState.experiments.length === 0) {
+        list.style.display = 'none';
+        empty.style.display = 'block';
+        document.getElementById('expsCount').textContent = '0';
+        return;
+    }
+
+    list.style.display = 'grid';
+    empty.style.display = 'none';
+
+    const sorted = [...appState.experiments].sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+
+    list.innerHTML = sorted.map(exp => `
+        <div class="list-item">
+            <div class="list-item-content">
+                <div class="list-item-title">${exp.hypothesis}</div>
+                <div class="list-item-meta">
+                    <strong>Method:</strong> ${exp.method} | <strong>Metric:</strong> ${exp.metric} | <strong>Date:</strong> ${exp.startDate}
+                </div>
+                ${exp.results ? `<div style="font-size: 0.8rem; color: #7c6cf7; margin-top: 0.5rem;"><strong>Results:</strong> ${exp.results}</div>` : ''}
+                ${exp.learning ? `<div style="font-size: 0.8rem; color: #00e8b0; margin-top: 0.25rem;"><strong>Learning:</strong> ${exp.learning}</div>` : ''}
+            </div>
+            <div style="text-align: right;">
+                <span class="status-badge status-${exp.status}">${exp.status}</span>
+                <button class="small-btn danger" style="display: block; margin-top: 0.5rem;" onclick="deleteExperiment('${exp.id}')">×</button>
+            </div>
+        </div>
+    `).join('');
+
+    document.getElementById('expsCount').textContent = appState.experiments.length;
+}
+
+function renderSignals() {
+    const list = document.getElementById('signalsList');
+    const sorted = [...appState.signals].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    list.innerHTML = sorted.map(signal => {
+        const impactClass = `impact-${signal.impact}`;
+        return `
+            <div class="list-item">
+                <div style="width: 50px; flex-shrink: 0;">
+                    <div class="impact-badge ${impactClass}">${signal.impact}</div>
+                </div>
+                <div class="list-item-content">
+                    <div class="list-item-title">${signal.signal}</div>
+                    <div class="list-item-meta"><strong>Source:</strong> ${signal.source} | <strong>Date:</strong> ${signal.date}</div>
+                </div>
+                <button class="small-btn danger" style="flex-shrink: 0;" onclick="deleteSignal('${signal.id || signal.date}')">×</button>
+            </div>
+        `;
+    }).join('');
+
+    document.getElementById('signalsCount').textContent = appState.signals.length;
+}
+
+function renderRevenue() {
+    const list = document.getElementById('revenueList');
+    const empty = document.getElementById('revenueEmpty');
+
+    if (appState.revenue.length === 0) {
+        list.style.display = 'none';
+        empty.style.display = 'block';
+        document.getElementById('revenueCount').textContent = '0';
+        return;
+    }
+
+    list.style.display = 'grid';
+    empty.style.display = 'none';
+
+    const sorted = [...appState.revenue].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const totalRev = appState.revenue.reduce((sum, r) => sum + r.amount, 0);
+    const mrrRev = appState.revenue.filter(r => r.type === 'recurring').reduce((sum, r) => sum + r.amount, 0);
+
+    document.getElementById('totalRevenueDisplay').textContent = '$' + totalRev.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    document.getElementById('mrrDisplay').textContent = '$' + mrrRev.toLocaleString('en-US', { maximumFractionDigits: 2 });
+
+    // Monthly chart
+    const monthlyData = {};
+    appState.revenue.forEach(r => {
+        const month = r.date.substring(0, 7);
+        monthlyData[month] = (monthlyData[month] || 0) + r.amount;
+    });
+
+    const months = Object.keys(monthlyData).sort();
+    const maxRevenue = Math.max(...Object.values(monthlyData));
+
+    const chartHtml = months.map(month => {
+        const amount = monthlyData[month];
+        const height = (amount / maxRevenue) * 100;
+        return `
+            <div class="bar-item">
+                <div class="bar" style="height: ${Math.max(height, 10)}px;">
+                    <div class="bar-value">$${amount.toLocaleString('en-US', { maximumFractionDigits: 0 })}</div>
+                </div>
+                <div class="bar-label">${month}</div>
+            </div>
+        `;
+    }).join('');
+
+    document.getElementById('revenueChart').innerHTML = chartHtml || '<div style="text-align: center; color: #6a6a8a;">No data yet</div>';
+
+    list.innerHTML = sorted.map(rev => `
+        <div class="list-item">
+            <div class="list-item-content">
+                <div class="list-item-title">$${rev.amount.toLocaleString('en-US', { maximumFractionDigits: 2 })} — ${rev.source}</div>
+                <div class="list-item-meta">
+                    <strong>Date:</strong> ${rev.date} | <strong>Type:</strong> ${rev.type}
+                </div>
+            </div>
+            <button class="small-btn danger" onclick="deleteRevenue('${rev.id}')">×</button>
+        </div>
+    `).join('');
+
+    document.getElementById('revenueCount').textContent = appState.revenue.length;
+}
+
+function renderImprovements() {
+    const list = document.getElementById('improvementsList');
+    list.innerHTML = appState.improvements.map(imp => `
+        <div class="list-item">
+            <div class="list-item-content">
+                <div class="list-item-title">${imp.description}</div>
+                <div class="list-item-meta">Priority: <strong>${imp.priority}</strong> | Status: <strong>${imp.status}</strong></div>
+            </div>
+            <button class="small-btn danger" onclick="deleteImprovement('${imp.id}')">×</button>
+        </div>
+    `).join('');
+
+    document.getElementById('improvementsCount').textContent = appState.improvements.length;
+}
+
+function renderBuilder() {
+    const grid = document.getElementById('builderGrid');
+    grid.innerHTML = AI_BUILDER_PATTERNS.map(pattern => `
+        <div class="pattern-card">
+            <div class="pattern-name">${pattern.name}</div>
+            <div class="pattern-desc">${pattern.description}</div>
+            <div class="pattern-meta">
+                <div class="pattern-meta-item">
+                    <span class="pattern-meta-label">Time to Revenue</span>
+                    ${pattern.timeToRevenue}
+                </div>
+                <div class="pattern-meta-item">
+                    <span class="pattern-meta-label">Startup Cost</span>
+                    ${pattern.startupCost}
+                </div>
+                <div class="pattern-meta-item">
+                    <span class="pattern-meta-label">Competition</span>
+                    ${pattern.competition}
+                </div>
+                <div class="pattern-meta-item">
+                    <span class="pattern-meta-label">Fit Score</span>
+                    ${pattern.fitScore}/5
+                </div>
+            </div>
+            <div style="font-size: 0.8rem; color: #8a8aa8; margin-bottom: 1rem;">
+                <strong>Examples:</strong> ${pattern.examples.join(', ')}
+            </div>
+            <button class="action-btn" onclick="generateFromPattern(${pattern.id}, '${pattern.name}')">Generate Idea</button>
+        </div>
+    `).join('');
+}
+
+function updateDataStats() {
+    document.getElementById('dataStatsIdeas').textContent = appState.ideas.length;
+    document.getElementById('dataStatsExperiments').textContent = appState.experiments.length;
+    document.getElementById('dataStatsSignals').textContent = appState.signals.length;
+    document.getElementById('dataStatsRevenue').textContent = appState.revenue.length;
+    document.getElementById('dataStatsPlays').textContent = appState.plays.length;
+}
+
+function switchTab(tabName) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+    event.target.classList.add('active');
+}
+
+function openModal(id) {
+    document.getElementById(id).classList.add('open');
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+}
+
+function openAddIdeaModal() {
+    document.getElementById('ideaName').value = '';
+    document.getElementById('ideaCategory').value = 'SaaS';
+    document.getElementById('ideaDescription').value = '';
+    document.getElementById('ideaRevenueModel').value = '';
+    document.getElementById('ideaBuildTime').value = '4';
+    document.getElementById('ideaStartupCost').value = '0';
+    document.getElementById('scoreTime').value = '3';
+    document.getElementById('scorePassive').value = '3';
+    document.getElementById('scoreCost').value = '3';
+    document.getElementById('scoreIncome').value = '3';
+    document.getElementById('scoreComp').value = '3';
+    document.getElementById('scoreTool').value = '3';
+    document.getElementById('scoreCompound').value = '3';
+    updateIdeaScore();
+    openModal('addIdeaModal');
+}
+
+function updateIdeaScore() {
+    const scores = [
+        parseInt(document.getElementById('scoreTime').value),
+        parseInt(document.getElementById('scorePassive').value),
+        parseInt(document.getElementById('scoreCost').value),
+        parseInt(document.getElementById('scoreIncome').value),
+        parseInt(document.getElementById('scoreComp').value),
+        parseInt(document.getElementById('scoreTool').value),
+        parseInt(document.getElementById('scoreCompound').value)
+    ];
+    const total = scores.reduce((a, b) => a + b, 0);
+    const max = 35;
+    document.getElementById('overallScore').textContent = total + '/' + max;
+}
+
+function saveIdea(e) {
+    e.preventDefault();
+    const idea = {
+        id: Date.now().toString(),
+        name: document.getElementById('ideaName').value,
+        category: document.getElementById('ideaCategory').value,
+        description: document.getElementById('ideaDescription').value,
+        revenueModel: document.getElementById('ideaRevenueModel').value,
+        buildTime: parseInt(document.getElementById('ideaBuildTime').value),
+        startupCost: parseInt(document.getElementById('ideaStartupCost').value),
+        timeToRevenue: parseInt(document.getElementById('scoreTime').value),
+        passive: parseInt(document.getElementById('scorePassive').value),
+        lowCost: parseInt(document.getElementById('scoreCost').value),
+        incomeCeiling: parseInt(document.getElementById('scoreIncome').value),
+        competition: parseInt(document.getElementById('scoreComp').value),
+        toolFit: parseInt(document.getElementById('scoreTool').value),
+        compounding: parseInt(document.getElementById('scoreCompound').value),
+        score: parseInt(document.getElementById('scoreTime').value) + parseInt(document.getElementById('scorePassive').value) + parseInt(document.getElementById('scoreCost').value) + parseInt(document.getElementById('scoreIncome').value) + parseInt(document.getElementById('scoreComp').value) + parseInt(document.getElementById('scoreTool').value) + parseInt(document.getElementById('scoreCompound').value)
+    };
+    appState.ideas.push(idea);
+    saveToLocalStorage();
+    renderApp();
+    closeModal('addIdeaModal');
+}
+
+function openAddExperimentModal() {
+    document.getElementById('expHypothesis').value = '';
+    document.getElementById('expMethod').value = '';
+    document.getElementById('expMetric').value = '';
+    document.getElementById('expStartDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('expStatus').value = 'running';
+    document.getElementById('expResults').value = '';
+    document.getElementById('expLearning').value = '';
+    document.getElementById('expResultsGroup').style.display = 'none';
+    document.getElementById('expLearningGroup').style.display = 'none';
+    openModal('addExperimentModal');
+}
+
+function saveExperiment(e) {
+    e.preventDefault();
+    const exp = {
+        id: Date.now().toString(),
+        hypothesis: document.getElementById('expHypothesis').value,
+        method: document.getElementById('expMethod').value,
+        metric: document.getElementById('expMetric').value,
+        startDate: document.getElementById('expStartDate').value,
+        status: document.getElementById('expStatus').value,
+        results: document.getElementById('expResults').value,
+        learning: document.getElementById('expLearning').value
+    };
+    appState.experiments.push(exp);
+    saveToLocalStorage();
+    renderApp();
+    closeModal('addExperimentModal');
+}
+
+function openAddSignalModal() {
+    document.getElementById('signalDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('signalText').value = '';
+    document.getElementById('signalSource').value = '';
+    document.getElementById('signalImpact').value = 'medium';
+    openModal('addSignalModal');
+}
+
+function saveSignal(e) {
+    e.preventDefault();
+    const signal = {
+        id: Date.now().toString(),
+        date: document.getElementById('signalDate').value,
+        signal: document.getElementById('signalText').value,
+        source: document.getElementById('signalSource').value,
+        impact: document.getElementById('signalImpact').value
+    };
+    appState.signals.push(signal);
+    saveToLocalStorage();
+    renderApp();
+    closeModal('addSignalModal');
+}
+
+function openAddPlayModal() {
+    document.getElementById('playName').value = '';
+    document.getElementById('playDescription').value = '';
+    document.getElementById('playStatus').value = 'research';
+    document.getElementById('playProbability').value = '50';
+    document.getElementById('playCategory').value = '';
+    openModal('addPlayModal');
+}
+
+function savePlay(e) {
+    e.preventDefault();
+    const play = {
+        id: Date.now().toString(),
+        name: document.getElementById('playName').value,
+        description: document.getElementById('playDescription').value,
+        status: document.getElementById('playStatus').value,
+        probability: parseInt(document.getElementById('playProbability').value),
+        category: document.getElementById('playCategory').value,
+        notes: ''
+    };
+    appState.plays.push(play);
+    saveToLocalStorage();
+    renderApp();
+    closeModal('addPlayModal');
+}
+
+function openAddRevenueModal() {
+    document.getElementById('revDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('revAmount').value = '';
+    document.getElementById('revSource').value = '';
+    document.getElementById('revType').value = 'one-time';
+    openModal('addRevenueModal');
+}
+
+function saveRevenue(e) {
+    e.preventDefault();
+    const rev = {
+        id: Date.now().toString(),
+        date: document.getElementById('revDate').value,
+        amount: parseFloat(document.getElementById('revAmount').value),
+        source: document.getElementById('revSource').value,
+        type: document.getElementById('revType').value
+    };
+    appState.revenue.push(rev);
+    saveToLocalStorage();
+    renderApp();
+    closeModal('addRevenueModal');
+}
+
+function openEditPlayModal(id) {
+    const play = appState.plays.find(p => p.id === id);
+    if (!play) return;
+
+    document.getElementById('editPlayProb').value = play.probability;
+    document.getElementById('editPlayStatus').value = play.status;
+    document.getElementById('editPlayNotes').value = play.notes;
+    document.getElementById('editPlayModal').dataset.playId = id;
+    openModal('editPlayModal');
+}
+
+function updatePlay(e) {
+    e.preventDefault();
+    const id = document.getElementById('editPlayModal').dataset.playId;
+    const play = appState.plays.find(p => p.id === id);
+    if (play) {
+        play.probability = parseInt(document.getElementById('editPlayProb').value);
+        play.status = document.getElementById('editPlayStatus').value;
+        play.notes = document.getElementById('editPlayNotes').value;
+        saveToLocalStorage();
+        renderApp();
+    }
+    closeModal('editPlayModal');
+}
+
+function updatePlayProb(id, value) {
+    const play = appState.plays.find(p => p.id === id);
+    if (play) {
+        play.probability = parseInt(value);
+        saveToLocalStorage();
+        updateHeader();
+    }
+}
+
+function deletePlay(id) {
+    appState.plays = appState.plays.filter(p => p.id !== id);
+    saveToLocalStorage();
+    renderApp();
+}
+
+function deleteIdea(id) {
+    appState.ideas = appState.ideas.filter(i => i.id !== id);
+    saveToLocalStorage();
+    renderApp();
+}
+
+function deleteExperiment(id) {
+    appState.experiments = appState.experiments.filter(e => e.id !== id);
+    saveToLocalStorage();
+    renderApp();
+}
+
+function deleteSignal(id) {
+    appState.signals = appState.signals.filter(s => s.id !== id && s.date !== id);
+    saveToLocalStorage();
+    renderApp();
+}
+
+function deleteRevenue(id) {
+    appState.revenue = appState.revenue.filter(r => r.id !== id);
+    saveToLocalStorage();
+    renderApp();
+}
+
+function deleteImprovement(id) {
+    appState.improvements = appState.improvements.filter(i => i.id !== id);
+    saveToLocalStorage();
+    renderApp();
+}
+
+function promoteIdea(id) {
+    const idea = appState.ideas.find(i => i.id === id);
+    if (!idea) return;
+
+    const play = {
+        id: Date.now().toString(),
+        name: idea.name,
+        description: idea.description,
+        status: 'research',
+        category: idea.category,
+        probability: 40,
+        notes: `Based on idea: ${idea.revenueModel} | Build time: ${idea.buildTime}w | Cost: $${idea.startupCost}`
+    };
+
+    appState.plays.push(play);
+    deleteIdea(id);
+    saveToLocalStorage();
+    renderApp();
+}
+
+function generateFromPattern(patternId, patternName) {
+    const pattern = AI_BUILDER_PATTERNS.find(p => p.id === patternId);
+    if (!pattern) return;
+
+    document.getElementById('ideaName').value = `${patternName} - ` + pattern.examples[0];
+    document.getElementById('ideaCategory').value = 'SaaS';
+    document.getElementById('ideaDescription').value = pattern.description;
+    document.getElementById('ideaRevenueModel').value = '$99-299/month';
+    document.getElementById('ideaBuildTime').value = '6';
+    document.getElementById('ideaStartupCost').value = '0';
+
+    const fitMap = {
+        "Very High": 5,
+        "High": 4,
+        "Medium": 3,
+        "Low": 2
+    };
+
+    document.getElementById('scoreTime').value = pattern.timeToRevenue.includes('4-6') ? 4 : pattern.timeToRevenue.includes('6-8') ? 3 : 2;
+    document.getElementById('scorePassive').value = patternId === 6 ? 4 : patternId === 4 ? 5 : 3;
+    document.getElementById('scoreCost').value = 5;
+    document.getElementById('scoreIncome').value = pattern.fitScore >= 4 ? 4 : 3;
+    document.getElementById('scoreComp').value = pattern.competition === 'Low' ? 4 : pattern.competition === 'Medium' ? 3 : 2;
+    document.getElementById('scoreTool').value = pattern.fitScore;
+    document.getElementById('scoreCompound').value = patternId === 4 ? 5 : patternId === 6 ? 4 : 3;
+
+    updateIdeaScore();
+    switchTab('ideas');
+    openAddIdeaModal();
+}
+
+function toggleKanban() {
+    appState.kanbanView = !appState.kanbanView;
+    renderPlays();
+}
+
+function exportData() {
+    const dataStr = JSON.stringify(appState, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'sidegigbot-v4-export-' + new Date().toISOString().split('T')[0] + '.json';
+    link.click();
+}
+
+function importData(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        try {
+            const data = JSON.parse(event.target.result);
+            appState = data;
+            saveToLocalStorage();
+            renderApp();
+            alert('Data imported successfully!');
+        } catch (err) {
+            alert('Error importing data: ' + err.message);
+        }
+    };
+    reader.readAsText(file);
+}
+
+function resetData() {
+    if (confirm('Are you sure? This will delete all your data.')) {
+        appState = {
+            plays: [],
+            ideas: [],
+            experiments: [],
+            signals: [],
+            revenue: [],
+            improvements: [],
+            kanbanView: false
         };
+        saveToLocalStorage();
+        renderApp();
+    }
+}
 
-        window.toggleDecision = function(idx, action) {
-            const card = document.querySelector(`[data-decision-idx="${idx}"]`);
-            if (!card) return;
-            card.classList.remove('toggled-do', 'toggled-skip');
-            if (action === 'do') {
-                card.classList.toggle('toggled-do');
-            } else if (action === 'skip') {
-                card.classList.toggle('toggled-skip');
-            }
-        };
-    })();
-    </script>
+// Status change handlers
+document.addEventListener('change', function(e) {
+    if (e.target.id === 'expStatus') {
+        const resultsGroup = document.getElementById('expResultsGroup');
+        const learningGroup = document.getElementById('expLearningGroup');
+        if (e.target.value === 'completed' || e.target.value === 'failed') {
+            resultsGroup.style.display = 'block';
+            learningGroup.style.display = 'block';
+        } else {
+            resultsGroup.style.display = 'none';
+            learningGroup.style.display = 'none';
+        }
+    }
+});
+
+// Initialize on load
+window.addEventListener('DOMContentLoaded', initializeApp);
+</script>
+
 </body>
 </html>
