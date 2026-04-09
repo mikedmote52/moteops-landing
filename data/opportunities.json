@@ -1,22 +1,54 @@
 {
-  "lastUpdated": "2026-04-01T16:00:00Z",
-  "researchCycle": 3,
+  "lastUpdated": "2026-04-09T00:00:00Z",
+  "researchCycle": 4,
   "schemaVersion": "2.0",
   "summary": {
-    "totalOpportunitiesScanned": 61,
-    "vetted": 10,
-    "readyToDeploy": 2,
-    "inSimulation": 2,
-    "rejected": 37
+    "totalOpportunitiesScanned": 75,
+    "vetted": 15,
+    "readyToDeploy": 0,
+    "inSimulation": 3,
+    "tested": 3,
+    "built": 3,
+    "researched": 1,
+    "active": 2,
+    "rejected": 5,
+    "archived": 5
   },
-  "dailyBrief": "Research Cycle 3 brings significant market validation. The AI consulting market hits $11.07B in 2026 with 26.2% CAGR — fractional CAIO demand is accelerating faster than supply of qualified leaders. Mid-market retainers now command $15K-30K/month, validating our positioning even at the SMB tier. Meanwhile, the missed-call text-back space has gotten more competitive — GoHighLevel added Voice AI, and AgentZap and Donna AI are both active — but the pain data is stronger than ever at $45K-120K in annual losses per contractor. The consulting industry is bifurcating into global scale providers and niche boutiques, which is exactly the Mote Ops thesis. Priority: close first consulting client within 30 days.",
-  "weeklyThesis": "The fractional AI consulting play just got stronger. The consulting industry is splitting into two camps — massive firms and specialized boutiques — with the mid-market collapsing. This validates the Mote Ops positioning as a niche AI implementation boutique. Fractional CAIO retainers at mid-market are $15K-30K/month, which means even at the SMB tier at $2K-5K/month, we're dramatically underpriced relative to the value delivered. The key insight from this cycle: 67% of small businesses using AI automation saw 20%+ revenue growth, but most need implementation help. The product plays (missed-call, review response) face stiffer competition from GoHighLevel and vertical-specific startups, but the consulting play has LESS competition because it requires human expertise that can't be commoditized.",
-  "monthlyOutlook": "AI consulting services market projected at $11.07B for 2026, growing to $90.99B by 2035. The agentic AI wave is shifting from 'what could AI do' to 'what should individual agents achieve' — businesses want dozens of small specialized agents, not one monolithic AI. This plays directly into the consulting model (we help design and deploy the agent architecture) and the n8n template packs (pre-built agent workflows). Competitive landscape: missed-call space getting crowded (GoHighLevel Voice AI, AgentZap, Donna AI, LeadTruffle, Sameday), but the consulting/implementation lane remains wide open. The meta-trend holds: people making real money are selling AI implementation, not building consumer AI tools.",
+  "pipelineStages": {
+    "inbox": [],
+    "researched": [
+      "opp-008-ai-compliance-readiness-kit"
+    ],
+    "built": [
+      "opp-001-callback-ai",
+      "opp-002-review-response",
+      "opp-010-workflow-template-marketplace"
+    ],
+    "tested": [
+      "opp-004-n8n-automation-packs",
+      "opp-012-local-seo-content-engine",
+      "opp-013-vibe-code-rescue"
+    ],
+    "active": [
+      "opp-006-moteops",
+      "opp-007-dead-lead-reactivation"
+    ],
+    "archived": [
+      "opp-003-instant-proposal",
+      "opp-005-sms-business-assistant",
+      "opp-009-contractor-call-to-quote",
+      "opp-014-freelancer-invoice-chase-agent",
+      "opp-015-ai-agent-ops-dashboard"
+    ]
+  },
+  "dailyBrief": "Pipeline state as of 2026-04-09. Three opportunities now sit in the tested stage with live MVPs and 7-day market test windows running: Dental AI Stack (opp-004, window ends 2026-04-12), ReviewToRank (opp-012, window ends 2026-04-13), and VibeQA (opp-013, window ends 2026-04-13). All three need form backends wired (Formspree) and analytics installed before traffic is sent. Mote Ops remains the primary anchor with consulting revenue as the conversion target for every other play. Five opportunities killed since cycle 3 (opp-003, opp-005, opp-009, opp-014, opp-015) on saturated-market or feature-not-product grounds.",
+  "weeklyThesis": "The pipeline has consolidated around a clear thesis: every opportunity either feeds Mote Ops as a lead generator or is killed. Three new tested MVPs (Dental AI Stack, ReviewToRank, VibeQA) all share the same conversion path: landing page generates an inquiry, inquiry becomes a Mote Ops consulting engagement. VibeQA shows the strongest early signal: clear pricing gap between free scanners and $500+ audits, growing market, strongest Mote Ops lead gen potential of any idea in the pipeline. Critical near-term blocker across all three tested ideas: form backends are localStorage-only and analytics are missing. None can drive traffic until those are wired.",
+  "monthlyOutlook": "AI consulting services market projected at $11.07B for 2026, growing to $90.99B by 2035. The agentic AI wave is shifting from 'what could AI do' to 'what should individual agents achieve'. Businesses want dozens of small specialized agents, not one monolithic AI. This plays directly into the Mote Ops consulting model and the n8n template packs. Competitive intensity continues to rise in product lanes (missed-call, review response, invoice chasing, agent observability all now have funded incumbents), confirming the strategy of using product MVPs as lead gen for the consulting business rather than as standalone revenue plays.",
   "calibration": {
-    "totalPredictions": 7,
+    "totalPredictions": 9,
     "resolvedPredictions": 0,
     "brierScore": null,
-    "calibrationStatus": "Cycle 3 — Probabilities updated with new market data",
+    "calibrationStatus": "Cycle 4 - three new market tests in flight, results expected 2026-04-12 to 2026-04-13",
     "baseRates": {
       "productMarketFit": {
         "value": 0.35,
@@ -29,7 +61,7 @@
         "source": "Gartner 2025"
       },
       "consultingConversion": {
-        "value": 0.40,
+        "value": 0.4,
         "label": "Service offering converts to paying client",
         "source": "Sales baseline"
       },
@@ -41,585 +73,342 @@
     },
     "learnings": [
       {
-        "date": "2026-03-20",
-        "type": "market_validation",
-        "insight": "Vertical-specific SaaS for home services (plumber/HVAC) is validated by multiple case studies showing ROI, but competitive intensity is rising."
-      },
-      {
-        "date": "2026-03-30",
-        "type": "probability_update",
-        "insight": "All plays trended up or flat as more evidence emerged. Fractional CAIO showing strongest signal."
-      },
-      {
-        "date": "2026-03-30",
+        "date": "2026-04-04",
         "type": "strategic_insight",
-        "insight": "Service/consulting layer is the true differentiator. Products alone are commoditizing. Adding implementation services (e.g., 'we deploy your AI system') may be the unlock."
+        "insight": "Pipeline now enforces a 'feeds Mote Ops or dies' rule. Five opportunities killed in 5 days under this rule (opp-003, opp-005, opp-009, opp-014, opp-015)."
       },
       {
-        "date": "2026-04-01",
-        "type": "probability_update",
-        "insight": "Play 6 probability increased to 52% based on new evidence: fractional CAIO demand accelerating, consulting industry bifurcation validates niche positioning, $15K-30K/month retainer range at mid-market means SMB tier ($2K-5K/month) is dramatically underpriced."
-      },
-      {
-        "date": "2026-04-01",
+        "date": "2026-04-06",
         "type": "competitive_shift",
-        "insight": "Play 1 probability decreased from 35% to 30%. GoHighLevel Voice AI, AgentZap, and Donna AI have entered the missed-call space. Lane is narrower. Differentiation must come from vertical expertise and done-for-you implementation, not the product alone."
+        "insight": "Vibe coding QA market validated by competitor entry: VibeSecure launched at $199, confirming pricing gap thesis between free scanners and $500+ audits."
       },
       {
-        "date": "2026-04-01",
-        "type": "market_validation",
-        "insight": "67% of AI-adopting SMBs saw 20%+ revenue growth (McKinsey). This is the strongest ROI datapoint for consulting pitch. Frame as: 'Companies like yours that implement AI automation see 20% revenue growth. We make that happen in 90 days.'"
+        "date": "2026-04-06",
+        "type": "execution_blocker",
+        "insight": "All three tested MVPs (Dental AI Stack, ReviewToRank, VibeQA) share the same blocker: form backends localStorage-only, no analytics. Cannot drive traffic until Formspree + GA wired in."
       }
     ]
   },
   "opportunities": [
     {
       "id": "opp-001",
-      "name": "AI Missed-Call Text-Back for Home Services",
-      "status": "ready_to_deploy",
+      "name": "AI Missed-Call Text-Back for Home Services (CallbackAI)",
+      "status": "built",
+      "stage": "built",
       "tier": 1,
       "category": "Vertical SaaS",
       "description": "AI system that instantly texts back missed calls for plumbers/HVAC/electricians, qualifies the lead via SMS, and books appointments.",
+      "verdict": "KEEP - reposition as white-label voice agent (Synthflow/VAPI reselling). Bundle with ReviewAI + Dead Lead Reactivation. Distribution via white-label, not direct sales.",
+      "url": "https://mikedmote52.github.io/callback-ai/",
+      "repo": "https://github.com/mikedmote52/callback-ai",
       "revenueModel": "$149-299/month per business",
-      "competitorAnalysis": "Avoca AI ($47.8M raised) targets enterprise. GoHighLevel added Voice AI. AgentZap, Donna AI, LeadTruffle active in the space. Direct-to-contractor lane at $149-299/month getting narrower but pain is well-documented.",
+      "competitorAnalysis": "Avoca AI ($47.8M raised) targets enterprise. GoHighLevel added Voice AI. AgentZap, Donna AI, LeadTruffle active in the space.",
       "simulation": {
-        "probabilityFirstClient60Days": 0.30,
+        "probabilityFirstClient60Days": 0.3,
         "probabilityRevenue1kMonth6Mo": 0.22,
-        "probabilityRevenue5kMonth12Mo": 0.10,
-        "estimatedBuildTime": "2 weeks",
-        "estimatedCostToLaunch": "$0-20",
         "moatStrength": "Low-Medium"
-      },
-      "probabilityHistory": [
-        {
-          "cycle": 1,
-          "date": "2026-03-20",
-          "value": 0.30
-        },
-        {
-          "cycle": 2,
-          "date": "2026-03-30",
-          "value": 0.35
-        },
-        {
-          "cycle": 3,
-          "date": "2026-04-01",
-          "value": 0.30
-        }
-      ],
-      "predictions": [
-        {
-          "claim": "Get first customer inquiry within 60 days",
-          "probability": 0.30,
-          "resolutionDate": "2026-05-29"
-        }
-      ],
-      "evidence": [
-        "BookedIn verified $51,312 MRR on TrustMRR (13% MoM growth)",
-        "Only 14% of small businesses have integrated AI",
-        "Avoca AI raised $47.8M — validates market",
-        "Wayne Conn Plumbing: $6,285 revenue in 2 weeks from AI receptionist",
-        "Rodriguez Plumbing: 47 jobs/month booked from AI, ~$15K recovered",
-        "Aire Serv HVAC: after-hours bookings jumped from 58 to 208",
-        "Missed calls cost contractors $45K-$120K annually (InstantBusinessPro, 2026)",
-        "GoHighLevel Voice AI now answers inbound calls and books appointments",
-        "AgentZap: leading AI receptionist for plumbers, 24/7 emergency detection",
-        "Donna AI: users see 3x increase in booked appointments"
-      ],
-      "nextSteps": [
-        "Build n8n workflow: Twilio → AI SMS → Calendar booking",
-        "Create landing page targeting plumber/HVAC contractors",
-        "Differentiate from GoHighLevel: offer done-for-you setup + vertical expertise",
-        "Target contractors not already on GoHighLevel platform"
-      ]
+      }
     },
     {
       "id": "opp-002",
-      "name": "AI Review Response System for Local Businesses",
-      "status": "ready_to_deploy",
+      "name": "AI Review Response System (ReviewAI)",
+      "status": "built",
+      "stage": "built",
       "tier": 1,
       "category": "Vertical SaaS",
       "description": "AI monitors Google/Yelp reviews, drafts personalized responses, sends for one-tap approval via text.",
-      "revenueModel": "$49-99/month per business",
+      "verdict": "KEEP - bundled with CallbackAI, not standalone. Not viable as solo product. Value increases significantly when bundled.",
+      "url": "https://mikedmote52.github.io/review-ai/",
+      "repo": "https://github.com/mikedmote52/review-ai",
+      "revenueModel": "$49-99/month per business (bundle)",
       "simulation": {
         "probabilityFirstClient60Days": 0.35,
         "probabilityRevenue1kMonth6Mo": 0.25,
-        "probabilityRevenue5kMonth12Mo": 0.12,
-        "estimatedBuildTime": "2-3 weeks",
-        "estimatedCostToLaunch": "$0",
         "moatStrength": "Low-Medium"
-      },
-      "probabilityHistory": [
-        {
-          "cycle": 1,
-          "date": "2026-03-20",
-          "value": 0.28
-        },
-        {
-          "cycle": 2,
-          "date": "2026-03-30",
-          "value": 0.35
-        },
-        {
-          "cycle": 3,
-          "date": "2026-04-01",
-          "value": 0.35
-        }
-      ],
-      "predictions": [
-        {
-          "claim": "Build working prototype by mid-April",
-          "probability": 0.65,
-          "resolutionDate": "2026-04-15"
-        }
-      ],
-      "evidence": [
-        "Google confirmed review responses affect local search ranking",
-        "BigIdeasDB validated centralized review management need",
-        "Podium/Birdeye priced out of single-location market"
-      ],
-      "nextSteps": [
-        "Build n8n workflow: Google Business Profile → AI → SMS approval",
-        "Demo with sample reviews",
-        "Price at $49/month, undercut Podium by 80%"
-      ]
+      }
     },
     {
       "id": "opp-003",
-      "name": "InstantProposal — AI Proposal Generator",
-      "status": "deployed",
+      "name": "InstantProposal - AI Proposal Generator",
+      "status": "archived",
+      "stage": "archived",
       "tier": 1,
       "category": "Micro-SaaS",
-      "deployedUrl": "https://mikedmote52.github.io/instant-proposal/",
-      "description": "Web tool where contractors describe a job and get a branded proposal PDF in 60 seconds.",
-      "revenueModel": "Freemium: free 5/month, $9.99/month unlimited",
-      "simulation": {
-        "probabilityRevenue500Month3Mo": 0.25,
-        "probabilityRevenue2kMonth6Mo": 0.15,
-        "probabilityRevenue5kMonth12Mo": 0.08,
-        "estimatedBuildTime": "Built — deployed",
-        "estimatedCostToLaunch": "$0",
-        "moatStrength": "Low — competition intensified"
-      },
-      "probabilityHistory": [
-        {
-          "cycle": 1,
-          "date": "2026-03-20",
-          "value": 0.25
-        },
-        {
-          "cycle": 2,
-          "date": "2026-03-30",
-          "value": 0.25
-        },
-        {
-          "cycle": 3,
-          "date": "2026-04-01",
-          "value": 0.25
-        }
-      ],
-      "predictions": [
-        {
-          "claim": "Product Hunt launch drives 100+ signups",
-          "probability": 0.40,
-          "resolutionDate": "2026-04-30"
-        }
-      ],
-      "evidence": [
-        "238k+ complaints validate proposal writing as pain point",
-        "First quote usually wins the job",
-        "Proposal Genie: 50K+ users on Upwork",
-        "Bookipi offering free AI proposals",
-        "Market evolving to structured revenue systems"
-      ],
-      "nextSteps": [
-        "PIVOT: Target offline contractors, not freelancers",
-        "SEO blog posts for contractor keywords",
-        "Product Hunt launch",
-        "Add AI description generation"
-      ]
+      "verdict": "RED - commodity trap, killed 2026-04-02",
+      "postmortem": "pipeline/archived/opp-003-instant-proposal-killed.md"
     },
     {
       "id": "opp-004",
-      "name": "Vertical n8n Automation Packs",
-      "status": "in_simulation",
+      "name": "Vertical n8n Automation Packs (Dental AI Stack)",
+      "status": "tested",
+      "stage": "tested",
       "tier": 2,
       "category": "Digital Products",
-      "description": "Bundled n8n workflows for specific industries. 8-12 workflows per vertical.",
+      "description": "Bundled n8n workflows for specific industries. Dental AI Stack is the first pack.",
+      "verdict": "KEEP - reframed as lead gen for Mote Ops + Crossnode SaaS conversion path",
+      "url": "https://mikedmote52.github.io/dental-ai-stack/",
+      "repo": "https://github.com/mikedmote52/dental-ai-stack",
+      "testedDate": "2026-04-05",
+      "testWindowEnd": "2026-04-12",
       "revenueModel": "$79-149 per pack or $29/month",
+      "notes": "MVP landing page live. Test plan executed. Human must post to Reddit, Dentaltown, and Upwork. Wire up form backend before pushing traffic. Success = 3+ inquiries in 7 days.",
+      "testFile": "pipeline/tested/opp-004-n8n-automation-packs.md",
       "simulation": {
         "probabilityRevenue500Month3Mo": 0.25,
         "probabilityRevenue2kMonth6Mo": 0.12,
-        "estimatedBuildTime": "3-4 weeks",
-        "estimatedCostToLaunch": "$0",
         "moatStrength": "Medium"
-      },
-      "probabilityHistory": [
-        {
-          "cycle": 1,
-          "date": "2026-03-20",
-          "value": 0.20
-        },
-        {
-          "cycle": 2,
-          "date": "2026-03-30",
-          "value": 0.25
-        },
-        {
-          "cycle": 3,
-          "date": "2026-04-01",
-          "value": 0.25
-        }
-      ],
-      "predictions": [
-        {
-          "claim": "Dental practice pack sells 5 copies",
-          "probability": 0.30,
-          "resolutionDate": "2026-06-30"
-        }
-      ],
-      "evidence": [
-        "One creator documented $3,200/mo from 5 templates",
-        "No vertical-specific packs found",
-        "n8n marketplace: 6,137+ workflows",
-        "Mega-packs flooding market at $30",
-        "Agentic AI trend: businesses want dozens of specialized agents per business"
-      ],
-      "nextSteps": [
-        "Fix n8n API connection (404 error, URL may need update)",
-        "Research dental practice workflows",
-        "Build first pack: Dental AI Stack",
-        "Price at $149, include implementation upsell at $5K"
-      ]
+      }
     },
     {
       "id": "opp-005",
       "name": "SMS-Based AI Business Assistant",
-      "status": "in_simulation",
+      "status": "archived",
+      "stage": "archived",
       "tier": 2,
       "category": "Vertical SaaS",
-      "description": "AI assistant over SMS. No app, no login. Business owners text for help with responses, quotes, scheduling.",
-      "revenueModel": "$19-49/month",
-      "simulation": {
-        "probabilityRevenue500Month6Mo": 0.20,
-        "estimatedBuildTime": "4-6 weeks",
-        "estimatedCostToLaunch": "$20-50/mo",
-        "moatStrength": "Medium-High"
-      },
-      "probabilityHistory": [
-        {
-          "cycle": 1,
-          "date": "2026-03-20",
-          "value": 0.18
-        },
-        {
-          "cycle": 2,
-          "date": "2026-03-30",
-          "value": 0.20
-        },
-        {
-          "cycle": 3,
-          "date": "2026-04-01",
-          "value": 0.20
-        }
-      ],
-      "evidence": [
-        "Apple RCS support in iOS 18",
-        "83% of businesses using AI for SMS support",
-        "RCS adopters seeing 2-3x higher click-through"
-      ],
-      "nextSteps": [
-        "Prototype Twilio → AI pipeline",
-        "Test with 3-5 local businesses",
-        "Calculate unit economics"
-      ]
+      "verdict": "RED - feature, not product; absorbed by CallbackAI, killed 2026-04-02",
+      "postmortem": "pipeline/archived/opp-005-sms-assistant-killed.md"
     },
     {
       "id": "opp-006",
-      "name": "Fractional AI Implementation Consultant",
-      "status": "active_pursuit",
+      "name": "Mote Ops - Fractional AI Consulting",
+      "status": "active",
+      "stage": "active",
       "tier": 1,
       "category": "Service / Consulting",
-      "description": "Position as fractional CAIO for small-to-mid-market businesses. 8-20 hours/month per client. Help identify AI opportunities, select tools, implement workflows, measure ROI. No product to build.",
+      "description": "Position as fractional CAIO for small-to-mid-market businesses. 8-20 hours/month per client. Help identify AI opportunities, select tools, implement workflows, measure ROI.",
+      "verdict": "PRIMARY ANCHOR - everything feeds here. Consulting revenue now. All other plays either generate leads for Mote Ops or spin out from it.",
       "revenueModel": "$2K-$8K/month retainer, $5K-$25K projects",
       "simulation": {
         "probabilityFirstClient60Days": 0.52,
-        "probabilityRevenue1kMonth6Mo": 0.60,
-        "estimatedBuildTime": "1 week (packaging)",
-        "estimatedCostToLaunch": "$0",
+        "probabilityRevenue1kMonth6Mo": 0.6,
         "moatStrength": "Medium-High"
       },
-      "probabilityHistory": [
-        {
-          "cycle": 1,
-          "date": "2026-03-20",
-          "value": 0.40
-        },
-        {
-          "cycle": 2,
-          "date": "2026-03-30",
-          "value": 0.45
-        },
-        {
-          "cycle": 3,
-          "date": "2026-04-01",
-          "value": 0.52
-        }
-      ],
-      "predictions": [
-        {
-          "claim": "Land first AI implementation client by May 31",
-          "probability": 0.52,
-          "resolutionDate": "2026-05-31"
-        }
-      ],
       "evidence": [
-        "91% mid-market using AI, only 34% feel transformed",
-        "70% execs need outside help",
-        "Full-time CAIO costs $400K+ — fractional at 20-40% cost",
-        "68% small businesses using AI, most need optimization",
-        "88% of orgs using AI in at least one function",
         "AI consulting market: $11.07B in 2026, 26.2% CAGR to $90.99B by 2035",
         "Fractional CAIO retainers at mid-market: $15K-30K/month",
         "67% of SMBs using AI saw 20%+ revenue growth (McKinsey)",
-        "Consulting industry bifurcating: global players + niche boutiques, mid-market collapsing",
-        "Faye Digital launched fractional CAIO services specifically for mid-market (validates positioning)",
-        "Demand for fractional CAIOs accelerating faster than supply of qualified leaders"
-      ],
-      "nextSteps": [
-        "Package 90-Day AI Transformation offer with tiered pricing",
-        "Create AI readiness assessment quiz (doubles as lead gen)",
-        "Build service page on moteops-landing site",
-        "Identify 10 local businesses to pitch this week",
-        "LinkedIn content: 3 posts about AI implementation ROI",
-        "Reach out to mom's daycare for case study #1",
-        "Draft 5 cold outreach email templates"
+        "70% execs need outside help with AI implementation"
       ]
-    }
-  ],
-  "rejectedOpportunities": [
-    {
-      "name": "AI-powered FAQ generator for websites",
-      "reason": "HubSpot, Zendesk, and Intercom already built this in. No differentiation."
     },
     {
-      "name": "Generic chatbot builder",
-      "reason": "Market flooded with low-cost options (ChatBase, Chatwidget). Commoditized."
+      "id": "opp-007",
+      "name": "AI Dead Lead Reactivation",
+      "status": "active",
+      "stage": "active",
+      "tier": 1,
+      "category": "Service / Consulting",
+      "description": "AI agent re-engages stale leads via SMS/email and books qualified meetings.",
+      "verdict": "KEEP - absorbed into Mote Ops as service offering (not standalone product)",
+      "notes": "Positioned as Mote Ops service line, not independent SaaS. Low saturation, clear ROI story."
     },
     {
-      "name": "Email cold outreach automation",
-      "reason": "Apollo, Hunter, Lemlist dominate. Regulatory risk (GDPR, CAN-SPAM) makes margins thin."
+      "id": "opp-008",
+      "name": "AI Compliance Readiness Kit",
+      "status": "researched",
+      "stage": "researched",
+      "tier": 2,
+      "category": "Vertical SaaS",
+      "added": "2026-04-04",
+      "researchDate": "2026-04-04",
+      "signalStrength": 4,
+      "verdict": "PASS - regulatory tailwind, no dominant SMB player, direct Mote Ops synergy",
+      "file": "pipeline/researched/2026-04-04-ai-compliance-readiness-kit.md",
+      "scores": {
+        "firstCustomer60Days": 0.35,
+        "oneKMRR6Months": 0.25
+      }
     },
     {
-      "name": "Social media content scheduler for personal brands",
-      "reason": "Buffer, Hootsuite, Later compete on features and price. No unique angle."
+      "id": "opp-009",
+      "name": "Contractor Call-to-Quote Pipeline (QuoteCatch)",
+      "status": "archived",
+      "stage": "archived",
+      "added": "2026-04-04",
+      "researchDate": "2026-04-04",
+      "signalStrength": 3,
+      "verdict": "KILL - saturated market, well-funded competitors (QuoteIQ, BuildFolio, LeadTruffle, ServiceTitan) already offer the full pipeline at lower prices",
+      "file": "pipeline/archived/2026-04-04-contractor-call-to-quote-killed.md",
+      "scores": {
+        "firstCustomer60Days": 0.15,
+        "oneKMRR6Months": 0.08
+      }
     },
     {
-      "name": "AI-powered time tracking for freelancers",
-      "reason": "Toggl, Harvest, Clockify already solution-complete. Switching costs are high."
+      "id": "opp-010",
+      "name": "Vertical Workflow Template Marketplace (AutoPacks)",
+      "status": "built",
+      "stage": "built",
+      "tier": 2,
+      "category": "Digital Products",
+      "added": "2026-04-04",
+      "researchDate": "2026-04-04",
+      "signalStrength": 3,
+      "verdict": "PASS - validated revenue model, lowest risk, highest near-term revenue probability, strong Mote Ops synergy",
+      "file": "pipeline/researched/2026-04-04-workflow-template-marketplace.md",
+      "scores": {
+        "firstCustomer60Days": 0.55,
+        "oneKMRR6Months": 0.3
+      }
     },
     {
-      "name": "Automated invoice generator",
-      "reason": "Stripe Invoicing, Wave, QuickBooks have this. Customer acquisition cost prohibitive."
+      "id": "opp-012",
+      "name": "Local SEO AI Content Engine (ReviewToRank)",
+      "status": "tested",
+      "stage": "tested",
+      "tier": 1,
+      "category": "Vertical SaaS",
+      "description": "Turns Google reviews into blog posts, GBP posts, and social content for local businesses. Bridges the gap between review management tools and SEO content tools.",
+      "added": "2026-04-05",
+      "researchDate": "2026-04-05",
+      "builtDate": "2026-04-06",
+      "testedDate": "2026-04-06",
+      "testWindowEnd": "2026-04-13",
+      "signalStrength": 4,
+      "verdict": "PASS - genuine whitespace between review management and SEO content tools, strong recurring revenue model, high Mote Ops synergy",
+      "url": "https://mikedmote52.github.io/review-to-rank/",
+      "repo": "https://github.com/mikedmote52/review-to-rank",
+      "file": "pipeline/tested/opp-012-local-seo-content-engine.md",
+      "scores": {
+        "firstCustomer60Days": 0.45,
+        "oneKMRR6Months": 0.3
+      },
+      "notes": "MVP landing page with interactive demo live. Test plan ready with 4 copy-paste posts (r/localseo, r/SEO, r/smallbusiness, n8n forum), 2 Upwork proposal templates, and full measurement framework. CRITICAL: wire form backend (Formspree) and add analytics BEFORE posting. Success = 5+ inquiries or 3+ beta signups in 7 days.",
+      "testFile": "pipeline/tested/opp-012-local-seo-content-engine.md"
     },
     {
-      "name": "Lead scoring for sales teams",
-      "reason": "Salesforce, HubSpot, Outreach integrated it. Enterprise adoption is low-moat."
+      "id": "opp-013",
+      "name": "Vibe Code Rescue (VibeQA)",
+      "status": "tested",
+      "stage": "tested",
+      "tier": 1,
+      "category": "Vertical SaaS",
+      "description": "Code audit service for vibe-coded apps. Pastes a GitHub repo URL, scans for security/performance/architecture/test-coverage issues, returns a plain-English audit with copy-paste fixes.",
+      "added": "2026-04-06",
+      "researchDate": "2026-04-06",
+      "builtDate": "2026-04-06",
+      "testedDate": "2026-04-06",
+      "testWindowEnd": "2026-04-13",
+      "signalStrength": 4,
+      "verdict": "PASS - clear pricing gap between free scanners and $500+ audits, massive/growing market, strongest Mote Ops lead gen potential of any idea in pipeline",
+      "url": "https://mikedmote52.github.io/vibe-qa/",
+      "repo": "https://github.com/mikedmote52/vibe-qa",
+      "file": "pipeline/tested/opp-013-vibe-code-rescue.md",
+      "scores": {
+        "firstCustomer60Days": 0.4,
+        "oneKMRR6Months": 0.2
+      },
+      "notes": "8 distribution channels mapped with copy-paste content. 3 Reddit posts (r/vibecoding, r/SaaS, r/webdev), DEV.to article outline, Product Hunt comment, Indie Hackers post, n8n community post, 2 Upwork proposal templates. CRITICAL: wire Formspree + analytics BEFORE posting. Success = 10+ form submissions or 3+ audit requests in 7 days. New competitor spotted: VibeSecure at $199 validates market.",
+      "buildNotes": "Single-page HTML landing page with interactive demo scanner, tabbed report preview, 3-tier pricing, intake form. Pure HTML/CSS/JS, no dependencies. Needs: Formspree wired in, analytics, actual scan engine (n8n+Claude), Stripe.",
+      "testFile": "pipeline/tested/opp-013-vibe-code-rescue.md"
     },
     {
-      "name": "Generic chatbot marketplace",
-      "reason": "GPTStore proved consumer interest in ChatGPT assistants is low. B2B 'marketplaces' have terrible unit economics."
+      "id": "opp-014",
+      "name": "Freelancer Invoice Chase Agent (ChaseBot)",
+      "status": "archived",
+      "stage": "archived",
+      "added": "2026-04-06",
+      "researchDate": "2026-04-06",
+      "signalStrength": 3,
+      "verdict": "KILL - saturated market, every invoicing platform has built-in reminders, Chaser ($49/mo) already does smart escalation, low Mote Ops synergy",
+      "file": "pipeline/archived/2026-04-06-freelancer-invoice-chase-killed.md",
+      "scores": {
+        "firstCustomer60Days": 0.2,
+        "oneKMRR6Months": 0.05
+      }
     },
     {
-      "name": "AI tool aggregator / directory",
-      "reason": "Futuretools, There's an AI for That already exist. SEO arbitrage play not defensible."
-    },
-    {
-      "name": "Generic AI voice agent platform",
-      "reason": "GoHighLevel, AgentZap, Donna AI already competing. No differentiation without vertical focus."
+      "id": "opp-015",
+      "name": "AI Agent Ops Dashboard (AgentWatch)",
+      "status": "archived",
+      "stage": "archived",
+      "added": "2026-04-06",
+      "researchDate": "2026-04-06",
+      "signalStrength": 3,
+      "verdict": "KILL - 12-18 months too early for SMBs, 15+ funded observability tools in market, high integration complexity, better as Mote Ops service line than standalone product",
+      "file": "pipeline/archived/2026-04-06-ai-agent-ops-dashboard-killed.md",
+      "scores": {
+        "firstCustomer60Days": 0.15,
+        "oneKMRR6Months": 0.08
+      },
+      "notes": "Thesis is directionally correct but premature. Recommend adding 'AI Agent Monitoring' as a Mote Ops retainer service ($200-500/mo) using existing tools (Helicone/Langfuse) under the hood. Revisit as standalone product in Q4 2026."
     }
   ],
   "signals": [
     {
-      "date": "2026-03-20",
-      "signal": "BookedIn validated $51,312 MRR on TrustMRR with 13% MoM growth",
-      "source": "TrustMRR",
+      "date": "2026-04-04",
+      "signal": "AI Compliance Readiness Kit research passed: regulatory tailwind, no dominant SMB player",
+      "source": "Stage 2 Research Agent",
       "impact": "high"
     },
     {
-      "date": "2026-03-20",
-      "signal": "Only 14% of small businesses have integrated AI solutions",
-      "source": "McKinsey / Industry Analysis",
+      "date": "2026-04-04",
+      "signal": "Workflow Template Marketplace research passed: validated revenue model, lowest risk play in pipeline",
+      "source": "Stage 2 Research Agent",
       "impact": "high"
     },
     {
-      "date": "2026-03-20",
-      "signal": "Avoca AI raised $47.8M Series B, validating enterprise missed-call market",
-      "source": "TechCrunch",
-      "impact": "high"
-    },
-    {
-      "date": "2026-03-20",
-      "signal": "Wayne Conn Plumbing: $6,285 revenue from AI receptionist in 2 weeks",
-      "source": "Case study / Client data",
-      "impact": "high"
-    },
-    {
-      "date": "2026-03-20",
-      "signal": "Missed calls cost contractors average $50K annually",
-      "source": "Industry research",
-      "impact": "high"
-    },
-    {
-      "date": "2026-03-25",
-      "signal": "Google Search rankings favor businesses with review responses",
-      "source": "Google Search Central",
-      "impact": "high"
-    },
-    {
-      "date": "2026-03-25",
-      "signal": "Podium and Birdeye priced out of single-location market at $99+/month",
-      "source": "Pricing research",
+      "date": "2026-04-04",
+      "signal": "Contractor Call-to-Quote killed: well-funded competitors (QuoteIQ, BuildFolio, LeadTruffle, ServiceTitan) already own the lane",
+      "source": "Stage 2 Research Agent",
       "impact": "medium"
     },
     {
-      "date": "2026-03-28",
-      "signal": "n8n marketplace now has 6,137+ workflows available",
-      "source": "n8n marketplace",
+      "date": "2026-04-05",
+      "signal": "ReviewToRank research passed: genuine whitespace between review management and SEO content",
+      "source": "Stage 2 Research Agent",
+      "impact": "high"
+    },
+    {
+      "date": "2026-04-05",
+      "signal": "Dental AI Stack moved from built to tested. 7-day market test window opened, ends 2026-04-12",
+      "source": "Stage 4 Test Agent",
+      "impact": "high"
+    },
+    {
+      "date": "2026-04-06",
+      "signal": "ReviewToRank MVP deployed and tested. Live at https://mikedmote52.github.io/review-to-rank/. Test window ends 2026-04-13",
+      "source": "Stage 3 Build + Stage 4 Test Agent",
+      "impact": "high"
+    },
+    {
+      "date": "2026-04-06",
+      "signal": "VibeQA built and tested in same day. Live at https://mikedmote52.github.io/vibe-qa/. Test window ends 2026-04-13",
+      "source": "Stage 3 Build + Stage 4 Test Agent",
+      "impact": "high"
+    },
+    {
+      "date": "2026-04-06",
+      "signal": "VibeSecure launched at $199 - competitor entry validates Vibe Code Rescue pricing thesis",
+      "source": "Competitive scan",
+      "impact": "high"
+    },
+    {
+      "date": "2026-04-06",
+      "signal": "Freelancer Invoice Chase Agent killed: Chaser ($49/mo) already does smart escalation, low Mote Ops synergy",
+      "source": "Stage 2 Research Agent",
+      "impact": "low"
+    },
+    {
+      "date": "2026-04-06",
+      "signal": "AI Agent Ops Dashboard killed: 12-18 months too early for SMBs, 15+ funded observability tools already in market",
+      "source": "Stage 2 Research Agent",
       "impact": "medium"
     },
     {
-      "date": "2026-03-28",
-      "signal": "One n8n creator documented $3,200/month from selling 5 templates",
-      "source": "Community reports / Case study",
-      "impact": "medium"
-    },
-    {
-      "date": "2026-03-30",
-      "signal": "Micro-SaaS segment growing 30% annually, projected $15.7B to $59.6B by 2030",
-      "source": "Industry analysis",
-      "impact": "medium"
-    },
-    {
-      "date": "2026-03-30",
-      "signal": "91% of mid-market companies using AI, but only 34% feel 'transformed'",
-      "source": "McKinsey 2025 AI Report",
-      "impact": "high"
-    },
-    {
-      "date": "2026-03-30",
-      "signal": "70% of C-suite executives say they need outside help with AI implementation",
-      "source": "Harvard Business Review / Executive Survey",
-      "impact": "high"
-    },
-    {
-      "date": "2026-03-30",
-      "signal": "88% of organizations are using AI in at least one business function",
-      "source": "Gartner 2025 AI Adoption Report",
-      "impact": "high"
-    },
-    {
-      "date": "2026-03-30",
-      "signal": "Full-time Chief AI Officer costs $400K+ annually; fractional model at 20-40% of cost",
-      "source": "Salary analysis / Market research",
-      "impact": "high"
-    },
-    {
-      "date": "2026-03-30",
-      "signal": "Faye Digital launches fractional CAIO services for mid-market",
-      "source": "PRNewswire",
-      "impact": "medium"
-    },
-    {
-      "date": "2026-03-30",
-      "signal": "Apple iOS 18 adds RCS support, enabling richer SMS experiences",
-      "source": "Apple WWDC",
-      "impact": "medium"
-    },
-    {
-      "date": "2026-03-30",
-      "signal": "SaaS industry now at $375B total market size, accelerating consolidation",
-      "source": "Industry research",
-      "impact": "medium"
-    },
-    {
-      "date": "2026-04-01",
-      "signal": "AI consulting market: $11.07B in 2026, growing 26.2% CAGR to $90.99B by 2035",
-      "source": "ColorWhistle / Market Research",
-      "impact": "high"
-    },
-    {
-      "date": "2026-04-01",
-      "signal": "67% of small businesses using AI automation saw 20%+ revenue growth",
-      "source": "McKinsey 2025 Report",
-      "impact": "high"
-    },
-    {
-      "date": "2026-04-01",
-      "signal": "Fractional CAIO retainers: $15K-30K/month at mid-market level",
-      "source": "Faye Digital / Sprinklenet",
-      "impact": "high"
-    },
-    {
-      "date": "2026-04-01",
-      "signal": "Consulting industry bifurcating: global players + niche boutiques, mid-market collapsing",
-      "source": "AlphaSense / Digitus Consulting",
-      "impact": "high"
-    },
-    {
-      "date": "2026-04-01",
-      "signal": "GoHighLevel Voice AI now handles inbound calls and books appointments directly",
-      "source": "GHL Services",
-      "impact": "high"
-    },
-    {
-      "date": "2026-04-01",
-      "signal": "Missed calls cost contractors $45K-$120K annually (up from previous estimates)",
-      "source": "InstantBusinessPro.ai",
-      "impact": "high"
-    },
-    {
-      "date": "2026-04-01",
-      "signal": "Agentic AI focus shift: dozens of small specialized agents per business, not monolithic AI",
-      "source": "PwC / AI Business",
-      "impact": "medium"
-    },
-    {
-      "date": "2026-04-01",
-      "signal": "37% of small businesses use AI, 71% planning to increase investment",
-      "source": "Market research",
+      "date": "2026-04-06",
+      "signal": "Critical execution blocker identified across all three tested MVPs: form backends localStorage-only, no analytics installed. Must fix before driving traffic.",
+      "source": "Pipeline audit",
       "impact": "high"
     }
   ],
   "deployedAssets": [
     {
-      "name": "InstantProposal",
-      "url": "https://mikedmote52.github.io/instant-proposal/",
+      "name": "Mote Ops Landing Page",
+      "url": "https://mikedmote52.github.io/moteops-landing/",
       "status": "live",
-      "type": "saas-product",
-      "deployedDate": "2026-03-15"
-    },
-    {
-      "name": "AI Automation Starter Kit",
-      "url": null,
-      "status": "built_not_listed",
-      "type": "digital-product",
-      "deployedDate": "2026-03-20"
-    },
-    {
-      "name": "AI Hustle Evaluator",
-      "url": null,
-      "status": "built_not_deployed",
-      "type": "tool",
-      "deployedDate": "2026-03-25"
-    },
-    {
-      "name": "Daily Research Scanner",
-      "url": null,
-      "status": "active",
-      "type": "automation",
-      "schedule": "8am daily",
-      "deployedDate": "2026-03-25"
+      "type": "lead-generation",
+      "deployedDate": "2026-03-31"
     },
     {
       "name": "Side Gig Bot Intelligence Dashboard",
@@ -629,11 +418,46 @@
       "deployedDate": "2026-04-01"
     },
     {
-      "name": "Mote Ops Landing Page",
-      "url": "https://mikedmote52.github.io/moteops-landing/",
-      "status": "live",
-      "type": "lead-generation",
-      "deployedDate": "2026-03-31"
+      "name": "CallbackAI",
+      "url": "https://mikedmote52.github.io/callback-ai/",
+      "status": "built",
+      "type": "saas-product",
+      "deployedDate": "2026-04-02"
+    },
+    {
+      "name": "ReviewAI",
+      "url": "https://mikedmote52.github.io/review-ai/",
+      "status": "built",
+      "type": "saas-product",
+      "deployedDate": "2026-04-02"
+    },
+    {
+      "name": "Dental AI Stack (Vertical n8n Automation Pack)",
+      "url": "https://mikedmote52.github.io/dental-ai-stack/",
+      "status": "tested",
+      "type": "saas-product",
+      "deployedDate": "2026-04-05"
+    },
+    {
+      "name": "ReviewToRank (Local SEO AI Content Engine)",
+      "url": "https://mikedmote52.github.io/review-to-rank/",
+      "status": "tested",
+      "type": "saas-product",
+      "deployedDate": "2026-04-06"
+    },
+    {
+      "name": "VibeQA (Vibe Code Rescue)",
+      "url": "https://mikedmote52.github.io/vibe-qa/",
+      "status": "tested",
+      "type": "saas-product",
+      "deployedDate": "2026-04-06"
     }
-  ]
+  ],
+  "_meta": {
+    "sourceOfTruth": "/Users/michaelmote/Desktop/side gig bot/pipeline/STATE.json",
+    "pipelineStateLastModified": "2026-04-06T14:14:00Z",
+    "regeneratedFrom": "STATE.json + BUILD/TEST reports through 2026-04-06",
+    "regeneratedAt": "2026-04-09",
+    "note": "This file is currently NOT consumed by sidegigbot.html (which is fully static HTML). Refreshed for data hygiene. If a future version of the dashboard fetches this file, schema is preserved from cycle 3."
+  }
 }
