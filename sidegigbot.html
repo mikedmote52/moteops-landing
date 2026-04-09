@@ -3,2212 +3,1724 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Side Gig Bot v4 — AI Growth Engine</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Side Gig Bot v6 — Pipeline Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #08080d;
-            color: #c8c8d8;
-            line-height: 1.6;
-            min-height: 100vh;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #08080d;
+            --bg-surface: #0c0e14;
+            --bg-surface-light: #12151e;
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-color-light: rgba(255, 255, 255, 0.10);
+            --text-primary: #f0f4f8;
+            --text-secondary: #8fa3af;
+            --text-tertiary: #4a5568;
+            --color-green: #10b981;
+            --color-green-bright: #00e8b0;
+            --color-blue: #3b82f6;
+            --color-purple: #8b5cf6;
+            --color-amber: #f59e0b;
+            --color-red: #ef4444;
+            --color-red-dark: #dc2626;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: var(--color-blue);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--color-green-bright);
+            text-decoration: underline;
+        }
+
+        /* HEADER */
         header {
-            background: linear-gradient(135deg, #0c0c14 0%, #141428 100%);
-            border-bottom: 1px solid #1e1e3a;
-            padding: 1.5rem 2rem;
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(12px);
+            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(8, 8, 13, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
         }
 
-        .header-inner {
-            max-width: 1440px;
+        .header-content {
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            gap: 2rem;
         }
 
         .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #7c6cf7 0%, #00e8b0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header-right {
+            font-size: 1.5rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            font-size: 0.9rem;
+            gap: 0.75rem;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--color-green);
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
         }
 
         .header-stats {
             display: flex;
             gap: 2rem;
-            font-size: 0.85rem;
-            color: #6a6a8a;
+            align-items: center;
+            font-size: 0.875rem;
         }
 
-        .header-stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-
-        .header-stat-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #5a5a7a;
-        }
-
-        .header-stat-value {
-            color: #7c6cf7;
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .live-badge {
+        .stat-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(0,232,176,0.08);
-            border: 1px solid rgba(0,232,176,0.3);
-            color: #00e8b0;
-            padding: 0.4rem 0.9rem;
-            border-radius: 6px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
             font-weight: 600;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            color: var(--color-green);
         }
 
-        .live-dot {
-            width: 7px; height: 7px;
-            background: #00e8b0;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
+        .updated-date {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
         }
 
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
 
+        nav a {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        /* MAIN CONTAINER */
         main {
-            max-width: 1440px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
         }
 
+        /* SECTIONS */
+        section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 100px;
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* DAILY BRIEF */
         .daily-brief {
-            background: linear-gradient(135deg, #12122a 0%, #1a1a3a 100%);
-            border: 1px solid #2a2a4e;
-            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+            border: 1px solid var(--border-color-light);
+            border-left: 4px solid var(--color-green);
+            border-radius: 12px;
             padding: 2rem;
             margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
         }
 
-        .daily-brief::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #7c6cf7 0%, #00e8b0 50%, #7c6cf7 100%);
-            background-size: 200% auto;
-            animation: shimmer 3s linear infinite;
+        .daily-brief h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--color-green);
         }
 
-        @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-
-        .brief-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #7c6cf7;
-            margin-bottom: 0.75rem;
+        .daily-brief p {
+            line-height: 1.8;
+            color: var(--text-primary);
         }
 
-        .brief-text {
-            font-size: 1.05rem;
-            color: #e0e0f0;
-            line-height: 1.7;
-        }
-
-        .stats-row {
+        /* STATS ROW */
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
         .stat-card {
-            background: #10101e;
-            border: 1px solid #1e1e3a;
-            border-radius: 10px;
-            padding: 1.25rem;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
             text-align: center;
         }
 
-        .stat-number {
-            font-size: 2rem;
+        .stat-card-value {
+            font-size: 2.5rem;
             font-weight: 800;
-            margin-bottom: 0.25rem;
+            color: var(--color-green);
+            margin-bottom: 0.5rem;
         }
 
-        .stat-number.green { color: #00e8b0; }
-        .stat-number.purple { color: #7c6cf7; }
-        .stat-number.blue { color: #4ea8de; }
-        .stat-number.amber { color: #f0a030; }
-        .stat-number.red { color: #e05060; }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: #6a6a8a;
+        .stat-card-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        .quick-actions {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            background: linear-gradient(135deg, rgba(124,108,247,0.1), rgba(0,232,176,0.05));
-            border: 1px solid #2a2a4e;
-            color: #7c6cf7;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .action-btn:hover {
-            border-color: #7c6cf7;
-            box-shadow: 0 4px 12px rgba(124,108,247,0.2);
-            transform: translateY(-1px);
-        }
-
-        .tab-bar {
-            display: flex;
-            gap: 0;
-            border-bottom: 1px solid #1e1e3a;
-            margin-bottom: 2rem;
+        /* PIPELINE VISUALIZATION */
+        .pipeline-container {
             overflow-x: auto;
+            padding: 1rem 0;
         }
 
-        .tab-btn {
-            padding: 0.75rem 1.5rem;
-            background: none;
-            border: none;
-            color: #6a6a8a;
-            font-family: inherit;
-            font-size: 0.9rem;
+        .pipeline {
+            display: flex;
+            gap: 1rem;
+            min-width: min-content;
+            padding: 0 1rem;
+        }
+
+        .pipeline-stage {
+            flex: 0 0 220px;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .pipeline-stage.inbox { border-top: 3px solid var(--color-blue); }
+        .pipeline-stage.researched { border-top: 3px solid var(--color-purple); }
+        .pipeline-stage.built { border-top: 3px solid var(--color-blue); }
+        .pipeline-stage.tested { border-top: 3px solid var(--color-amber); }
+        .pipeline-stage.active { border-top: 3px solid var(--color-green); }
+        .pipeline-stage.archived { border-top: 3px solid var(--color-red); opacity: 0.6; }
+
+        .pipeline-stage-header {
+            font-size: 0.875rem;
             font-weight: 600;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .tab-btn:hover { color: #a0a0c0; }
+        .pipeline-stage.inbox .pipeline-stage-header { color: var(--color-blue); }
+        .pipeline-stage.researched .pipeline-stage-header { color: var(--color-purple); }
+        .pipeline-stage.built .pipeline-stage-header { color: var(--color-blue); }
+        .pipeline-stage.tested .pipeline-stage-header { color: var(--color-amber); }
+        .pipeline-stage.active .pipeline-stage-header { color: var(--color-green); }
+        .pipeline-stage.archived .pipeline-stage-header { color: var(--color-red); }
 
-        .tab-btn.active {
-            color: #7c6cf7;
-            border-bottom-color: #7c6cf7;
-        }
-
-        .tab-count {
-            display: inline-block;
-            background: rgba(124,108,247,0.15);
-            color: #7c6cf7;
+        .stage-count {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
             font-size: 0.75rem;
-            padding: 0.1rem 0.5rem;
-            border-radius: 10px;
-            margin-left: 0.4rem;
+            font-weight: 700;
         }
 
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
+        .opportunity-item {
+            font-size: 0.8rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--bg-surface-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
-        /* Cards Grid */
+        .opportunity-item:hover {
+            background-color: var(--bg-primary);
+            border-color: var(--border-color-light);
+        }
+
+        /* CARD GRID */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
         }
 
         .card {
-            background: linear-gradient(135deg, #12122a, #161636);
-            border: 1px solid #2a2a4e;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 1.5rem;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
         }
 
         .card:hover {
-            border-color: #7c6cf7;
-            box-shadow: 0 6px 24px rgba(124,108,247,0.12);
-            transform: translateY(-2px);
+            border-color: var(--border-color-light);
+            box-shadow: var(--shadow-lg);
         }
 
         .card-header {
             display: flex;
-            justify-content: space-between;
             align-items: flex-start;
+            justify-content: space-between;
             margin-bottom: 1rem;
         }
 
         .card-title {
-            font-size: 1.15rem;
+            font-size: 1.125rem;
             font-weight: 700;
-            color: #f0f0ff;
         }
 
-        .card-subtitle {
-            font-size: 0.9rem;
-            color: #8a8aa8;
-            margin-top: 0.25rem;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .small-btn {
-            background: rgba(124,108,247,0.1);
-            border: 1px solid rgba(124,108,247,0.3);
-            color: #7c6cf7;
+        .card-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
             padding: 0.4rem 0.8rem;
-            border-radius: 5px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
-        .small-btn:hover {
-            background: rgba(124,108,247,0.2);
-            border-color: #7c6cf7;
+        .badge-active { background-color: rgba(16, 185, 129, 0.2); color: var(--color-green); }
+        .badge-built { background-color: rgba(59, 130, 246, 0.2); color: var(--color-blue); }
+        .badge-tested { background-color: rgba(245, 158, 11, 0.2); color: var(--color-amber); }
+        .badge-researched { background-color: rgba(139, 92, 246, 0.2); color: var(--color-purple); }
+        .badge-killed { background-color: rgba(239, 68, 68, 0.2); color: var(--color-red); }
+
+        .card-verdict {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
         }
 
-        .small-btn.danger {
-            color: #e05060;
-            border-color: rgba(224,80,96,0.3);
-            background: rgba(224,80,96,0.05);
-        }
-
-        .small-btn.danger:hover {
-            background: rgba(224,80,96,0.15);
-            border-color: #e05060;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .modal.open {
+        .card-links {
             display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
         }
 
-        .modal-content {
-            background: #12122a;
-            border: 1px solid #2a2a4e;
-            border-radius: 14px;
-            padding: 2rem;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
+        .card-link {
+            font-size: 0.8rem;
+            color: var(--color-blue);
+            text-decoration: none;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.2s ease;
         }
 
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #f0f0ff;
-            margin-bottom: 1.5rem;
+        .card-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-color: var(--color-blue);
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
+        .card-meta {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1rem;
         }
 
-        .form-label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #c8c8d8;
-            margin-bottom: 0.5rem;
+        .card-scores {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
         }
 
-        .form-input, .form-textarea, .form-select {
-            width: 100%;
-            background: #0a0a12;
-            border: 1px solid #1e1e3a;
-            border-radius: 8px;
+        .score-item {
+            background-color: var(--bg-surface-light);
             padding: 0.75rem;
-            color: #c8c8d8;
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: all 0.2s;
+            border-radius: 8px;
         }
 
-        .form-input:focus, .form-textarea:focus, .form-select:focus {
-            outline: none;
-            border-color: #7c6cf7;
-            box-shadow: 0 0 0 3px rgba(124,108,247,0.1);
+        .score-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.4rem;
         }
 
-        .form-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .slider-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .slider-label-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-
-        .slider-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #c8c8d8;
-        }
-
-        .slider-value {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #7c6cf7;
-        }
-
-        input[type="range"] {
+        .score-bar {
             width: 100%;
             height: 6px;
+            background-color: var(--bg-primary);
             border-radius: 3px;
-            background: #1a1a30;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #7c6cf7, #00e8b0);
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(124,108,247,0.4);
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #7c6cf7, #00e8b0);
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 2px 8px rgba(124,108,247,0.4);
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .modal-btn {
-            flex: 1;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .modal-btn.primary {
-            background: linear-gradient(135deg, #7c6cf7, #5a4fd0);
-            color: white;
-        }
-
-        .modal-btn.primary:hover {
-            box-shadow: 0 6px 20px rgba(124,108,247,0.3);
-        }
-
-        .modal-btn.secondary {
-            background: #1a1a30;
-            color: #7c6cf7;
-            border: 1px solid #2a2a4e;
-        }
-
-        .modal-btn.secondary:hover {
-            border-color: #7c6cf7;
-            background: #22223a;
-        }
-
-        .close-modal {
-            float: right;
-            font-size: 1.5rem;
-            color: #6a6a8a;
-            cursor: pointer;
-            border: none;
-            background: none;
-            padding: 0;
-            width: 24px;
-            height: 24px;
-        }
-
-        .close-modal:hover { color: #7c6cf7; }
-
-        /* List styles */
-        .list {
-            display: grid;
-            gap: 0.75rem;
-        }
-
-        .list-item {
-            background: #10101e;
-            border: 1px solid #1e1e3a;
-            border-radius: 8px;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            transition: all 0.2s;
-        }
-
-        .list-item:hover {
-            border-color: #2a2a4e;
-        }
-
-        .list-item-content {
-            flex: 1;
-        }
-
-        .list-item-title {
-            font-weight: 600;
-            color: #d0d0e0;
-            margin-bottom: 0.25rem;
-        }
-
-        .list-item-meta {
-            font-size: 0.85rem;
-            color: #6a6a8a;
-        }
-
-        /* Kanban */
-        .kanban {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .kanban-col {
-            background: #10101e;
-            border: 1px solid #1e1e3a;
-            border-radius: 10px;
-            padding: 1.5rem;
-            min-height: 400px;
-        }
-
-        .kanban-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #c8c8d8;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid #2a2a4e;
-        }
-
-        .kanban-cards {
-            display: grid;
-            gap: 0.75rem;
-        }
-
-        .kanban-card {
-            background: #161636;
-            border: 1px solid #2a2a4e;
-            border-radius: 8px;
-            padding: 1rem;
-            cursor: move;
-            transition: all 0.2s;
-        }
-
-        .kanban-card:hover {
-            border-color: #7c6cf7;
-            box-shadow: 0 4px 12px rgba(124,108,247,0.1);
-        }
-
-        .kanban-card-title {
-            font-weight: 600;
-            color: #d0d0e0;
-            margin-bottom: 0.5rem;
-        }
-
-        .kanban-card-prob {
-            font-size: 0.8rem;
-            color: #7c6cf7;
-            font-weight: 700;
-        }
-
-        /* Score display */
-        .score-ring {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 800;
-            position: relative;
-        }
-
-        .score-high {
-            background: rgba(0,232,176,0.1);
-            color: #00e8b0;
-            border: 2px solid rgba(0,232,176,0.3);
-        }
-
-        .score-med {
-            background: rgba(240,160,48,0.1);
-            color: #f0a030;
-            border: 2px solid rgba(240,160,48,0.3);
-        }
-
-        .score-low {
-            background: rgba(224,80,96,0.1);
-            color: #e05060;
-            border: 2px solid rgba(224,80,96,0.3);
-        }
-
-        .probability-bar {
-            width: 100%;
-            height: 8px;
-            background: #1a1a30;
-            border-radius: 4px;
             overflow: hidden;
-            margin: 0.5rem 0;
         }
 
-        .probability-bar-fill {
+        .score-fill {
             height: 100%;
-            background: linear-gradient(90deg, #7c6cf7, #00e8b0);
-            border-radius: 4px;
+            background: linear-gradient(90deg, var(--color-amber), var(--color-green));
+            transition: width 0.3s ease;
         }
 
-        /* Charts */
-        .chart-container {
-            margin: 1.5rem 0;
+        /* GRAVEYARD */
+        .graveyard-card {
+            opacity: 0.7;
         }
 
-        .bar-chart {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            height: 200px;
-            gap: 1rem;
-            padding: 1rem 0;
+        .graveyard-card .card-title {
+            text-decoration: line-through;
+            color: var(--text-secondary);
         }
 
-        .bar-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .bar {
-            width: 100%;
-            background: linear-gradient(180deg, #7c6cf7, #5a4fd0);
-            border-radius: 4px 4px 0 0;
-            min-height: 20px;
-            position: relative;
-            transition: all 0.3s;
-        }
-
-        .bar:hover {
-            opacity: 0.8;
-            box-shadow: 0 4px 12px rgba(124,108,247,0.3);
-        }
-
-        .bar-label {
-            font-size: 0.75rem;
-            color: #6a6a8a;
-            text-align: center;
-            width: 100%;
-        }
-
-        .bar-value {
+        .kill-reason {
             font-size: 0.85rem;
-            font-weight: 700;
-            color: #7c6cf7;
-            position: absolute;
-            bottom: 100%;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 0.25rem;
+            color: var(--color-red);
+            margin-top: 0.5rem;
         }
 
-        /* Status badges */
-        .status-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        /* MARKETING AGENT STATUS */
+        .agent-status {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .status-research { background: rgba(78,168,222,0.12); color: #4ea8de; }
-        .status-simulation { background: rgba(240,160,48,0.12); color: #f0a030; }
-        .status-ready { background: rgba(0,232,176,0.12); color: #00e8b0; }
-        .status-deployed { background: rgba(124,108,247,0.12); color: #b8a7ff; }
-        .status-active { background: rgba(0,232,176,0.12); color: #00e8b0; }
-        .status-paused { background: rgba(224,80,96,0.12); color: #e05060; }
-
-        /* Impact badges */
-        .impact-high { background: rgba(0,232,176,0.1); color: #00e8b0; }
-        .impact-medium { background: rgba(240,160,48,0.1); color: #f0a030; }
-        .impact-low { background: rgba(106,106,138,0.1); color: #8a8aa0; }
-
-        .impact-badge {
-            padding: 0.3rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            main { padding: 1rem; }
-            .card-grid { grid-template-columns: 1fr; }
-            .header-stats { gap: 1rem; font-size: 0.75rem; }
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
-            .tab-bar { gap: 0.5rem; }
-            .tab-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
-        }
-
-        .hidden { display: none; }
-
-        .score-breakdown {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            font-size: 0.8rem;
-            margin-top: 0.75rem;
-        }
-
-        .breakdown-item {
-            background: rgba(0,0,0,0.2);
-            padding: 0.5rem;
-            border-radius: 5px;
-            color: #8a8aa8;
-        }
-
-        .breakdown-label {
-            font-weight: 600;
-            color: #a0a0c0;
-        }
-
-        .revenue-summary {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .agent-header {
+            display: flex;
+            align-items: center;
             gap: 1rem;
             margin-bottom: 2rem;
         }
 
-        .revenue-stat {
-            background: linear-gradient(135deg, #1a1a3a, #121228);
-            border: 1px solid #2a2a4e;
-            border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .revenue-stat-value {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #00e8b0;
-            margin-bottom: 0.25rem;
-        }
-
-        .revenue-stat-label {
-            font-size: 0.85rem;
-            color: #6a6a8a;
+        .agent-status-badge {
+            display: inline-block;
+            background-color: var(--color-green);
+            color: var(--bg-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
-        .timeline {
+        .agent-refresh {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .project-readiness {
             display: grid;
-            gap: 1rem;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .timeline-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #7c6cf7;
-            margin-top: 0.4rem;
-            flex-shrink: 0;
-        }
-
-        .timeline-content {
-            flex: 1;
-        }
-
-        .timeline-date {
-            font-size: 0.8rem;
-            color: #6a6a8a;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .timeline-text {
-            font-size: 0.95rem;
-            color: #d0d0e0;
-        }
-
-        .win-loss-display {
-            display: flex;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
-            margin: 1.5rem 0;
         }
 
-        .win-loss-stat {
-            flex: 1;
-            text-align: center;
+        .readiness-item {
+            background-color: var(--bg-surface-light);
+            padding: 1rem;
+            border-radius: 8px;
         }
 
-        .win-loss-number {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
+        .readiness-name {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .win-loss-label {
-            font-size: 0.8rem;
-            color: #6a6a8a;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .readiness-percentage {
+            font-weight: 700;
+            color: var(--color-amber);
         }
 
-        .win-loss-stat.wins .win-loss-number { color: #00e8b0; }
-        .win-loss-stat.losses .win-loss-number { color: #e05060; }
+        .readiness-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--bg-primary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
 
-        .pattern-card {
-            background: linear-gradient(135deg, #12122a, #161636);
-            border: 1px solid #2a2a4e;
+        .readiness-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-blue), var(--color-amber));
+            transition: width 0.3s ease;
+        }
+
+        .blocker {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .blocker.alert {
+            color: var(--color-red);
+            font-weight: 600;
+        }
+
+        /* ALERTS */
+        .alerts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .alert-card {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+            border: 1px solid var(--border-color-light);
+            border-left: 4px solid var(--color-amber);
             border-radius: 12px;
             padding: 1.5rem;
-            transition: all 0.25s ease;
         }
 
-        .pattern-card:hover {
-            border-color: #7c6cf7;
-            box-shadow: 0 6px 24px rgba(124,108,247,0.12);
-            transform: translateY(-2px);
+        .alert-card.critical {
+            border-left-color: var(--color-red);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
         }
 
-        .pattern-name {
-            font-size: 1.15rem;
+        .alert-title {
             font-weight: 700;
-            color: #f0f0ff;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-amber);
         }
 
-        .pattern-desc {
-            font-size: 0.9rem;
-            color: #8a8aa8;
-            margin-bottom: 1rem;
+        .alert-card.critical .alert-title {
+            color: var(--color-red);
         }
 
-        .pattern-meta {
+        .alert-content {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        /* LIVE ASSETS */
+        .assets-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .asset-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
             gap: 0.75rem;
-            margin-bottom: 1rem;
-            font-size: 0.8rem;
         }
 
-        .pattern-meta-item {
-            background: rgba(0,0,0,0.2);
-            padding: 0.5rem;
-            border-radius: 5px;
-            color: #8a8aa8;
-        }
-
-        .pattern-meta-label {
+        .asset-name {
             font-weight: 600;
-            color: #a0a0c0;
-            display: block;
-            margin-bottom: 0.2rem;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem 2rem;
-            color: #6a6a8a;
-        }
-
-        .empty-state-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        .empty-state-text {
             font-size: 0.95rem;
+        }
+
+        .asset-url {
+            font-size: 0.75rem;
+            color: var(--color-blue);
+            word-break: break-all;
+            font-family: 'Monaco', monospace;
+        }
+
+        .asset-status {
+            font-size: 0.75rem;
+            color: var(--color-green);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        /* SESSION LOG */
+        .session-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .session-item {
+            display: flex;
+            gap: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .session-item:last-child {
+            border-bottom: none;
+        }
+
+        .session-marker {
+            flex: 0 0 100px;
+            font-weight: 700;
+            color: var(--color-blue);
+        }
+
+        .session-content {
+            flex: 1;
+        }
+
+        .session-title {
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .session-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* ACTION REQUIRED */
+        .action-required {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border: 1px solid var(--border-color-light);
+            border-left: 4px solid var(--color-red);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-required h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-red);
             margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .action-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .action-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .action-number {
+            flex: 0 0 30px;
+            background-color: var(--color-red);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .action-description {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .action-description strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .action-description small {
+            color: var(--text-secondary);
+        }
+
+        /* EXPANDABLE SECTION */
+        .expandable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .expandable-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+        }
+
+        .expand-icon {
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+
+        .expandable.collapsed .expand-icon {
+            transform: rotate(-90deg);
+        }
+
+        .expandable-content {
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .expandable.collapsed .expandable-content {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .header-stats {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-end;
+            }
+
+            .card-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .project-readiness {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+            }
+
+            .header-stats {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .stat-item {
+                font-size: 0.75rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pipeline {
+                gap: 0.5rem;
+            }
+
+            .pipeline-stage {
+                flex: 0 0 180px;
+                padding: 1rem;
+            }
+
+            .card-scores {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
         }
     </style>
 </head>
 <body>
-
-<header>
-    <div class="header-inner">
-        <div class="logo">Side Gig Bot v4</div>
-        <div class="header-right">
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <span class="pulse-dot"></span>
+                Side Gig Bot v6
+            </div>
+            <nav>
+                <a href="#daily-brief">Brief</a>
+                <a href="#pipeline">Pipeline</a>
+                <a href="#system">System</a>
+                <a href="#testing">Testing</a>
+                <a href="#marketing">Marketing</a>
+                <a href="#alerts">Alerts</a>
+                <a href="#actions">Actions</a>
+            </nav>
             <div class="header-stats">
-                <div class="header-stat-item">
-                    <div class="header-stat-label">Ideas</div>
-                    <div class="header-stat-value" id="ideaCount">0</div>
+                <div class="stat-item">
+                    <span class="stat-label">Last Updated:</span>
+                    <span class="updated-date">April 8, 2026</span>
                 </div>
-                <div class="header-stat-item">
-                    <div class="header-stat-label">Experiments</div>
-                    <div class="header-stat-value" id="expCount">0</div>
+                <div class="stat-item">
+                    <span class="stat-label">Pipeline:</span>
+                    <span class="stat-value">15 Total</span>
                 </div>
-                <div class="header-stat-item">
-                    <div class="header-stat-label">Revenue</div>
-                    <div class="header-stat-value" id="totalRevenue">$0</div>
+                <div class="stat-item">
+                    <span class="stat-label">Testing:</span>
+                    <span class="stat-value">3 Active</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Live:</span>
+                    <span class="stat-value">2 Plays</span>
                 </div>
             </div>
-            <div class="live-badge">
-                <div class="live-dot"></div>
-                Active
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- DAILY BRIEF -->
+        <section id="daily-brief">
+            <div class="daily-brief">
+                <h3>📊 April 8 Brief — System Review Complete</h3>
+                <p>
+                    Full system audit completed. The pipeline has processed 15 ideas across 10 days, killing 5 with evidence-backed post-mortems and advancing 4 to market-ready MVPs. The 4-agent architecture (Scout → Research → Build → Test) runs daily on schedule and produces high-quality output at every stage. <strong style="color: var(--color-red);">Critical finding: zero market contact in 5+ weeks of operation.</strong> All 3 test windows are expiring with no posts published, no forms wired, and no analytics installed. The system excels at planning and has completely failed at execution. Improvement plan: add Stage 5 evaluation agent, wire form backends, and close the feedback loop. 11 new ideas waiting in inbox.
+                </p>
+            </div>
+        </section>
+
+        <!-- STATS ROW -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-value">15</div>
+                <div class="stat-card-label">Total Scanned</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">3</div>
+                <div class="stat-card-label">In Testing</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">2</div>
+                <div class="stat-card-label">Active Plays</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">3</div>
+                <div class="stat-card-label">Live MVPs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">5</div>
+                <div class="stat-card-label">Killed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">0%</div>
+                <div class="stat-card-label">Tests Executed</div>
             </div>
         </div>
-    </div>
-</header>
 
-<main>
-    <!-- COMMAND CENTER -->
-    <div class="daily-brief">
-        <div class="brief-label">Daily Brief</div>
-        <div class="brief-text" id="dailyBrief">Loading brief...</div>
-    </div>
-
-    <div class="stats-row">
-        <div class="stat-card">
-            <div class="stat-number purple" id="statPlays">6</div>
-            <div class="stat-label">Plays</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number green" id="statActive">0</div>
-            <div class="stat-label">Active</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number blue" id="statSignals">24</div>
-            <div class="stat-label">Signals</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number amber" id="statRevenueMRR">$0</div>
-            <div class="stat-label">MRR</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number red" id="statWinRate">0%</div>
-            <div class="stat-label">Win Rate</div>
-        </div>
-    </div>
-
-    <div class="quick-actions">
-        <button class="action-btn" onclick="openAddIdeaModal()">+ Add Idea</button>
-        <button class="action-btn" onclick="openAddExperimentModal()">+ Log Experiment</button>
-        <button class="action-btn" onclick="openAddSignalModal()">+ Add Signal</button>
-        <button class="action-btn" onclick="openAddPlayModal()">+ New Play</button>
-        <button class="action-btn" onclick="openAddRevenueModal()">+ Log Revenue</button>
-    </div>
-
-    <!-- TABS -->
-    <div class="tab-bar">
-        <button class="tab-btn active" onclick="switchTab('plays')">
-            Plays Pipeline <span class="tab-count" id="playsCount">6</span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('ideas')">
-            Idea Lab <span class="tab-count" id="ideasCount">0</span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('experiments')">
-            Experiment Tracker <span class="tab-count" id="expsCount">0</span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('signals')">
-            Signals <span class="tab-count" id="signalsCount">24</span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('revenue')">
-            Revenue Tracker <span class="tab-count" id="revenueCount">0</span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('builder')">
-            AI Builder <span class="tab-count">7</span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('improvements')">
-            UI Ideas <span class="tab-count" id="improvementsCount">5</span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('settings')">
-            Settings
-        </button>
-    </div>
-
-    <!-- PLAYS PIPELINE TAB -->
-    <div id="plays" class="tab-panel active">
-        <div style="margin-bottom: 1rem; display: flex; gap: 0.75rem;">
-            <button class="action-btn" onclick="toggleKanban()">Toggle Kanban View</button>
-        </div>
-        <div id="playsGrid" class="card-grid"></div>
-        <div id="playsKanban" class="kanban" style="display: none;"></div>
-    </div>
-
-    <!-- IDEA LAB TAB -->
-    <div id="ideas" class="tab-panel">
-        <div class="card-grid" id="ideasGrid"></div>
-        <div id="ideasEmpty" class="empty-state">
-            <div class="empty-state-icon">💡</div>
-            <div class="empty-state-text">No ideas yet. Click the "Add Idea" button to get started!</div>
-        </div>
-    </div>
-
-    <!-- EXPERIMENTS TAB -->
-    <div id="experiments" class="tab-panel">
-        <div id="experimentsList" class="list"></div>
-        <div id="experimentsEmpty" class="empty-state">
-            <div class="empty-state-icon">🧪</div>
-            <div class="empty-state-text">No experiments logged. Start tracking your tests!</div>
-        </div>
-    </div>
-
-    <!-- SIGNALS TAB -->
-    <div id="signals" class="tab-panel">
-        <div id="signalsList" class="list"></div>
-    </div>
-
-    <!-- REVENUE TRACKER TAB -->
-    <div id="revenue" class="tab-panel">
-        <div class="revenue-summary">
-            <div class="revenue-stat">
-                <div class="revenue-stat-value" id="totalRevenueDisplay">$0</div>
-                <div class="revenue-stat-label">Total Revenue</div>
-            </div>
-            <div class="revenue-stat">
-                <div class="revenue-stat-value" id="mrrDisplay">$0</div>
-                <div class="revenue-stat-label">Monthly Recurring</div>
-            </div>
-        </div>
-        <div class="chart-container">
-            <div style="font-size: 0.9rem; font-weight: 600; color: #c8c8d8; margin-bottom: 1rem;">Revenue by Month</div>
-            <div class="bar-chart" id="revenueChart"></div>
-        </div>
-        <div id="revenueList" class="list"></div>
-        <div id="revenueEmpty" class="empty-state">
-            <div class="empty-state-icon">💰</div>
-            <div class="empty-state-text">No revenue logged yet.</div>
-        </div>
-    </div>
-
-    <!-- AI BUILDER TAB -->
-    <div id="builder" class="tab-panel">
-        <div class="card-grid" id="builderGrid"></div>
-    </div>
-
-    <!-- UI IMPROVEMENTS TAB -->
-    <div id="improvements" class="tab-panel">
-        <div id="improvementsList" class="list"></div>
-    </div>
-
-    <!-- SETTINGS TAB -->
-    <div id="settings" class="tab-panel">
-        <div class="card" style="margin-bottom: 2rem;">
-            <div class="card-title">Data Management</div>
-            <div style="color: #8a8aa8; margin: 1.5rem 0;">
-                <p style="margin-bottom: 1rem;">Total Ideas: <strong id="dataStatsIdeas">0</strong></p>
-                <p style="margin-bottom: 1rem;">Total Experiments: <strong id="dataStatsExperiments">0</strong></p>
-                <p style="margin-bottom: 1rem;">Total Signals: <strong id="dataStatsSignals">0</strong></p>
-                <p style="margin-bottom: 1rem;">Total Revenue Entries: <strong id="dataStatsRevenue">0</strong></p>
-                <p>Total Plays: <strong id="dataStatsPlays">0</strong></p>
-            </div>
-            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                <button class="action-btn" onclick="exportData()">Export Data (JSON)</button>
-                <button class="action-btn" onclick="document.getElementById('importFile').click()">Import Data</button>
-                <input type="file" id="importFile" style="display: none;" onchange="importData(event)">
-                <button class="action-btn" style="color: #e05060; border-color: #e05060;" onclick="resetData()">Reset All</button>
-            </div>
-        </div>
-    </div>
-</main>
-
-<!-- MODALS -->
-<div id="addIdeaModal" class="modal">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeModal('addIdeaModal')">×</button>
-        <div class="modal-title">Add New Idea</div>
-        <form onsubmit="saveIdea(event)">
-            <div class="form-group">
-                <label class="form-label">Idea Name</label>
-                <input type="text" id="ideaName" class="form-input" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Category</label>
-                <select id="ideaCategory" class="form-select">
-                    <option value="SaaS">SaaS</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Digital Products">Digital Products</option>
-                    <option value="Templates">Templates</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea id="ideaDescription" class="form-textarea"></textarea>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Revenue Model</label>
-                <input type="text" id="ideaRevenueModel" class="form-input" placeholder="e.g., $99/month">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Estimated Build Time (weeks)</label>
-                <input type="number" id="ideaBuildTime" class="form-input" min="1" value="4">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Startup Cost ($)</label>
-                <input type="number" id="ideaStartupCost" class="form-input" min="0" value="0">
-            </div>
-
-            <div style="margin-bottom: 1.5rem;">
-                <label class="form-label">Scoring Criteria (1-5 scale)</label>
-                <div class="slider-group">
-                    <div class="slider-label-row">
-                        <span class="slider-label">Time to Revenue</span>
-                        <span class="slider-value" id="scoreTimeValue">3</span>
+        <!-- PIPELINE VISUALIZATION -->
+        <section id="pipeline">
+            <h2>Pipeline Flow</h2>
+            <div class="pipeline-container">
+                <div class="pipeline">
+                    <!-- Inbox -->
+                    <div class="pipeline-stage inbox">
+                        <div class="pipeline-stage-header">
+                            <span>Inbox</span>
+                            <div class="stage-count">11</div>
+                        </div>
                     </div>
-                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreTime" oninput="document.getElementById('scoreTimeValue').textContent = this.value; updateIdeaScore()">
-                </div>
-                <div class="slider-group">
-                    <div class="slider-label-row">
-                        <span class="slider-label">Passive Potential</span>
-                        <span class="slider-value" id="scorePassiveValue">3</span>
+
+                    <!-- Researched -->
+                    <div class="pipeline-stage researched">
+                        <div class="pipeline-stage-header">
+                            <span>Researched</span>
+                            <div class="stage-count">1</div>
+                        </div>
+                        <div class="opportunity-item">opp-008<br>AI Compliance Kit</div>
                     </div>
-                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scorePassive" oninput="document.getElementById('scorePassiveValue').textContent = this.value; updateIdeaScore()">
-                </div>
-                <div class="slider-group">
-                    <div class="slider-label-row">
-                        <span class="slider-label">Low Startup Cost</span>
-                        <span class="slider-value" id="scoreCostValue">3</span>
+
+                    <!-- Built -->
+                    <div class="pipeline-stage built">
+                        <div class="pipeline-stage-header">
+                            <span>Built</span>
+                            <div class="stage-count">3</div>
+                        </div>
+                        <div class="opportunity-item">opp-001<br>CallbackAI</div>
+                        <div class="opportunity-item">opp-002<br>ReviewAI</div>
+                        <div class="opportunity-item">opp-010<br>AutoPacks</div>
                     </div>
-                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreCost" oninput="document.getElementById('scoreCostValue').textContent = this.value; updateIdeaScore()">
-                </div>
-                <div class="slider-group">
-                    <div class="slider-label-row">
-                        <span class="slider-label">Income Ceiling</span>
-                        <span class="slider-value" id="scoreIncomeValue">3</span>
+
+                    <!-- Tested -->
+                    <div class="pipeline-stage tested">
+                        <div class="pipeline-stage-header">
+                            <span>Tested</span>
+                            <div class="stage-count">3</div>
+                        </div>
+                        <div class="opportunity-item">opp-004<br>Dental AI</div>
+                        <div class="opportunity-item">opp-012<br>ReviewToRank</div>
+                        <div class="opportunity-item">opp-013<br>VibeQA</div>
                     </div>
-                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreIncome" oninput="document.getElementById('scoreIncomeValue').textContent = this.value; updateIdeaScore()">
-                </div>
-                <div class="slider-group">
-                    <div class="slider-label-row">
-                        <span class="slider-label">Low Competition</span>
-                        <span class="slider-value" id="scoreCompValue">3</span>
+
+                    <!-- Active -->
+                    <div class="pipeline-stage active">
+                        <div class="pipeline-stage-header">
+                            <span>Active</span>
+                            <div class="stage-count">2</div>
+                        </div>
+                        <div class="opportunity-item">opp-006<br>Mote Ops</div>
+                        <div class="opportunity-item">opp-007<br>Dead Lead</div>
                     </div>
-                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreComp" oninput="document.getElementById('scoreCompValue').textContent = this.value; updateIdeaScore()">
-                </div>
-                <div class="slider-group">
-                    <div class="slider-label-row">
-                        <span class="slider-label">Tool Fit (n8n/AI)</span>
-                        <span class="slider-value" id="scoreToolValue">3</span>
+
+                    <!-- Archived -->
+                    <div class="pipeline-stage archived">
+                        <div class="pipeline-stage-header">
+                            <span>Archived</span>
+                            <div class="stage-count">5</div>
+                        </div>
+                        <div class="opportunity-item">opp-003</div>
+                        <div class="opportunity-item">opp-005</div>
+                        <div class="opportunity-item">opp-009</div>
+                        <div class="opportunity-item">opp-014</div>
+                        <div class="opportunity-item">opp-015</div>
                     </div>
-                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreTool" oninput="document.getElementById('scoreToolValue').textContent = this.value; updateIdeaScore()">
                 </div>
-                <div class="slider-group">
-                    <div class="slider-label-row">
-                        <span class="slider-label">Compounding Potential</span>
-                        <span class="slider-value" id="scoreCompoundValue">3</span>
+            </div>
+        </section>
+
+        <!-- SYSTEM ARCHITECTURE -->
+        <section id="system">
+            <h2>System Architecture & Health</h2>
+
+            <!-- Agent Schedule -->
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">Agent Pipeline (Daily Schedule)</h3>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                    <div style="background: var(--bg-surface-light); border: 1px solid var(--border-color-light); border-radius: 8px; padding: 1rem; text-align: center;">
+                        <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Stage 1: Scout</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--color-green);">8:00 AM</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Scans Reddit, HN, PH, Upwork</div>
+                        <div style="font-size: 0.7rem; color: var(--color-green); margin-top: 0.5rem;">● Online — Last: Apr 7</div>
                     </div>
-                    <input type="range" min="1" max="5" value="3" class="scoring-slider" id="scoreCompound" oninput="document.getElementById('scoreCompoundValue').textContent = this.value; updateIdeaScore()">
+                    <div style="background: var(--bg-surface-light); border: 1px solid var(--border-color-light); border-radius: 8px; padding: 1rem; text-align: center;">
+                        <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Stage 2: Research</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--color-blue);">10:00 AM</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Competitive analysis, pass/kill</div>
+                        <div style="font-size: 0.7rem; color: var(--color-green); margin-top: 0.5rem;">● Online — Last: Apr 6</div>
+                    </div>
+                    <div style="background: var(--bg-surface-light); border: 1px solid var(--border-color-light); border-radius: 8px; padding: 1rem; text-align: center;">
+                        <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Stage 3: Build</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--color-purple);">12:00 PM</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">MVP creation, GitHub Pages deploy</div>
+                        <div style="font-size: 0.7rem; color: var(--color-green); margin-top: 0.5rem;">● Online — Last: Apr 6</div>
+                    </div>
+                    <div style="background: var(--bg-surface-light); border: 1px solid var(--border-color-light); border-radius: 8px; padding: 1rem; text-align: center;">
+                        <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Stage 4: Test</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--color-amber);">2:00 PM</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Distribution plans, copy-paste posts</div>
+                        <div style="font-size: 0.7rem; color: var(--color-green); margin-top: 0.5rem;">● Online — Last: Apr 6</div>
+                    </div>
                 </div>
             </div>
 
-            <div style="background: rgba(124,108,247,0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
-                <div style="font-size: 0.85rem; color: #6a6a8a; margin-bottom: 0.25rem;">Overall Score</div>
-                <div style="font-size: 2rem; font-weight: 800; color: #7c6cf7;" id="overallScore">21/35</div>
+            <!-- System Health -->
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">System Performance (10 Days of Operation)</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                    <!-- What Works -->
+                    <div style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: 1rem;">
+                        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--color-green); margin-bottom: 0.75rem;">Working Well</div>
+                        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">Idea generation:</strong> 2-3 ideas/day from 5+ sources<br>
+                            <strong style="color: var(--text-primary);">Kill discipline:</strong> 5/15 killed with evidence<br>
+                            <strong style="color: var(--text-primary);">Build speed:</strong> Idea → deployed MVP in &lt;24 hrs<br>
+                            <strong style="color: var(--text-primary);">Research rigor:</strong> Competitor pricing, market sizing, probability scoring<br>
+                            <strong style="color: var(--text-primary);">Documentation:</strong> Full audit trail on every decision
+                        </div>
+                    </div>
+                    <!-- What's Broken -->
+                    <div style="background: rgba(239, 68, 68, 0.06); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 1rem;">
+                        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--color-red); margin-bottom: 0.75rem;">Critical Failures</div>
+                        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">Zero execution:</strong> 0 posts published, 0 forms wired<br>
+                            <strong style="color: var(--text-primary);">No feedback loop:</strong> Brier scoring designed but dormant<br>
+                            <strong style="color: var(--text-primary);">No Stage 5:</strong> Nothing evaluates test results<br>
+                            <strong style="color: var(--text-primary);">Test windows expiring:</strong> opp-004 expires Apr 12, opp-012/013 Apr 13<br>
+                            <strong style="color: var(--text-primary);">State sync issues:</strong> Orphaned files, stale inbox items
+                        </div>
+                    </div>
+                    <!-- Improvement Plan -->
+                    <div style="background: rgba(59, 130, 246, 0.06); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 8px; padding: 1rem;">
+                        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--color-blue); margin-bottom: 0.75rem;">Improvement Plan</div>
+                        <div style="font-size: 0.85rem; line-height: 1.7; color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">Add Stage 5 agent:</strong> Evaluate test windows, auto-promote/kill<br>
+                            <strong style="color: var(--text-primary);">Wire Formspree:</strong> 5 min per page × 4 pages<br>
+                            <strong style="color: var(--text-primary);">Add analytics:</strong> Plausible on all MVPs<br>
+                            <strong style="color: var(--text-primary);">Close feedback loop:</strong> Activate Brier scoring<br>
+                            <strong style="color: var(--text-primary);">State consistency:</strong> Auto-sync STATE.json ↔ directories
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="modal-buttons">
-                <button type="submit" class="modal-btn primary">Create Idea</button>
-                <button type="button" class="modal-btn secondary" onclick="closeModal('addIdeaModal')">Cancel</button>
+            <!-- Pipeline Throughput -->
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">Pipeline Throughput</h3>
+                <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem; text-align: center;">
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-primary);">15</div>
+                        <div style="font-size: 0.7rem; color: var(--text-secondary);">Ideas Generated</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-green);">10</div>
+                        <div style="font-size: 0.7rem; color: var(--text-secondary);">Passed Research</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-blue);">6</div>
+                        <div style="font-size: 0.7rem; color: var(--text-secondary);">MVPs Built</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-purple);">3</div>
+                        <div style="font-size: 0.7rem; color: var(--text-secondary);">Test Plans Written</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-red);">0</div>
+                        <div style="font-size: 0.7rem; color: var(--text-secondary);">Tests Executed</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-red);">$0</div>
+                        <div style="font-size: 0.7rem; color: var(--text-secondary);">Revenue</div>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-secondary);">
+                    <strong style="color: var(--color-amber);">Conversion funnel:</strong> 15 ideas → 10 passed (67%) → 6 built (60%) → 3 test plans (50%) → 0 executed (0%) → $0 revenue. The bottleneck is at the test execution stage. Everything before it works. Nothing after it has been attempted.
+                </div>
             </div>
-        </form>
-    </div>
-</div>
+        </section>
 
-<div id="addExperimentModal" class="modal">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeModal('addExperimentModal')">×</button>
-        <div class="modal-title">Log Experiment</div>
-        <form onsubmit="saveExperiment(event)">
-            <div class="form-group">
-                <label class="form-label">Hypothesis</label>
-                <textarea id="expHypothesis" class="form-textarea" required></textarea>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Test Method</label>
-                <textarea id="expMethod" class="form-textarea" required></textarea>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Metric to Measure</label>
-                <input type="text" id="expMetric" class="form-input" required placeholder="e.g., signups, conversion rate">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Start Date</label>
-                <input type="date" id="expStartDate" class="form-input" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Status</label>
-                <select id="expStatus" class="form-select">
-                    <option value="running">Running</option>
-                    <option value="completed">Completed</option>
-                    <option value="failed">Failed</option>
-                </select>
-            </div>
-            <div class="form-group" id="expResultsGroup" style="display: none;">
-                <label class="form-label">Results</label>
-                <textarea id="expResults" class="form-textarea"></textarea>
-            </div>
-            <div class="form-group" id="expLearningGroup" style="display: none;">
-                <label class="form-label">Learning Extracted</label>
-                <textarea id="expLearning" class="form-textarea"></textarea>
-            </div>
-            <div class="modal-buttons">
-                <button type="submit" class="modal-btn primary">Log Experiment</button>
-                <button type="button" class="modal-btn secondary" onclick="closeModal('addExperimentModal')">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
+        <!-- ACTIVE PLAYS -->
+        <section id="active">
+            <h2>Active Plays (Revenue Generation)</h2>
+            <div class="card-grid">
+                <!-- Mote Ops -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Mote Ops</div>
+                        <div class="card-badge badge-active">Active</div>
+                    </div>
+                    <div class="card-verdict">
+                        <strong>Verdict:</strong> PRIMARY ANCHOR — Everything feeds here. Fractional AI consulting service driving the growth flywheel.
+                    </div>
+                    <div class="card-meta">
+                        Status: Revenue generating
+                    </div>
+                </div>
 
-<div id="addSignalModal" class="modal">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeModal('addSignalModal')">×</button>
-        <div class="modal-title">Add Signal</div>
-        <form onsubmit="saveSignal(event)">
-            <div class="form-group">
-                <label class="form-label">Date</label>
-                <input type="date" id="signalDate" class="form-input" required>
+                <!-- Dead Lead Reactivation -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">AI Dead Lead Reactivation</div>
+                        <div class="card-badge badge-active">Active</div>
+                    </div>
+                    <div class="card-verdict">
+                        <strong>Verdict:</strong> KEEP — Absorbed into Mote Ops as service offering. Not standalone product, supporting primary anchor.
+                    </div>
+                    <div class="card-meta">
+                        Status: Integrated service
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label class="form-label">Signal</label>
-                <textarea id="signalText" class="form-textarea" required placeholder="What signal did you observe?"></textarea>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Source</label>
-                <input type="text" id="signalSource" class="form-input" required placeholder="e.g., Twitter, Customer feedback, News">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Impact</label>
-                <select id="signalImpact" class="form-select">
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                </select>
-            </div>
-            <div class="modal-buttons">
-                <button type="submit" class="modal-btn primary">Add Signal</button>
-                <button type="button" class="modal-btn secondary" onclick="closeModal('addSignalModal')">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
+        </section>
 
-<div id="addPlayModal" class="modal">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeModal('addPlayModal')">×</button>
-        <div class="modal-title">Create New Play</div>
-        <form onsubmit="savePlay(event)">
-            <div class="form-group">
-                <label class="form-label">Play Name</label>
-                <input type="text" id="playName" class="form-input" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea id="playDescription" class="form-textarea" required></textarea>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Status</label>
-                <select id="playStatus" class="form-select">
-                    <option value="research">Research</option>
-                    <option value="simulation">Simulation</option>
-                    <option value="ready">Ready</option>
-                    <option value="deployed">Deployed</option>
-                    <option value="active">Active</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Probability (%)</label>
-                <input type="number" id="playProbability" class="form-input" min="0" max="100" value="50">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Category</label>
-                <input type="text" id="playCategory" class="form-input" placeholder="e.g., SaaS, Consulting">
-            </div>
-            <div class="modal-buttons">
-                <button type="submit" class="modal-btn primary">Create Play</button>
-                <button type="button" class="modal-btn secondary" onclick="closeModal('addPlayModal')">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div id="addRevenueModal" class="modal">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeModal('addRevenueModal')">×</button>
-        <div class="modal-title">Log Revenue</div>
-        <form onsubmit="saveRevenue(event)">
-            <div class="form-group">
-                <label class="form-label">Date</label>
-                <input type="date" id="revDate" class="form-input" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Amount ($)</label>
-                <input type="number" id="revAmount" class="form-input" step="0.01" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Source / Client</label>
-                <input type="text" id="revSource" class="form-input" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Type</label>
-                <select id="revType" class="form-select">
-                    <option value="one-time">One-time</option>
-                    <option value="recurring">Recurring (Monthly)</option>
-                </select>
-            </div>
-            <div class="modal-buttons">
-                <button type="submit" class="modal-btn primary">Log Revenue</button>
-                <button type="button" class="modal-btn secondary" onclick="closeModal('addRevenueModal')">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div id="editPlayModal" class="modal">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeModal('editPlayModal')">×</button>
-        <div class="modal-title">Edit Play</div>
-        <form onsubmit="updatePlay(event)">
-            <div class="form-group">
-                <label class="form-label">Probability (%)</label>
-                <input type="number" id="editPlayProb" class="form-input" min="0" max="100">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Status</label>
-                <select id="editPlayStatus" class="form-select">
-                    <option value="research">Research</option>
-                    <option value="simulation">Simulation</option>
-                    <option value="ready">Ready</option>
-                    <option value="deployed">Deployed</option>
-                    <option value="active">Active</option>
-                    <option value="paused">Paused</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Notes</label>
-                <textarea id="editPlayNotes" class="form-textarea"></textarea>
-            </div>
-            <div class="modal-buttons">
-                <button type="submit" class="modal-btn primary">Update</button>
-                <button type="button" class="modal-btn secondary" onclick="closeModal('editPlayModal')">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<script>
-const EMBEDDED_DATA = {"lastUpdated":"2026-04-01T16:00:00Z","researchCycle":3,"schemaVersion":"2.0","summary":{"totalOpportunitiesScanned":61,"vetted":10,"readyToDeploy":2,"inSimulation":2,"rejected":37},"dailyBrief":"Research Cycle 3 brings significant market validation. The AI consulting market hits $11.07B in 2026 with 26.2% CAGR — fractional CAIO demand is accelerating faster than supply of qualified leaders. Mid-market retainers now command $15K-30K/month, validating our positioning even at the SMB tier. Meanwhile, the missed-call text-back space has gotten more competitive — GoHighLevel added Voice AI, and AgentZap and Donna AI are both active — but the pain data is stronger than ever at $45K-120K in annual losses per contractor. The consulting industry is bifurcating into global scale providers and niche boutiques, which is exactly the Mote Ops thesis. Priority: close first consulting client within 30 days.","weeklyThesis":"The fractional AI consulting play just got stronger. The consulting industry is splitting into two camps — massive firms and specialized boutiques — with the mid-market collapsing. This validates the Mote Ops positioning as a niche AI implementation boutique. Fractional CAIO retainers at mid-market are $15K-30K/month, which means even at the SMB tier at $2K-5K/month, we're dramatically underpriced relative to the value delivered. The key insight from this cycle: 67% of small businesses using AI automation saw 20%+ revenue growth, but most need implementation help. The product plays (missed-call, review response) face stiffer competition from GoHighLevel and vertical-specific startups, but the consulting play has LESS competition because it requires human expertise that can't be commoditized.","monthlyOutlook":"AI consulting services market projected at $11.07B for 2026, growing to $90.99B by 2035. The agentic AI wave is shifting from 'what could AI do' to 'what should individual agents achieve' — businesses want dozens of small specialized agents, not one monolithic AI. This plays directly into the consulting model (we help design and deploy the agent architecture) and the n8n template packs (pre-built agent workflows). Competitive landscape: missed-call space getting crowded (GoHighLevel Voice AI, AgentZap, Donna AI, LeadTruffle, Sameday), but the consulting/implementation lane remains wide open. The meta-trend holds: people making real money are selling AI implementation, not building consumer AI tools.","calibration":{"totalPredictions":7,"resolvedPredictions":0,"brierScore":null,"calibrationStatus":"Cycle 3 — Probabilities updated with new market data","baseRates":{"productMarketFit":{"value":0.35,"label":"Product reaches 10+ paying customers","source":"Historical SaaS baseline"},"verticalizationEffect":{"value":0.55,"label":"Vertical-specific SaaS outperforms horizontal","source":"Gartner 2025"},"consultingConversion":{"value":0.4,"label":"Service offering converts to paying client","source":"Sales baseline"},"fractionalCaioRetainerConversion":{"value":0.52,"label":"Fractional CAIO: client in 60 days","source":"Updated with April 2026 market validation"}},"learnings":[{"date":"2026-03-20","type":"market_validation","insight":"Vertical-specific SaaS for home services (plumber/HVAC) is validated by multiple case studies showing ROI, but competitive intensity is rising."},{"date":"2026-03-30","type":"probability_update","insight":"All plays trended up or flat as more evidence emerged. Fractional CAIO showing strongest signal."},{"date":"2026-03-30","type":"strategic_insight","insight":"Service/consulting layer is the true differentiator. Products alone are commoditizing. Adding implementation services (e.g., 'we deploy your AI system') may be the unlock."},{"date":"2026-04-01","type":"probability_update","insight":"Play 6 probability increased to 52% based on new evidence: fractional CAIO demand accelerating, consulting industry bifurcation validates niche positioning, $15K-30K/month retainer range at mid-market means SMB tier ($2K-5K/month) is dramatically underpriced."},{"date":"2026-04-01","type":"competitive_shift","insight":"Play 1 probability decreased from 35% to 30%. GoHighLevel Voice AI, AgentZap, and Donna AI have entered the missed-call space. Lane is narrower. Differentiation must come from vertical expertise and done-for-you implementation, not the product alone."},{"date":"2026-04-01","type":"market_validation","insight":"67% of AI-adopting SMBs saw 20%+ revenue growth (McKinsey). This is the strongest ROI datapoint for consulting pitch. Frame as: 'Companies like yours that implement AI automation see 20% revenue growth. We make that happen in 90 days.'"}]},"opportunities":[{"id":"opp-001","name":"AI Missed-Call Text-Back for Home Services","status":"ready_to_deploy","tier":1,"category":"Vertical SaaS","description":"AI system that instantly texts back missed calls for plumbers/HVAC/electricians, qualifies the lead via SMS, and books appointments.","revenueModel":"$149-299/month per business","competitorAnalysis":"Avoca AI ($47.8M raised) targets enterprise. GoHighLevel added Voice AI. AgentZap, Donna AI, LeadTruffle active in the space. Direct-to-contractor lane at $149-299/month getting narrower but pain is well-documented.","simulation":{"probabilityFirstClient60Days":0.3,"probabilityRevenue1kMonth6Mo":0.22,"probabilityRevenue5kMonth12Mo":0.1,"estimatedBuildTime":"2 weeks","estimatedCostToLaunch":"$0-20","moatStrength":"Low-Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.3},{"cycle":2,"date":"2026-03-30","value":0.35},{"cycle":3,"date":"2026-04-01","value":0.3}],"predictions":[{"claim":"Get first customer inquiry within 60 days","probability":0.3,"resolutionDate":"2026-05-29"}],"evidence":["BookedIn verified $51,312 MRR on TrustMRR (13% MoM growth)","Only 14% of small businesses have integrated AI","Avoca AI raised $47.8M — validates market","Wayne Conn Plumbing: $6,285 revenue in 2 weeks from AI receptionist","Rodriguez Plumbing: 47 jobs/month booked from AI, ~$15K recovered","Aire Serv HVAC: after-hours bookings jumped from 58 to 208","Missed calls cost contractors $45K-$120K annually (InstantBusinessPro, 2026)","GoHighLevel Voice AI now answers inbound calls and books appointments","AgentZap: leading AI receptionist for plumbers, 24/7 emergency detection","Donna AI: users see 3x increase in booked appointments"],"nextSteps":["Build n8n workflow: Twilio → AI SMS → Calendar booking","Create landing page targeting plumber/HVAC contractors","Differentiate from GoHighLevel: offer done-for-you setup + vertical expertise","Target contractors not already on GoHighLevel platform"]},{"id":"opp-002","name":"AI Review Response System for Local Businesses","status":"ready_to_deploy","tier":1,"category":"Vertical SaaS","description":"AI monitors Google/Yelp reviews, drafts personalized responses, sends for one-tap approval via text.","revenueModel":"$49-99/month per business","simulation":{"probabilityFirstClient60Days":0.35,"probabilityRevenue1kMonth6Mo":0.25,"probabilityRevenue5kMonth12Mo":0.12,"estimatedBuildTime":"2-3 weeks","estimatedCostToLaunch":"$0","moatStrength":"Low-Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.28},{"cycle":2,"date":"2026-03-30","value":0.35},{"cycle":3,"date":"2026-04-01","value":0.35}],"predictions":[{"claim":"Build working prototype by mid-April","probability":0.65,"resolutionDate":"2026-04-15"}],"evidence":["Google confirmed review responses affect local search ranking","BigIdeasDB validated centralized review management need","Podium/Birdeye priced out of single-location market"],"nextSteps":["Build n8n workflow: Google Business Profile → AI → SMS approval","Demo with sample reviews","Price at $49/month, undercut Podium by 80%"]},{"id":"opp-003","name":"InstantProposal — AI Proposal Generator","status":"deployed","tier":1,"category":"Micro-SaaS","deployedUrl":"https://mikedmote52.github.io/instant-proposal/","description":"Web tool where contractors describe a job and get a branded proposal PDF in 60 seconds.","revenueModel":"Freemium: free 5/month, $9.99/month unlimited","simulation":{"probabilityRevenue500Month3Mo":0.25,"probabilityRevenue2kMonth6Mo":0.15,"probabilityRevenue5kMonth12Mo":0.08,"estimatedBuildTime":"Built — deployed","estimatedCostToLaunch":"$0","moatStrength":"Low — competition intensified"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.25},{"cycle":2,"date":"2026-03-30","value":0.25},{"cycle":3,"date":"2026-04-01","value":0.25}],"predictions":[{"claim":"Product Hunt launch drives 100+ signups","probability":0.4,"resolutionDate":"2026-04-30"}],"evidence":["238k+ complaints validate proposal writing as pain point","First quote usually wins the job","Proposal Genie: 50K+ users on Upwork","Bookipi offering free AI proposals","Market evolving to structured revenue systems"],"nextSteps":["PIVOT: Target offline contractors, not freelancers","SEO blog posts for contractor keywords","Product Hunt launch","Add AI description generation"]},{"id":"opp-004","name":"Vertical n8n Automation Packs","status":"in_simulation","tier":2,"category":"Digital Products","description":"Bundled n8n workflows for specific industries. 8-12 workflows per vertical.","revenueModel":"$79-149 per pack or $29/month","simulation":{"probabilityRevenue500Month3Mo":0.25,"probabilityRevenue2kMonth6Mo":0.12,"estimatedBuildTime":"3-4 weeks","estimatedCostToLaunch":"$0","moatStrength":"Medium"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.2},{"cycle":2,"date":"2026-03-30","value":0.25},{"cycle":3,"date":"2026-04-01","value":0.25}],"predictions":[{"claim":"Dental practice pack sells 5 copies","probability":0.3,"resolutionDate":"2026-06-30"}],"evidence":["One creator documented $3,200/mo from 5 templates","No vertical-specific packs found","n8n marketplace: 6,137+ workflows","Mega-packs flooding market at $30","Agentic AI trend: businesses want dozens of specialized agents per business"],"nextSteps":["Fix n8n API connection (404 error, URL may need update)","Research dental practice workflows","Build first pack: Dental AI Stack","Price at $149, include implementation upsell at $5K"]},{"id":"opp-005","name":"SMS-Based AI Business Assistant","status":"in_simulation","tier":2,"category":"Vertical SaaS","description":"AI assistant over SMS. No app, no login. Business owners text for help with responses, quotes, scheduling.","revenueModel":"$19-49/month","simulation":{"probabilityRevenue500Month6Mo":0.2,"estimatedBuildTime":"4-6 weeks","estimatedCostToLaunch":"$20-50/mo","moatStrength":"Medium-High"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.18},{"cycle":2,"date":"2026-03-30","value":0.2},{"cycle":3,"date":"2026-04-01","value":0.2}],"evidence":["Apple RCS support in iOS 18","83% of businesses using AI for SMS support","RCS adopters seeing 2-3x higher click-through"],"nextSteps":["Prototype Twilio → AI pipeline","Test with 3-5 local businesses","Calculate unit economics"]},{"id":"opp-006","name":"Fractional AI Implementation Consultant","status":"active_pursuit","tier":1,"category":"Service / Consulting","description":"Position as fractional CAIO for small-to-mid-market businesses. 8-20 hours/month per client. Help identify AI opportunities, select tools, implement workflows, measure ROI. No product to build.","revenueModel":"$2K-$8K/month retainer, $5K-$25K projects","simulation":{"probabilityFirstClient60Days":0.52,"probabilityRevenue1kMonth6Mo":0.6,"estimatedBuildTime":"1 week (packaging)","estimatedCostToLaunch":"$0","moatStrength":"Medium-High"},"probabilityHistory":[{"cycle":1,"date":"2026-03-20","value":0.4},{"cycle":2,"date":"2026-03-30","value":0.45},{"cycle":3,"date":"2026-04-01","value":0.52}],"predictions":[{"claim":"Land first AI implementation client by May 31","probability":0.52,"resolutionDate":"2026-05-31"}],"evidence":["91% mid-market using AI, only 34% feel transformed","70% execs need outside help","Full-time CAIO costs $400K+ — fractional at 20-40% cost","68% small businesses using AI, most need optimization","88% of orgs using AI in at least one function","AI consulting market: $11.07B in 2026, 26.2% CAGR to $90.99B by 2035","Fractional CAIO retainers at mid-market: $15K-30K/month","67% of SMBs using AI saw 20%+ revenue growth (McKinsey)","Consulting industry bifurcating: global players + niche boutiques, mid-market collapsing","Faye Digital launched fractional CAIO services specifically for mid-market (validates positioning)","Demand for fractional CAIOs accelerating faster than supply of qualified leaders"],"nextSteps":["Package 90-Day AI Transformation offer with tiered pricing","Create AI readiness assessment quiz (doubles as lead gen)","Build service page on moteops-landing site","Identify 10 local businesses to pitch this week","LinkedIn content: 3 posts about AI implementation ROI","Reach out to mom's daycare for case study #1","Draft 5 cold outreach email templates"]}],"signals":[{"date":"2026-03-20","signal":"BookedIn validated $51,312 MRR on TrustMRR with 13% MoM growth","source":"TrustMRR","impact":"high"},{"date":"2026-03-20","signal":"Only 14% of small businesses have integrated AI solutions","source":"McKinsey / Industry Analysis","impact":"high"},{"date":"2026-03-20","signal":"Avoca AI raised $47.8M Series B, validating enterprise missed-call market","source":"TechCrunch","impact":"high"},{"date":"2026-03-20","signal":"Wayne Conn Plumbing: $6,285 revenue from AI receptionist in 2 weeks","source":"Case study / Client data","impact":"high"},{"date":"2026-03-20","signal":"Missed calls cost contractors average $50K annually","source":"Industry research","impact":"high"},{"date":"2026-03-25","signal":"Google Search rankings favor businesses with review responses","source":"Google Search Central","impact":"high"},{"date":"2026-03-25","signal":"Podium and Birdeye priced out of single-location market at $99+/month","source":"Pricing research","impact":"medium"},{"date":"2026-03-28","signal":"n8n marketplace now has 6,137+ workflows available","source":"n8n marketplace","impact":"medium"},{"date":"2026-03-28","signal":"One n8n creator documented $3,200/month from selling 5 templates","source":"Community reports / Case study","impact":"medium"},{"date":"2026-03-30","signal":"Micro-SaaS segment growing 30% annually, projected $15.7B to $59.6B by 2030","source":"Industry analysis","impact":"medium"},{"date":"2026-03-30","signal":"91% of mid-market companies using AI, but only 34% feel 'transformed'","source":"McKinsey 2025 AI Report","impact":"high"},{"date":"2026-03-30","signal":"70% of C-suite executives say they need outside help with AI implementation","source":"Harvard Business Review / Executive Survey","impact":"high"},{"date":"2026-03-30","signal":"88% of organizations are using AI in at least one business function","source":"Gartner 2025 AI Adoption Report","impact":"high"},{"date":"2026-03-30","signal":"Full-time Chief AI Officer costs $400K+ annually; fractional model at 20-40% of cost","source":"Salary analysis / Market research","impact":"high"},{"date":"2026-03-30","signal":"Faye Digital launches fractional CAIO services for mid-market","source":"PRNewswire","impact":"medium"},{"date":"2026-03-30","signal":"Apple iOS 18 adds RCS support, enabling richer SMS experiences","source":"Apple WWDC","impact":"medium"},{"date":"2026-03-30","signal":"SaaS industry now at $375B total market size, accelerating consolidation","source":"Industry research","impact":"medium"},{"date":"2026-04-01","signal":"AI consulting market: $11.07B in 2026, growing 26.2% CAGR to $90.99B by 2035","source":"ColorWhistle / Market Research","impact":"high"},{"date":"2026-04-01","signal":"67% of small businesses using AI automation saw 20%+ revenue growth","source":"McKinsey 2025 Report","impact":"high"},{"date":"2026-04-01","signal":"Fractional CAIO retainers: $15K-30K/month at mid-market level","source":"Faye Digital / Sprinklenet","impact":"high"},{"date":"2026-04-01","signal":"Consulting industry bifurcating: global players + niche boutiques, mid-market collapsing","source":"AlphaSense / Digitus Consulting","impact":"high"},{"date":"2026-04-01","signal":"GoHighLevel Voice AI now handles inbound calls and books appointments directly","source":"GHL Services","impact":"high"},{"date":"2026-04-01","signal":"Missed calls cost contractors $45K-$120K annually (up from previous estimates)","source":"InstantBusinessPro.ai","impact":"high"},{"date":"2026-04-01","signal":"Agentic AI focus shift: dozens of small specialized agents per business, not monolithic AI","source":"PwC / AI Business","impact":"medium"},{"date":"2026-04-01","signal":"37% of small businesses use AI, 71% planning to increase investment","source":"Market research","impact":"high"}],"deployedAssets":[{"name":"InstantProposal","url":"https://mikedmote52.github.io/instant-proposal/","status":"live","type":"saas-product","deployedDate":"2026-03-15"},{"name":"AI Automation Starter Kit","url":null,"status":"built_not_listed","type":"digital-product","deployedDate":"2026-03-20"},{"name":"AI Hustle Evaluator","url":null,"status":"built_not_deployed","type":"tool","deployedDate":"2026-03-25"},{"name":"Daily Research Scanner","url":null,"status":"active","type":"automation","schedule":"8am daily","deployedDate":"2026-03-25"},{"name":"Side Gig Bot Intelligence Dashboard","url":"https://mikedmote52.github.io/moteops-landing/sidegigbot.html","status":"live","type":"intelligence-dashboard","deployedDate":"2026-04-01"},{"name":"Mote Ops Landing Page","url":"https://mikedmote52.github.io/moteops-landing/","status":"live","type":"lead-generation","deployedDate":"2026-03-31"}]};
-
-const DEFAULT_IMPROVEMENTS = [
-    {
-        id: 1,
-        description: "Add collaboration features (share experiments with team)",
-        priority: "P2",
-        status: "idea"
-    },
-    {
-        id: 2,
-        description: "Create predictive scoring for ideas based on historical data",
-        priority: "P1",
-        status: "planned"
-    },
-    {
-        id: 3,
-        description: "Add data visualization dashboard with charts and trends",
-        priority: "P1",
-        status: "idea"
-    },
-    {
-        id: 4,
-        description: "Build email digest notifications for weekly summary",
-        priority: "P2",
-        status: "idea"
-    },
-    {
-        id: 5,
-        description: "Add goal tracking and milestone system",
-        priority: "P2",
-        status: "idea"
-    }
-];
-
-const AI_BUILDER_PATTERNS = [
-    {
-        id: 1,
-        name: "Automation Arbitrage",
-        description: "Build micro-automation tools that solve specific problems and sell them repeatedly.",
-        examples: ["Missed-call responder", "Review response automation", "Invoice generator"],
-        timeToRevenue: "4-8 weeks",
-        startupCost: "$0-500",
-        competition: "Medium",
-        fitScore: 4.2
-    },
-    {
-        id: 2,
-        name: "Vertical SaaS",
-        description: "Specialized SaaS for a specific industry (plumbers, dentists, etc)",
-        examples: ["Home services scheduling", "Contractor payment tracking", "Dental practice booking"],
-        timeToRevenue: "8-12 weeks",
-        startupCost: "$0-1000",
-        competition: "High",
-        fitScore: 4.0
-    },
-    {
-        id: 3,
-        name: "Micro-SaaS",
-        description: "Small, focused SaaS product solving one specific problem.",
-        examples: ["InstantProposal", "Email template builder", "Form-to-DB converter"],
-        timeToRevenue: "6-10 weeks",
-        startupCost: "$0",
-        competition: "Very High",
-        fitScore: 3.8
-    },
-    {
-        id: 4,
-        name: "Content Flywheel",
-        description: "Build reputation + audience through content, then monetize.",
-        examples: ["AI tutorial blog + templates", "YouTube automation course", "LinkedIn content newsletter"],
-        timeToRevenue: "12-24 weeks",
-        startupCost: "$0-100",
-        competition: "Very High",
-        fitScore: 3.2
-    },
-    {
-        id: 5,
-        name: "Fractional Consulting",
-        description: "Position yourself as a fractional expert (CAIO, CTO, etc.)",
-        examples: ["Fractional AI consultant", "Freelance n8n architect", "Interim product lead"],
-        timeToRevenue: "2-4 weeks",
-        startupCost: "$0",
-        competition: "Medium",
-        fitScore: 4.5
-    },
-    {
-        id: 6,
-        name: "Template Packs",
-        description: "Bundle workflows/templates for specific use cases and sell bundles.",
-        examples: ["n8n automation packs", "Zapier workflow library", "Notion template collection"],
-        timeToRevenue: "4-6 weeks",
-        startupCost: "$0",
-        competition: "Medium",
-        fitScore: 4.1
-    },
-    {
-        id: 7,
-        name: "SMS AI Assistant",
-        description: "No-app AI assistant accessed via SMS for convenience.",
-        examples: ["Text-based business helper", "SMS scheduling assistant", "Quote generator via text"],
-        timeToRevenue: "6-8 weeks",
-        startupCost: "$20-100/mo",
-        competition: "Low",
-        fitScore: 3.9
-    }
-];
-
-let appState = {
-    plays: [],
-    ideas: [],
-    experiments: [],
-    signals: [],
-    revenue: [],
-    improvements: [],
-    kanbanView: false
-};
-
-function initializeApp() {
-    loadFromLocalStorage();
-    if (!appState.plays || appState.plays.length === 0) {
-        appState.plays = EMBEDDED_DATA.opportunities.map(opp => ({
-            id: opp.id,
-            name: opp.name,
-            description: opp.description,
-            status: opp.status,
-            category: opp.category,
-            probability: (opp.simulation?.probabilityFirstClient60Days || 0) * 100,
-            notes: '',
-            evidence: opp.evidence || []
-        }));
-        appState.signals = EMBEDDED_DATA.signals;
-        appState.improvements = DEFAULT_IMPROVEMENTS;
-        saveToLocalStorage();
-    }
-    renderApp();
-}
-
-function loadFromLocalStorage() {
-    const stored = localStorage.getItem('sidegigbot-v4');
-    if (stored) {
-        appState = JSON.parse(stored);
-    }
-}
-
-function saveToLocalStorage() {
-    localStorage.setItem('sidegigbot-v4', JSON.stringify(appState));
-}
-
-function renderApp() {
-    updateHeader();
-    renderPlays();
-    renderIdeas();
-    renderExperiments();
-    renderSignals();
-    renderRevenue();
-    renderImprovements();
-    renderBuilder();
-    updateDataStats();
-}
-
-function updateHeader() {
-    document.getElementById('dailyBrief').textContent = EMBEDDED_DATA.dailyBrief;
-    document.getElementById('statPlays').textContent = appState.plays.length;
-    document.getElementById('statActive').textContent = appState.plays.filter(p => p.status === 'active').length;
-    document.getElementById('statSignals').textContent = appState.signals.length;
-    document.getElementById('ideaCount').textContent = appState.ideas.length;
-    document.getElementById('expCount').textContent = appState.experiments.length;
-
-    const totalRevenue = appState.revenue.reduce((sum, r) => sum + r.amount, 0);
-    const mrrRevenue = appState.revenue.filter(r => r.type === 'recurring').reduce((sum, r) => sum + r.amount, 0);
-
-    document.getElementById('totalRevenue').textContent = '$' + totalRevenue.toLocaleString('en-US', { maximumFractionDigits: 0 });
-    document.getElementById('statRevenueMRR').textContent = '$' + mrrRevenue.toLocaleString('en-US', { maximumFractionDigits: 0 });
-
-    const experiments = appState.experiments;
-    const completed = experiments.filter(e => e.status === 'completed').length;
-    const failed = experiments.filter(e => e.status === 'failed').length;
-    const winRate = experiments.length > 0 ? Math.round((completed / experiments.length) * 100) : 0;
-    document.getElementById('statWinRate').textContent = winRate + '%';
-}
-
-function renderPlays() {
-    const grid = document.getElementById('playsGrid');
-    const kanban = document.getElementById('playsKanban');
-
-    if (appState.kanbanView) {
-        grid.style.display = 'none';
-        kanban.style.display = 'grid';
-
-        const statuses = ['research', 'simulation', 'ready', 'deployed', 'active', 'paused'];
-        kanban.innerHTML = statuses.map(status => {
-            const playsInStatus = appState.plays.filter(p => p.status === status);
-            const statusLabels = {
-                research: 'Research',
-                simulation: 'Simulation',
-                ready: 'Ready',
-                deployed: 'Deployed',
-                active: 'Active',
-                paused: 'Paused'
-            };
-            return `
-                <div class="kanban-col">
-                    <div class="kanban-title">${statusLabels[status]}</div>
-                    <div class="kanban-cards">
-                        ${playsInStatus.map(play => `
-                            <div class="kanban-card">
-                                <div class="kanban-card-title">${play.name}</div>
-                                <div class="kanban-card-prob">${play.probability.toFixed(0)}% prob</div>
+        <!-- IN TESTING -->
+        <section id="testing">
+            <h2>In Testing (Live MVPs)</h2>
+            <div class="card-grid">
+                <!-- Dental AI Stack -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Dental AI Stack</div>
+                        <div class="card-badge badge-tested">Testing</div>
+                    </div>
+                    <div class="card-verdict">
+                        <strong>Verdict:</strong> KEEP — Reframed as lead gen for Mote Ops + Crossnode SaaS conversion path
+                    </div>
+                    <div class="card-links">
+                        <a href="https://mikedmote52.github.io/dental-ai-stack/" class="card-link" target="_blank">Live Demo</a>
+                        <a href="https://github.com/mikedmote52/dental-ai-stack" class="card-link" target="_blank">Repo</a>
+                    </div>
+                    <div class="card-meta">
+                        <strong>Test Window:</strong> April 5–12 (4 days remaining — EXPIRING)<br>
+                        <strong>Tested:</strong> April 5, 2026
+                    </div>
+                    <div class="card-scores">
+                        <div class="score-item">
+                            <div class="score-label">1st Customer 60d</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 45%"></div>
                             </div>
-                        `).join('')}
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem;">0.45</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">1K MRR 6mo</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 30%"></div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem;">0.30</div>
+                        </div>
                     </div>
                 </div>
-            `;
-        }).join('');
-    } else {
-        kanban.style.display = 'none';
-        grid.style.display = 'grid';
-        grid.innerHTML = appState.plays.map(play => `
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">${play.name}</div>
-                        <div class="card-subtitle">${play.category}</div>
+
+                <!-- ReviewToRank -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">ReviewToRank</div>
+                        <div class="card-badge badge-tested">Testing</div>
                     </div>
-                    <div class="card-actions">
-                        <button class="small-btn" onclick="openEditPlayModal('${play.id}')">Edit</button>
-                        <button class="small-btn danger" onclick="deletePlay('${play.id}')">×</button>
+                    <div class="card-verdict">
+                        <strong>Verdict:</strong> PASS — Genuine whitespace between review management and SEO content tools
+                    </div>
+                    <div class="card-links">
+                        <a href="https://mikedmote52.github.io/review-to-rank/" class="card-link" target="_blank">Live Demo</a>
+                        <a href="https://github.com/mikedmote52/review-to-rank" class="card-link" target="_blank">Repo</a>
+                    </div>
+                    <div class="card-meta">
+                        <strong>Test Window:</strong> April 6–13 (5 days remaining)<br>
+                        <strong>Tested:</strong> April 6, 2026
+                    </div>
+                    <div class="card-scores">
+                        <div class="score-item">
+                            <div class="score-label">1st Customer 60d</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 45%"></div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem;">0.45</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">1K MRR 6mo</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 30%"></div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem;">0.30</div>
+                        </div>
                     </div>
                 </div>
-                <div style="font-size: 0.85rem; color: #8a8aa8; margin-bottom: 1rem;">${play.description}</div>
-                <div style="margin-bottom: 1rem;">
-                    <div style="font-size: 0.75rem; color: #6a6a8a; margin-bottom: 0.5rem;">Probability</div>
-                    <input type="range" min="0" max="100" value="${play.probability}" class="playProbSlider" data-id="${play.id}" oninput="updatePlayProb('${play.id}', this.value)">
-                    <div style="text-align: center; margin-top: 0.5rem; color: #7c6cf7; font-weight: 700;">${play.probability.toFixed(0)}%</div>
-                </div>
-                <div style="margin-bottom: 1rem;">
-                    <span class="status-badge status-${play.status}">${play.status}</span>
-                </div>
-                ${play.notes ? `<div style="font-size: 0.85rem; color: #8a8aa8; background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 6px;">${play.notes}</div>` : ''}
-            </div>
-        `).join('');
-    }
 
-    document.getElementById('playsCount').textContent = appState.plays.length;
-}
-
-function renderIdeas() {
-    const grid = document.getElementById('ideasGrid');
-    const empty = document.getElementById('ideasEmpty');
-
-    if (appState.ideas.length === 0) {
-        grid.style.display = 'none';
-        empty.style.display = 'block';
-        document.getElementById('ideasCount').textContent = '0';
-        return;
-    }
-
-    grid.style.display = 'grid';
-    empty.style.display = 'none';
-
-    const sorted = [...appState.ideas].sort((a, b) => b.score - a.score);
-
-    grid.innerHTML = sorted.map(idea => {
-        const scoreClass = idea.score >= 24 ? 'score-high' : idea.score >= 18 ? 'score-med' : 'score-low';
-        return `
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">${idea.name}</div>
-                        <div class="card-subtitle">${idea.category}</div>
+                <!-- VibeQA -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">VibeQA (Vibe Code Rescue)</div>
+                        <div class="card-badge badge-tested">Testing</div>
                     </div>
-                    <div class="score-ring ${scoreClass}">${idea.score}</div>
-                </div>
-                <div style="font-size: 0.85rem; color: #8a8aa8; margin-bottom: 1rem;">${idea.description}</div>
-                <div style="font-size: 0.85rem; color: #6a6a8a; margin-bottom: 0.5rem;"><strong>Revenue Model:</strong> ${idea.revenueModel}</div>
-                <div style="font-size: 0.85rem; color: #6a6a8a; margin-bottom: 1rem;"><strong>Build Time:</strong> ${idea.buildTime}w | <strong>Cost:</strong> $${idea.startupCost}</div>
-                <div class="score-breakdown">
-                    <div class="breakdown-item"><span class="breakdown-label">Time to Revenue</span> ${idea.timeToRevenue}/5</div>
-                    <div class="breakdown-item"><span class="breakdown-label">Passive</span> ${idea.passive}/5</div>
-                    <div class="breakdown-item"><span class="breakdown-label">Low Cost</span> ${idea.lowCost}/5</div>
-                    <div class="breakdown-item"><span class="breakdown-label">Income Ceiling</span> ${idea.incomeCeiling}/5</div>
-                    <div class="breakdown-item"><span class="breakdown-label">Competition</span> ${idea.competition}/5</div>
-                    <div class="breakdown-item"><span class="breakdown-label">Tool Fit</span> ${idea.toolFit}/5</div>
-                </div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-                    <button class="small-btn" onclick="promoteIdea('${idea.id}')">→ Play</button>
-                    <button class="small-btn danger" onclick="deleteIdea('${idea.id}')">×</button>
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    document.getElementById('ideasCount').textContent = appState.ideas.length;
-}
-
-function renderExperiments() {
-    const list = document.getElementById('experimentsList');
-    const empty = document.getElementById('experimentsEmpty');
-
-    if (appState.experiments.length === 0) {
-        list.style.display = 'none';
-        empty.style.display = 'block';
-        document.getElementById('expsCount').textContent = '0';
-        return;
-    }
-
-    list.style.display = 'grid';
-    empty.style.display = 'none';
-
-    const sorted = [...appState.experiments].sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
-
-    list.innerHTML = sorted.map(exp => `
-        <div class="list-item">
-            <div class="list-item-content">
-                <div class="list-item-title">${exp.hypothesis}</div>
-                <div class="list-item-meta">
-                    <strong>Method:</strong> ${exp.method} | <strong>Metric:</strong> ${exp.metric} | <strong>Date:</strong> ${exp.startDate}
-                </div>
-                ${exp.results ? `<div style="font-size: 0.8rem; color: #7c6cf7; margin-top: 0.5rem;"><strong>Results:</strong> ${exp.results}</div>` : ''}
-                ${exp.learning ? `<div style="font-size: 0.8rem; color: #00e8b0; margin-top: 0.25rem;"><strong>Learning:</strong> ${exp.learning}</div>` : ''}
-            </div>
-            <div style="text-align: right;">
-                <span class="status-badge status-${exp.status}">${exp.status}</span>
-                <button class="small-btn danger" style="display: block; margin-top: 0.5rem;" onclick="deleteExperiment('${exp.id}')">×</button>
-            </div>
-        </div>
-    `).join('');
-
-    document.getElementById('expsCount').textContent = appState.experiments.length;
-}
-
-function renderSignals() {
-    const list = document.getElementById('signalsList');
-    const sorted = [...appState.signals].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    list.innerHTML = sorted.map(signal => {
-        const impactClass = `impact-${signal.impact}`;
-        return `
-            <div class="list-item">
-                <div style="width: 50px; flex-shrink: 0;">
-                    <div class="impact-badge ${impactClass}">${signal.impact}</div>
-                </div>
-                <div class="list-item-content">
-                    <div class="list-item-title">${signal.signal}</div>
-                    <div class="list-item-meta"><strong>Source:</strong> ${signal.source} | <strong>Date:</strong> ${signal.date}</div>
-                </div>
-                <button class="small-btn danger" style="flex-shrink: 0;" onclick="deleteSignal('${signal.id || signal.date}')">×</button>
-            </div>
-        `;
-    }).join('');
-
-    document.getElementById('signalsCount').textContent = appState.signals.length;
-}
-
-function renderRevenue() {
-    const list = document.getElementById('revenueList');
-    const empty = document.getElementById('revenueEmpty');
-
-    if (appState.revenue.length === 0) {
-        list.style.display = 'none';
-        empty.style.display = 'block';
-        document.getElementById('revenueCount').textContent = '0';
-        return;
-    }
-
-    list.style.display = 'grid';
-    empty.style.display = 'none';
-
-    const sorted = [...appState.revenue].sort((a, b) => new Date(b.date) - new Date(a.date));
-    const totalRev = appState.revenue.reduce((sum, r) => sum + r.amount, 0);
-    const mrrRev = appState.revenue.filter(r => r.type === 'recurring').reduce((sum, r) => sum + r.amount, 0);
-
-    document.getElementById('totalRevenueDisplay').textContent = '$' + totalRev.toLocaleString('en-US', { maximumFractionDigits: 2 });
-    document.getElementById('mrrDisplay').textContent = '$' + mrrRev.toLocaleString('en-US', { maximumFractionDigits: 2 });
-
-    // Monthly chart
-    const monthlyData = {};
-    appState.revenue.forEach(r => {
-        const month = r.date.substring(0, 7);
-        monthlyData[month] = (monthlyData[month] || 0) + r.amount;
-    });
-
-    const months = Object.keys(monthlyData).sort();
-    const maxRevenue = Math.max(...Object.values(monthlyData));
-
-    const chartHtml = months.map(month => {
-        const amount = monthlyData[month];
-        const height = (amount / maxRevenue) * 100;
-        return `
-            <div class="bar-item">
-                <div class="bar" style="height: ${Math.max(height, 10)}px;">
-                    <div class="bar-value">$${amount.toLocaleString('en-US', { maximumFractionDigits: 0 })}</div>
-                </div>
-                <div class="bar-label">${month}</div>
-            </div>
-        `;
-    }).join('');
-
-    document.getElementById('revenueChart').innerHTML = chartHtml || '<div style="text-align: center; color: #6a6a8a;">No data yet</div>';
-
-    list.innerHTML = sorted.map(rev => `
-        <div class="list-item">
-            <div class="list-item-content">
-                <div class="list-item-title">$${rev.amount.toLocaleString('en-US', { maximumFractionDigits: 2 })} — ${rev.source}</div>
-                <div class="list-item-meta">
-                    <strong>Date:</strong> ${rev.date} | <strong>Type:</strong> ${rev.type}
+                    <div class="card-verdict">
+                        <strong>Verdict:</strong> PASS — Clear pricing gap, massive market, strongest Mote Ops lead gen potential
+                    </div>
+                    <div class="card-links">
+                        <a href="https://mikedmote52.github.io/vibe-qa/" class="card-link" target="_blank">Live Demo</a>
+                        <a href="https://github.com/mikedmote52/vibe-qa" class="card-link" target="_blank">Repo</a>
+                    </div>
+                    <div class="card-meta">
+                        <strong>Test Window:</strong> April 6–13 (5 days remaining)<br>
+                        <strong>Tested:</strong> April 6, 2026
+                    </div>
+                    <div class="card-scores">
+                        <div class="score-item">
+                            <div class="score-label">1st Customer 60d</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 40%"></div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem;">0.40</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">1K MRR 6mo</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 20%"></div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem;">0.20</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button class="small-btn danger" onclick="deleteRevenue('${rev.id}')">×</button>
-        </div>
-    `).join('');
+        </section>
 
-    document.getElementById('revenueCount').textContent = appState.revenue.length;
-}
+        <!-- BUILT -->
+        <section id="built">
+            <h2>Built (Ready to Deploy)</h2>
+            <div class="card-grid">
+                <!-- CallbackAI -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">CallbackAI</div>
+                        <div class="card-badge badge-built">Built</div>
+                    </div>
+                    <div class="card-verdict">
+                        <strong>Verdict:</strong> KEEP — Reposition as white-label voice agent (Synthflow/VAPI reselling)
+                    </div>
+                    <div class="card-links">
+                        <a href="https://mikedmote52.github.io/callback-ai/" class="card-link" target="_blank">Live Demo</a>
+                        <a href="https://github.com/mikedmote52/callback-ai" class="card-link" target="_blank">Repo</a>
+                    </div>
+                    <div class="card-meta">
+                        Marketing ready: 60% | Blocker: Platform eval (Synthflow $2K/mo alert)
+                    </div>
+                </div>
 
-function renderImprovements() {
-    const list = document.getElementById('improvementsList');
-    list.innerHTML = appState.improvements.map(imp => `
-        <div class="list-item">
-            <div class="list-item-content">
-                <div class="list-item-title">${imp.description}</div>
-                <div class="list-item-meta">Priority: <strong>${imp.priority}</strong> | Status: <strong>${imp.status}</strong></div>
+                <!-- ReviewAI -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">ReviewAI</div>
+                        <div class="card-badge badge-built">Built</div>
+                    </div>
+                    <div class="card-verdict">
+                        <strong>Verdict:</strong> KEEP — Bundled with CallbackAI, not standalone
+                    </div>
+                    <div class="card-links">
+                        <a href="https://mikedmote52.github.io/review-ai/" class="card-link" target="_blank">Live Demo</a>
+                        <a href="https://github.com/mikedmote52/review-ai" class="card-link" target="_blank">Repo</a>
+                    </div>
+                </div>
+
+                <!-- AutoPacks -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">AutoPacks (Workflow Marketplace)</div>
+                        <div class="card-badge badge-built">Built</div>
+                    </div>
+                    <div class="card-verdict">
+                        <strong>Verdict:</strong> PASS — Validated revenue model, lowest risk, highest near-term revenue probability
+                    </div>
+                    <div class="card-meta">
+                        Marketing ready: 50%
+                    </div>
+                    <div class="card-scores">
+                        <div class="score-item">
+                            <div class="score-label">1st Customer 60d</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 55%"></div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem;">0.55</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">1K MRR 6mo</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 30%"></div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem;">0.30</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button class="small-btn danger" onclick="deleteImprovement('${imp.id}')">×</button>
-        </div>
-    `).join('');
+        </section>
 
-    document.getElementById('improvementsCount').textContent = appState.improvements.length;
-}
-
-function renderBuilder() {
-    const grid = document.getElementById('builderGrid');
-    grid.innerHTML = AI_BUILDER_PATTERNS.map(pattern => `
-        <div class="pattern-card">
-            <div class="pattern-name">${pattern.name}</div>
-            <div class="pattern-desc">${pattern.description}</div>
-            <div class="pattern-meta">
-                <div class="pattern-meta-item">
-                    <span class="pattern-meta-label">Time to Revenue</span>
-                    ${pattern.timeToRevenue}
-                </div>
-                <div class="pattern-meta-item">
-                    <span class="pattern-meta-label">Startup Cost</span>
-                    ${pattern.startupCost}
-                </div>
-                <div class="pattern-meta-item">
-                    <span class="pattern-meta-label">Competition</span>
-                    ${pattern.competition}
-                </div>
-                <div class="pattern-meta-item">
-                    <span class="pattern-meta-label">Fit Score</span>
-                    ${pattern.fitScore}/5
+        <!-- RESEARCHED -->
+        <section id="researched">
+            <h2>Researched (Early Stage)</h2>
+            <div class="card-grid">
+                <!-- Compliance Kit -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">AI Compliance Readiness Kit</div>
+                        <div class="card-badge badge-researched">Researched</div>
+                    </div>
+                    <div class="card-verdict">
+                        <strong>Verdict:</strong> PASS — Regulatory tailwind, no dominant SMB player, direct Mote Ops synergy
+                    </div>
+                    <div class="card-meta">
+                        <strong>Signal Strength:</strong> 4/5<br>
+                        <strong>Added:</strong> April 4, 2026
+                    </div>
+                    <div class="card-scores">
+                        <div class="score-item">
+                            <div class="score-label">1st Customer 60d</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 35%"></div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem;">0.35</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">1K MRR 6mo</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 25%"></div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.2rem;">0.25</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div style="font-size: 0.8rem; color: #8a8aa8; margin-bottom: 1rem;">
-                <strong>Examples:</strong> ${pattern.examples.join(', ')}
+        </section>
+
+        <!-- GRAVEYARD -->
+        <section id="graveyard">
+            <h2>Graveyard (Killed)</h2>
+            <div class="card-grid">
+                <!-- InstantProposal -->
+                <div class="card graveyard-card">
+                    <div class="card-header">
+                        <div class="card-title">InstantProposal</div>
+                        <div class="card-badge badge-killed">Killed</div>
+                    </div>
+                    <div class="kill-reason">
+                        RED — Commodity trap, killed 2026-04-02
+                    </div>
+                </div>
+
+                <!-- SMS Assistant -->
+                <div class="card graveyard-card">
+                    <div class="card-header">
+                        <div class="card-title">SMS AI Business Assistant</div>
+                        <div class="card-badge badge-killed">Killed</div>
+                    </div>
+                    <div class="kill-reason">
+                        RED — Feature, not product; absorbed by CallbackAI, killed 2026-04-02
+                    </div>
+                </div>
+
+                <!-- QuoteCatch -->
+                <div class="card graveyard-card">
+                    <div class="card-header">
+                        <div class="card-title">QuoteCatch (Contractor Call-to-Quote)</div>
+                        <div class="card-badge badge-killed">Killed</div>
+                    </div>
+                    <div class="kill-reason">
+                        KILL — Saturated market, well-funded competitors
+                    </div>
+                </div>
+
+                <!-- ChaseBot -->
+                <div class="card graveyard-card">
+                    <div class="card-header">
+                        <div class="card-title">ChaseBot (Freelancer Invoice Chase)</div>
+                        <div class="card-badge badge-killed">Killed</div>
+                    </div>
+                    <div class="kill-reason">
+                        KILL — Saturated market, every invoicing platform has built-in reminders
+                    </div>
+                </div>
+
+                <!-- AgentWatch -->
+                <div class="card graveyard-card">
+                    <div class="card-header">
+                        <div class="card-title">AgentWatch (AI Agent Ops Dashboard)</div>
+                        <div class="card-badge badge-killed">Killed</div>
+                    </div>
+                    <div class="kill-reason">
+                        KILL — 12–18 months too early, 15+ funded observability tools
+                    </div>
+                </div>
             </div>
-            <button class="action-btn" onclick="generateFromPattern(${pattern.id}, '${pattern.name}')">Generate Idea</button>
-        </div>
-    `).join('');
-}
+        </section>
 
-function updateDataStats() {
-    document.getElementById('dataStatsIdeas').textContent = appState.ideas.length;
-    document.getElementById('dataStatsExperiments').textContent = appState.experiments.length;
-    document.getElementById('dataStatsSignals').textContent = appState.signals.length;
-    document.getElementById('dataStatsRevenue').textContent = appState.revenue.length;
-    document.getElementById('dataStatsPlays').textContent = appState.plays.length;
-}
+        <!-- MARKETING AGENT STATUS -->
+        <section id="marketing">
+            <h2>Marketing Agent Status</h2>
+            <div class="agent-status">
+                <div class="agent-header">
+                    <div class="agent-status-badge">ONLINE</div>
+                    <div class="agent-refresh">Last run: Monday, April 6, 2026 | Next refresh: Monday, April 13, 2026</div>
+                </div>
 
-function switchTab(tabName) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(tabName).classList.add('active');
-    event.target.classList.add('active');
-}
+                <h3 style="margin-bottom: 1.5rem; margin-top: 0;">Project Readiness</h3>
+                <div class="project-readiness">
+                    <div class="readiness-item">
+                        <div class="readiness-name">
+                            <span>Mote Ops Landing</span>
+                            <span class="readiness-percentage">80%</span>
+                        </div>
+                        <div class="readiness-bar">
+                            <div class="readiness-fill" style="width: 80%"></div>
+                        </div>
+                        <div class="blocker">Blocker: Daycare case study</div>
+                    </div>
 
-function openModal(id) {
-    document.getElementById(id).classList.add('open');
-}
+                    <div class="readiness-item">
+                        <div class="readiness-name">
+                            <span>CallbackAI</span>
+                            <span class="readiness-percentage">60%</span>
+                        </div>
+                        <div class="readiness-bar">
+                            <div class="readiness-fill" style="width: 60%"></div>
+                        </div>
+                        <div class="blocker alert">Blocker: Platform eval (Synthflow $2K/mo alert)</div>
+                    </div>
 
-function closeModal(id) {
-    document.getElementById(id).classList.remove('open');
-}
+                    <div class="readiness-item">
+                        <div class="readiness-name">
+                            <span>PawFlow (ClinicWise)</span>
+                            <span class="readiness-percentage">70%</span>
+                        </div>
+                        <div class="readiness-bar">
+                            <div class="readiness-fill" style="width: 70%"></div>
+                        </div>
+                        <div class="blocker alert">Blocker: UI sign-off | ALERT: ClinicWise competitor launched</div>
+                    </div>
 
-function openAddIdeaModal() {
-    document.getElementById('ideaName').value = '';
-    document.getElementById('ideaCategory').value = 'SaaS';
-    document.getElementById('ideaDescription').value = '';
-    document.getElementById('ideaRevenueModel').value = '';
-    document.getElementById('ideaBuildTime').value = '4';
-    document.getElementById('ideaStartupCost').value = '0';
-    document.getElementById('scoreTime').value = '3';
-    document.getElementById('scorePassive').value = '3';
-    document.getElementById('scoreCost').value = '3';
-    document.getElementById('scoreIncome').value = '3';
-    document.getElementById('scoreComp').value = '3';
-    document.getElementById('scoreTool').value = '3';
-    document.getElementById('scoreCompound').value = '3';
-    updateIdeaScore();
-    openModal('addIdeaModal');
-}
+                    <div class="readiness-item">
+                        <div class="readiness-name">
+                            <span>n8n Templates</span>
+                            <span class="readiness-percentage">50%</span>
+                        </div>
+                        <div class="readiness-bar">
+                            <div class="readiness-fill" style="width: 50%"></div>
+                        </div>
+                        <div class="blocker">Blocker: Templates need building</div>
+                    </div>
 
-function updateIdeaScore() {
-    const scores = [
-        parseInt(document.getElementById('scoreTime').value),
-        parseInt(document.getElementById('scorePassive').value),
-        parseInt(document.getElementById('scoreCost').value),
-        parseInt(document.getElementById('scoreIncome').value),
-        parseInt(document.getElementById('scoreComp').value),
-        parseInt(document.getElementById('scoreTool').value),
-        parseInt(document.getElementById('scoreCompound').value)
-    ];
-    const total = scores.reduce((a, b) => a + b, 0);
-    const max = 35;
-    document.getElementById('overallScore').textContent = total + '/' + max;
-}
+                    <div class="readiness-item">
+                        <div class="readiness-name">
+                            <span>ReviewToRank</span>
+                            <span class="readiness-percentage">30%</span>
+                        </div>
+                        <div class="readiness-bar">
+                            <div class="readiness-fill" style="width: 30%"></div>
+                        </div>
+                        <div class="blocker">Blocker: Form backend</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-function saveIdea(e) {
-    e.preventDefault();
-    const idea = {
-        id: Date.now().toString(),
-        name: document.getElementById('ideaName').value,
-        category: document.getElementById('ideaCategory').value,
-        description: document.getElementById('ideaDescription').value,
-        revenueModel: document.getElementById('ideaRevenueModel').value,
-        buildTime: parseInt(document.getElementById('ideaBuildTime').value),
-        startupCost: parseInt(document.getElementById('ideaStartupCost').value),
-        timeToRevenue: parseInt(document.getElementById('scoreTime').value),
-        passive: parseInt(document.getElementById('scorePassive').value),
-        lowCost: parseInt(document.getElementById('scoreCost').value),
-        incomeCeiling: parseInt(document.getElementById('scoreIncome').value),
-        competition: parseInt(document.getElementById('scoreComp').value),
-        toolFit: parseInt(document.getElementById('scoreTool').value),
-        compounding: parseInt(document.getElementById('scoreCompound').value),
-        score: parseInt(document.getElementById('scoreTime').value) + parseInt(document.getElementById('scorePassive').value) + parseInt(document.getElementById('scoreCost').value) + parseInt(document.getElementById('scoreIncome').value) + parseInt(document.getElementById('scoreComp').value) + parseInt(document.getElementById('scoreTool').value) + parseInt(document.getElementById('scoreCompound').value)
-    };
-    appState.ideas.push(idea);
-    saveToLocalStorage();
-    renderApp();
-    closeModal('addIdeaModal');
-}
+        <!-- COMPETITIVE ALERTS -->
+        <section id="alerts">
+            <h2>Competitive Alerts</h2>
+            <div class="alerts-grid">
+                <div class="alert-card critical">
+                    <div class="alert-title">Synthflow Voice AI Pricing</div>
+                    <div class="alert-content">
+                        White-label voice agent pricing confirmed at $2,000/month entry cost. Affects CallbackAI repositioning strategy. Platform eval required.
+                    </div>
+                </div>
 
-function openAddExperimentModal() {
-    document.getElementById('expHypothesis').value = '';
-    document.getElementById('expMethod').value = '';
-    document.getElementById('expMetric').value = '';
-    document.getElementById('expStartDate').value = new Date().toISOString().split('T')[0];
-    document.getElementById('expStatus').value = 'running';
-    document.getElementById('expResults').value = '';
-    document.getElementById('expLearning').value = '';
-    document.getElementById('expResultsGroup').style.display = 'none';
-    document.getElementById('expLearningGroup').style.display = 'none';
-    openModal('addExperimentModal');
-}
+                <div class="alert-card critical">
+                    <div class="alert-title">ClinicWise Launch</div>
+                    <div class="alert-content">
+                        Direct PawFlow competitor launched. Veterinary clinic management + AI features. Requires product differentiation review.
+                    </div>
+                </div>
 
-function saveExperiment(e) {
-    e.preventDefault();
-    const exp = {
-        id: Date.now().toString(),
-        hypothesis: document.getElementById('expHypothesis').value,
-        method: document.getElementById('expMethod').value,
-        metric: document.getElementById('expMetric').value,
-        startDate: document.getElementById('expStartDate').value,
-        status: document.getElementById('expStatus').value,
-        results: document.getElementById('expResults').value,
-        learning: document.getElementById('expLearning').value
-    };
-    appState.experiments.push(exp);
-    saveToLocalStorage();
-    renderApp();
-    closeModal('addExperimentModal');
-}
+                <div class="alert-card">
+                    <div class="alert-title">n8n Verified Creator Program</div>
+                    <div class="alert-content">
+                        n8n Verified Creator program is now live. Opportunity for AutoPacks and Dental AI Stack positioning in marketplace.
+                    </div>
+                </div>
 
-function openAddSignalModal() {
-    document.getElementById('signalDate').value = new Date().toISOString().split('T')[0];
-    document.getElementById('signalText').value = '';
-    document.getElementById('signalSource').value = '';
-    document.getElementById('signalImpact').value = 'medium';
-    openModal('addSignalModal');
-}
+                <div class="alert-card">
+                    <div class="alert-title">Voice AI Market Growth</div>
+                    <div class="alert-content">
+                        Voice AI market crossed $22B in 2026. Strong tailwind for CallbackAI, VibeQA, and Mote Ops consulting services.
+                    </div>
+                </div>
+            </div>
+        </section>
 
-function saveSignal(e) {
-    e.preventDefault();
-    const signal = {
-        id: Date.now().toString(),
-        date: document.getElementById('signalDate').value,
-        signal: document.getElementById('signalText').value,
-        source: document.getElementById('signalSource').value,
-        impact: document.getElementById('signalImpact').value
-    };
-    appState.signals.push(signal);
-    saveToLocalStorage();
-    renderApp();
-    closeModal('addSignalModal');
-}
+        <!-- LIVE ASSETS -->
+        <section id="assets">
+            <h2>Live Assets & Deployments</h2>
+            <div class="assets-grid">
+                <div class="asset-card">
+                    <div class="asset-name">Mote Ops Landing</div>
+                    <a href="https://mikedmote52.github.io/moteops-landing/" class="asset-url" target="_blank">
+                        mikedmote52.github.io/moteops-landing/
+                    </a>
+                    <div class="asset-status">Live</div>
+                </div>
 
-function openAddPlayModal() {
-    document.getElementById('playName').value = '';
-    document.getElementById('playDescription').value = '';
-    document.getElementById('playStatus').value = 'research';
-    document.getElementById('playProbability').value = '50';
-    document.getElementById('playCategory').value = '';
-    openModal('addPlayModal');
-}
+                <div class="asset-card">
+                    <div class="asset-name">This Dashboard</div>
+                    <a href="https://mikedmote52.github.io/moteops-landing/sidegigbot.html" class="asset-url" target="_blank">
+                        sidegigbot.html
+                    </a>
+                    <div class="asset-status">Live</div>
+                </div>
 
-function savePlay(e) {
-    e.preventDefault();
-    const play = {
-        id: Date.now().toString(),
-        name: document.getElementById('playName').value,
-        description: document.getElementById('playDescription').value,
-        status: document.getElementById('playStatus').value,
-        probability: parseInt(document.getElementById('playProbability').value),
-        category: document.getElementById('playCategory').value,
-        notes: ''
-    };
-    appState.plays.push(play);
-    saveToLocalStorage();
-    renderApp();
-    closeModal('addPlayModal');
-}
+                <div class="asset-card">
+                    <div class="asset-name">Portfolio</div>
+                    <a href="https://mikedmote52.github.io/moteops-landing/sidegig-portfolio.html" class="asset-url" target="_blank">
+                        sidegig-portfolio.html
+                    </a>
+                    <div class="asset-status">Live</div>
+                </div>
 
-function openAddRevenueModal() {
-    document.getElementById('revDate').value = new Date().toISOString().split('T')[0];
-    document.getElementById('revAmount').value = '';
-    document.getElementById('revSource').value = '';
-    document.getElementById('revType').value = 'one-time';
-    openModal('addRevenueModal');
-}
+                <div class="asset-card">
+                    <div class="asset-name">CallbackAI MVP</div>
+                    <a href="https://mikedmote52.github.io/callback-ai/" class="asset-url" target="_blank">
+                        mikedmote52.github.io/callback-ai/
+                    </a>
+                    <div class="asset-status">Live</div>
+                </div>
 
-function saveRevenue(e) {
-    e.preventDefault();
-    const rev = {
-        id: Date.now().toString(),
-        date: document.getElementById('revDate').value,
-        amount: parseFloat(document.getElementById('revAmount').value),
-        source: document.getElementById('revSource').value,
-        type: document.getElementById('revType').value
-    };
-    appState.revenue.push(rev);
-    saveToLocalStorage();
-    renderApp();
-    closeModal('addRevenueModal');
-}
+                <div class="asset-card">
+                    <div class="asset-name">ReviewAI MVP</div>
+                    <a href="https://mikedmote52.github.io/review-ai/" class="asset-url" target="_blank">
+                        mikedmote52.github.io/review-ai/
+                    </a>
+                    <div class="asset-status">Live</div>
+                </div>
 
-function openEditPlayModal(id) {
-    const play = appState.plays.find(p => p.id === id);
-    if (!play) return;
+                <div class="asset-card">
+                    <div class="asset-name">Dental AI Stack</div>
+                    <a href="https://mikedmote52.github.io/dental-ai-stack/" class="asset-url" target="_blank">
+                        mikedmote52.github.io/dental-ai-stack/
+                    </a>
+                    <div class="asset-status">Testing</div>
+                </div>
 
-    document.getElementById('editPlayProb').value = play.probability;
-    document.getElementById('editPlayStatus').value = play.status;
-    document.getElementById('editPlayNotes').value = play.notes;
-    document.getElementById('editPlayModal').dataset.playId = id;
-    openModal('editPlayModal');
-}
+                <div class="asset-card">
+                    <div class="asset-name">ReviewToRank</div>
+                    <a href="https://mikedmote52.github.io/review-to-rank/" class="asset-url" target="_blank">
+                        mikedmote52.github.io/review-to-rank/
+                    </a>
+                    <div class="asset-status">Testing</div>
+                </div>
 
-function updatePlay(e) {
-    e.preventDefault();
-    const id = document.getElementById('editPlayModal').dataset.playId;
-    const play = appState.plays.find(p => p.id === id);
-    if (play) {
-        play.probability = parseInt(document.getElementById('editPlayProb').value);
-        play.status = document.getElementById('editPlayStatus').value;
-        play.notes = document.getElementById('editPlayNotes').value;
-        saveToLocalStorage();
-        renderApp();
-    }
-    closeModal('editPlayModal');
-}
+                <div class="asset-card">
+                    <div class="asset-name">VibeQA</div>
+                    <a href="https://mikedmote52.github.io/vibe-qa/" class="asset-url" target="_blank">
+                        mikedmote52.github.io/vibe-qa/
+                    </a>
+                    <div class="asset-status">Testing</div>
+                </div>
+            </div>
+        </section>
 
-function updatePlayProb(id, value) {
-    const play = appState.plays.find(p => p.id === id);
-    if (play) {
-        play.probability = parseInt(value);
-        saveToLocalStorage();
-        updateHeader();
-    }
-}
+        <!-- SESSION LOG -->
+        <section id="sessions">
+            <h2>Session History</h2>
+            <div class="session-timeline">
+                <div class="session-item">
+                    <div class="session-marker">Session 1</div>
+                    <div class="session-content">
+                        <div class="session-title">Initial Opportunity Sweep</div>
+                        <div class="session-desc">March 30: 61 opportunities scanned, 6 active plays identified</div>
+                    </div>
+                </div>
 
-function deletePlay(id) {
-    appState.plays = appState.plays.filter(p => p.id !== id);
-    saveToLocalStorage();
-    renderApp();
-}
+                <div class="session-item">
+                    <div class="session-marker">Session 2</div>
+                    <div class="session-content">
+                        <div class="session-title">Primary Selection</div>
+                        <div class="session-desc">March 31: Mote Ops selected as primary anchor, landing page built</div>
+                    </div>
+                </div>
 
-function deleteIdea(id) {
-    appState.ideas = appState.ideas.filter(i => i.id !== id);
-    saveToLocalStorage();
-    renderApp();
-}
+                <div class="session-item">
+                    <div class="session-marker">Session 3</div>
+                    <div class="session-content">
+                        <div class="session-title">Dashboard & Intelligence</div>
+                        <div class="session-desc">April 1: Dashboard v3 deployed, intelligence infrastructure established</div>
+                    </div>
+                </div>
 
-function deleteExperiment(id) {
-    appState.experiments = appState.experiments.filter(e => e.id !== id);
-    saveToLocalStorage();
-    renderApp();
-}
+                <div class="session-item">
+                    <div class="session-marker">Session 4</div>
+                    <div class="session-content">
+                        <div class="session-title">Research Data Integration</div>
+                        <div class="session-desc">April 2: Research Cycle 3 data loaded, probability scores updated</div>
+                    </div>
+                </div>
 
-function deleteSignal(id) {
-    appState.signals = appState.signals.filter(s => s.id !== id && s.date !== id);
-    saveToLocalStorage();
-    renderApp();
-}
+                <div class="session-item">
+                    <div class="session-marker">Session 5</div>
+                    <div class="session-content">
+                        <div class="session-title">Pipeline Consolidation</div>
+                        <div class="session-desc">April 2: 2 killed, 3 repositioned, 3-play strategy locked</div>
+                    </div>
+                </div>
 
-function deleteRevenue(id) {
-    appState.revenue = appState.revenue.filter(r => r.id !== id);
-    saveToLocalStorage();
-    renderApp();
-}
+                <div class="session-item">
+                    <div class="session-marker">Session 6</div>
+                    <div class="session-content">
+                        <div class="session-title">UI Overhaul & Activation</div>
+                        <div class="session-desc">April 3: UI redesigned, outreach activated, marketing agent system built</div>
+                    </div>
+                </div>
 
-function deleteImprovement(id) {
-    appState.improvements = appState.improvements.filter(i => i.id !== id);
-    saveToLocalStorage();
-    renderApp();
-}
+                <div class="session-item">
+                    <div class="session-marker">Session 7</div>
+                    <div class="session-content">
+                        <div class="session-title">Scout Cycle 1</div>
+                        <div class="session-desc">April 4: 3 new ideas found, 1 passed (compliance kit), 1 killed (QuoteCatch), AutoPacks built</div>
+                    </div>
+                </div>
 
-function promoteIdea(id) {
-    const idea = appState.ideas.find(i => i.id === id);
-    if (!idea) return;
+                <div class="session-item">
+                    <div class="session-marker">Session 8</div>
+                    <div class="session-content">
+                        <div class="session-title">Scout Cycle 2 & Testing</div>
+                        <div class="session-desc">April 5: 3 ideas found, Dental AI Stack tested with distribution plan, LocalSEO built</div>
+                    </div>
+                </div>
 
-    const play = {
-        id: Date.now().toString(),
-        name: idea.name,
-        description: idea.description,
-        status: 'research',
-        category: idea.category,
-        probability: 40,
-        notes: `Based on idea: ${idea.revenueModel} | Build time: ${idea.buildTime}w | Cost: $${idea.startupCost}`
-    };
+                <div class="session-item">
+                    <div class="session-marker">Session 9</div>
+                    <div class="session-content">
+                        <div class="session-title">Scout Cycle 3</div>
+                        <div class="session-desc">April 7: 3 new ideas scouted (OnboardFlow, ScopeGuard, Testimonial Engine). 11 items in inbox awaiting research.</div>
+                    </div>
+                </div>
 
-    appState.plays.push(play);
-    deleteIdea(id);
-    saveToLocalStorage();
-    renderApp();
-}
+                <div class="session-item">
+                    <div class="session-marker">Session 10</div>
+                    <div class="session-content">
+                        <div class="session-title">System Review & Architecture Audit</div>
+                        <div class="session-desc">April 8: Full system audit. 4-agent pipeline reviewed. Critical finding: zero market execution in 5+ weeks. Improvement plan designed. Dashboard v6 deployed with system health monitoring.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-function generateFromPattern(patternId, patternName) {
-    const pattern = AI_BUILDER_PATTERNS.find(p => p.id === patternId);
-    if (!pattern) return;
+        <!-- HUMAN ACTION REQUIRED -->
+        <section id="actions">
+            <div class="action-required">
+                <h3>Human Action Required</h3>
+                <div class="action-list">
+                    <div class="action-item">
+                        <div class="action-number">1</div>
+                        <div class="action-description">
+                            <strong>Wire Formspree Backends</strong>
+                            <small>Connect form submission handlers to ReviewToRank and VibeQA before public traffic (critical path blocker)</small>
+                        </div>
+                    </div>
 
-    document.getElementById('ideaName').value = `${patternName} - ` + pattern.examples[0];
-    document.getElementById('ideaCategory').value = 'SaaS';
-    document.getElementById('ideaDescription').value = pattern.description;
-    document.getElementById('ideaRevenueModel').value = '$99-299/month';
-    document.getElementById('ideaBuildTime').value = '6';
-    document.getElementById('ideaStartupCost').value = '0';
+                    <div class="action-item">
+                        <div class="action-number">2</div>
+                        <div class="action-description">
+                            <strong>Add Analytics</strong>
+                            <small>Install Plausible or PostHog on all test pages (Dental AI Stack, ReviewToRank, VibeQA) to measure distribution effectiveness</small>
+                        </div>
+                    </div>
 
-    const fitMap = {
-        "Very High": 5,
-        "High": 4,
-        "Medium": 3,
-        "Low": 2
-    };
+                    <div class="action-item">
+                        <div class="action-number">3</div>
+                        <div class="action-description">
+                            <strong>Dental AI Distribution Content</strong>
+                            <small>Post distribution content for Dental AI Stack — test window ends April 12 (6 days remaining)</small>
+                        </div>
+                    </div>
 
-    document.getElementById('scoreTime').value = pattern.timeToRevenue.includes('4-6') ? 4 : pattern.timeToRevenue.includes('6-8') ? 3 : 2;
-    document.getElementById('scorePassive').value = patternId === 6 ? 4 : patternId === 4 ? 5 : 3;
-    document.getElementById('scoreCost').value = 5;
-    document.getElementById('scoreIncome').value = pattern.fitScore >= 4 ? 4 : 3;
-    document.getElementById('scoreComp').value = pattern.competition === 'Low' ? 4 : pattern.competition === 'Medium' ? 3 : 2;
-    document.getElementById('scoreTool').value = pattern.fitScore;
-    document.getElementById('scoreCompound').value = patternId === 4 ? 5 : patternId === 6 ? 4 : 3;
+                    <div class="action-item">
+                        <div class="action-number">4</div>
+                        <div class="action-description">
+                            <strong>ReviewToRank & VibeQA Distribution</strong>
+                            <small>Post distribution content for both products — test window ends April 13 (7 days remaining)</small>
+                        </div>
+                    </div>
 
-    updateIdeaScore();
-    switchTab('ideas');
-    openAddIdeaModal();
-}
+                    <div class="action-item">
+                        <div class="action-number">5</div>
+                        <div class="action-description">
+                            <strong>Daycare Case Study</strong>
+                            <small>Contact mom's daycare to gather first case study for Mote Ops landing page (80% marketing ready blocker)</small>
+                        </div>
+                    </div>
 
-function toggleKanban() {
-    appState.kanbanView = !appState.kanbanView;
-    renderPlays();
-}
+                    <div class="action-item">
+                        <div class="action-number">6</div>
+                        <div class="action-description">
+                            <strong>Voice AI Platform Eval</strong>
+                            <small>Evaluate Synthflow ($2K/mo) vs Viirtue pricing for CallbackAI white-label positioning</small>
+                        </div>
+                    </div>
 
-function exportData() {
-    const dataStr = JSON.stringify(appState, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'sidegigbot-v4-export-' + new Date().toISOString().split('T')[0] + '.json';
-    link.click();
-}
+                    <div class="action-item">
+                        <div class="action-number">7</div>
+                        <div class="action-description">
+                            <strong>X/Twitter Build-in-Public</strong>
+                            <small>Claim X/Twitter handle and start documenting build journey (marketing multiplier for all products)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-function importData(e) {
-    const file = e.target.files[0];
-    if (!file) return;
+    </main>
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-        try {
-            const data = JSON.parse(event.target.result);
-            appState = data;
-            saveToLocalStorage();
-            renderApp();
-            alert('Data imported successfully!');
-        } catch (err) {
-            alert('Error importing data: ' + err.message);
-        }
-    };
-    reader.readAsText(file);
-}
+    <!-- FOOTER -->
+    <footer>
+        <p>Side Gig Bot v6 — Pipeline Intelligence System | Last updated April 8, 2026</p>
+        <p style="font-size: 0.75rem; margin-top: 0.5rem;">Data source: STATE.json | Built for Mike's side gig strategy</p>
+    </footer>
 
-function resetData() {
-    if (confirm('Are you sure? This will delete all your data.')) {
-        appState = {
-            plays: [],
-            ideas: [],
-            experiments: [],
-            signals: [],
-            revenue: [],
-            improvements: [],
-            kanbanView: false
-        };
-        saveToLocalStorage();
-        renderApp();
-    }
-}
+    <script>
+        // Smooth scroll navigation
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
 
-// Status change handlers
-document.addEventListener('change', function(e) {
-    if (e.target.id === 'expStatus') {
-        const resultsGroup = document.getElementById('expResultsGroup');
-        const learningGroup = document.getElementById('expLearningGroup');
-        if (e.target.value === 'completed' || e.target.value === 'failed') {
-            resultsGroup.style.display = 'block';
-            learningGroup.style.display = 'block';
-        } else {
-            resultsGroup.style.display = 'none';
-            learningGroup.style.display = 'none';
-        }
-    }
-});
-
-// Initialize on load
-window.addEventListener('DOMContentLoaded', initializeApp);
-</script>
-
+        // Expandable sections (optional, for future use)
+        document.querySelectorAll('.expandable').forEach(section => {
+            section.addEventListener('click', () => {
+                section.classList.toggle('collapsed');
+            });
+        });
+    </script>
 </body>
 </html>
