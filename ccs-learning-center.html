@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CC's Learning Center Inc. | Childcare in Brea, CA</title>
+<meta name="description" content="Where Brea families find trusted, loving childcare. Infant care through Pre-K. Rated 5.0 on Yelp with 65 reviews.">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --sage:#7BAE7F;
+  --sage-dark:#4A7C59;
+  --sage-deep:#2D5F3F;
+  --sage-light:#E5F0E5;
+  --sage-pale:#F2F8F2;
+  --terra:#D4775B;
+  --terra-light:#FAE8E0;
+  --terra-dark:#B85A40;
+  --honey:#E8B94C;
+  --honey-light:#FFF5D6;
+  --cream:#FBF7F0;
+  --cream-dark:#F3EDE3;
+  --white:#FFFFFF;
+  --charcoal:#2D3436;
+  --text:#3D4449;
+  --text-mid:#636E72;
+  --text-light:#95A5A6;
+  --shadow-xs:0 1px 3px rgba(45,52,54,.06);
+  --shadow-sm:0 2px 12px rgba(45,52,54,.08);
+  --shadow-md:0 8px 30px rgba(45,52,54,.1);
+  --shadow-lg:0 16px 50px rgba(45,52,54,.12);
+  --r:16px;--r-lg:24px;--r-xl:32px
+}
+html{scroll-behavior:smooth}
+body{font-family:'Quicksand',sans-serif;color:var(--text);line-height:1.7;background:var(--cream);overflow-x:hidden;font-weight:500}
+h1,h2,h3,h4{font-family:'DM Serif Display',serif;font-weight:400;color:var(--charcoal)}
+a{text-decoration:none;color:inherit}
+
+/* === UTILITY === */
+.container{max-width:1140px;margin:0 auto;padding:0 28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:60px;font-weight:700;font-size:.92rem;text-decoration:none;transition:all .35s cubic-bezier(.4,0,.2,1);cursor:pointer;border:none;font-family:inherit;letter-spacing:.3px}
+.btn-terra{background:var(--terra);color:#fff;box-shadow:0 4px 18px rgba(212,119,91,.3)}
+.btn-terra:hover{background:var(--terra-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,119,91,.4)}
+.btn-sage{background:var(--sage);color:#fff;box-shadow:0 4px 18px rgba(123,174,127,.25)}
+.btn-sage:hover{background:var(--sage-dark);transform:translateY(-2px)}
+.btn-outline{background:transparent;border:2px solid rgba(255,255,255,.4);color:#fff}
+.btn-outline:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.btn-ghost{background:transparent;border:2px solid var(--sage);color:var(--sage-dark)}
+.btn-ghost:hover{background:var(--sage-light)}
+
+/* === TOPBAR === */
+.topbar{background:var(--sage-deep);color:rgba(255,255,255,.85);padding:8px 0;font-size:.8rem;font-weight:600}
+.topbar .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.topbar a{color:rgba(255,255,255,.85);transition:color .2s}
+.topbar a:hover{color:var(--honey)}
+.topbar .info{display:flex;gap:24px;flex-wrap:wrap}
+.topbar .info i{color:var(--honey);margin-right:5px;font-size:.75rem}
+.topbar .socials{display:flex;gap:8px}
+.topbar .socials a{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:all .2s}
+.topbar .socials a:hover{background:var(--honey);color:var(--sage-deep)}
+
+/* === NAV === */
+nav{background:var(--white);padding:14px 0;position:sticky;top:0;z-index:1000;box-shadow:var(--shadow-xs);transition:box-shadow .3s}
+nav.scrolled{box-shadow:var(--shadow-sm)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:11px}
+.logo-mark{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;box-shadow:0 2px 10px rgba(123,174,127,.3)}
+.logo-type{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--charcoal);line-height:1.15}
+.logo-type small{display:block;font-family:'Quicksand',sans-serif;font-size:.6rem;font-weight:700;color:var(--text-light);letter-spacing:2.5px;text-transform:uppercase}
+.nav-links{display:flex;gap:32px;align-items:center;list-style:none}
+.nav-links a{font-weight:700;font-size:.85rem;color:var(--text-mid);transition:color .2s;letter-spacing:.3px}
+.nav-links a:hover{color:var(--sage-dark)}
+.nav-cta{background:var(--terra)!important;color:#fff!important;padding:10px 22px!important;border-radius:60px!important;box-shadow:0 3px 12px rgba(212,119,91,.25);transition:all .3s!important}
+.nav-cta:hover{background:var(--terra-dark)!important;transform:translateY(-1px)!important}
+.mobile-menu{display:none;background:none;border:none;font-size:1.4rem;color:var(--charcoal);cursor:pointer}
+
+/* === HERO === */
+.hero{position:relative;overflow:hidden;padding:80px 0 100px;background:linear-gradient(160deg,var(--sage-deep) 0%,#3A6B4A 40%,var(--sage-dark) 100%)}
+.hero::before{content:'';position:absolute;bottom:-2px;left:0;right:0;height:80px;background:var(--cream);border-radius:50% 50% 0 0 / 100% 100% 0 0}
+.hero::after{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:rgba(255,255,255,.03)}
+.hero .container{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:2}
+.hero-content{color:#fff}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:60px;padding:7px 16px;font-size:.78rem;font-weight:700;margin-bottom:22px}
+.hero-pill i{color:var(--honey)}
+.hero h1{font-size:3rem;line-height:1.12;margin-bottom:16px;letter-spacing:-.5px}
+.hero h1 span{color:var(--honey);position:relative}
+.hero h1 span::after{content:'';position:absolute;bottom:2px;left:0;right:0;height:3px;background:var(--honey);opacity:.4;border-radius:2px}
+.hero-sub{font-size:1.08rem;line-height:1.8;opacity:.88;margin-bottom:30px;max-width:460px;font-weight:500}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.hero-proof{display:flex;gap:28px;flex-wrap:wrap}
+.hero-proof-item{display:flex;align-items:center;gap:8px}
+.hero-proof-item .num{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--honey);line-height:1}
+.hero-proof-item .lbl{font-size:.72rem;font-weight:600;opacity:.7;line-height:1.3}
+
+.hero-visual{position:relative;display:flex;justify-content:center}
+.hero-img-main{width:380px;height:440px;border-radius:var(--r-xl);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03));backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.hero-img-main .placeholder{font-size:6rem;opacity:.15;color:#fff}
+.hero-img-overlay{position:absolute;bottom:-20px;left:-20px;display:flex;gap:8px;flex-direction:column}
+.hero-chip{background:var(--white);border-radius:var(--r);padding:12px 16px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:10px;animation:chipFloat 4s ease-in-out infinite;font-size:.82rem;font-weight:700;color:var(--charcoal)}
+.hero-chip:nth-child(2){animation-delay:2s}
+.hero-chip .chip-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+@keyframes chipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* === WAVE === */
+.wave-divider{position:relative;height:60px;overflow:hidden}
+.wave-divider svg{position:absolute;bottom:0;width:100%;height:60px}
+
+/* === TRUST === */
+.trust{padding:20px 0 48px}
+.trust-row{display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.trust-pill{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--white);border-radius:60px;box-shadow:var(--shadow-xs);font-size:.82rem;font-weight:700;color:var(--text-mid)}
+.trust-pill i{color:var(--sage);font-size:1rem}
+
+/* === SECTION === */
+.section{padding:80px 0}
+.s-bg{background:var(--white)}
+.s-green{background:var(--sage-deep);color:#fff}
+.s-terra{background:linear-gradient(135deg,var(--terra),#c06040);color:#fff;position:relative;overflow:hidden}
+.section-head{text-align:center;margin-bottom:52px;max-width:580px;margin-left:auto;margin-right:auto}
+.section-head .tag{display:inline-flex;align-items:center;gap:6px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--sage);margin-bottom:10px}
+.s-green .section-head .tag{color:var(--honey)}
+.section-head h2{font-size:2.2rem;margin-bottom:12px;line-height:1.2}
+.s-green .section-head h2{color:#fff}
+.section-head p{color:var(--text-mid);font-size:.98rem}
+.s-green .section-head p{color:rgba(255,255,255,.75)}
+
+/* === PROGRAMS === */
+.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.prog-card{background:var(--white);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);transition:all .35s;cursor:pointer;position:relative}
+.prog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.prog-top{height:130px;display:flex;align-items:center;justify-content:center;font-size:2.6rem;position:relative}
+.prog-top::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:3px;border-radius:3px}
+.pc1 .prog-top{background:linear-gradient(135deg,#FFF0ED,#FFE0D8);color:var(--terra)}.pc1 .prog-top::after{background:var(--terra)}
+.pc2 .prog-top{background:linear-gradient(135deg,var(--honey-light),#FFE9A0);color:#C49000}.pc2 .prog-top::after{background:var(--honey)}
+.pc3 .prog-top{background:linear-gradient(135deg,var(--sage-light),#D0E8D0);color:var(--sage)}.pc3 .prog-top::after{background:var(--sage)}
+.pc4 .prog-top{background:linear-gradient(135deg,#E8F0FF,#D0DFFF);color:#5B7FCF}.pc4 .prog-top::after{background:#5B7FCF}
+.pc5 .prog-top{background:linear-gradient(135deg,#F5E6FF,#E8D0FF);color:#8B5CF6}.pc5 .prog-top::after{background:#8B5CF6}
+.pc6 .prog-top{background:linear-gradient(135deg,#E0F7FA,#B2EBF2);color:#0097A7}.pc6 .prog-top::after{background:#0097A7}
+.prog-body{padding:22px 20px;text-align:center}
+.prog-body h3{font-size:1.05rem;margin-bottom:3px}
+.prog-body .age{font-family:'Quicksand',sans-serif;font-size:.72rem;font-weight:700;color:var(--sage);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.prog-body p{font-size:.85rem;color:var(--text-mid);margin-bottom:14px;line-height:1.6}
+.prog-link{font-family:'Quicksand',sans-serif;color:var(--terra);font-weight:700;font-size:.82rem;display:inline-flex;align-items:center;gap:5px;transition:gap .2s}
+.prog-link:hover{gap:9px}
+
+/* === WHY US === */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.why-card{text-align:center;padding:28px 18px;border-radius:var(--r-lg);background:rgba(255,255,255,.08);transition:background .3s}
+.why-card:hover{background:rgba(255,255,255,.12)}
+.why-card .wicon{width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 16px;color:var(--honey)}
+.why-card h3{font-size:1rem;color:#fff;margin-bottom:8px}
+.why-card p{font-size:.84rem;opacity:.72;line-height:1.6;font-family:'Quicksand',sans-serif}
+
+/* === COMPARE === */
+.compare-intro{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-bottom:52px}
+.compare-intro h2{font-size:2.2rem;line-height:1.2;margin-bottom:12px}
+.compare-intro p{color:var(--text-mid);margin-bottom:20px}
+.compare-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.cstat{background:var(--white);border-radius:var(--r);padding:18px;text-align:center;box-shadow:var(--shadow-xs)}
+.cstat.gold{background:linear-gradient(135deg,#FFFCF0,var(--honey-light));border:2px solid var(--honey)}
+.cstat .cv{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--charcoal);line-height:1}
+.cstat .cv.accent{color:var(--terra)}
+.cstat .cl{font-size:.7rem;font-weight:700;color:var(--text-light);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+
+.compare-tabs{display:flex;gap:6px;justify-content:center;margin-bottom:28px}
+.ctab{padding:9px 22px;border-radius:60px;font-weight:700;font-size:.82rem;cursor:pointer;border:2px solid var(--cream-dark);background:var(--white);color:var(--text-mid);transition:all .2s;font-family:inherit}
+.ctab:hover{border-color:var(--sage)}
+.ctab.active{background:var(--sage);color:#fff;border-color:var(--sage)}
+
+/* Compare Cards */
+.cc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.cc-card{background:var(--white);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);transition:all .3s}
+.cc-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.cc-card.ours{border:2px solid var(--sage);box-shadow:0 4px 20px rgba(123,174,127,.2);position:relative}
+.cc-card.ours::after{content:'CC\\'s';position:absolute;top:8px;right:8px;background:var(--honey);color:var(--charcoal);font-size:.6rem;font-weight:700;padding:3px 10px;border-radius:60px;letter-spacing:1px;font-family:'Quicksand',sans-serif}
+.cc-card-head{padding:18px 14px 12px;text-align:center}
+.cc-card.ours .cc-card-head{background:var(--sage-pale)}
+.cc-card-head h4{font-size:.88rem;margin-bottom:2px}
+.cc-card-head .subtype{font-family:'Quicksand',sans-serif;font-size:.65rem;color:var(--text-light);font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.cc-card-head .stars{margin-top:8px;color:var(--honey);font-size:.78rem;letter-spacing:1px}
+.cc-card-head .stars b{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--charcoal);margin-left:3px}
+.cc-card-head .rev-count{font-size:.68rem;color:var(--text-light);font-weight:600}
+.cc-rows{padding:0 0 6px}
+.cc-row{display:flex;justify-content:space-between;align-items:center;padding:7px 14px;font-size:.75rem;font-weight:600;border-bottom:1px solid #f5f5f5}
+.cc-row:last-child{border:none}
+.cc-row .label{color:var(--text-mid)}
+.cc-row .val .y{color:var(--sage)}
+.cc-row .val .n{color:#ddd}
+.cc-row .val .p{color:var(--honey)}
+
+/* Bars view */
+.bars-wrap{max-width:700px;margin:0 auto}
+.bar-item{margin-bottom:18px}
+.bar-top{display:flex;justify-content:space-between;margin-bottom:5px;font-size:.85rem;font-weight:700}
+.bar-top .bname{color:var(--charcoal)}
+.bar-track{height:14px;background:var(--cream-dark);border-radius:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:8px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+/* Feature table */
+.feat-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);font-size:.82rem;background:var(--white)}
+.feat-table thead th{background:var(--sage-deep);color:#fff;padding:13px 10px;text-align:center;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;font-family:'Quicksand',sans-serif;font-weight:700}
+.feat-table thead th:first-child{text-align:left;padding-left:18px}
+.feat-table thead th.hl{background:var(--sage)}
+.feat-table td{padding:11px 10px;text-align:center;border-bottom:1px solid #f0f0f0}
+.feat-table td:first-child{text-align:left;padding-left:18px;font-weight:700;color:var(--charcoal);background:var(--cream)}
+.feat-table td.hl{background:var(--sage-pale);font-weight:700;color:var(--sage-dark)}
+.feat-table .y{color:var(--sage)}.feat-table .n{color:#ddd}.feat-table .p{color:var(--honey)}
+
+.compare-bottom{text-align:center;margin-top:40px;padding:36px;background:var(--sage-light);border-radius:var(--r-xl)}
+.compare-bottom h3{font-size:1.5rem;margin-bottom:8px}
+.compare-bottom p{color:var(--text-mid);margin-bottom:20px;max-width:520px;margin-left:auto;margin-right:auto}
+
+/* === TESTIMONIALS === */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.test-card{background:var(--white);border-radius:var(--r-lg);padding:28px;box-shadow:var(--shadow-sm);position:relative}
+.test-card::before{content:'\201C';position:absolute;top:12px;right:20px;font-family:'DM Serif Display',serif;font-size:4rem;color:var(--sage-light);line-height:1}
+.test-stars{color:var(--honey);font-size:.82rem;margin-bottom:12px;letter-spacing:2px}
+.test-card p{font-size:.92rem;color:var(--text-mid);font-style:italic;margin-bottom:18px;line-height:1.7;position:relative;z-index:1}
+.test-author{display:flex;align-items:center;gap:10px}
+.test-avatar{width:42px;height:42px;border-radius:50%;background:var(--sage-light);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--sage-dark);font-size:.85rem}
+.test-author .nm{font-weight:700;font-size:.88rem;color:var(--charcoal)}
+.test-author .rl{font-size:.72rem;color:var(--text-light);font-weight:600}
+
+/* === SATISFACTION === */
+.sat-section{background:linear-gradient(135deg,#F8F4FF,#EEF0FF);padding:80px 0}
+.sat-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.sat-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.sstat{background:var(--white);border-radius:var(--r);padding:18px;text-align:center;box-shadow:var(--shadow-xs)}
+.sstat .sv{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--sage-dark);line-height:1}
+.sstat .sl{font-size:.72rem;font-weight:700;color:var(--text-light);margin-top:3px}
+.sat-form-box{background:var(--white);border-radius:var(--r-xl);padding:32px;box-shadow:var(--shadow-md)}
+.sat-form-box h3{font-size:1.2rem;margin-bottom:4px}
+.sat-form-box > p{font-size:.82rem;color:var(--text-mid);margin-bottom:20px}
+.anon-tag{display:inline-flex;align-items:center;gap:5px;background:var(--sage-light);color:var(--sage-dark);padding:5px 14px;border-radius:60px;font-size:.72rem;font-weight:700;margin-bottom:16px}
+.emoji-row{display:flex;gap:10px;margin-bottom:16px;justify-content:center}
+.emo-btn{width:50px;height:50px;border-radius:50%;border:2.5px solid #e8e8e8;background:var(--white);font-size:1.4rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.emo-btn:hover,.emo-btn.active{border-color:var(--honey);background:var(--honey-light);transform:scale(1.12)}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-weight:700;font-size:.78rem;margin-bottom:5px;color:var(--charcoal)}
+.fg input,.fg select,.fg textarea{width:100%;padding:11px 14px;border:2px solid #e8e8e8;border-radius:var(--r);font-family:inherit;font-size:.88rem;transition:border-color .2s;background:var(--cream);font-weight:500}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--sage);background:var(--white)}
+.fg textarea{resize:vertical;min-height:70px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* === CTA === */
+.cta-section{background:var(--sage-deep);padding:72px 0;text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:-100px;left:-100px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.03)}
+.cta-section::after{content:'';position:absolute;bottom:-150px;right:-100px;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,.02)}
+.cta-section .container{position:relative;z-index:1}
+.cta-section h2{font-size:2.2rem;color:#fff;margin-bottom:10px}
+.cta-section p{opacity:.8;max-width:480px;margin:0 auto 28px;font-size:1rem}
+
+/* === CONTACT === */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.contact-info h3{font-size:1.7rem;margin-bottom:12px}
+.contact-info > p{color:var(--text-mid);margin-bottom:28px}
+.cd{display:flex;gap:14px;margin-bottom:20px}
+.cd .ci{width:44px;height:44px;border-radius:12px;background:var(--sage-light);color:var(--sage-dark);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.cd .ct strong{display:block;font-size:.85rem;font-family:'DM Serif Display',serif;margin-bottom:1px}
+.cd .ct span,.cd .ct a{font-size:.85rem;color:var(--text-mid);font-weight:500}
+.cd .ct a{color:var(--sage-dark)}
+.contact-form-box{background:var(--white);border-radius:var(--r-xl);padding:32px;box-shadow:var(--shadow-md)}
+.contact-form-box h3{font-size:1.2rem;margin-bottom:3px}
+.contact-form-box > p{font-size:.82rem;color:var(--text-mid);margin-bottom:20px}
+
+/* === FOOTER === */
+footer{background:var(--charcoal);color:rgba(255,255,255,.65);padding:56px 0 0}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.08)}
+footer h4{color:#fff;font-family:'DM Serif Display',serif;font-size:1rem;margin-bottom:16px}
+footer p{font-size:.84rem;line-height:1.7}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-family:'DM Serif Display',serif;font-size:1.1rem;color:#fff}
+.footer-logo .fl-mark{width:36px;height:36px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem}
+.footer-license{display:flex;gap:6px;align-items:center;margin-top:14px;padding:10px 14px;background:rgba(255,255,255,.04);border-radius:var(--r);font-size:.74rem}
+.footer-license i{color:var(--honey)}
+footer ul{list-style:none}
+footer ul li{margin-bottom:8px}
+footer ul a{color:rgba(255,255,255,.6);font-size:.84rem;font-weight:600;transition:color .2s}
+footer ul a:hover{color:var(--honey)}
+.footer-bottom{padding:20px 0;display:flex;justify-content:space-between;align-items:center;font-size:.78rem;flex-wrap:wrap;gap:10px}
+.f-socials{display:flex;gap:8px}
+.f-socials a{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);transition:all .2s}
+.f-socials a:hover{background:var(--sage);color:#fff}
+
+/* === CHATBOT === */
+.chat-fab{position:fixed;bottom:24px;right:24px;z-index:9999;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--terra-dark));color:#fff;border:none;font-size:1.4rem;cursor:pointer;box-shadow:0 6px 24px rgba(212,119,91,.35);transition:all .3s;display:flex;align-items:center;justify-content:center}
+.chat-fab:hover{transform:scale(1.06)}
+.chat-fab .badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:var(--honey);font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--charcoal);border:2px solid #fff}
+.chat-win{position:fixed;bottom:94px;right:24px;z-index:9998;width:400px;max-height:560px;background:var(--white);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);display:none;flex-direction:column;overflow:hidden;animation:chatUp .3s ease}
+.chat-win.open{display:flex}
+@keyframes chatUp{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.chat-top{background:linear-gradient(135deg,var(--sage-dark),var(--sage-deep));color:#fff;padding:16px 18px;display:flex;justify-content:space-between;align-items:center}
+.chat-top-info{display:flex;align-items:center;gap:10px}
+.chat-top-ava{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.chat-top-text h4{font-family:'Quicksand',sans-serif;font-size:.9rem;font-weight:700}
+.chat-top-text span{font-size:.68rem;opacity:.75;display:flex;align-items:center;gap:4px}
+.chat-top-text span::before{content:'';width:5px;height:5px;border-radius:50%;background:#68d391}
+.chat-x{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;opacity:.6;transition:opacity .2s}
+.chat-x:hover{opacity:1}
+.chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;max-height:340px;background:var(--cream)}
+.cmsg{max-width:82%;padding:11px 15px;border-radius:18px;font-size:.85rem;line-height:1.6;animation:msgPop .25s ease}
+@keyframes msgPop{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.cmsg.bot{background:var(--white);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;box-shadow:var(--shadow-xs)}
+.cmsg.user{background:var(--sage);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.cmsg.sys{background:var(--honey-light);color:var(--charcoal);align-self:center;text-align:center;font-size:.76rem;font-weight:700;border-radius:var(--r);padding:7px 14px}
+.chat-opts{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}
+.copt{background:var(--sage-light);color:var(--sage-deep);border:2px solid transparent;padding:7px 14px;border-radius:60px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
+.copt:hover{border-color:var(--sage);background:var(--white)}
+.chat-input-wrap{display:flex;gap:6px;padding:10px 14px;border-top:1px solid #eee;background:var(--white)}
+.chat-inp{flex:1;border:2px solid #e8e8e8;border-radius:60px;padding:9px 15px;font-family:inherit;font-size:.85rem;font-weight:500;transition:border-color .2s}
+.chat-inp:focus{outline:none;border-color:var(--sage)}
+.chat-send{width:38px;height:38px;border-radius:50%;background:var(--terra);color:#fff;border:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.chat-send:hover{background:var(--terra-dark)}
+.typing span{width:7px;height:7px;border-radius:50%;background:#ccc;display:inline-block;margin:0 2px;animation:dot .6s ease-in-out infinite}
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+
+/* === ADMIN DASHBOARD === */
+.admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.admin-overlay.open{display:flex}
+.admin-modal{background:var(--cream);border-radius:var(--r-xl);width:90%;max-width:920px;max-height:85vh;overflow:auto;box-shadow:var(--shadow-lg)}
+.admin-header{background:linear-gradient(135deg,var(--sage-dark),var(--sage-deep));color:#fff;padding:22px 28px;display:flex;justify-content:space-between;align-items:center;border-radius:var(--r-xl) var(--r-xl) 0 0}
+.admin-header h2{font-family:'DM Serif Display',serif;font-size:1.25rem;font-weight:400}
+.admin-close{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;opacity:.7;transition:opacity .2s}
+.admin-close:hover{opacity:1}
+.admin-body{padding:28px}
+.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.admin-stat{background:var(--white);border-radius:var(--r-lg);padding:18px;text-align:center;box-shadow:var(--shadow-xs)}
+.admin-stat .val{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--sage-dark)}
+.admin-stat .lbl{font-size:.72rem;color:var(--text-light);font-weight:700;margin-top:2px}
+.lead-table{width:100%;border-collapse:separate;border-spacing:0;font-size:.82rem;border-radius:var(--r-lg);overflow:hidden;background:var(--white);box-shadow:var(--shadow-xs)}
+.lead-table th{background:var(--sage-deep);color:#fff;padding:11px 12px;text-align:left;font-weight:700;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;font-family:'Quicksand',sans-serif}
+.lead-table td{padding:11px 12px;border-bottom:1px solid #f0f0f0}
+.lead-status{padding:3px 10px;border-radius:60px;font-size:.68rem;font-weight:700}
+.lead-status.hot{background:var(--terra-light);color:var(--terra-dark)}
+.lead-status.warm{background:var(--honey-light);color:#B8860B}
+.lead-status.enrolled{background:var(--sage-light);color:var(--sage-dark)}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mkt-card{background:var(--white);border-radius:var(--r-lg);padding:18px;box-shadow:var(--shadow-xs)}
+.mkt-card h4{font-family:'Quicksand',sans-serif;font-size:.88rem;font-weight:700;margin-bottom:6px}
+.mkt-card p{font-size:.78rem;color:var(--text-mid);line-height:1.6;margin-bottom:6px}
+.mkt-status{font-size:.7rem;font-weight:700;color:var(--sage)}
+
+/* === DEMO === */
+.demo-bar{background:linear-gradient(90deg,var(--terra),#c06040);color:#fff;text-align:center;padding:9px;font-size:.78rem;font-weight:700;letter-spacing:.5px;z-index:10000;position:relative}
+
+/* === RESPONSIVE === */
+
+/* --- Tablet: 960px --- */
+@media(max-width:960px){
+  /* Nav */
+  .nav-links{display:none}
+  .mobile-menu{display:block}
+
+  /* Hero */
+  .hero .container{grid-template-columns:1fr;text-align:center}
+  .hero-sub{margin:0 auto 30px}
+  .hero-btns{justify-content:center}
+  .hero-proof{justify-content:center}
+  .hero-visual{display:none}
+
+  /* Grids → 2-col */
+  .prog-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .cc-grid{grid-template-columns:1fr 1fr}
+  .compare-intro,.sat-grid,.contact-grid{grid-template-columns:1fr}
+  .test-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .frow{grid-template-columns:1fr}
+  .admin-stats{grid-template-columns:1fr 1fr}
+  .mkt-grid{grid-template-columns:1fr}
+
+  /* Compare intro */
+  .compare-stats{grid-template-columns:repeat(2,1fr)}
+}
+
+/* --- Large Mobile: 768px --- */
+@media(max-width:768px){
+  /* Container */
+  .container{padding:0 20px}
+
+  /* Section padding */
+  .section{padding:56px 0}
+  .sat-section{padding:56px 0}
+  .cta-section{padding:52px 0}
+
+  /* Section headings */
+  .section-head h2{font-size:1.8rem}
+  .section-head{margin-bottom:36px}
+  .compare-intro h2{font-size:1.8rem}
+  .cta-section h2{font-size:1.8rem}
+  .contact-info h3{font-size:1.4rem}
+
+  /* Hero */
+  .hero{padding:52px 0 72px}
+  .hero h1{font-size:2.2rem}
+  .hero-sub{font-size:.96rem}
+
+  /* Trust */
+  .trust-row{gap:20px}
+  .trust-pill{font-size:.76rem;padding:8px 14px}
+
+  /* Programs */
+  .prog-grid{grid-template-columns:1fr 1fr}
+
+  /* Compare tabs — let them wrap */
+  .compare-tabs{flex-wrap:wrap;gap:6px}
+
+  /* Testimonials */
+  .test-grid{grid-template-columns:1fr}
+
+  /* Footer */
+  .footer-grid{grid-template-columns:1fr 1fr;gap:24px}
+
+  /* Admin */
+  .admin-modal{width:95%;max-height:90vh}
+  .admin-body{padding:18px}
+  .admin-stats{grid-template-columns:1fr 1fr}
+  .lead-table{font-size:.75rem}
+}
+
+/* --- Mobile: 600px --- */
+@media(max-width:600px){
+  /* Container */
+  .container{padding:0 16px}
+
+  /* Topbar — hide middle items, keep phone + socials */
+  .topbar{padding:6px 0}
+  .topbar .info span{display:none} /* hide hours */
+  .topbar .info{gap:14px}
+  .topbar .info a{font-size:.75rem}
+
+  /* Hero */
+  .hero{padding:40px 0 60px}
+  .hero::before{height:48px}
+  .hero h1{font-size:1.85rem;letter-spacing:-.3px}
+  .hero-sub{font-size:.9rem;margin-bottom:22px}
+  .hero-pill{font-size:.72rem;padding:6px 13px}
+  .hero-btns{flex-direction:column;align-items:center;gap:10px;margin-bottom:24px}
+  .hero-btns .btn{width:100%;max-width:300px;justify-content:center}
+  .hero-proof{gap:18px}
+  .hero-proof-item .num{font-size:1.25rem}
+  .hero-proof-item .lbl{font-size:.67rem}
+
+  /* Section */
+  .section{padding:44px 0}
+  .sat-section{padding:44px 0}
+  .cta-section{padding:40px 0}
+  .section-head{margin-bottom:28px}
+  .section-head h2{font-size:1.6rem}
+  .section-head p{font-size:.88rem}
+  .compare-intro h2{font-size:1.6rem}
+  .cta-section h2{font-size:1.6rem}
+  .cta-section p{font-size:.9rem}
+
+  /* Trust pills — wrap tightly */
+  .trust{padding:14px 0 32px}
+  .trust-row{gap:10px;justify-content:flex-start}
+  .trust-pill{font-size:.72rem;padding:7px 12px;gap:6px}
+
+  /* Programs → 1 col */
+  .prog-grid{grid-template-columns:1fr}
+  .prog-card{display:flex;flex-direction:row;align-items:stretch}
+  .prog-top{height:80px;width:100px;min-width:100px;font-size:2rem;flex-shrink:0;border-radius:0}
+  .prog-top::after{display:none}
+  .prog-body{padding:14px 16px;text-align:left;flex:1}
+  .prog-body h3{font-size:.95rem}
+
+  /* Why us → 1 col */
+  .why-grid{grid-template-columns:1fr}
+  .why-card{padding:20px 16px;display:flex;align-items:center;gap:16px;text-align:left}
+  .why-card .wicon{margin:0;flex-shrink:0;width:52px;height:52px}
+  .why-card h3{margin-bottom:4px}
+
+  /* Compare grid → 1 col */
+  .cc-grid{grid-template-columns:1fr}
+
+  /* Compare intro */
+  .compare-intro{gap:24px;margin-bottom:32px}
+  .compare-stats{grid-template-columns:1fr 1fr}
+  .cstat .cv{font-size:1.6rem}
+
+  /* Compare bottom */
+  .compare-bottom{padding:24px 18px}
+  .compare-bottom h3{font-size:1.25rem}
+
+  /* Testimonials */
+  .test-grid{grid-template-columns:1fr}
+  .test-card{padding:20px}
+
+  /* Satisfaction */
+  .sat-grid{gap:28px}
+  .sat-stats{grid-template-columns:1fr 1fr}
+  .sat-form-box{padding:22px 18px}
+  .emoji-row{gap:7px}
+  .emo-btn{width:42px;height:42px;font-size:1.2rem}
+
+  /* Contact */
+  .contact-grid{gap:28px}
+  .contact-form-box{padding:22px 18px}
+
+  /* Footer */
+  .footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:12px}
+
+  /* Chatbot */
+  .chat-win{width:calc(100vw - 16px);right:8px;bottom:84px;max-height:480px;border-radius:var(--r-lg)}
+  .chat-body{max-height:260px}
+  .chat-fab{bottom:16px;right:16px;width:54px;height:54px;font-size:1.25rem}
+
+  /* Admin modal */
+  .admin-modal{width:100%;max-width:100%;max-height:95vh;border-radius:var(--r-lg) var(--r-lg) 0 0}
+  .admin-overlay{align-items:flex-end}
+  .admin-header{padding:18px 20px;border-radius:var(--r-lg) var(--r-lg) 0 0}
+  .admin-body{padding:16px}
+  .admin-stats{grid-template-columns:1fr 1fr;gap:10px}
+  .admin-stat{padding:14px}
+  .admin-stat .val{font-size:1.5rem}
+
+  /* Buttons */
+  .btn{padding:13px 24px;font-size:.88rem}
+}
+
+/* --- Small Mobile: 390px (iPhone) --- */
+@media(max-width:420px){
+  .container{padding:0 14px}
+
+  .hero h1{font-size:1.6rem}
+  .hero-sub{font-size:.86rem}
+  .hero-proof{flex-direction:column;gap:12px;align-items:center}
+  .hero-proof-item{flex-direction:row;gap:10px}
+
+  .topbar .info a:last-of-type{display:none} /* hide email on very small */
+
+  .section-head h2{font-size:1.45rem}
+  .compare-intro h2{font-size:1.45rem}
+  .cta-section h2{font-size:1.45rem}
+
+  /* Compare stats single col on tiny screens */
+  .compare-stats{grid-template-columns:1fr}
+  .sat-stats{grid-template-columns:1fr 1fr}
+
+  /* Feature table: horizontal scroll */
+  .feat-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .feat-table{min-width:480px}
+
+  /* Admin */
+  .admin-stats{grid-template-columns:1fr 1fr}
+  .mkt-grid{grid-template-columns:1fr}
+
+  /* Footer */
+  .footer-grid{grid-template-columns:1fr}
+
+  /* Chat */
+  .chat-win{width:calc(100vw - 12px);right:6px}
+  .chat-body{max-height:220px}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-bar"><i class="fas fa-sparkles"></i> CC's V2 DEMO — AI Chatbot + Lead Capture + Parent Feedback + Owner Dashboard + Competitive Intel + Marketing Agent</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container">
+    <div class="info">
+      <a href="tel:7146716970"><i class="fas fa-phone"></i> (714) 671-6970</a>
+      <a href="mailto:info@ccslearningcenter.com"><i class="fas fa-envelope"></i> info@ccslearningcenter.com</a>
+      <span><i class="fas fa-clock"></i> Mon-Fri 6:30a - 6:00p</span>
+    </div>
+    <div class="socials">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="container">
+    <a href="#" class="logo">
+      <div class="logo-mark"><i class="fas fa-seedling"></i></div>
+      <div class="logo-type">CC's Learning Center<small>Brea, California</small></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#compare">Compare</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#feedback">Feedback</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" onclick="event.preventDefault();toggleAdmin()" title="Owner Dashboard"><i class="fas fa-chart-line"></i></a></li>
+      <li><a href="#" class="nav-cta" onclick="event.preventDefault();openChat()"><i class="fas fa-comments"></i> Chat With Us</a></li>
+    </ul>
+    <button class="mobile-menu" onclick="openChat()"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-pill"><i class="fas fa-star"></i> Rated 5.0 on Yelp — 65 Five-Star Reviews</div>
+      <h1>Where Your Child's <span>Brightest Days</span> Begin</h1>
+      <p class="hero-sub">A warm, family-owned center where curious minds explore, friendships blossom, and every child is known by name. Infants through Pre-K, right in the heart of Brea.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn btn-terra" onclick="event.preventDefault();openChat('tour')"><i class="fas fa-calendar-check"></i> Schedule a Tour</a>
+        <a href="#programs" class="btn btn-outline"><i class="fas fa-arrow-down"></i> Explore Programs</a>
+      </div>
+      <div class="hero-proof">
+        <div class="hero-proof-item"><div class="num">15+</div><div class="lbl">Years Serving<br>Brea Families</div></div>
+        <div class="hero-proof-item"><div class="num">6wk-12yr</div><div class="lbl">Widest Age<br>Range in Brea</div></div>
+        <div class="hero-proof-item"><div class="num">#1</div><div class="lbl">Rated Center<br>in Brea</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-main"><div class="placeholder"><i class="fas fa-children"></i></div></div>
+      <div class="hero-img-overlay">
+        <div class="hero-chip"><div class="chip-icon" style="background:var(--sage-light);color:var(--sage-dark)"><i class="fas fa-shield-halved"></i></div> State Licensed #304370797</div>
+        <div class="hero-chip"><div class="chip-icon" style="background:var(--honey-light);color:#b8860b"><i class="fas fa-heart"></i></div> Family-Owned Since Day One</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust">
+  <div class="container">
+    <div class="trust-row">
+      <div class="trust-pill"><i class="fas fa-shield-halved"></i> State Licensed</div>
+      <div class="trust-pill"><i class="fas fa-utensils"></i> Full Meals Included</div>
+      <div class="trust-pill"><i class="fas fa-users"></i> Low Ratios</div>
+      <div class="trust-pill"><i class="fas fa-globe"></i> Multicultural</div>
+      <div class="trust-pill"><i class="fas fa-language"></i> Bilingual</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRAMS -->
+<section id="programs" class="section s-bg">
+  <div class="container">
+    <div class="section-head"><div class="tag">Our Programs</div><h2>Thoughtful Care for Every Stage</h2><p>Click any program to learn more through our chat assistant.</p></div>
+    <div class="prog-grid">
+      <div class="prog-card pc1" onclick="openChat('infant')"><div class="prog-top"><i class="fas fa-baby"></i></div><div class="prog-body"><h3>Infant Care</h3><div class="age">6 Weeks - 18 Months</div><p>Safe, nurturing atmosphere where your baby builds trust through consistent care.</p><span class="prog-link">Learn More <i class="fas fa-arrow-right"></i></span></div></div>
+      <div class="prog-card pc2" onclick="openChat('toddler')"><div class="prog-top"><i class="fas fa-child-reaching"></i></div><div class="prog-body"><h3>Toddler Program</h3><div class="age">18 Months - 2.5 Years</div><p>Building creativity and curiosity through hands-on guided play.</p><span class="prog-link">Learn More <i class="fas fa-arrow-right"></i></span></div></div>
+      <div class="prog-card pc3" onclick="openChat('preschool')"><div class="prog-top"><i class="fas fa-puzzle-piece"></i></div><div class="prog-body"><h3>Early Preschool</h3><div class="age">2.5 - 3 Years</div><p>Structured instruction meets age-appropriate wonder and play.</p><span class="prog-link">Learn More <i class="fas fa-arrow-right"></i></span></div></div>
+      <div class="prog-card pc4" onclick="openChat('preschool')"><div class="prog-top"><i class="fas fa-palette"></i></div><div class="prog-body"><h3>Preschool</h3><div class="age">3 - 4 Years</div><p>School readiness, creative expression, and social skills.</p><span class="prog-link">Learn More <i class="fas fa-arrow-right"></i></span></div></div>
+      <div class="prog-card pc5" onclick="openChat('prek')"><div class="prog-top"><i class="fas fa-graduation-cap"></i></div><div class="prog-body"><h3>Pre-Kindergarten</h3><div class="age">4 - 5 Years</div><p>Focused kindergarten preparation and classroom confidence.</p><span class="prog-link">Learn More <i class="fas fa-arrow-right"></i></span></div></div>
+      <div class="prog-card pc6" onclick="openChat('afterschool')"><div class="prog-top"><i class="fas fa-book-open-reader"></i></div><div class="prog-body"><h3>After School</h3><div class="age">5 - 12 Years</div><p>Structured academics and safe, engaging after-school care.</p><span class="prog-link">Learn More <i class="fas fa-arrow-right"></i></span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section s-green">
+  <div class="container">
+    <div class="section-head"><div class="tag">Why Families Choose Us</div><h2>What Makes CC's Different</h2></div>
+    <div class="why-grid">
+      <div class="why-card"><div class="wicon"><i class="fas fa-hand-holding-heart"></i></div><h3>They Know My Child</h3><p>Small enough that every teacher knows every child personally.</p></div>
+      <div class="why-card"><div class="wicon"><i class="fas fa-apple-whole"></i></div><h3>Real Meals Daily</h3><p>Breakfast, lunch, and snack prepared on-site. No packing lunches.</p></div>
+      <div class="why-card"><div class="wicon"><i class="fas fa-comments"></i></div><h3>We Communicate</h3><p>Daily updates and a genuine open-door policy for every parent.</p></div>
+      <div class="why-card"><div class="wicon"><i class="fas fa-brain"></i></div><h3>Learning by Living</h3><p>Building problem-solvers and confident kids ready for school and life.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare" class="section">
+  <div class="container">
+    <div class="compare-intro">
+      <div>
+        <div class="tag" style="color:var(--sage);font-family:'Quicksand',sans-serif;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:10px">How We Compare</div>
+        <h2>See How CC's Stacks Up Against Every Center in Brea</h2>
+        <p>We welcome comparison. When parents do their research, they consistently choose CC's.</p>
+        <a href="#" class="btn btn-terra" onclick="event.preventDefault();openChat('tour')" style="margin-top:8px"><i class="fas fa-calendar-check"></i> See For Yourself</a>
+      </div>
+      <div class="compare-stats">
+        <div class="cstat gold"><div class="cv accent">5.0</div><div class="cl">Yelp Rating (65 Reviews)</div></div>
+        <div class="cstat"><div class="cv">#1</div><div class="cl">Rated in Brea (22 centers)</div></div>
+        <div class="cstat"><div class="cv">15+</div><div class="cl">Years Trusted</div></div>
+        <div class="cstat"><div class="cv">6wk-12yr</div><div class="cl">Widest Age Range</div></div>
+      </div>
+    </div>
+
+    <div class="compare-tabs">
+      <button class="ctab active" onclick="showView('cards',this)"><i class="fas fa-th-large"></i> Cards</button>
+      <button class="ctab" onclick="showView('bars',this)"><i class="fas fa-chart-bar"></i> Ratings</button>
+      <button class="ctab" onclick="showView('table',this)"><i class="fas fa-list-check"></i> Full Comparison</button>
+    </div>
+
+    <!-- Cards -->
+    <div id="v-cards" class="cview">
+      <div class="cc-grid">
+        <div class="cc-card ours"><div class="cc-card-head"><h4>CC's Learning Center</h4><div class="subtype">Family-Owned</div><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> <b>5.0</b></div><div class="rev-count">65 Yelp Reviews</div></div><div class="cc-rows"><div class="cc-row"><span class="label">Infant (6wk)</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">After School</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">Full Meals</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">Multicultural</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">Bilingual</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">Family-Owned</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div></div></div>
+        <div class="cc-card"><div class="cc-card-head"><h4>Childtime</h4><div class="subtype">Corporate (LCG)</div><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> <b>4.4</b></div><div class="rev-count">59 Reviews</div></div><div class="cc-rows"><div class="cc-row"><span class="label">Infant (6wk)</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">After School</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">Full Meals</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">Multicultural</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div><div class="cc-row"><span class="label">Bilingual</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div><div class="cc-row"><span class="label">Family-Owned</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div></div></div>
+        <div class="cc-card"><div class="cc-card-head"><h4>Montessori of Brea</h4><div class="subtype">Independent</div><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> <b>4.5</b></div><div class="rev-count">44 Reviews</div></div><div class="cc-rows"><div class="cc-row"><span class="label">Infant (6wk)</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i> 2+</span></span></div><div class="cc-row"><span class="label">After School</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div><div class="cc-row"><span class="label">Full Meals</span><span class="val"><span class="p"><i class="fas fa-minus-circle"></i></span></span></div><div class="cc-row"><span class="label">Multicultural</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div><div class="cc-row"><span class="label">Bilingual</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">Family-Owned</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div></div></div>
+        <div class="cc-card"><div class="cc-card-head"><h4>KinderCare</h4><div class="subtype">National Chain</div><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i> <b>3.8</b></div><div class="rev-count">~30 Reviews</div></div><div class="cc-rows"><div class="cc-row"><span class="label">Infant (6wk)</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">After School</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">Full Meals</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div><div class="cc-row"><span class="label">Multicultural</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div><div class="cc-row"><span class="label">Bilingual</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div><div class="cc-row"><span class="label">Family-Owned</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div></div></div>
+        <div class="cc-card"><div class="cc-card-head"><h4>Faith Hope Love</h4><div class="subtype">Christian</div><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> <b>5.0</b></div><div class="rev-count">8 Reviews</div></div><div class="cc-rows"><div class="cc-row"><span class="label">Infant (6wk)</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i> 18m</span></span></div><div class="cc-row"><span class="label">After School</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div><div class="cc-row"><span class="label">Full Meals</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div><div class="cc-row"><span class="label">Multicultural</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div><div class="cc-row"><span class="label">Bilingual</span><span class="val"><span class="n"><i class="fas fa-times-circle"></i></span></span></div><div class="cc-row"><span class="label">Family-Owned</span><span class="val"><span class="y"><i class="fas fa-check-circle"></i></span></span></div></div></div>
+      </div>
+    </div>
+
+    <!-- Bars -->
+    <div id="v-bars" class="cview" style="display:none">
+      <div class="bars-wrap">
+        <h3 style="text-align:center;margin-bottom:28px">Yelp Rating Comparison</h3>
+        <div class="bar-item"><div class="bar-top"><span class="bname"><i class="fas fa-trophy" style="color:var(--honey);margin-right:4px"></i> CC's Learning Center</span><span style="color:var(--sage-dark)">5.0 / 65 reviews</span></div><div class="bar-track"><div class="bar-fill" style="width:0;background:linear-gradient(90deg,var(--sage),var(--sage-dark))" data-w="100%"></div></div></div>
+        <div class="bar-item"><div class="bar-top"><span class="bname">Childtime of Brea</span><span style="color:var(--honey)">4.4 / 59 reviews</span></div><div class="bar-track"><div class="bar-fill" style="width:0;background:linear-gradient(90deg,#f39c12,#e8b94c)" data-w="78%"></div></div></div>
+        <div class="bar-item"><div class="bar-top"><span class="bname">Montessori of Brea</span><span style="color:#5b7fcf">4.5 / 44 reviews</span></div><div class="bar-track"><div class="bar-fill" style="width:0;background:linear-gradient(90deg,#5b7fcf,#8ba8e8)" data-w="72%"></div></div></div>
+        <div class="bar-item"><div class="bar-top"><span class="bname">Faith Hope Love</span><span style="color:#8b5cf6">5.0 / 8 reviews</span></div><div class="bar-track"><div class="bar-fill" style="width:0;background:linear-gradient(90deg,#8b5cf6,#bb8fce)" data-w="45%"></div></div></div>
+        <div class="bar-item"><div class="bar-top"><span class="bname">KinderCare</span><span style="color:#95a5a6">3.8 / ~30 reviews</span></div><div class="bar-track"><div class="bar-fill" style="width:0;background:linear-gradient(90deg,#95a5a6,#bdc3c7)" data-w="52%"></div></div></div>
+        <p style="text-align:center;font-size:.74rem;color:var(--text-light);margin-top:20px">Bars reflect combined rating quality and review volume. Source: Yelp, April 2026.</p>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div id="v-table" class="cview" style="display:none">
+      <div style="overflow-x:auto">
+        <table class="feat-table">
+          <thead><tr><th>Feature</th><th class="hl">CC's</th><th>Childtime</th><th>Montessori</th><th>KinderCare</th><th>Faith Hope</th></tr></thead>
+          <tbody>
+            <tr><td>Yelp Rating</td><td class="hl"><i class="fas fa-star" style="color:var(--honey)"></i> 5.0 (65)</td><td><i class="fas fa-star" style="color:var(--honey)"></i> 4.4 (59)</td><td><i class="fas fa-star" style="color:var(--honey)"></i> 4.5 (44)</td><td><i class="fas fa-star" style="color:var(--honey)"></i> 3.8</td><td><i class="fas fa-star" style="color:var(--honey)"></i> 5.0 (8)</td></tr>
+            <tr><td>Ownership</td><td class="hl"><i class="fas fa-home y"></i> Family</td><td><i class="fas fa-building n"></i> Corporate</td><td><i class="fas fa-home y"></i> Indep.</td><td><i class="fas fa-building n"></i> Corporate</td><td><i class="fas fa-home y"></i> Indep.</td></tr>
+            <tr><td>Infant Care</td><td class="hl"><span class="y"><i class="fas fa-check-circle"></i> 6wk</span></td><td><span class="y"><i class="fas fa-check-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i> 2+</span></td><td><span class="y"><i class="fas fa-check-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i> 18m</span></td></tr>
+            <tr><td>After School</td><td class="hl"><span class="y"><i class="fas fa-check-circle"></i></span></td><td><span class="y"><i class="fas fa-check-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i></span></td><td><span class="y"><i class="fas fa-check-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i></span></td></tr>
+            <tr><td>Full Meals</td><td class="hl"><span class="y"><i class="fas fa-check-circle"></i> B/L/S</span></td><td><span class="y"><i class="fas fa-check-circle"></i></span></td><td><span class="p"><i class="fas fa-minus-circle"></i></span></td><td><span class="y"><i class="fas fa-check-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i></span></td></tr>
+            <tr><td>Multicultural</td><td class="hl"><span class="y"><i class="fas fa-check-circle"></i> Core</span></td><td><span class="n"><i class="fas fa-times-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i></span></td></tr>
+            <tr><td>Bilingual</td><td class="hl"><span class="y"><i class="fas fa-check-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i></span></td><td><span class="y"><i class="fas fa-check-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i></span></td><td><span class="n"><i class="fas fa-times-circle"></i></span></td></tr>
+            <tr><td>Hours</td><td class="hl">6:30a-6p</td><td>6:30a-6p</td><td>6:30a-6p</td><td>6:30a-6:30p</td><td>7a-6p</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="compare-bottom">
+      <h3>The Numbers Speak For Themselves</h3>
+      <p>Highest-rated, family-owned, widest age range, multicultural curriculum. Come see why 65 families gave us five stars.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a href="#" class="btn btn-terra" onclick="event.preventDefault();openChat('tour')"><i class="fas fa-calendar-check"></i> Schedule a Tour</a>
+        <a href="#" class="btn btn-ghost" onclick="event.preventDefault();openChat('enroll')"><i class="fas fa-clipboard-list"></i> Start Enrollment</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="reviews" class="section s-bg">
+  <div class="container">
+    <div class="section-head"><div class="tag">Parent Reviews</div><h2>Hear From Families Like Yours</h2></div>
+    <div class="test-grid">
+      <div class="test-card"><div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>My daughter has been going here since infancy and absolutely loves it. The teachers are warm, patient, and genuinely invested in every child.</p><div class="test-author"><div class="test-avatar">JS</div><div><div class="nm">Jessica S.</div><div class="rl">Parent since 2021</div></div></div></div>
+      <div class="test-card"><div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>What sold us was the tour. You feel the energy the moment you walk in. My son went from shy to thriving in weeks.</p><div class="test-author"><div class="test-avatar">MR</div><div><div class="nm">Michael R.</div><div class="rl">Parent since 2022</div></div></div></div>
+      <div class="test-card"><div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>The multicultural curriculum is unique. My kids learn about the world while building strong academic foundations. Highly recommend.</p><div class="test-author"><div class="test-avatar">AL</div><div><div class="nm">Andrea L.</div><div class="rl">Parent since 2020</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARENT SATISFACTION -->
+<section id="feedback" class="sat-section">
+  <div class="container">
+    <div class="sat-grid">
+      <div>
+        <div class="tag" style="color:var(--sage);font-family:'Quicksand',sans-serif;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:10px">Parent Feedback</div>
+        <h2 style="font-size:2.2rem;margin-bottom:12px">Your Voice Makes Us Better</h2>
+        <p style="color:var(--text-mid);margin-bottom:28px">We believe in continuous improvement. Share your honest, anonymous feedback so we can keep growing for your child.</p>
+        <div class="sat-stats">
+          <div class="sstat"><div class="sv" id="sat-overall">4.8</div><div class="sl">Overall Satisfaction</div></div>
+          <div class="sstat"><div class="sv" id="sat-safety">4.9</div><div class="sl">Safety &amp; Security</div></div>
+          <div class="sstat"><div class="sv" id="sat-comm">4.7</div><div class="sl">Communication</div></div>
+          <div class="sstat"><div class="sv" id="sat-growth">4.8</div><div class="sl">Child's Growth</div></div>
+        </div>
+      </div>
+      <div class="sat-form-box">
+        <div class="anon-tag"><i class="fas fa-user-secret"></i> 100% Anonymous</div>
+        <h3>How is your child doing at CC's?</h3>
+        <p>Your feedback is completely anonymous and helps us improve.</p>
+        <div id="sat-form">
+          <div class="fg">
+            <label>Overall Experience</label>
+            <div class="emoji-row" id="emoji-overall">
+              <button class="emo-btn" onclick="setRating('overall',1)" data-val="1">&#128543;</button>
+              <button class="emo-btn" onclick="setRating('overall',2)" data-val="2">&#128528;</button>
+              <button class="emo-btn" onclick="setRating('overall',3)" data-val="3">&#128578;</button>
+              <button class="emo-btn" onclick="setRating('overall',4)" data-val="4">&#128522;</button>
+              <button class="emo-btn" onclick="setRating('overall',5)" data-val="5">&#129321;</button>
+            </div>
+          </div>
+          <div class="fg">
+            <label>How safe do you feel your child is?</label>
+            <div class="emoji-row" id="emoji-safety">
+              <button class="emo-btn" onclick="setRating('safety',1)" data-val="1">&#128543;</button>
+              <button class="emo-btn" onclick="setRating('safety',2)" data-val="2">&#128528;</button>
+              <button class="emo-btn" onclick="setRating('safety',3)" data-val="3">&#128578;</button>
+              <button class="emo-btn" onclick="setRating('safety',4)" data-val="4">&#128522;</button>
+              <button class="emo-btn" onclick="setRating('safety',5)" data-val="5">&#129321;</button>
+            </div>
+          </div>
+          <div class="fg">
+            <label>How is your child's progress?</label>
+            <div class="emoji-row" id="emoji-growth">
+              <button class="emo-btn" onclick="setRating('growth',1)" data-val="1">&#128543;</button>
+              <button class="emo-btn" onclick="setRating('growth',2)" data-val="2">&#128528;</button>
+              <button class="emo-btn" onclick="setRating('growth',3)" data-val="3">&#128578;</button>
+              <button class="emo-btn" onclick="setRating('growth',4)" data-val="4">&#128522;</button>
+              <button class="emo-btn" onclick="setRating('growth',5)" data-val="5">&#129321;</button>
+            </div>
+          </div>
+          <div class="fg">
+            <label>Anything you'd like us to know?</label>
+            <textarea id="sat-comment" placeholder="Share your thoughts (completely anonymous)..."></textarea>
+          </div>
+          <button class="btn btn-sage" style="width:100%" onclick="submitSatisfaction()"><i class="fas fa-paper-plane"></i> Submit Anonymous Feedback</button>
+        </div>
+        <div id="sat-thanks" style="display:none;text-align:center;padding:36px 0">
+          <div style="font-size:3rem;margin-bottom:14px">&#128154;</div>
+          <h3 style="color:var(--sage-dark);margin-bottom:6px">Thank You!</h3>
+          <p style="color:var(--text-mid);font-size:.88rem">Your anonymous feedback helps us serve your family better.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to See CC's in Person?</h2>
+    <p>Tours are relaxed, no-pressure, and your child is welcome to come along.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="#" class="btn btn-terra" onclick="event.preventDefault();openChat('tour')"><i class="fas fa-calendar-check"></i> Schedule a Tour</a>
+      <a href="tel:7146716970" class="btn btn-outline"><i class="fas fa-phone"></i> Call (714) 671-6970</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Get in Touch</h3>
+        <p>Or use our chat assistant for instant answers 24/7.</p>
+        <div class="cd"><div class="ci"><i class="fas fa-map-marker-alt"></i></div><div class="ct"><strong>Our Location</strong><span>300 East Imperial Highway, Brea, CA 92821</span></div></div>
+        <div class="cd"><div class="ci"><i class="fas fa-phone"></i></div><div class="ct"><strong>Phone</strong><a href="tel:7146716970">(714) 671-6970</a></div></div>
+        <div class="cd"><div class="ci"><i class="fas fa-envelope"></i></div><div class="ct"><strong>Email</strong><a href="mailto:info@ccslearningcenter.com">info@ccslearningcenter.com</a></div></div>
+        <div class="cd"><div class="ci"><i class="fas fa-clock"></i></div><div class="ct"><strong>Hours</strong><span>Monday - Friday, 6:30 AM - 6:00 PM</span></div></div>
+      </div>
+      <div class="contact-form-box">
+        <h3>Send a Message</h3>
+        <p>We'll respond within 24 hours.</p>
+        <form onsubmit="event.preventDefault();alert('Demo: Message sent! Mike notified.')">
+          <div class="frow"><div class="fg"><label>First Name *</label><input type="text" placeholder="Your first name"></div><div class="fg"><label>Last Name *</label><input type="text" placeholder="Your last name"></div></div>
+          <div class="frow"><div class="fg"><label>Email *</label><input type="email" placeholder="you@email.com"></div><div class="fg"><label>Phone</label><input type="tel" placeholder="(555) 123-4567"></div></div>
+          <div class="fg"><label>Interested In</label><select><option value="">Select...</option><option>Infant Care</option><option>Toddler</option><option>Preschool</option><option>Pre-K</option><option>After School</option><option>Tour</option><option>General</option></select></div>
+          <div class="fg"><label>Message</label><textarea placeholder="Tell us about your child..."></textarea></div>
+          <button type="submit" class="btn btn-sage" style="width:100%"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><div class="fl-mark"><i class="fas fa-seedling"></i></div> CC's Learning Center</div>
+        <p>Trusted, family-owned childcare in Brea. Where children explore, experiment, and discover.</p>
+        <div class="footer-license"><i class="fas fa-certificate"></i> License #304370797 & #304370798</div>
+      </div>
+      <div><h4>Programs</h4><ul><li><a href="#">Infant Care</a></li><li><a href="#">Toddler</a></li><li><a href="#">Preschool</a></li><li><a href="#">Pre-K</a></li><li><a href="#">After School</a></li></ul></div>
+      <div><h4>Parents</h4><ul><li><a href="#">Calendar</a></li><li><a href="#">Curriculum</a></li><li><a href="#">Lunch Menu</a></li><li><a href="#">Handbook</a></li><li><a href="#">FAQs</a></li></ul></div>
+      <div><h4>Quick Links</h4><ul><li><a href="#" onclick="event.preventDefault();openChat('tour')">Schedule Tour</a></li><li><a href="#" onclick="event.preventDefault();openChat('enroll')">Enroll</a></li><li><a href="#feedback">Give Feedback</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025-2026 CC's Learning Center Inc.</span><div class="f-socials"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+  </div>
+</footer>
+
+<!-- CHAT FAB -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()"><i class="fas fa-comments" id="fabIcon"></i><div class="badge" id="chatBadge" style="display:none">1</div></button>
+
+<!-- CHAT WINDOW -->
+<div class="chat-win" id="chatWin">
+  <div class="chat-top"><div class="chat-top-info"><div class="chat-top-ava"><i class="fas fa-seedling"></i></div><div class="chat-top-text"><h4>CC's Assistant</h4><span>Online now</span></div></div><button class="chat-x" onclick="toggleChat()"><i class="fas fa-times"></i></button></div>
+  <div class="chat-body" id="chatBody"></div>
+  <div id="chatOpts" class="chat-opts"></div>
+  <div class="chat-input-wrap"><input class="chat-inp" id="chatInp" placeholder="Type a message..." onkeypress="if(event.key==='Enter')sendMsg()"><button class="chat-send" onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button></div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div class="admin-overlay" id="adminOverlay" onclick="if(event.target===this)toggleAdmin()">
+  <div class="admin-modal">
+    <div class="admin-header">
+      <h2><i class="fas fa-chart-line" style="margin-right:8px"></i> Owner Dashboard</h2>
+      <button class="admin-close" onclick="toggleAdmin()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="admin-body">
+      <div class="admin-stats">
+        <div class="admin-stat"><div class="val" id="dash-leads">4</div><div class="lbl">Active Leads</div></div>
+        <div class="admin-stat"><div class="val" id="dash-tours">1</div><div class="lbl">Tours Requested</div></div>
+        <div class="admin-stat"><div class="val" id="dash-feedback">0</div><div class="lbl">Feedback Received</div></div>
+        <div class="admin-stat"><div class="val" id="dash-missed">1</div><div class="lbl">Missed Conversations</div></div>
+      </div>
+      <div>
+        <h3 style="font-size:1.05rem;margin-bottom:14px">Recent Leads &amp; Conversations</h3>
+        <table class="lead-table">
+          <thead><tr><th>Name</th><th>Interest</th><th>Status</th><th>Source</th><th>Time</th></tr></thead>
+          <tbody id="leadTableBody">
+            <tr><td><strong>Sarah Kim</strong></td><td>Infant Care</td><td><span class="lead-status hot">HOT &mdash; Tour Requested</span></td><td>Chat Agent</td><td>2 min ago</td></tr>
+            <tr><td><strong>David Reyes</strong></td><td>Preschool</td><td><span class="lead-status warm">WARM &mdash; Asking Questions</span></td><td>Chat Agent</td><td>15 min ago</td></tr>
+            <tr><td><strong>Lisa Chen</strong></td><td>Toddler</td><td><span class="lead-status enrolled">ENROLLED</span></td><td>Contact Form</td><td>1 hour ago</td></tr>
+            <tr><td>(Anonymous)</td><td>Pre-K</td><td><span class="lead-status warm">MISSED &mdash; Left Chat</span></td><td>Chat - Incomplete</td><td>3 hours ago</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:28px">
+        <h3 style="font-size:1.05rem;margin-bottom:12px">Missed Conversation Recovery</h3>
+        <div style="background:var(--honey-light);border-radius:var(--r-lg);padding:18px;border-left:4px solid var(--honey)">
+          <strong style="color:#B8860B"><i class="fas fa-exclamation-triangle"></i> Visitors left without completing onboarding</strong>
+          <p style="font-size:.84rem;color:var(--text-mid);margin-top:6px;line-height:1.6">These visitors started the chat but didn't finish. The system captured their conversation data and program interest. If they provided an email, a follow-up sequence can be triggered automatically.</p>
+          <button class="btn btn-sage" style="margin-top:10px;font-size:.82rem;padding:9px 18px" onclick="alert('In production: This triggers an automated email follow-up via n8n workflow')"><i class="fas fa-envelope"></i> Send Follow-Up Sequence</button>
+        </div>
+      </div>
+      <div style="margin-top:28px">
+        <h3 style="font-size:1.05rem;margin-bottom:12px">Marketing Agent &mdash; Beyond Yelp</h3>
+        <div class="mkt-grid">
+          <div class="mkt-card">
+            <h4><i class="fab fa-facebook" style="color:#1877f2;margin-right:5px"></i> Facebook &amp; Instagram</h4>
+            <p>Auto-post parent testimonials, event photos, and enrollment reminders to social channels weekly.</p>
+            <span class="mkt-status">Status: Ready to connect</span>
+          </div>
+          <div class="mkt-card">
+            <h4><i class="fas fa-map-marker-alt" style="color:#e74c3c;margin-right:5px"></i> Google Business + Local SEO</h4>
+            <p>Automated review request emails. Blog posts targeting "childcare Brea CA" and related searches.</p>
+            <span class="mkt-status">Status: Ready to connect</span>
+          </div>
+          <div class="mkt-card">
+            <h4><i class="fas fa-envelope-open-text" style="color:#9c27b0;margin-right:5px"></i> Email Nurture Sequences</h4>
+            <p>Drip campaigns for leads who toured but didn't enroll. Seasonal re-engagement for waitlisted families.</p>
+            <span class="mkt-status">Status: Ready to connect</span>
+          </div>
+          <div class="mkt-card">
+            <h4><i class="fas fa-bullhorn" style="color:var(--honey);margin-right:5px"></i> Community Outreach</h4>
+            <p>Nextdoor posts, local parenting group engagement, and referral tracking with nearby businesses.</p>
+            <span class="mkt-status">Status: Ready to connect</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let chatOpen=false,cState='idle',lead={name:'',email:'',phone:'',interest:''};
+let missedConvos=[];
+let satisfactionData={overall:0,safety:0,growth:0};
+let dashLeads=4,dashTours=1,dashFeedback=0,dashMissed=1;
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chatWin').classList.toggle('open',chatOpen);document.getElementById('fabIcon').className=chatOpen?'fas fa-times':'fas fa-comments';document.getElementById('chatBadge').style.display='none';if(chatOpen&&!document.getElementById('chatBody').children.length)startChat()}
+function openChat(ctx){if(!chatOpen)toggleChat();if(ctx)setTimeout(()=>handleCtx(ctx),400)}
+function addM(t,type,d){return new Promise(r=>{setTimeout(()=>{const b=document.getElementById('chatBody'),m=document.createElement('div');m.className='cmsg '+type;m.innerHTML=t;b.appendChild(m);b.scrollTop=b.scrollHeight;r()},d||0)})}
+function showTyp(){const b=document.getElementById('chatBody'),t=document.createElement('div');t.className='typing';t.id='typ';t.innerHTML='<span></span><span></span><span></span>';b.appendChild(t);b.scrollTop=b.scrollHeight}
+function hideTyp(){const t=document.getElementById('typ');if(t)t.remove()}
+function showOpts(opts){const c=document.getElementById('chatOpts');c.innerHTML='';opts.forEach(o=>{const b=document.createElement('button');b.className='copt';b.textContent=o.label;b.onclick=()=>{c.innerHTML='';o.action()};c.appendChild(b)})}
+async function startChat(){showTyp();await addM("Hi! I'm CC's virtual assistant. I can help you learn about our programs, schedule a tour, or start enrollment.",'bot',700);hideTyp();showTyp();await addM("What can I help you with?",'bot',500);hideTyp();cState='menu';showOpts([{label:'Learn About Programs',action:()=>handleCtx('programs')},{label:'Schedule a Tour',action:()=>handleCtx('tour')},{label:'Start Enrollment',action:()=>handleCtx('enroll')},{label:'Ask a Question',action:()=>{cState='free';addM("What would you like to know? I can answer questions about hours, meals, curriculum, safety, pricing, or anything else.",'bot',300)}}])}
+const progs={infant:{name:'Infant Care',ages:'6 weeks to 18 months',desc:"A safe, nurturing atmosphere where your baby develops trust through consistent routines. Low ratios ensure individual attention. Activities include sensory exploration, tummy time, music, and gentle social interaction."},toddler:{name:'Toddler Program',ages:'18 months to 2.5 years',desc:"Building creativity, self-esteem, and curiosity through hands-on activities and guided play. Children develop independence, language, and social awareness in a supportive environment."},preschool:{name:'Preschool',ages:'2.5 to 4 years',desc:"Structured learning through age-appropriate activities. Early literacy, numeracy, creative expression, and social-emotional development through group activities, art, science, and outdoor play."},prek:{name:'Pre-Kindergarten',ages:'4 to 5 years',desc:"Focused kindergarten readiness: literacy, math foundations, writing, and classroom confidence. Emphasizes independence and responsibility."},afterschool:{name:'After School',ages:'5 to 12 years',desc:"Safe, structured environment after school with homework help, enrichment activities, and time for learning and play with peers."}};
+async function handleCtx(ctx){if(ctx==='programs'){await addM("How old is your child?",'bot',300);showOpts([{label:'0-18 months',action:()=>showProg('infant')},{label:'18mo-2.5yr',action:()=>showProg('toddler')},{label:'2.5-4 years',action:()=>showProg('preschool')},{label:'4-5 years',action:()=>showProg('prek')},{label:'5-12 years',action:()=>showProg('afterschool')}])}else if(progs[ctx]){showProg(ctx)}else if(ctx==='tour'){await addM("We'd love to show you around! What's your name?",'bot',300);cState='tour_name';lead.interest='Tour'}else if(ctx==='enroll'){await addM("Let's get started! I'll walk you through it and send all the paperwork. What's your name?",'bot',300);cState='enroll_name';lead.interest='Enrollment'}}
+async function showProg(k){const p=progs[k];await addM('I\'m interested in '+p.name,'user',0);showTyp();await addM('<strong>'+p.name+'</strong> ('+p.ages+')<br><br>'+p.desc,'bot',700);hideTyp();lead.interest=p.name;showOpts([{label:'Schedule a Tour',action:()=>handleCtx('tour')},{label:'Start Enrollment',action:()=>handleCtx('enroll')},{label:'Ask About Pricing',action:()=>pricing()},{label:'Other Programs',action:()=>handleCtx('programs')}])}
+async function pricing(){await addM("What about pricing?",'user',0);showTyp();await addM("Pricing varies by program and schedule. The quickest way to get specifics is scheduling a tour where we discuss everything in detail.",'bot',700);hideTyp();showOpts([{label:'Schedule a Tour',action:()=>handleCtx('tour')},{label:'Have Someone Call Me',action:()=>{addM("What's the best number to reach you?",'bot',300);cState='cb_phone'}}])}
+function sendMsg(){const i=document.getElementById('chatInp'),t=i.value.trim();if(!t)return;i.value='';addM(t,'user',0);handleInput(t)}
+async function handleInput(t){switch(cState){case'tour_name':case'enroll_name':lead.name=t;showTyp();await addM('Nice to meet you, '+t+'! What\'s your email?','bot',400);hideTyp();cState=cState.replace('name','email');break;case'tour_email':case'enroll_email':lead.email=t;showTyp();await addM("Phone number? (type 'skip' to skip)",'bot',400);hideTyp();cState=cState.replace('email','phone');break;case'tour_phone':lead.phone=t==='skip'?'':t;showTyp();await addM("Which program interests you?",'bot',400);hideTyp();showOpts([{label:'Infant Care',action:()=>finishTour('Infant Care')},{label:'Toddler',action:()=>finishTour('Toddler')},{label:'Preschool',action:()=>finishTour('Preschool')},{label:'Pre-K',action:()=>finishTour('Pre-K')},{label:'After School',action:()=>finishTour('After School')},{label:'Not sure yet',action:()=>finishTour('Undecided')}]);break;case'enroll_phone':lead.phone=t==='skip'?'':t;showTyp();await addM("Which program?",'bot',400);hideTyp();showOpts([{label:'Infant Care',action:()=>finishEnroll('Infant Care')},{label:'Toddler',action:()=>finishEnroll('Toddler')},{label:'Preschool',action:()=>finishEnroll('Preschool')},{label:'Pre-K',action:()=>finishEnroll('Pre-K')},{label:'After School',action:()=>finishEnroll('After School')}]);break;case'cb_phone':lead.phone=t;await addM("And your name?",'bot',300);cState='cb_name';break;case'cb_name':lead.name=t;showTyp();await addM('Done! Someone will call you at '+lead.phone+' within one business day.','bot',600);hideTyp();addM('Mike has been notified!','sys',200);cState='free';break;default:await handleFree(t)}}
+async function finishTour(prog){await addM(prog,'user',0);showTyp();await addM('<strong>Tour Request</strong><br><br>'+lead.name+'<br>'+lead.email+'<br>'+(lead.phone||'No phone')+'<br>Interest: '+prog+'<br><br>We\'ll reach out within 24 hours to confirm a time. Bring your child along!','bot',900);hideTyp();addM('Mike has been notified of your tour request!','sys',200);addNotification(lead.name,prog,'tour');dashLeads++;dashTours++;updateDash();cState='free'}
+async function finishEnroll(prog){await addM(prog,'user',0);showTyp();await addM('<strong>Enrollment Started!</strong><br><br>Sending to '+lead.email+':<br>- Enrollment Application<br>- Medical/Immunization Forms<br>- Emergency Contact Form<br>- Parent Handbook<br>- Meal Plan Preferences<br><br>Our team will follow up within 24 hours.','bot',1000);hideTyp();addM('Mike notified, paperwork sent!','sys',200);addNotification(lead.name,prog,'hot');dashLeads++;updateDash();cState='free'}
+async function handleFree(t){const l=t.toLowerCase();showTyp();let r='';if(l.match(/hour|open|close/))r="We're open <strong>Monday-Friday, 6:30 AM to 6:00 PM</strong>.";else if(l.match(/meal|food|lunch|allerg/))r="Balanced meals and snacks prepared on-site. Breakfast, lunch, and afternoon snack included. We accommodate allergies.";else if(l.match(/safe|secur|camera/))r="Secure entry, background-checked staff, strict sign-in/out, and required ratios at all times.";else if(l.match(/cost|price|tuition|fee/)){r="Tuition varies by program. Best way to get exact numbers is scheduling a tour.";setTimeout(()=>showOpts([{label:'Schedule a Tour',action:()=>handleCtx('tour')}]),800)}else if(l.match(/ratio|class size/))r="We maintain low ratios that meet or exceed California requirements.";else if(l.match(/curriculum|teach|learn/))r="Multicultural approach blending structured academics with play-based learning across literacy, numeracy, science, arts, and social-emotional development.";else{r="Great question! I'll flag this for the team. Anything else I can help with?";setTimeout(()=>showOpts([{label:'Programs',action:()=>handleCtx('programs')},{label:'Schedule Tour',action:()=>handleCtx('tour')}]),600)}await addM(r,'bot',600);hideTyp()}
+
+// Compare tabs
+function showView(v,btn){document.querySelectorAll('.cview').forEach(e=>e.style.display='none');document.querySelectorAll('.ctab').forEach(e=>e.classList.remove('active'));document.getElementById('v-'+v).style.display='block';btn.classList.add('active');if(v==='bars')animBars()}
+function animBars(){document.querySelectorAll('.bar-fill').forEach(b=>{b.style.width='0';setTimeout(()=>{b.style.width=b.dataset.w},80)})}
+
+// Nav scroll shadow
+window.addEventListener('scroll',()=>{document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>10)});
+
+// === SATISFACTION ===
+function setRating(category,value){
+  satisfactionData[category]=value;
+  const container=document.getElementById('emoji-'+category);
+  container.querySelectorAll('.emo-btn').forEach(btn=>{
+    btn.classList.toggle('active',parseInt(btn.dataset.val)===value);
+  });
+}
+function submitSatisfaction(){
+  if(!satisfactionData.overall){alert('Please rate your overall experience!');return}
+  document.getElementById('sat-form').style.display='none';
+  document.getElementById('sat-thanks').style.display='block';
+  dashFeedback++;
+  updateDash();
+  const targets={'sat-overall':4.8,'sat-safety':4.9,'sat-comm':4.7,'sat-growth':4.8};
+  Object.keys(targets).forEach(id=>{
+    const el=document.getElementById(id);
+    const current=parseFloat(el.textContent);
+    const newVal=((current*50+satisfactionData[id==='sat-comm'?'overall':id.replace('sat-','')])/51).toFixed(1);
+    el.textContent=newVal;
+  });
+}
+
+// === NOTIFICATIONS & ADMIN ===
+function addNotification(name,interest,type){
+  const row=document.createElement('tr');
+  row.innerHTML='<td><strong>'+name+'</strong></td><td>'+interest+'</td><td><span class="lead-status '+type+'">'+(type==='hot'?'HOT &mdash; Enrollment':type==='tour'?'TOUR REQUEST':'WARM &mdash; Inquiring')+'</span></td><td>Chat Agent</td><td>Just now</td>';
+  const tbody=document.getElementById('leadTableBody');
+  tbody.insertBefore(row,tbody.firstChild);
+}
+function updateDash(){
+  document.getElementById('dash-leads').textContent=dashLeads;
+  document.getElementById('dash-tours').textContent=dashTours;
+  document.getElementById('dash-feedback').textContent=dashFeedback;
+  document.getElementById('dash-missed').textContent=dashMissed;
+}
+function toggleAdmin(){
+  document.getElementById('adminOverlay').classList.toggle('open');
+}
+
+// === MISSED CONVERSATION TRACKING ===
+window.addEventListener('beforeunload',()=>{
+  if(lead.name||lead.email||missedConvos.length>0){
+    if(!lead.email){
+      dashMissed++;
+      console.log('MISSED CONVERSATION:',{lead,missedConvos});
+    }
+  }
+});
+
+// Auto badge
+setTimeout(()=>{if(!chatOpen)document.getElementById('chatBadge').style.display='flex'},4000);
+</script>
+
+</body>
+</html>
