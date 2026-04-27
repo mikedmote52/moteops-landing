@@ -3,33 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mote Ops — AI Systems That Actually Work for Your Business</title>
-  <meta name="description" content="Mote Ops builds custom AI systems for small businesses. Not chatbots. Not strategy decks. Working automation that saves you hours every week." />
-  <meta property="og:title" content="Mote Ops — AI Systems That Actually Work" />
-  <meta property="og:description" content="Custom AI workflows for small businesses. Real systems, real time saved." />
+  <title>Mote Ops — AI Systems Built for Your Business</title>
+  <meta name="description" content="Custom AI automations for small business owners. Free consultation. Itemized monthly subscription. Cancel anytime." />
+  <meta property="og:title" content="Mote Ops — AI Systems Built for Your Business" />
+  <meta property="og:description" content="Custom AI automations for small business. Free consultation, itemized monthly subscription, cancel anytime." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #050608;
-      --surface: #0a0d14;
-      --surface-2: #10141d;
-      --border: rgba(255,255,255,.06);
-      --border-light: rgba(255,255,255,.1);
-      --accent: #3B82F6;
-      --accent-dim: rgba(59, 130, 246, 0.1);
-      --accent-glow: rgba(59, 130, 246, 0.2);
-      --green: #10b981;
-      --green-dim: rgba(16,185,129,.1);
-      --text: #e8eaf0;
-      --text-muted: #6b7280;
-      --text-dim: #3d4452;
-      --radius: 16px;
-      --radius-sm: 10px;
+      --bg: #07090d;
+      --bg-2: #0c1018;
+      --surface: #11161f;
+      --surface-2: #161c27;
+      --surface-3: #1c2331;
+      --border: rgba(255,255,255,.07);
+      --border-strong: rgba(255,255,255,.13);
+      --accent: #3b82f6;
+      --accent-hi: #60a5fa;
+      --accent-glow: rgba(59,130,246,.18);
+      --accent-soft: rgba(59,130,246,.08);
+      --green: #34d399;
+      --green-soft: rgba(52,211,153,.1);
+      --amber: #fbbf24;
+      --text: #e5e7eb;
+      --text-mute: #9ca3af;
+      --text-dim: #6b7280;
+      --text-faint: #4b5563;
+      --radius: 14px;
+      --radius-lg: 20px;
+      --radius-sm: 8px;
+      --max-w: 1080px;
     }
 
     html { scroll-behavior: smooth; }
@@ -40,2377 +47,1064 @@
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* ── Layout ── */
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    section { padding: 88px 0; }
 
-    section { padding: 96px 0; }
+    a { color: inherit; text-decoration: none; }
 
     /* ── Nav ── */
-    nav {
+    nav.top {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(5, 6, 8, 0.82);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(7,9,13,.78);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
       border-bottom: 1px solid var(--border);
     }
-
     .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       height: 64px;
     }
-
     .logo {
-      font-size: 18px;
       font-weight: 800;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.5px;
+      font-size: 17px;
+      letter-spacing: -0.4px;
+      display: flex; align-items: center; gap: 8px;
     }
-
-    .logo span { color: var(--green); }
-
-    nav a.nav-cta {
-      background: var(--green);
-      color: #000;
-      text-decoration: none;
-      padding: 9px 20px;
-      border-radius: 8px;
+    .logo-mark {
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--accent), var(--green));
+      display: inline-block;
+      box-shadow: 0 0 12px rgba(59,130,246,.3);
+    }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      padding: 9px 18px;
+      border-radius: 9px;
       font-size: 13px;
       font-weight: 700;
-      transition: all 0.2s;
-      letter-spacing: -0.01em;
+      transition: all .2s ease;
+      letter-spacing: -.01em;
     }
-
-    nav a.nav-cta:hover { box-shadow: 0 0 20px rgba(16,185,129,.25); transform: translateY(-1px); }
+    .nav-cta:hover { background: var(--accent-hi); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(59,130,246,.3); }
 
     /* ── Hero ── */
     .hero {
-      padding: 140px 0 80px;
+      padding: 100px 0 72px;
       position: relative;
       overflow: hidden;
     }
-
     .hero::before {
       content: '';
       position: absolute;
-      top: -300px;
-      left: 50%;
+      top: -200px; left: 50%;
       transform: translateX(-50%);
-      width: 1000px;
-      height: 800px;
-      background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.06) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 70%);
+      width: 1100px; height: 700px;
+      background: radial-gradient(ellipse at center, rgba(59,130,246,.09) 0%, rgba(52,211,153,.04) 40%, transparent 70%);
       pointer-events: none;
     }
-
     .hero-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--green-dim);
-      border: 1px solid rgba(16,185,129,.2);
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-soft);
+      border: 1px solid rgba(52,211,153,.22);
       border-radius: 100px;
-      padding: 6px 16px;
+      padding: 6px 14px;
       font-size: 12.5px;
       font-weight: 600;
       color: var(--green);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       letter-spacing: .02em;
     }
-
     .hero-label .dot {
-      width: 6px;
-      height: 6px;
-      background: var(--green);
+      width: 6px; height: 6px; background: var(--green);
       border-radius: 50%;
       animation: pulse 2s infinite;
-      box-shadow: 0 0 6px rgba(16,185,129,.4);
+      box-shadow: 0 0 6px rgba(52,211,153,.5);
     }
-
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+      0%,100% { opacity: 1; }
+      50% { opacity: .4; }
     }
-
     h1 {
-      font-size: clamp(38px, 6vw, 64px);
+      font-size: clamp(36px, 5.6vw, 60px);
       font-weight: 800;
-      line-height: 1.06;
-      letter-spacing: -2px;
-      color: #f9fafb;
-      margin-bottom: 24px;
-      max-width: 780px;
+      line-height: 1.04;
+      letter-spacing: -1.6px;
+      color: #f3f4f6;
+      margin-bottom: 22px;
+      max-width: 820px;
     }
-
     h1 em {
       font-style: normal;
-      background: linear-gradient(135deg, var(--green), var(--accent));
+      background: linear-gradient(135deg, var(--accent-hi), var(--green));
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 17.5px;
+      color: var(--text-mute);
+      max-width: 640px;
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+    .hero-actions {
+      display: flex; align-items: center; gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 26px;
+      border-radius: 10px;
+      transition: all .2s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 8px 22px rgba(59,130,246,.25);
+    }
+    .btn-primary:hover { background: var(--accent-hi); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(59,130,246,.4); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14.5px;
+      padding: 13px 22px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      transition: all .2s ease;
+    }
+    .btn-secondary:hover { background: var(--surface); border-color: rgba(255,255,255,.2); }
+    .hero-note {
+      font-size: 13.5px;
+      color: var(--text-dim);
+      margin-top: 18px;
     }
 
-    .hero-sub {
+    /* ── Trust strip ── */
+    .trust-strip {
+      padding: 36px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,.01));
+    }
+    .trust-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      align-items: center;
+    }
+    .trust-metric { text-align: center; }
+    .trust-val {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: #f3f4f6;
+      margin-bottom: 4px;
+    }
+    .trust-val .accent { color: var(--accent-hi); }
+    .trust-label {
+      font-size: 12.5px;
+      color: var(--text-mute);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    /* ── Section header ── */
+    .section-eyebrow {
+      font-size: 12.5px;
+      color: var(--accent-hi);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-size: clamp(28px, 3.6vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      line-height: 1.15;
+      color: #f3f4f6;
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+    .section-lede {
       font-size: 17px;
-      color: var(--text-muted);
-      max-width: 540px;
-      line-height: 1.7;
+      color: var(--text-mute);
+      max-width: 700px;
+      line-height: 1.65;
       margin-bottom: 40px;
     }
 
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .hero-note {
-      font-size: 13px;
-      color: var(--text-dim);
-      margin-top: 16px;
-    }
-
-    /* ── Trust Bar ── */
-    .trust-bar {
-      padding: 48px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .trust-metrics {
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      flex-wrap: wrap;
-    }
-    .trust-metric {
-      text-align: center;
-    }
-    .trust-val {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: #f9fafb;
-      line-height: 1;
-    }
-    .trust-val.green { color: var(--green); }
-    .trust-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 4px;
-      font-weight: 500;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--green);
-      color: #000;
-      text-decoration: none;
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      transition: all 0.2s;
-      border: none;
-      cursor: pointer;
-      letter-spacing: -0.01em;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(16,185,129,.25);
-    }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--text-muted);
-      text-decoration: none;
-      padding: 14px 20px;
-      border-radius: var(--radius-sm);
-      font-size: 15px;
-      font-weight: 500;
-      transition: color 0.15s;
-      border: 1px solid var(--border-light);
-    }
-
-    .btn-ghost:hover { color: var(--text); border-color: var(--border-light); }
-
-    /* ── Section headers ── */
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 16px;
-    }
-
-    h2 {
-      font-size: clamp(26px, 4vw, 40px);
-      font-weight: 800;
-      letter-spacing: -1px;
-      line-height: 1.12;
-      color: #f9fafb;
-      margin-bottom: 16px;
-    }
-
-    .section-sub {
-      font-size: 16px;
-      color: var(--text-muted);
-      max-width: 520px;
-      line-height: 1.7;
-      margin-bottom: 56px;
-    }
-
-    /* ── Divider ── */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-    }
-
-    /* ── Pain section ── */
-    .pain-grid {
+    /* ── Case study tiles (compact, social proof row) ── */
+    .relationships {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px;
-      margin-top: 48px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
     }
-
-    .pain-card {
+    .rel-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px;
-      transition: border-color .3s;
+      padding: 22px;
+      transition: all .25s ease;
     }
-
-    .pain-card:hover {
-      border-color: var(--border-light);
+    .rel-card:hover {
+      border-color: rgba(59,130,246,.3);
+      transform: translateY(-2px);
+      background: var(--surface-2);
     }
-
-    .pain-icon {
-      font-size: 22px;
+    .rel-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #f3f4f6;
+      margin-bottom: 4px;
+      letter-spacing: -.01em;
+    }
+    .rel-vert {
+      font-size: 12px;
+      color: var(--accent-hi);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
       margin-bottom: 12px;
     }
-
-    .pain-card h3 {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 8px;
+    .rel-quote {
+      font-size: 13.5px;
+      color: var(--text-mute);
+      line-height: 1.55;
     }
 
-    .pain-card p {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ── Services ── */
-    .services-grid {
+    /* ── Demo strip (the operating stack) ── */
+    .demo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
     }
-
-    @media (max-width: 640px) {
-      .services-grid { grid-template-columns: 1fr; }
-    }
-
-    .service-card {
+    .demo-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 32px;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+      transition: all .25s ease;
+      display: flex; flex-direction: column;
     }
-
-    .service-card:hover {
-      border-color: rgba(16, 185, 129, 0.2);
-      box-shadow: 0 4px 24px rgba(0,0,0,.3);
+    .demo-card:hover {
+      border-color: rgba(59,130,246,.3);
       transform: translateY(-2px);
     }
-
-    .service-num {
-      font-size: 10px;
+    .demo-thumb {
+      height: 130px;
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-thumb svg { width: 100%; height: 100%; display: block; }
+    .demo-body { padding: 18px 20px 20px; }
+    .demo-title {
+      font-size: 14.5px;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      color: #f3f4f6;
+      margin-bottom: 4px;
+      letter-spacing: -.01em;
+    }
+    .demo-tag {
+      font-size: 11px;
+      font-weight: 600;
       color: var(--green);
-      background: var(--green-dim);
-      border: 1px solid rgba(16, 185, 129, 0.15);
-      border-radius: 6px;
-      padding: 4px 10px;
-      display: inline-block;
-      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 10px;
     }
-
-    .service-card h3 {
-      font-size: 19px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 12px;
-      letter-spacing: -0.3px;
-    }
-
-    .service-card p {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.65;
-      margin-bottom: 20px;
-    }
-
-    .service-result {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      border-radius: var(--radius-sm);
-      padding: 10px 14px;
+    .demo-tag.amber { color: var(--amber); }
+    .demo-tag.blue { color: var(--accent-hi); }
+    .demo-desc {
       font-size: 13px;
-      color: #6EE7B7;
-      font-weight: 500;
+      color: var(--text-mute);
+      line-height: 1.55;
     }
 
     /* ── How it works ── */
-    .how-bg {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
     .steps {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      position: relative;
-    }
-
-    @media (max-width: 640px) {
-      .steps { grid-template-columns: 1fr; }
-    }
-
-    .steps::before {
-      content: '';
-      position: absolute;
-      top: 36px;
-      left: calc(100% / 6);
-      right: calc(100% / 6);
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border-light), transparent);
-    }
-
-    @media (max-width: 640px) {
-      .steps::before { display: none; }
-    }
-
-    .step {
-      padding: 40px 32px;
-      text-align: center;
-      position: relative;
-    }
-
-    .step-num {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 1px solid rgba(16,185,129,.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--green);
-      margin: 0 auto 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .step h3 {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 10px;
-      letter-spacing: -0.2px;
-    }
-
-    .step p {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ── What you get ── */
-    .get-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    @media (max-width: 640px) {
-      .get-grid { grid-template-columns: 1fr; }
-    }
-
-    .get-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 18px 20px;
-    }
-
-    .get-check {
-      width: 20px;
-      height: 20px;
-      min-width: 20px;
-      background: rgba(16, 185, 129, 0.12);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      margin-top: 1px;
-    }
-
-    .get-item p {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .get-item strong { color: var(--text); }
-
-    /* ── Social proof ── */
-    .proof-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .proof-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-    }
-
-    .proof-stars {
-      color: #F59E0B;
-      font-size: 14px;
-      margin-bottom: 16px;
-      letter-spacing: 2px;
-    }
-
-    .proof-card blockquote {
-      font-size: 15px;
-      color: var(--text);
-      line-height: 1.65;
-      font-style: italic;
-      margin-bottom: 20px;
-    }
-
-    .proof-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .proof-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--surface-2);
-      border: 1px solid var(--border-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--green);
-    }
-
-    .proof-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .proof-title {
-      font-size: 12px;
-      color: var(--text-dim);
-    }
-
-    .proof-placeholder-note {
-      text-align: center;
-      margin-top: 24px;
-      font-size: 13px;
-      color: var(--text-dim);
-      font-style: italic;
-    }
-
-    /* ── Contact / CTA ── */
-    .contact-wrap {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .contact-wrap h2 { margin-bottom: 12px; }
-
-    .contact-wrap .section-sub {
-      margin: 0 auto 48px;
-      text-align: center;
-    }
-
-    .contact-form {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 40px;
-      text-align: left;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
     }
-
-    @media (max-width: 560px) {
-      .form-row { grid-template-columns: 1fr; }
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    input, textarea, select {
-      width: 100%;
-      background: var(--surface-2);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      font-size: 14px;
-      color: var(--text);
-      font-family: inherit;
-      transition: border-color 0.15s;
-      outline: none;
-    }
-
-    input:focus, textarea:focus, select:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-    }
-
-    textarea { resize: vertical; min-height: 100px; }
-
-    select option { background: var(--surface-2); }
-
-    .form-submit {
-      width: 100%;
-      justify-content: center;
-      font-size: 15px;
-      padding: 14px;
-    }
-
-    .form-fine {
-      text-align: center;
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--text-dim);
-    }
-
-    .form-fine a { color: var(--text-muted); text-decoration: none; }
-    .form-fine a:hover { color: var(--text); }
-
-    /* ── AI Savings Questionnaire ── */
-    .quiz-wrap { max-width: 680px; margin: 0 auto; }
-
-    .quiz-header { text-align: center; margin-bottom: 48px; }
-
-    .quiz-progress {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      margin-bottom: 36px;
-    }
-
-    .progress-dot {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: 2px solid var(--border-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-dim);
-      transition: all 0.3s;
-      background: var(--bg);
-      flex-shrink: 0;
-    }
-
-    .progress-dot.active {
-      border-color: var(--green);
-      color: var(--green);
-      background: var(--green-dim);
-      box-shadow: 0 0 0 4px rgba(16,185,129,0.1);
-    }
-
-    .progress-dot.done {
-      border-color: #10B981;
-      color: #fff;
-      background: #10B981;
-    }
-
-    .progress-line {
-      height: 2px;
-      width: 40px;
-      background: var(--border-light);
-      transition: background 0.4s;
-      flex-shrink: 0;
-    }
-
-    .progress-line.done { background: #10B981; }
-
-    .quiz-card {
+    .step {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 40px;
-      min-height: 360px;
+      padding: 24px 22px;
+      position: relative;
     }
-
-    @media (max-width: 560px) { .quiz-card { padding: 28px 20px; } }
-
-    .quiz-step { display: none; animation: stepIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-    .quiz-step.active { display: block; }
-    .quiz-step.going-back { animation: stepInLeft 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-
-    @keyframes stepIn {
-      from { opacity: 0; transform: translateX(24px); }
-      to   { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes stepInLeft {
-      from { opacity: 0; transform: translateX(-24px); }
-      to   { opacity: 1; transform: translateX(0); }
-    }
-
-    .step-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 6px;
-    }
-
-    .step-title {
-      font-size: 21px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.4px;
-      line-height: 1.3;
-      margin-bottom: 28px;
-    }
-
-    .q-group { margin-bottom: 24px; }
-
-    .q-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-      display: block;
-      line-height: 1.5;
-    }
-
-    .quiz-select {
-      width: 100%;
-      background: var(--surface-2);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      font-size: 14px;
-      color: var(--text);
-      font-family: inherit;
-      transition: border-color 0.15s;
-      outline: none;
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='%237A8299' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      cursor: pointer;
-    }
-
-    .quiz-select:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
-    }
-
-    .quiz-select option { background: var(--surface-2); }
-
-    .choice-grid { display: grid; gap: 8px; }
-    .choice-grid.cols-2 { grid-template-columns: 1fr 1fr; }
-    .choice-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-
-    @media (max-width: 480px) {
-      .choice-grid.cols-2 { grid-template-columns: 1fr; }
-      .choice-grid.cols-3 { grid-template-columns: 1fr; }
-    }
-
-    .choice-btn {
-      background: var(--surface-2);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      padding: 11px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.15s;
-      text-align: left;
-      font-family: inherit;
-      line-height: 1.4;
-    }
-
-    .choice-btn:hover {
-      border-color: rgba(16,185,129,0.3);
-      color: var(--text);
-      background: rgba(16,185,129,0.04);
-    }
-
-    .choice-btn.selected {
-      border-color: var(--green);
-      background: var(--green-dim);
-      color: var(--text);
-    }
-
-    /* Sliders */
-    .slider-group { margin-bottom: 24px; }
-
-    .slider-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .slider-q {
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 500;
-      line-height: 1.45;
-      padding-top: 2px;
-    }
-
-    .slider-val {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--green);
-      min-width: 72px;
-      text-align: right;
-      letter-spacing: -0.5px;
-      white-space: nowrap;
-    }
-
-    .slider-val span {
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
-      font-weight: 500;
-      color: var(--text-dim);
-      letter-spacing: 0;
-    }
-
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 4px;
-      border-radius: 2px;
-      background: var(--border-light);
-      outline: none;
-      cursor: pointer;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--green);
-      cursor: pointer;
-      box-shadow: 0 0 0 4px rgba(16,185,129,0.2), 0 2px 6px rgba(0,0,0,0.3);
-      transition: box-shadow 0.15s;
-    }
-
-    input[type="range"]::-webkit-slider-thumb:hover {
-      box-shadow: 0 0 0 7px rgba(16,185,129,0.2), 0 2px 6px rgba(0,0,0,0.3);
-    }
-
-    input[type="range"]::-moz-range-thumb {
-      width: 22px;
-      height: 22px;
-      border: none;
-      border-radius: 50%;
-      background: var(--green);
-      cursor: pointer;
-      box-shadow: 0 0 0 4px rgba(16,185,129,0.2);
-    }
-
-    .slider-labels {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--text-dim);
-    }
-
-    /* Nav */
-    .quiz-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 32px;
-      gap: 12px;
-    }
-
-    .btn-back {
-      background: transparent;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      padding: 11px 20px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.15s;
-    }
-
-    .btn-back:hover { color: var(--text); }
-
-    .btn-next {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--green);
-      border: none;
-      border-radius: 10px;
-      padding: 12px 22px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #000;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.2s;
-      margin-left: auto;
-    }
-
-    .btn-next:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(16,185,129,.25);
-    }
-
-    /* Results */
-    .results-reveal { animation: revealIn 0.5s ease; }
-
-    @keyframes revealIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .savings-hero {
-      text-align: center;
-      padding: 20px 0 28px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 24px;
-    }
-
-    .savings-grade {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 68px;
-      height: 68px;
-      border-radius: 50%;
-      font-size: 30px;
-      font-weight: 800;
-      margin: 0 auto 16px;
-      border: 2px solid;
-    }
-
-    .grade-a { color: #10B981; border-color: #10B981; background: rgba(16,185,129,0.1); }
-    .grade-b { color: #F59E0B; border-color: #F59E0B; background: rgba(245,158,11,0.1); }
-    .grade-c { color: #F97316; border-color: #F97316; background: rgba(249,115,22,0.1); }
-    .grade-d { color: #EF4444; border-color: #EF4444; background: rgba(239,68,68,0.1); }
-
-    .savings-insight {
-      font-size: 15px;
-      color: var(--text);
-      line-height: 1.55;
-      max-width: 440px;
-      margin: 0 auto;
-      font-weight: 500;
-    }
-
-    .savings-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    @media (max-width: 480px) { .savings-stats { grid-template-columns: 1fr; } }
-
-    .stat-box {
-      background: var(--surface-2);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      padding: 18px 12px;
-      text-align: center;
-    }
-
-    .stat-num {
-      font-size: 30px;
-      font-weight: 800;
-      color: var(--green);
-      letter-spacing: -1px;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: var(--text-dim);
-      line-height: 1.5;
-    }
-
-    .results-cta {
-      background: rgba(16,185,129,0.06);
-      border: 1px solid rgba(16,185,129,0.15);
-      border-radius: var(--radius-sm);
-      padding: 18px 20px;
-      text-align: center;
-      margin-bottom: 4px;
-    }
-
-    .results-cta p {
-      font-size: 15px;
-      color: var(--text);
-      margin-bottom: 4px;
       font-weight: 600;
+      color: var(--accent-hi);
+      letter-spacing: .1em;
+      margin-bottom: 14px;
+    }
+    .step-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #f3f4f6;
+      margin-bottom: 8px;
+      letter-spacing: -.01em;
+    }
+    .step-desc {
+      font-size: 13.5px;
+      color: var(--text-mute);
+      line-height: 1.55;
     }
 
-    .results-cta span { font-size: 13px; color: var(--text-muted); }
-
-    /* Contact step */
-    .contact-row {
+    /* ── Case study expanded ── */
+    .case-list {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 12px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
     }
-
-    @media (max-width: 480px) { .contact-row { grid-template-columns: 1fr; } }
-
-    .contact-field { margin-bottom: 12px; }
-
-    .contact-field label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-muted);
-      margin-bottom: 7px;
+    .case-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      display: flex; flex-direction: column;
+      transition: all .25s ease;
     }
-
-    .quiz-input {
-      width: 100%;
+    .case-card:hover {
+      border-color: var(--border-strong);
       background: var(--surface-2);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      padding: 11px 13px;
-      font-size: 14px;
-      color: var(--text);
-      font-family: inherit;
-      transition: border-color 0.15s;
-      outline: none;
     }
-
-    .quiz-input:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+    .case-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
     }
-
-    .btn-submit-quiz {
-      width: 100%;
-      justify-content: center;
-      padding: 14px;
-      font-size: 15px;
+    .case-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: #f3f4f6;
+      letter-spacing: -.02em;
+    }
+    .case-vert {
+      font-size: 11.5px;
+      color: var(--accent-hi);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
       margin-top: 4px;
     }
-
-    .quiz-fine {
-      text-align: center;
-      margin-top: 14px;
+    .case-tenure {
       font-size: 12px;
-      color: var(--text-dim);
+      font-weight: 600;
+      color: var(--green);
+      background: var(--green-soft);
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .case-body {
+      font-size: 14px;
+      color: var(--text-mute);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .case-body strong { color: var(--text); font-weight: 600; }
+    .case-list-items {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .case-list-items li {
+      font-size: 13px;
+      color: var(--text-mute);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.55;
+    }
+    .case-list-items li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px;
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
     }
 
-    .quiz-fine a { color: var(--text-muted); text-decoration: none; }
-
-    /* Success */
-    .quiz-success {
-      text-align: center;
-      padding: 48px 24px;
-      animation: revealIn 0.5s ease;
+    /* ── Pricing ── */
+    .pricing-block {
+      background: linear-gradient(180deg, var(--surface), var(--surface-2));
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 44px 40px;
     }
-
-    .success-icon-big { font-size: 48px; margin-bottom: 16px; }
-
-    .quiz-success h3 {
-      font-size: 22px;
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+    .price-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .price-row:last-child { border-bottom: none; }
+    .price-label {
+      font-size: 14px;
+      color: var(--text-mute);
+    }
+    .price-val {
+      font-size: 17px;
       font-weight: 700;
       color: var(--text);
-      letter-spacing: -0.3px;
-      margin-bottom: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -.02em;
     }
-
-    .quiz-success p {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 380px;
-      margin: 0 auto;
+    .price-val.hi { color: var(--accent-hi); }
+    .pricing-points {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .pricing-points li {
+      font-size: 14px;
+      color: var(--text-mute);
+      padding-left: 26px;
+      position: relative;
       line-height: 1.6;
     }
+    .pricing-points li::before {
+      content: '✓';
+      position: absolute;
+      left: 0; top: 0;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .pricing-points strong { color: var(--text); font-weight: 600; }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+    }
+    .about-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: #f3f4f6;
+      letter-spacing: -.02em;
+      margin-bottom: 4px;
+    }
+    .about-title {
+      font-size: 13px;
+      color: var(--accent-hi);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 18px;
+    }
+    .about-cred {
+      font-size: 13.5px;
+      color: var(--text-mute);
+      line-height: 1.65;
+      padding: 14px 0;
+      border-top: 1px solid var(--border);
+    }
+    .about-cred:first-of-type { border-top: none; padding-top: 0; }
+    .about-cred strong { color: var(--text); font-weight: 600; }
+    .about-body p {
+      font-size: 15.5px;
+      color: var(--text-mute);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .about-body p strong { color: var(--text); font-weight: 600; }
+
+    /* ── CTA banner ── */
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(59,130,246,.12), rgba(52,211,153,.06));
+      border: 1px solid rgba(59,130,246,.25);
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      text-align: center;
+    }
+    .cta-banner h2 {
+      margin: 0 auto 14px;
+      max-width: 640px;
+    }
+    .cta-banner p {
+      font-size: 16.5px;
+      color: var(--text-mute);
+      max-width: 580px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
+    }
+    .cta-banner .btn-primary { font-size: 16px; padding: 16px 32px; }
 
     /* ── Footer ── */
     footer {
+      padding: 44px 0 56px;
       border-top: 1px solid var(--border);
-      padding: 40px 0;
+      margin-top: 24px;
     }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-copy {
-      font-size: 13px;
-      color: var(--text-dim);
-    }
-
-    .footer-links {
-      display: flex;
+    .foot-inner {
+      display: flex; justify-content: space-between; align-items: center;
       gap: 24px;
+      flex-wrap: wrap;
     }
-
-    .footer-links a {
-      font-size: 13px;
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.15s;
+    .foot-left { font-size: 13.5px; color: var(--text-dim); }
+    .foot-left strong { color: var(--text-mute); font-weight: 600; }
+    .foot-right { font-size: 13px; color: var(--text-dim); }
+    .foot-right a {
+      color: var(--text-mute);
+      margin-left: 18px;
+      transition: color .15s;
     }
+    .foot-right a:hover { color: var(--accent-hi); }
 
-    .footer-links a:hover { color: var(--text-muted); }
-
-    /* ── Utilities ── */
-    .text-center { text-align: center; }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      white-space: nowrap;
+    /* ── Responsive ── */
+    @media (max-width: 880px) {
+      section { padding: 64px 0; }
+      .hero { padding: 64px 0 48px; }
+      .trust-metrics { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+      .relationships { grid-template-columns: repeat(2, 1fr); }
+      .demo-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .case-list { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 28px; }
+      .pricing-block { padding: 32px 26px; }
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .cta-banner { padding: 40px 26px; }
     }
-
-    /* ── AI Recommendations ── */
-    .rec-section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 14px;
-    }
-
-    .rec-cards { display: grid; gap: 10px; }
-
-    .rec-card {
-      background: var(--surface-2);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      padding: 16px 18px;
-      transition: border-color 0.2s;
-    }
-
-    .rec-card:hover { border-color: rgba(16,185,129,0.25); }
-
-    .rec-card-top {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .rec-card-icon { font-size: 18px; line-height: 1; }
-
-    .rec-card-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.2px;
-    }
-
-    .rec-card-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.55;
-      margin-bottom: 10px;
-    }
-
-    .rec-card-roi {
-      font-size: 12px;
-      font-weight: 600;
-      color: #6EE7B7;
-      background: rgba(16,185,129,0.08);
-      border: 1px solid rgba(16,185,129,0.2);
-      border-radius: 4px;
-      padding: 4px 10px;
-      display: inline-block;
-    }
-
-    /* ── Success message ── */
-    .form-success {
-      display: none;
-      text-align: center;
-      padding: 40px;
-    }
-
-    .form-success .success-icon {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
-
-    .form-success h3 {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .form-success p {
-      font-size: 15px;
-      color: var(--text-muted);
+    @media (max-width: 540px) {
+      .relationships { grid-template-columns: 1fr; }
+      .demo-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn-primary, .hero-actions .btn-secondary { width: 100%; text-align: center; justify-content: center; }
+      .foot-inner { flex-direction: column; align-items: flex-start; }
+      .foot-right a { margin-left: 0; margin-right: 18px; }
     }
   </style>
-<script defer data-domain="mikedmote52.github.io" src="https://plausible.io/js/script.js"></script>
-<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzFhMWEyZSIvPjxwYXRoIGQ9Ik0xOCA0TDggMThoNmwtMiAxMCAxMC0xNGgtNnoiIGZpbGw9IiMzYjgyZjYiLz48L3N2Zz4=">
 </head>
 <body>
 
-  <!-- Nav -->
-  <nav>
-    <div class="container">
-      <div class="nav-inner">
-        <a href="#" class="logo">Mote<span>Ops</span></a>
-        <a href="#contact" class="nav-cta">Get your free audit</a>
+<!-- ─────────────── NAV ─────────────── -->
+<nav class="top">
+  <div class="container nav-inner">
+    <a href="#" class="logo"><span class="logo-mark"></span> Mote Ops</a>
+    <a class="nav-cta" href="https://calendly.com/your-link-here" target="_blank" rel="noopener">Book Free Consultation</a>
+  </div>
+</nav>
+
+<!-- ─────────────── HERO ─────────────── -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-label"><span class="dot"></span> The system that found you is the proof of concept</div>
+    <h1>AI marketing connected us. <em>That's already a working demo.</em> Now let's figure out what AI can do for your business.</h1>
+    <p class="hero-sub">
+      My system identified you, generated outreach, you ended up here. None of that was me at a keyboard. Book a free consultation. I'll walk you through the operating stack I run for myself, then we'll map what to build for you.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="https://calendly.com/your-link-here" target="_blank" rel="noopener">
+        Book Your Free Consultation
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+      <a class="btn-secondary" href="#how-it-works">How it works</a>
+    </div>
+    <p class="hero-note">30 minutes. No slide deck. No commitment. If we click, the engagement is month-to-month and you can cancel anytime.</p>
+  </div>
+</header>
+
+<!-- ─────────────── TRUST STRIP ─────────────── -->
+<section class="trust-strip" style="padding: 36px 0;">
+  <div class="container">
+    <div class="trust-metrics">
+      <div class="trust-metric">
+        <div class="trust-val"><span class="accent">4</span> active</div>
+        <div class="trust-label">ongoing client retainers</div>
+      </div>
+      <div class="trust-metric">
+        <div class="trust-val"><span class="accent">5+</span> systems</div>
+        <div class="trust-label">running autonomously for me</div>
+      </div>
+      <div class="trust-metric">
+        <div class="trust-val"><span class="accent">$1.5K</span> floor</div>
+        <div class="trust-label">monthly subscription minimum</div>
+      </div>
+      <div class="trust-metric">
+        <div class="trust-val"><span class="accent">30</span> day</div>
+        <div class="trust-label">cancel anytime, no contract</div>
       </div>
     </div>
-  </nav>
+  </div>
+</section>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-label">
-        <span class="dot"></span>
-        Fractional AI consulting for small businesses
+<!-- ─────────────── RELATIONSHIPS / SOCIAL PROOF ─────────────── -->
+<section id="relationships">
+  <div class="container">
+    <div class="section-eyebrow">Active Relationships</div>
+    <h2>Real clients. Real recurring builds. Not one-off projects.</h2>
+    <p class="section-lede">
+      Each of these is an ongoing month-to-month engagement. The relationship persists because the value compounds. New automations get added, existing ones get tuned, the platform keeps growing with the business.
+    </p>
+    <div class="relationships">
+      <div class="rel-card">
+        <div class="rel-name">CoreVita Collective</div>
+        <div class="rel-vert">Solo NP Practice</div>
+        <p class="rel-quote">Full clinical SaaS with AI session-summary drafts. Every output goes to the practitioner before any client sees it. Compliance-aware end to end.</p>
       </div>
-      <h1>Your business runs on<br /><em>repetitive work.</em><br />Let's fix that.</h1>
-      <p class="hero-sub">
-        We build custom AI systems for small businesses — tools that actually do the work,
-        not chatbots that impress people in demos and collect dust by Friday.
-      </p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn-primary">
-          Get your free AI audit
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="#how-it-works" class="btn-ghost">See how it works</a>
+      <div class="rel-card">
+        <div class="rel-name">Moving Mountains Vet</div>
+        <div class="rel-vert">Mobile Rehab + Staffing</div>
+        <p class="rel-quote">Two-sided marketplace serving Colorado vet hospitals plus a mobile rehab practice. New policy packs added as Christina expands into new markets.</p>
       </div>
-      <p class="hero-note">No retainer required. Project-based pricing. Results in days, not months.</p>
+      <div class="rel-card">
+        <div class="rel-name">CC's Learning Center</div>
+        <div class="rel-vert">Family Childcare</div>
+        <p class="rel-quote">Modern site, AI chatbot answering parent questions 24/7, competitive intelligence dashboard, owner inbox. Built for mom. Still running it for her.</p>
+      </div>
+      <div class="rel-card">
+        <div class="rel-name">Danny / E&S Wholesale</div>
+        <div class="rel-vert">Insurance Broker</div>
+        <p class="rel-quote">Carrier appetite intelligence covering 113 markets. New product lines and verification passes added each month as the wholesale market shifts.</p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Trust Bar -->
-  <div class="trust-bar">
-    <div class="container">
-      <div class="trust-metrics">
-        <div class="trust-metric">
-          <div class="trust-val green">19</div>
-          <div class="trust-label">Industries served</div>
+<!-- ─────────────── DEMO STRIP / OPERATING STACK ─────────────── -->
+<section id="stack" style="background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-eyebrow">My Operating Stack</div>
+    <h2>Here's what I run for myself, every day, without touching it.</h2>
+    <p class="section-lede">
+      The variety is the credibility. Each one started because I was sick of doing something manually. Now they run themselves. On the discovery call I'll walk you through these live so you can see what's actually possible.
+    </p>
+    <div class="demo-grid">
+
+      <div class="demo-card">
+        <div class="demo-thumb">
+          <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="tg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#34d399" stop-opacity=".25"/><stop offset="100%" stop-color="#34d399" stop-opacity="0"/></linearGradient>
+            </defs>
+            <rect width="320" height="130" fill="#0c1018"/>
+            <g stroke="rgba(255,255,255,.05)" stroke-width="1">
+              <line x1="0" y1="32" x2="320" y2="32"/><line x1="0" y1="64" x2="320" y2="64"/><line x1="0" y1="96" x2="320" y2="96"/>
+            </g>
+            <path d="M0,90 L20,82 L40,86 L60,72 L80,68 L100,58 L120,62 L140,48 L160,52 L180,38 L200,42 L220,30 L240,34 L260,22 L280,28 L300,18 L320,24 L320,130 L0,130 Z" fill="url(#tg1)"/>
+            <path d="M0,90 L20,82 L40,86 L60,72 L80,68 L100,58 L120,62 L140,48 L160,52 L180,38 L200,42 L220,30 L240,34 L260,22 L280,28 L300,18 L320,24" fill="none" stroke="#34d399" stroke-width="2"/>
+            <circle cx="300" cy="18" r="3" fill="#34d399"/>
+            <text x="14" y="22" fill="#9ca3af" font-family="Inter, sans-serif" font-size="10" font-weight="600">PORTFOLIO P&amp;L · LIVE</text>
+            <text x="14" y="118" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">+12.4%</text>
+          </svg>
         </div>
-        <div class="trust-metric">
-          <div class="trust-val green">57</div>
-          <div class="trust-label">Automations cataloged</div>
+        <div class="demo-body">
+          <div class="demo-tag">Autonomous</div>
+          <div class="demo-title">Trading Bot</div>
+          <p class="demo-desc">Full decision loop: scans, scores, executes, learns from outcomes, adjusts. No human in the loop after configuration.</p>
         </div>
-        <div class="trust-metric">
-          <div class="trust-val">60%</div>
-          <div class="trust-label">Avg. time recovered</div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-thumb">
+          <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="130" fill="#0c1018"/>
+            <rect x="14" y="14" width="80" height="48" rx="6" fill="#161c27" stroke="rgba(255,255,255,.06)"/>
+            <rect x="106" y="14" width="80" height="48" rx="6" fill="#161c27" stroke="rgba(255,255,255,.06)"/>
+            <rect x="198" y="14" width="108" height="48" rx="6" fill="#161c27" stroke="rgba(59,130,246,.3)"/>
+            <text x="22" y="32" fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" font-weight="600">AIRBNB</text>
+            <text x="22" y="52" fill="#34d399" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700">$320</text>
+            <text x="114" y="32" fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" font-weight="600">FB MARKETPLACE</text>
+            <text x="114" y="52" fill="#34d399" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700">42 leads</text>
+            <text x="206" y="32" fill="#60a5fa" font-family="Inter,sans-serif" font-size="9" font-weight="600">ACTIVE PROSPECTS</text>
+            <text x="206" y="52" fill="#fff" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700">14 hot · 7 warm</text>
+            <rect x="14" y="74" width="292" height="42" rx="6" fill="#11161f" stroke="rgba(255,255,255,.06)"/>
+            <circle cx="28" cy="95" r="4" fill="#34d399"/>
+            <text x="40" y="89" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="10" font-weight="600">Auto-replied to 3 inquiries</text>
+            <text x="40" y="103" fill="#6b7280" font-family="Inter,sans-serif" font-size="9">Daily report queued · 7:30am</text>
+          </svg>
         </div>
-        <div class="trust-metric">
-          <div class="trust-val">1–3 wk</div>
-          <div class="trust-label">Delivery time</div>
+        <div class="demo-body">
+          <div class="demo-tag blue">Multi-Platform</div>
+          <div class="demo-title">Stuart House Rentals</div>
+          <p class="demo-desc">Listings, prospect handling, daily reports, and stale-lead rescue across multiple platforms. The property runs itself.</p>
         </div>
-        <div class="trust-metric">
-          <div class="trust-val">$0</div>
-          <div class="trust-label">Upfront risk</div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-thumb">
+          <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="130" fill="#0c1018"/>
+            <rect x="14" y="14" width="180" height="22" rx="6" fill="#11161f"/>
+            <text x="22" y="29" fill="#fbbf24" font-family="Inter,sans-serif" font-size="9" font-weight="700">SCAMMER</text>
+            <text x="78" y="29" fill="#9ca3af" font-family="Inter,sans-serif" font-size="9.5">Send $500 in gift cards now</text>
+            <rect x="126" y="44" width="180" height="22" rx="6" fill="#1c2331"/>
+            <text x="134" y="59" fill="#34d399" font-family="Inter,sans-serif" font-size="9" font-weight="700">PERSONA</text>
+            <text x="184" y="59" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="9.5">my reading glasses fell in...</text>
+            <rect x="14" y="74" width="200" height="22" rx="6" fill="#11161f"/>
+            <text x="22" y="89" fill="#fbbf24" font-family="Inter,sans-serif" font-size="9" font-weight="700">SCAMMER</text>
+            <text x="78" y="89" fill="#9ca3af" font-family="Inter,sans-serif" font-size="9.5">no problem just walmart cards</text>
+            <rect x="14" y="104" width="292" height="14" rx="3" fill="#11161f"/>
+            <text x="22" y="114" fill="#6b7280" font-family="JetBrains Mono,monospace" font-size="9">Thread 042 · day 18 · 64 messages</text>
+          </svg>
+        </div>
+        <div class="demo-body">
+          <div class="demo-tag amber">Long-Running</div>
+          <div class="demo-title">Scam Baiter</div>
+          <p class="demo-desc">Maintains personas across multi-week conversations. Wastes scammer time at scale so they can't burn yours.</p>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-thumb">
+          <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="130" fill="#0c1018"/>
+            <rect x="14" y="14" width="292" height="22" rx="6" fill="#11161f"/>
+            <circle cx="26" cy="25" r="3" fill="#60a5fa"/>
+            <text x="36" y="29" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="10" font-weight="600">iMessage event</text>
+            <text x="240" y="29" fill="#34d399" font-family="JetBrains Mono,monospace" font-size="9">routed → Slack</text>
+            <rect x="14" y="44" width="292" height="22" rx="6" fill="#11161f"/>
+            <circle cx="26" cy="55" r="3" fill="#fbbf24"/>
+            <text x="36" y="59" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="10" font-weight="600">trading-bot warning</text>
+            <text x="240" y="59" fill="#34d399" font-family="JetBrains Mono,monospace" font-size="9">routed → push</text>
+            <rect x="14" y="74" width="292" height="22" rx="6" fill="#11161f"/>
+            <circle cx="26" cy="85" r="3" fill="#34d399"/>
+            <text x="36" y="89" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="10" font-weight="600">stuart-house lead</text>
+            <text x="240" y="89" fill="#34d399" font-family="JetBrains Mono,monospace" font-size="9">routed → SMS</text>
+            <text x="14" y="116" fill="#6b7280" font-family="JetBrains Mono,monospace" font-size="9">notification-router · 1,847 events handled today</text>
+          </svg>
+        </div>
+        <div class="demo-body">
+          <div class="demo-tag">Meta-Automation</div>
+          <div class="demo-title">Notification Router</div>
+          <p class="demo-desc">The automation that routes the other automations. Decides what's urgent, what waits, what needs me, what can fix itself.</p>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-thumb">
+          <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="130" fill="#0c1018"/>
+            <rect x="14" y="14" width="140" height="100" rx="8" fill="#11161f" stroke="rgba(59,130,246,.25)"/>
+            <text x="22" y="32" fill="#60a5fa" font-family="Inter,sans-serif" font-size="9" font-weight="700">PATIENT NOTE · DRAFT</text>
+            <line x1="22" y1="42" x2="146" y2="42" stroke="rgba(255,255,255,.05)"/>
+            <text x="22" y="56" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="9">CC: chest pain x 2hr</text>
+            <text x="22" y="70" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="9">HPI: 47yo M, no rad...</text>
+            <text x="22" y="84" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="9">VS: 138/86, 92, 18</text>
+            <text x="22" y="98" fill="#34d399" font-family="Inter,sans-serif" font-size="9" font-weight="600">Plan: ECG, trop, CXR</text>
+            <rect x="166" y="14" width="140" height="46" rx="8" fill="#11161f" stroke="rgba(255,255,255,.06)"/>
+            <text x="174" y="32" fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" font-weight="700">FIDELITY GATE</text>
+            <text x="174" y="48" fill="#34d399" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">✓ verified</text>
+            <rect x="166" y="68" width="140" height="46" rx="8" fill="#11161f" stroke="rgba(255,255,255,.06)"/>
+            <text x="174" y="86" fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" font-weight="700">CLINICIAN APPROVAL</text>
+            <text x="174" y="103" fill="#fbbf24" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">awaiting sign-off</text>
+          </svg>
+        </div>
+        <div class="demo-body">
+          <div class="demo-tag blue">Clinical-Grade</div>
+          <div class="demo-title">ChartFlow</div>
+          <p class="demo-desc">Production clinical software with hard fidelity rails. AI drafts, the clinician approves, nothing goes out untouched.</p>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-thumb">
+          <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="130" fill="#0c1018"/>
+            <rect x="14" y="14" width="292" height="22" rx="6" fill="#11161f"/>
+            <text x="22" y="29" fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" font-weight="600">CONTACT · A.K.</text>
+            <text x="120" y="29" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="10">last msg: 4d ago</text>
+            <text x="240" y="29" fill="#fbbf24" font-family="Inter,sans-serif" font-size="9" font-weight="700">→ NUDGE</text>
+            <rect x="14" y="44" width="292" height="22" rx="6" fill="#11161f"/>
+            <text x="22" y="59" fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" font-weight="600">CONTACT · J.M.</text>
+            <text x="120" y="59" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="10">2nd date Sat 7pm</text>
+            <text x="240" y="59" fill="#34d399" font-family="Inter,sans-serif" font-size="9" font-weight="700">→ ON TRACK</text>
+            <rect x="14" y="74" width="292" height="22" rx="6" fill="#11161f"/>
+            <text x="22" y="89" fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" font-weight="600">CONTACT · S.R.</text>
+            <text x="120" y="89" fill="#e5e7eb" font-family="Inter,sans-serif" font-size="10">tone: hesitant</text>
+            <text x="240" y="89" fill="#fbbf24" font-family="Inter,sans-serif" font-size="9" font-weight="700">→ READ</text>
+            <text x="14" y="118" fill="#6b7280" font-family="JetBrains Mono,monospace" font-size="9">daily digest · personalized actions queued</text>
+          </svg>
+        </div>
+        <div class="demo-body">
+          <div class="demo-tag">Pattern-Match</div>
+          <div class="demo-title">Dating Tracker</div>
+          <p class="demo-desc">Pattern-matches conversation tone, flags candidates worth nudging, queues a daily digest. Lightweight, personal, real.</p>
+        </div>
+      </div>
+
+    </div>
+    <p style="font-size: 13.5px; color: var(--text-dim); margin-top: 28px; text-align: center;">
+      Most of these started as one weekend's worth of frustration. Each one runs without me now.
+    </p>
+  </div>
+</section>
+
+<!-- ─────────────── HOW IT WORKS ─────────────── -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="section-eyebrow">How It Works</div>
+    <h2>From a 30-minute call to live automation in your business.</h2>
+    <p class="section-lede">
+      No proposal cycles. No statement-of-work back-and-forth. The path from first contact to a working build is intentionally short.
+    </p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01 · FREE</div>
+        <div class="step-title">Free Consultation</div>
+        <p class="step-desc">30 minutes. I show you my operating stack, you show me your business. We figure out what's worth automating.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02 · FREE</div>
+        <div class="step-title">Itemized Scope</div>
+        <p class="step-desc">After we talk, you get an itemized scope document. Each automation listed, each one priced. No bundle, no hidden line items.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03 · MONTHLY</div>
+        <div class="step-title">Build &amp; Deploy</div>
+        <p class="step-desc">Build kicks off the week you say yes. I build, deploy, train your team, monitor, and tune. Live within weeks, not quarters.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04 · ANYTIME</div>
+        <div class="step-title">Cancel If You Want</div>
+        <p class="step-desc">Month-to-month subscription. 7-day notice cancellation. If the value isn't compounding, you walk. Most clients don't.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── CASE STUDIES EXPANDED ─────────────── -->
+<section id="case-studies" style="background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-eyebrow">Long-Form Case Studies</div>
+    <h2>Real businesses, real ongoing builds.</h2>
+    <p class="section-lede">
+      Each of these started as one conversation about something the owner was sick of doing manually. Each is now an active monthly relationship where new value gets shipped every cycle.
+    </p>
+    <div class="case-list">
+
+      <div class="case-card">
+        <div class="case-head">
+          <div>
+            <div class="case-name">CoreVita Collective</div>
+            <div class="case-vert">Solo NP · Wellness Coaching</div>
+          </div>
+          <div class="case-tenure">Active retainer</div>
+        </div>
+        <p class="case-body">
+          A solo nurse practitioner running a subscription wellness practice was capped not by demand but by hours-per-client of admin overhead. We built a complete production SaaS: client portal, practitioner inbox, AI-drafted session summaries, phase-tracking engine, billing on Stripe. Every AI output is marked draft and routed to her for approval before any client sees it. <strong>Compliance-aware end to end.</strong>
+        </p>
+        <ul class="case-list-items">
+          <li>Tech: Next.js, Supabase RLS, Stripe, Cal.com, OpenAI</li>
+          <li>What ships monthly: phase-engine tuning, RLS hardening, AI draft quality, new analytics surfaces</li>
+          <li>Result: hours-per-client of admin reduced; caseload grew without adding staff</li>
+        </ul>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head">
+          <div>
+            <div class="case-name">Moving Mountains Vet</div>
+            <div class="case-vert">Mobile Rehab + Relief Staffing</div>
+          </div>
+          <div class="case-tenure">Active retainer</div>
+        </div>
+        <p class="case-body">
+          A mobile vet rehab practice plus a Colorado relief-staffing marketplace under one brand. We built a full-stack monorepo: PWA front-end, Fastify/Prisma back-end, rules-based matching with optional AI hints, Stripe-handled invoicing with 18% commission splits, credential renewal alerts, blind-rating UX. <strong>Two-sided marketplace with operational rigor.</strong>
+        </p>
+        <ul class="case-list-items">
+          <li>Tech: Next.js PWA, Fastify, Postgres, Redis, Clerk, YAML policy packs</li>
+          <li>What ships monthly: new policy packs as Christina expands markets, onboarding refinements, infra scaling</li>
+          <li>Result: hospital shifts that took 10 calls now post and fill in days</li>
+        </ul>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head">
+          <div>
+            <div class="case-name">CC's Learning Center</div>
+            <div class="case-vert">Family Childcare · Brea, CA</div>
+          </div>
+          <div class="case-tenure">Active retainer</div>
+        </div>
+        <p class="case-body">
+          The existing site wasn't doing the work the business deserved. We rebuilt in modern Next.js with a custom design system, bolted on a 24/7 AI chatbot answering parent questions, a competitive analysis dashboard tracking the five Brea-area chains, owner inbox for inbound inquiries, and a marketing automation agent. <strong>Family business credibility, replicable for any local SMB.</strong>
+        </p>
+        <ul class="case-list-items">
+          <li>Tech: Next.js, custom component library, AI chatbot, competitor scraping</li>
+          <li>What ships monthly: chatbot knowledge updates, competitor refresh, new marketing automations as enrollment seasons shift</li>
+          <li>Result: parent inquiries answered in seconds 24/7 instead of voicemail-tag</li>
+        </ul>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head">
+          <div>
+            <div class="case-name">Danny / E&amp;S Wholesale</div>
+            <div class="case-vert">Insurance Broker · Specialty Markets</div>
+          </div>
+          <div class="case-tenure">Active retainer</div>
+        </div>
+        <p class="case-body">
+          A wholesale property broker was burning hours per week routing submissions to carriers that would decline the risk. We built a comprehensive carrier appetite library covering 41 earthquake markets, 34 all-risk, 20 builders risk, 18 flood. Verified data is color-coded against research-grade. <strong>Domain-specific, regulated-vertical, real time saved.</strong>
+        </p>
+        <ul class="case-list-items">
+          <li>Deliverables: master appetite spreadsheet, source-PDF library, broker handoff playbook</li>
+          <li>What ships monthly: verification passes, new product lines (wildfire DIC next), carrier appetite refreshes as the market hardens</li>
+          <li>Roadmap: real-time appetite-matching tool that takes a submission and surfaces the right carriers automatically</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── PRICING ─────────────── -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-eyebrow">Pricing</div>
+    <h2>Itemized, transparent, custom-scoped to your business.</h2>
+    <p class="section-lede">
+      No bundles, no tiers, no "platinum package." After the consultation you get a scope document listing each automation we'd build for you with a monthly price next to it. You see exactly what you're paying for.
+    </p>
+    <div class="pricing-block">
+      <div class="pricing-grid">
+        <div>
+          <div class="price-row">
+            <span class="price-label">First consultation</span>
+            <span class="price-val">Free</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label">Itemized scope document</span>
+            <span class="price-val">Free</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label">Monthly subscription floor</span>
+            <span class="price-val hi">$1,500/mo</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label">Average engagement</span>
+            <span class="price-val hi">$3,000/mo</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label">Cancellation notice</span>
+            <span class="price-val">7 days</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label">Setup fees</span>
+            <span class="price-val">$0</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label">Annual contract</span>
+            <span class="price-val">None</span>
+          </div>
+        </div>
+        <div>
+          <ul class="pricing-points">
+            <li><strong>Each automation has its own price.</strong> Bundling discount is baked in vs buying line items separately.</li>
+            <li><strong>You can drop an item next month.</strong> Subscription resizes, no re-negotiation.</li>
+            <li><strong>You can add an item next month.</strong> New scope, new line item, no fresh contract.</li>
+            <li><strong>Build, deploy, training, monitoring, monthly optimization</strong> are included in every line item.</li>
+            <li><strong>If the value isn't compounding</strong>, you cancel. The system is designed to make that easy.</li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <hr class="divider" />
-
-  <!-- Pain Section -->
-  <section>
-    <div class="container">
-      <div class="section-label">Sound familiar?</div>
-      <h2>You know AI could help.<br />You just don't know where to start.</h2>
-      <p class="section-sub">
-        Every week you do things a computer could do — and you know it.
-        The problem isn't motivation. It's that "AI strategy" advice is useless
-        and building it yourself takes time you don't have.
-      </p>
-
-      <div class="pain-grid">
-        <div class="pain-card">
-          <div class="pain-icon">📬</div>
-          <h3>Email is eating your mornings</h3>
-          <p>You spend the first two hours of every day sorting, responding, and following up. Same questions. Same situations. Over and over.</p>
-        </div>
-        <div class="pain-card">
-          <div class="pain-icon">🔁</div>
-          <h3>You're doing the same work twice</h3>
-          <p>Copy from one tool, paste into another. Format this report. Update this spreadsheet. Tasks you can't delegate but hate doing yourself.</p>
-        </div>
-        <div class="pain-card">
-          <div class="pain-icon">📉</div>
-          <h3>You're not watching the market</h3>
-          <p>Competitor moves, pricing shifts, new reviews — things you should know about but only find out weeks later when it's already affected you.</p>
-        </div>
-        <div class="pain-card">
-          <div class="pain-icon">⏳</div>
-          <h3>Leads fall through the cracks</h3>
-          <p>Someone fills out your form. You get to them two days later. They went with someone else. Not because your offer was worse — because you were busy.</p>
-        </div>
+<!-- ─────────────── ABOUT MIKE ─────────────── -->
+<section id="about" style="background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-eyebrow">About</div>
+    <h2>Who's actually doing the work.</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-name">Mike Mote</div>
+        <div class="about-title">Founder · Builder · PA-C</div>
+        <div class="about-cred"><strong>Practicing Physician Assistant</strong> in the Highland Hospital Emergency Department.</div>
+        <div class="about-cred"><strong>Built ChartFlow</strong> inside a working clinical environment. Production software with hard fidelity rails between AI output and patient care.</div>
+        <div class="about-cred"><strong>Runs autonomous systems</strong> for trading, property rentals, prospect intake, scheduling, and more. The systems don't need supervision.</div>
+        <div class="about-cred"><strong>Active client relationships</strong> across vet medicine, NP wellness, family childcare, and specialty insurance.</div>
       </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- Services -->
-  <section id="services">
-    <div class="container">
-      <div class="section-label">What we build</div>
-      <h2>Specific systems.<br />Real results.</h2>
-      <p class="section-sub">
-        Not strategy. Not advice. Working AI that plugs into your actual workflow
-        and does the thing — every time, without you having to remember.
-      </p>
-
-      <div class="services-grid">
-
-        <div class="service-card">
-          <span class="service-num">01</span>
-          <h3>Inbox Intelligence</h3>
-          <p>
-            An AI that reads your email, understands context, and drafts replies in your voice.
-            You review and send — or let it handle routine replies automatically.
-            Handles intake questions, scheduling requests, vendor responses, and follow-ups.
-          </p>
-          <div class="service-result">
-            ✓ Go from 2 hours of email to 20 minutes
-          </div>
-        </div>
-
-        <div class="service-card">
-          <span class="service-num">02</span>
-          <h3>Market Monitor</h3>
-          <p>
-            Watches your competitors, tracks your niche keywords, and scans industry news.
-            Every week you get a tight brief: what moved, what matters, what to do about it.
-            No more finding out about a competitor's price change from a client.
-          </p>
-          <div class="service-result">
-            ✓ Know what's happening before it affects you
-          </div>
-        </div>
-
-        <div class="service-card">
-          <span class="service-num">03</span>
-          <h3>Lead Response System</h3>
-          <p>
-            When someone contacts you, they hear back in minutes — not days.
-            AI qualifies the lead, sends a personalized first response, and can book a call
-            directly to your calendar. You show up to conversations worth having.
-          </p>
-          <div class="service-result">
-            ✓ Stop losing deals to slow follow-up
-          </div>
-        </div>
-
-        <div class="service-card">
-          <span class="service-num">04</span>
-          <h3>Document &amp; Proposal Generator</h3>
-          <p>
-            Proposals, SOWs, reports, client updates — generated from a short form or a
-            10-minute voice note. Your format, your tone, your pricing structure.
-            What used to take two hours takes ten minutes.
-          </p>
-          <div class="service-result">
-            ✓ Close faster with less admin overhead
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- How it works -->
-  <section id="how-it-works" class="how-bg">
-    <div class="container">
-      <div class="section-label text-center">The process</div>
-      <h2 class="text-center">Simple. Fast. No ongoing meetings.</h2>
-      <p class="section-sub" style="margin: 0 auto 56px; text-align: center;">
-        No retainers, status calls, or 40-page strategy documents.
-        We move from conversation to working system in days, not months.
-      </p>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <h3>We talk about your workflow</h3>
-          <p>One call, 30 minutes. You walk us through what you actually do every day. We find the bottlenecks that AI can fix.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <h3>We build your AI system</h3>
-          <p>Custom to your tools, your voice, your existing workflow. Built for what you have — not what would be ideal in theory.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <h3>You get time back</h3>
-          <p>Working system, hands-on walkthrough, and documentation so you're not dependent on us to keep it running.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- What you get -->
-  <section>
-    <div class="container">
-      <div class="section-label">What's included</div>
-      <h2>Not a black box.<br />You own what we build.</h2>
-      <p class="section-sub">
-        Every system is built transparently, documented fully, and handed off completely.
-        You'll understand what it does and how to adjust it as your business changes.
-      </p>
-
-      <div class="get-grid">
-        <div class="get-item">
-          <span class="get-check">✓</span>
-          <p><strong>Working system, not a pitch deck.</strong> If it doesn't do the thing by the end of the engagement, you don't pay.</p>
-        </div>
-        <div class="get-item">
-          <span class="get-check">✓</span>
-          <p><strong>Built on tools you already have</strong> or free-tier tools — no surprise software subscriptions.</p>
-        </div>
-        <div class="get-item">
-          <span class="get-check">✓</span>
-          <p><strong>Full handoff documentation</strong> so you or anyone on your team can run it independently.</p>
-        </div>
-        <div class="get-item">
-          <span class="get-check">✓</span>
-          <p><strong>No retainer required.</strong> Project-based pricing. One thing at a time, done right.</p>
-        </div>
-        <div class="get-item">
-          <span class="get-check">✓</span>
-          <p><strong>30 days of follow-up support</strong> after launch to tune and fix anything that needs adjusting.</p>
-        </div>
-        <div class="get-item">
-          <span class="get-check">✓</span>
-          <p><strong>Honest scoping.</strong> If AI isn't the right tool for your problem, we'll tell you that on the first call.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- Social Proof -->
-  <section id="proof">
-    <div class="container">
-      <div class="section-label text-center">What clients say</div>
-      <h2 class="text-center">Results, not promises.</h2>
-
-      <div class="proof-grid" style="margin-top: 48px;">
-
-        <div class="proof-card">
-          <div class="proof-stars">★★★★★</div>
-          <blockquote>
-            "I was spending 90 minutes every morning on email. Mote Ops built a system in a week that cut that to 20 minutes. I've gotten that time back every single day since."
-          </blockquote>
-          <div class="proof-author">
-            <div class="proof-avatar">JR</div>
-            <div>
-              <div class="proof-name">Jamie R.</div>
-              <div class="proof-title">Owner, residential HVAC company</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="proof-card">
-          <div class="proof-stars">★★★★★</div>
-          <blockquote>
-            "We were losing leads because we couldn't respond fast enough. The follow-up system Mote Ops built responds in 4 minutes. Our close rate went up 18% in the first month."
-          </blockquote>
-          <div class="proof-author">
-            <div class="proof-avatar">SK</div>
-            <div>
-              <div class="proof-name">Sarah K.</div>
-              <div class="proof-title">Principal, boutique law firm</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="proof-card">
-          <div class="proof-stars">★★★★★</div>
-          <blockquote>
-            "I was skeptical. I've bought 'AI strategy' from consultants before and gotten nothing useful. Mote Ops showed up with a working system on call two. That's the difference."
-          </blockquote>
-          <div class="proof-author">
-            <div class="proof-avatar">TM</div>
-            <div>
-              <div class="proof-name">Tom M.</div>
-              <div class="proof-title">Founder, logistics startup</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <p class="proof-placeholder-note">Results are illustrative. Real client results vary — ask me about relevant case studies on our call.</p>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- Contact / AI Questionnaire -->
-  <section id="contact">
-    <div class="container">
-      <div class="quiz-wrap">
-
-        <div class="quiz-header">
-          <div class="section-label">Free savings assessment</div>
-          <h2>Find out exactly how much time<br>AI could give back to your team.</h2>
-          <p class="section-sub" style="margin: 0 auto; text-align: center;">
-            Answer 8 quick questions. Get a personalized savings estimate —
-            then we'll show you which tasks to automate first.
-          </p>
-        </div>
-
-        <!-- Progress indicator -->
-        <div class="quiz-progress" id="quizProgress">
-          <div class="progress-dot active" id="pdot-1">1</div>
-          <div class="progress-line" id="pline-1"></div>
-          <div class="progress-dot" id="pdot-2">2</div>
-          <div class="progress-line" id="pline-2"></div>
-          <div class="progress-dot" id="pdot-3">3</div>
-          <div class="progress-line" id="pline-3"></div>
-          <div class="progress-dot" id="pdot-4">4</div>
-          <div class="progress-line" id="pline-4"></div>
-          <div class="progress-dot" id="pdot-5">5</div>
-        </div>
-
-        <div class="quiz-card" id="quizCard">
-
-          <!-- ── Step 1: Business basics ── -->
-          <div class="quiz-step active" id="step-1">
-            <div class="step-label">Step 1 of 5 — Business basics</div>
-            <div class="step-title">Tell us about your business.</div>
-
-            <div class="q-group">
-              <label class="q-label">What best describes your business?</label>
-              <select class="quiz-select" id="q-biz-type">
-                <option value="">Select your industry</option>
-                <option value="professional">Professional services (consulting, legal, accounting)</option>
-                <option value="ecommerce">E-commerce / retail</option>
-                <option value="realestate">Real estate / property management</option>
-                <option value="healthcare">Healthcare / medical / dental</option>
-                <option value="childcare">Childcare / education / daycare</option>
-                <option value="construction">Construction / trades / home services</option>
-                <option value="marketing">Marketing / creative agency</option>
-                <option value="restaurant">Restaurant / food service</option>
-                <option value="fitness">Fitness / wellness (gyms, studios, trainers)</option>
-                <option value="salon">Salon / beauty / spa</option>
-                <option value="automotive">Automotive (repair, dealerships)</option>
-                <option value="veterinary">Veterinary / pet services</option>
-                <option value="nonprofit">Non-profit / community org</option>
-                <option value="hospitality">Hospitality (hotels, vacation rentals, Airbnb)</option>
-                <option value="cleaning">Cleaning / janitorial services</option>
-                <option value="photography">Photography / videography / events</option>
-                <option value="it">IT / managed services / tech support</option>
-                <option value="insurance">Insurance / financial services</option>
-                <option value="transportation">Transportation / logistics</option>
-                <option value="agriculture">Agriculture / farming</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div class="q-group">
-              <label class="q-label">How many people are on your team?</label>
-              <div class="choice-grid cols-2">
-                <button class="choice-btn" data-group="team-size" data-val="1">Just me (solopreneur)</button>
-                <button class="choice-btn" data-group="team-size" data-val="4">2–5 people</button>
-                <button class="choice-btn" data-group="team-size" data-val="10">6–15 people</button>
-                <button class="choice-btn" data-group="team-size" data-val="20">16–30 people</button>
-                <button class="choice-btn" data-group="team-size" data-val="35">31–50 people</button>
-                <button class="choice-btn" data-group="team-size" data-val="60">50+ people</button>
-              </div>
-            </div>
-
-            <div class="q-group">
-              <label class="q-label">What's your business name? <span style="color: var(--text-dim); font-weight: 400;">(optional)</span></label>
-              <input class="quiz-select" type="text" id="q-biz-name" placeholder="Acme Landscaping Co." style="appearance: none; background-image: none;" />
-            </div>
-
-            <div class="q-group">
-              <label class="q-label">Got a website? Drop it here <span style="color: var(--text-dim); font-weight: 400;">(optional)</span></label>
-              <input class="quiz-select" type="url" id="q-biz-url" placeholder="yoursite.com" style="appearance: none; background-image: none;" />
-            </div>
-
-            <div class="quiz-nav">
-              <span></span>
-              <button class="btn-next" onclick="nextStep(1)">
-                Next
-                <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- ── Step 2: Time drains ── -->
-          <div class="quiz-step" id="step-2">
-            <div class="step-label">Step 2 of 5 — Where your time goes</div>
-            <div class="step-title">Move the sliders to match your week.</div>
-
-            <div class="slider-group">
-              <div class="slider-header">
-                <div class="slider-q">Email — reading, sorting, and responding</div>
-                <div class="slider-val" id="val-email">5 <span>hrs/wk</span></div>
-              </div>
-              <input type="range" id="slider-email" min="0" max="40" value="5" step="1"
-                oninput="updateSlider('email', this.value)" />
-              <div class="slider-labels"><span>0 hrs</span><span>40 hrs</span></div>
-            </div>
-
-            <div class="slider-group">
-              <div class="slider-header">
-                <div class="slider-q">Scheduling, follow-ups, and client communication</div>
-                <div class="slider-val" id="val-scheduling">3 <span>hrs/wk</span></div>
-              </div>
-              <input type="range" id="slider-scheduling" min="0" max="30" value="3" step="1"
-                oninput="updateSlider('scheduling', this.value)" />
-              <div class="slider-labels"><span>0 hrs</span><span>30 hrs</span></div>
-            </div>
-
-            <div class="slider-group">
-              <div class="slider-header">
-                <div class="slider-q">Data entry, reports, and moving info between tools</div>
-                <div class="slider-val" id="val-data">2 <span>hrs/wk</span></div>
-              </div>
-              <input type="range" id="slider-data" min="0" max="25" value="2" step="1"
-                oninput="updateSlider('data', this.value)" />
-              <div class="slider-labels"><span>0 hrs</span><span>25 hrs</span></div>
-            </div>
-
-            <div class="slider-group">
-              <div class="slider-header">
-                <div class="slider-q">Creating proposals, quotes, or invoices</div>
-                <div class="slider-val" id="val-docs">1 <span>hrs/wk</span></div>
-              </div>
-              <input type="range" id="slider-docs" min="0" max="15" value="1" step="1"
-                oninput="updateSlider('docs', this.value)" />
-              <div class="slider-labels"><span>0 hrs</span><span>15 hrs</span></div>
-            </div>
-
-            <div class="quiz-nav">
-              <button class="btn-back" onclick="prevStep(2)">Back</button>
-              <button class="btn-next" onclick="nextStep(2)">
-                Next
-                <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- ── Step 3: AI experience ── -->
-          <div class="quiz-step" id="step-3">
-            <div class="step-label">Step 3 of 5 — Current setup</div>
-            <div class="step-title">Where are you with AI right now?</div>
-
-            <div class="q-group">
-              <label class="q-label">Have you tried using AI tools like ChatGPT in your business?</label>
-              <div class="choice-grid">
-                <button class="choice-btn" data-group="ai-exp" data-val="active">Yes — I use it regularly</button>
-                <button class="choice-btn" data-group="ai-exp" data-val="tried">Tried it once or twice, not consistently</button>
-                <button class="choice-btn" data-group="ai-exp" data-val="curious">No, but I'm curious</button>
-                <button class="choice-btn" data-group="ai-exp" data-val="none">Not really — not sure how it applies to my work</button>
-              </div>
-            </div>
-
-            <div class="q-group">
-              <label class="q-label">What's your biggest frustration with your current workflow?</label>
-              <div class="choice-grid">
-                <button class="choice-btn" data-group="frustration" data-val="manual">Too many manual, repetitive steps</button>
-                <button class="choice-btn" data-group="frustration" data-val="cracks">Things fall through the cracks</button>
-                <button class="choice-btn" data-group="frustration" data-val="scale">Can't scale without hiring more people</button>
-                <button class="choice-btn" data-group="frustration" data-val="cost">Spending money on tasks that should be automated</button>
-                <button class="choice-btn" data-group="frustration" data-val="all">All of the above, honestly</button>
-              </div>
-            </div>
-
-            <div class="quiz-nav">
-              <button class="btn-back" onclick="prevStep(3)">Back</button>
-              <button class="btn-next" onclick="nextStep(3)">
-                Calculate my savings
-                <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- ── Step 4: Results reveal ── -->
-          <div class="quiz-step" id="step-4">
-            <div class="step-label">Step 4 of 5 — Your results</div>
-            <div class="step-title">Here's what AI could recover for you.</div>
-
-            <div class="results-reveal" id="resultsReveal">
-              <div class="savings-hero">
-                <div class="savings-grade grade-b" id="savingsGrade">B</div>
-                <p class="savings-insight" id="savingsInsight">Calculating your personalized estimate...</p>
-              </div>
-
-              <div class="savings-stats">
-                <div class="stat-box">
-                  <div class="stat-num" id="stat-weekly">—</div>
-                  <div class="stat-label">hours recovered<br>per week</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-num" id="stat-annual">—</div>
-                  <div class="stat-label">hours saved<br>per year</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-num" id="stat-value">—</div>
-                  <div class="stat-label">estimated annual<br>value recaptured</div>
-                </div>
-              </div>
-
-              <div class="results-cta">
-                <p>Want the full breakdown?</p>
-                <span>We'll show you exactly which tasks to automate first — and what to build first.</span>
-              </div>
-
-              <div id="recSection" style="margin-top: 24px;"></div>
-            </div>
-
-            <div class="quiz-nav">
-              <button class="btn-back" onclick="prevStep(4)">Back</button>
-              <button class="btn-next" onclick="nextStep(4)">
-                Get my AI action plan
-                <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- ── Step 5: Contact capture ── -->
-          <div class="quiz-step" id="step-5">
-            <div class="step-label">Step 5 of 5 — One last step</div>
-            <div class="step-title">Where should we send your action plan?</div>
-            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.55;">
-              We'll review your answers before the call so the first conversation is actually useful — no starting from scratch.
-            </p>
-
-            <form id="quizContactForm">
-              <div class="contact-row">
-                <div class="contact-field">
-                  <label>Your name *</label>
-                  <input class="quiz-input" type="text" id="c-name" placeholder="Jane Smith" required />
-                </div>
-                <div class="contact-field">
-                  <label>Email address *</label>
-                  <input class="quiz-input" type="email" id="c-email" placeholder="jane@yourbiz.com" required />
-                </div>
-              </div>
-
-              <div class="contact-field">
-                <label>Phone number <span style="color: var(--text-dim); font-weight: 400;">(optional)</span></label>
-                <input class="quiz-input" type="tel" id="c-phone" placeholder="(555) 000-0000" />
-              </div>
-
-              <div class="contact-field">
-                <label>Best time to connect</label>
-                <div class="choice-grid cols-3">
-                  <button type="button" class="choice-btn" data-group="best-time" data-val="morning">Morning</button>
-                  <button type="button" class="choice-btn" data-group="best-time" data-val="afternoon">Afternoon</button>
-                  <button type="button" class="choice-btn" data-group="best-time" data-val="evening">Evening</button>
-                </div>
-              </div>
-
-              <button type="submit" class="btn-primary btn-submit-quiz">
-                Get My AI Action Plan
-                <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </form>
-
-            <div class="quiz-nav" style="margin-top: 8px;">
-              <button class="btn-back" onclick="prevStep(5)">Back</button>
-            </div>
-          </div>
-
-        </div><!-- /quiz-card -->
-
-        <p class="quiz-fine" id="quizFine">
-          No spam. No pitch. Just a real conversation. — Or reach out directly: <a href="mailto:mikedmote@yahoo.com">mikedmote@yahoo.com</a>
+      <div class="about-body">
+        <p>
+          I'm not a "consultant." I'm a builder who happens to also be a clinician. Most AI consultants pitch frameworks and PowerPoints. I pitch artifacts. The thing I'd build for your business probably already has a cousin running on my own machine right now.
+        </p>
+        <p>
+          The clinical day job is the credibility floor. <strong>I work inside a real production system where AI mistakes have human cost.</strong> That posture carries into everything I build for clients: drafts go through approval, fidelity gets verified, the human stays in the loop where it matters.
+        </p>
+        <p>
+          The autonomous side projects are the credibility ceiling. <strong>If I can run a trading bot, a property business, and a long-running scam-baiting persona network without checking on them daily</strong>, I can probably automate the thing that's been eating your Tuesday afternoons for years.
+        </p>
+        <p>
+          The four ongoing client relationships are the proof in the middle. Real businesses, real recurring builds, real people who keep paying month after month because the system delivers.
         </p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div>
-          <div class="logo" style="font-size: 15px; margin-bottom: 4px;">Mote<span style="color: var(--green)">Ops</span></div>
-          <p class="footer-copy">AI systems that actually work.</p>
-        </div>
-        <div class="footer-links">
-          <a href="#services">Services</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#contact">Contact</a>
-          <a href="mailto:mikedmote@yahoo.com">Email</a>
-        </div>
-      </div>
+<!-- ─────────────── FINAL CTA ─────────────── -->
+<section id="final-cta">
+  <div class="container">
+    <div class="cta-banner">
+      <div class="section-eyebrow" style="margin-bottom: 8px;">Ready</div>
+      <h2 style="margin: 0 auto 14px;">Let's see what AI can actually do for your business.</h2>
+      <p>
+        30 minutes. Free. No proposal cycle. By the end of the call, you'll know what's possible, what it would cost, and whether you want to keep talking.
+      </p>
+      <a class="btn-primary" href="https://calendly.com/your-link-here" target="_blank" rel="noopener">
+        Book Your Free Consultation
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    // ── AI Savings Questionnaire ──
+<!-- ─────────────── FOOTER ─────────────── -->
+<footer>
+  <div class="container foot-inner">
+    <div class="foot-left">
+      <strong>Mote Ops</strong> &nbsp;·&nbsp; AI systems that run themselves &nbsp;·&nbsp; Built by Mike Mote
+    </div>
+    <div class="foot-right">
+      <a href="mailto:mikedmote@yahoo.com">mikedmote@yahoo.com</a>
+      <a href="https://calendly.com/your-link-here" target="_blank" rel="noopener">Book a call</a>
+    </div>
+  </div>
+</footer>
 
-    const quizState = {
-      answers: {
-        bizType: '',
-        bizName: '',
-        bizUrl: '',
-        teamSize: 0,
-        email: 5,
-        scheduling: 3,
-        data: 2,
-        docs: 1,
-        aiExp: '',
-        frustration: '',
-        bestTime: ''
-      },
-      currentStep: 1,
-      results: null,
-      recommendations: [],
-      utmParams: {}
-    };
-
-    // ── Sliders ──
-
-    function updateSlider(key, val) {
-      quizState.answers[key] = parseInt(val);
-      const display = document.getElementById('val-' + key);
-      if (display) display.innerHTML = val + ' <span>hrs/wk</span>';
-      const slider = document.getElementById('slider-' + key);
-      if (slider) {
-        const pct = ((val - slider.min) / (slider.max - slider.min)) * 100;
-        slider.style.background =
-          'linear-gradient(to right, var(--green) ' + pct + '%, var(--border-light) ' + pct + '%)';
-      }
-    }
-
-    function initSliders() {
-      ['email', 'scheduling', 'data', 'docs'].forEach(function(key) {
-        updateSlider(key, quizState.answers[key]);
-      });
-    }
-
-    // ── Choice buttons ──
-
-    document.addEventListener('click', function(e) {
-      var btn = e.target.closest('.choice-btn');
-      if (!btn) return;
-      var group = btn.getAttribute('data-group');
-      var val = btn.getAttribute('data-val');
-      if (!group) return;
-
-      document.querySelectorAll('.choice-btn[data-group="' + group + '"]')
-        .forEach(function(b) { b.classList.remove('selected'); });
-      btn.classList.add('selected');
-
-      if (group === 'team-size')   quizState.answers.teamSize    = parseInt(val);
-      if (group === 'ai-exp')      quizState.answers.aiExp        = val;
-      if (group === 'frustration') quizState.answers.frustration  = val;
-      if (group === 'best-time')   quizState.answers.bestTime     = val;
+<script>
+  // Smooth scroll for in-page anchors (already covered by html scroll-behavior, but adds nicer offset for the sticky nav).
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const t = document.querySelector(id);
+      if (!t) return;
+      e.preventDefault();
+      const y = t.getBoundingClientRect().top + window.scrollY - 60;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     });
-
-    document.addEventListener('change', function(e) {
-      if (e.target.id === 'q-biz-type') quizState.answers.bizType = e.target.value;
-      if (e.target.id === 'q-biz-name') quizState.answers.bizName = e.target.value.trim();
-      if (e.target.id === 'q-biz-url')  quizState.answers.bizUrl  = e.target.value.trim();
-    });
-    document.addEventListener('input', function(e) {
-      if (e.target.id === 'q-biz-name') quizState.answers.bizName = e.target.value.trim();
-      if (e.target.id === 'q-biz-url')  quizState.answers.bizUrl  = e.target.value.trim();
-    });
-
-    // ── Progress bar ──
-
-    function setProgress(step) {
-      for (var i = 1; i <= 5; i++) {
-        var dot = document.getElementById('pdot-' + i);
-        if (!dot) continue;
-        dot.className = 'progress-dot';
-        if (i < step)       { dot.classList.add('done');   dot.textContent = '✓'; }
-        else if (i === step) { dot.classList.add('active'); dot.textContent = i; }
-        else                 { dot.textContent = i; }
-      }
-      for (var j = 1; j <= 4; j++) {
-        var line = document.getElementById('pline-' + j);
-        if (!line) continue;
-        line.className = 'progress-line' + (j < step ? ' done' : '');
-      }
-    }
-
-    // ── Step navigation ──
-
-    function showStep(num, back) {
-      document.querySelectorAll('.quiz-step').forEach(function(s) {
-        s.classList.remove('active', 'going-back');
-      });
-      var target = document.getElementById('step-' + num);
-      if (target) {
-        if (back) target.classList.add('going-back');
-        target.classList.add('active');
-        // Trigger results render when step 4 becomes active
-        if (num === 4 && quizState.results) renderResults();
-      }
-      quizState.currentStep = num;
-      setProgress(num);
-    }
-
-    function nextStep(from) {
-      if (from === 1) {
-        if (!quizState.answers.bizType) {
-          highlightInvalid('q-biz-type'); return;
-        }
-        if (!quizState.answers.teamSize) {
-          shakeGroup('team-size'); return;
-        }
-      }
-      if (from === 3) {
-        if (!quizState.answers.aiExp)      { shakeGroup('ai-exp'); return; }
-        if (!quizState.answers.frustration){ shakeGroup('frustration'); return; }
-        calculateSavings();
-      }
-      showStep(from + 1, false);
-    }
-
-    function prevStep(from) {
-      showStep(from - 1, true);
-    }
-
-    function highlightInvalid(id) {
-      var el = document.getElementById(id);
-      if (!el) return;
-      el.style.borderColor = '#EF4444';
-      el.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.15)';
-      setTimeout(function() {
-        el.style.borderColor = '';
-        el.style.boxShadow = '';
-      }, 1800);
-    }
-
-    function shakeGroup(group) {
-      var btns = document.querySelectorAll('.choice-btn[data-group="' + group + '"]');
-      btns.forEach(function(b) {
-        b.style.borderColor = 'rgba(239,68,68,0.5)';
-        setTimeout(function() { b.style.borderColor = ''; }, 1800);
-      });
-    }
-
-    // ── Savings calculation ──
-
-    function calculateSavings() {
-      var a = quizState.answers;
-      var totalWeekly = a.email + a.scheduling + a.data + a.docs;
-      var recoverable  = Math.round(totalWeekly * 0.6);
-      var annualHours  = recoverable * 50;
-
-      var hourlyRate;
-      if      (a.teamSize <= 1)  hourlyRate = 75;
-      else if (a.teamSize <= 4)  hourlyRate = 65;
-      else if (a.teamSize <= 10) hourlyRate = 55;
-      else                       hourlyRate = 50;
-
-      var annualValue = annualHours * hourlyRate;
-
-      var grade, gradeClass, insight;
-      if (recoverable >= 20 || annualValue >= 50000) {
-        grade = 'A'; gradeClass = 'grade-a';
-        insight = 'Your team is spending the equivalent of a full-time employee\'s salary on tasks AI can handle.';
-      } else if (recoverable >= 12 || annualValue >= 25000) {
-        grade = 'B'; gradeClass = 'grade-b';
-        insight = 'There\'s significant time being absorbed by repetitive tasks — most of it automatable within weeks.';
-      } else if (recoverable >= 5) {
-        grade = 'C'; gradeClass = 'grade-c';
-        insight = 'You\'re leaving meaningful hours on the table each week. A few targeted systems would change that fast.';
-      } else {
-        grade = 'D'; gradeClass = 'grade-d';
-        insight = 'Even modest automation could give you back a full extra workday every week.';
-      }
-
-      quizState.results = { recoverable, annualHours, annualValue, grade, gradeClass, insight };
-    }
-
-    // ── Industry-specific recommendation ──
-
-    var industryRecs = {
-      restaurant:    { icon: '🍽️', name: 'AI Review Response & Catering Inquiry System',        desc: 'Auto-reply to Google/Yelp reviews and catering inquiries within 2 min. Stack: n8n + Twilio + Claude API. ~$34/mo to run.',                                                                            roi: '10+ hrs/wk recovered; each Yelp star increase = 5–9% more revenue (Harvard)' },
-      realestate:    { icon: '🏡', name: 'Speed-to-Lead: Instant Qualification & Follow-Up',     desc: 'Zillow/Realtor.com leads get a personalized SMS in 90 sec, 2 qualifying questions, and a showing calendar link. Stack: n8n + Twilio + Claude API + HubSpot. ~$29–49/mo.',                              roi: 'NAR data: agents who respond in 5 min are 100× more likely to connect' },
-      childcare:     { icon: '🧒', name: 'Parent Communication & Enrollment Automation',         desc: 'Auto-reply to enrollment inquiries, send daily classroom reports, manage waitlists. Stack: n8n + Twilio + Google Workspace + Calendly. ~$35/mo.',                                                       roi: '8–10 hrs/wk saved; capturing 2 extra enrollments/yr = $19,200 additional revenue' },
-      salon:         { icon: '💇', name: 'Appointment Reminders & Rebook Automation',            desc: '48-hr SMS reminder with confirm/cancel link, day-of alert, and post-visit rebook nudge at 6 weeks. Stack: n8n + Twilio + Vagaro or Acuity. ~$28–35/mo.',                                               roi: '40–60% fewer no-shows; busy salons recover $3,380/mo in recaptured appointments' },
-      healthcare:    { icon: '🏥', name: 'Patient Intake & Appointment Reminder Automation',     desc: 'Digital intake forms on booking, 72-hr/24-hr/2-hr SMS reminder sequence, cancellations filled from waitlist. Stack: n8n + Twilio + Typeform + Claude API. ~$30–45/mo.',                               roi: 'Front desk reclaims 1–2 hrs/day; no-show rate drops 30–50%' },
-      fitness:       { icon: '🏋️', name: 'Trial-to-Member Conversion & Win-Back Campaigns',     desc: '14-day nurture sequence for new trials + automated re-engagement for members inactive 30+ days. Stack: n8n + Twilio + Claude API + Mindbody or Pike13. ~$36–53/mo.',                                   roi: '10-pt conversion lift = 2 more members/mo; win-back recovers $1,920/yr' },
-      automotive:    { icon: '🔧', name: 'Proactive Service Reminders & Review Requests',        desc: 'SMS reminders when customers are due for service with booking link. Post-visit review request 24 hrs after pickup. Stack: n8n + Twilio + Calendly + Claude API. ~$28–42/mo.',                          roi: '$9,000+ incremental revenue/yr from proactive outreach to 200 customers' },
-      veterinary:    { icon: '🐾', name: 'Preventive Care Reminders & Client Follow-Up',         desc: 'Automated reminders for vaccines, exams, and dental cleanings by pet name and due date. Post-visit check-ins and review requests. Stack: n8n + Twilio + Claude API. ~$31–47/mo.',                      roi: 'Documented: $26K additional revenue in 90 days for a 3-vet practice' },
-      hospitality:   { icon: '🏨', name: 'Pre-Arrival Upsell & Post-Stay Review Sequence',       desc: '7-day pre-arrival email with upgrade/package offers + digital check-in. 4-hr post-checkout review request. Stack: n8n + Twilio + Claude API + Cloudbeds or Lodgify. ~$36–54/mo.',                    roi: '15–25% upsell attach rates on pre-arrival offers; review velocity increases 3–5×' },
-      cleaning:      { icon: '🧹', name: 'Instant Quote Bot & Post-Clean Review Automation',     desc: 'Web form generates instant price quote, shows available dates, and collects payment in one flow. Post-clean review request via SMS. Stack: n8n + Typeform + Stripe + Twilio + Claude API. ~$57–67/mo.', roi: '2–4× conversion rate vs. "call for a quote"; $1,750/mo incremental at 50 inquiries/mo' },
-      photography:   { icon: '📷', name: 'Lead Response & Gallery Delivery Automation',          desc: 'Instant reply to inquiries with availability check + discovery call booking. Gallery delivery kicks off a Day 0–14 review and referral sequence. Stack: n8n + Calendly + Twilio + Claude API. ~$34–50/mo.', roi: 'One additional wedding at $3,000 pays for 5 years of tooling; referrals become systematic' },
-      it:            { icon: '💻', name: 'Contract Renewal Alerts & Client Onboarding Flow',     desc: 'Draft renewal emails 90/60/30 days pre-expiration with YTD client stats. 30-day new client onboarding sequence with check-ins and QBR scheduling. Stack: n8n + Claude API + Gmail + Calendly. ~$35–53/mo.', roi: 'Retaining one $2,500/mo MSP contract via proactive renewal = $30,000/yr' },
-      insurance:     { icon: '📋', name: 'Lead Nurture Sequence & Policy Renewal Alerts',        desc: '6-week educational nurture for new leads. 120–30 day renewal reminders with coverage summaries and calendar links. Stack: n8n + Claude API + Mailchimp + Calendly. ~$34–52/mo.',                      roi: 'Nurture lifts conversion from 2–5% to 8–12%; renewal rate improves from 80% to 90%' },
-      nonprofit:     { icon: '🤝', name: 'Donor Thank-You & Volunteer Coordination Automation',  desc: 'Instant personalized thank-you on donation, impact follow-up at 30/90 days. Volunteer shift invites, reminders, and no-show follow-ups. Stack: n8n + Twilio + Claude API + DonorBox. ~$29–49/mo.',     roi: 'Impact reports lift donor renewal from 45% to 70%; 5–8 hrs/wk saved on coordination' }
-    };
-
-    function computeIndustryRecommendation() {
-      var bizType = quizState.answers.bizType;
-      return industryRecs[bizType] || null;
-    }
-
-    // ── AI Recommendations engine ──
-
-    function computeRecommendations() {
-      var a = quizState.answers;
-      var recs = [];
-
-      if (a.email >= 5) {
-        recs.push({
-          icon: '📬',
-          name: 'AI Email Triage System',
-          desc: 'Automatically sort, prioritize, and draft responses. Your team gets back ~' + a.email + ' hours/week on email alone.',
-          roi: 'Est. ' + Math.round(a.email * 0.65) + ' hrs/wk recovered',
-          score: a.email
-        });
-      }
-      if (a.scheduling >= 4) {
-        recs.push({
-          icon: '📅',
-          name: 'Smart Client Intake & Scheduling',
-          desc: 'Auto-respond to inquiries in 60 seconds, book appointments, and follow up automatically.',
-          roi: 'Est. ' + Math.round(a.scheduling * 0.65) + ' hrs/wk recovered',
-          score: a.scheduling
-        });
-      }
-      if (a.data >= 3) {
-        recs.push({
-          icon: '🔄',
-          name: 'Automated Reporting & Data Sync',
-          desc: 'Connect your tools so data flows automatically. No more copy-pasting between spreadsheets and CRMs.',
-          roi: 'Est. ' + Math.round(a.data * 0.7) + ' hrs/wk recovered',
-          score: a.data
-        });
-      }
-      if (a.docs >= 2) {
-        recs.push({
-          icon: '📝',
-          name: 'AI Proposal Generator',
-          desc: 'Turn a 45-minute proposal into a 4-minute review. Custom proposals generated from templates + client context.',
-          roi: 'Est. ' + Math.round(a.docs * 0.75) + ' hrs/wk recovered',
-          score: a.docs
-        });
-      }
-      if (a.frustration === 'all' || a.frustration === 'manual') {
-        recs.push({
-          icon: '🗺️',
-          name: 'Full Workflow Audit',
-          desc: "We'll map your entire operation and identify every automation opportunity.",
-          roi: 'Avg. 15–25 hrs/wk identified per audit',
-          score: 3
-        });
-      }
-      if (a.aiExp === 'none' || a.aiExp === 'curious') {
-        recs.push({
-          icon: '🚀',
-          name: 'AI Onboarding Package',
-          desc: "We'll set up your first 3 AI workflows and train your team to use them confidently.",
-          roi: 'Most clients save 8+ hrs/wk after onboarding',
-          score: 2.5
-        });
-      }
-
-      recs.sort(function(x, y) { return y.score - x.score; });
-      recs = recs.slice(0, 3);
-
-      // Prepend industry-specific rec as the top recommendation
-      var industryRec = computeIndustryRecommendation();
-      if (industryRec) {
-        industryRec.isIndustryRec = true;
-        recs.unshift(industryRec);
-        if (recs.length > 3) recs = recs.slice(0, 3);
-      }
-
-      return recs;
-    }
-
-    function renderRecommendations() {
-      var recs = computeRecommendations();
-      quizState.recommendations = recs;
-      var el = document.getElementById('recSection');
-      if (!el || recs.length === 0) return;
-
-      var bizName = quizState.answers.bizName;
-      var label = bizName
-        ? 'Top AI Opportunities for ' + bizName
-        : 'Your Top AI Opportunities';
-
-      var html = '<div class="rec-section-label">' + label + '</div><div class="rec-cards">';
-      recs.forEach(function(rec) {
-        var badge = rec.isIndustryRec
-          ? '<span style="font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:#93B8FC;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);border-radius:4px;padding:2px 8px;margin-left:8px;">Built for your industry</span>'
-          : '';
-        html +=
-          '<div class="rec-card">' +
-            '<div class="rec-card-top">' +
-              '<span class="rec-card-icon">' + rec.icon + '</span>' +
-              '<strong class="rec-card-name">' + rec.name + '</strong>' +
-              badge +
-            '</div>' +
-            '<p class="rec-card-desc">' + rec.desc + '</p>' +
-            '<span class="rec-card-roi">' + rec.roi + '</span>' +
-          '</div>';
-      });
-      html += '</div>';
-      el.innerHTML = html;
-    }
-
-    // ── Animated number counter ──
-
-    function animateNumber(elementId, target, prefix, suffix, duration) {
-      var el = document.getElementById(elementId);
-      if (!el) return;
-      var startTime = null;
-
-      function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        var progress = Math.min((timestamp - startTime) / duration, 1);
-        var eased    = 1 - Math.pow(1 - progress, 3);
-        var current  = Math.round(target * eased);
-        el.textContent = prefix + current.toLocaleString() + suffix;
-        if (progress < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-
-    function renderResults() {
-      var r = quizState.results;
-      if (!r) return;
-
-      var bizName = quizState.answers.bizName;
-      var bizUrl  = quizState.answers.bizUrl;
-
-      var gradeEl = document.getElementById('savingsGrade');
-      gradeEl.className = 'savings-grade ' + r.gradeClass;
-      gradeEl.textContent = r.grade;
-
-      // Personalize the insight
-      var insight = r.insight;
-      if (bizName) {
-        insight = 'For ' + bizName + ': ' + insight;
-      }
-      document.getElementById('savingsInsight').textContent = insight;
-
-      // Personalize the CTA block
-      var ctaEl = document.querySelector('.results-cta');
-      if (ctaEl) {
-        var ctaHtml = '<p>Want the full breakdown?</p>';
-        if (bizName) {
-          ctaHtml += '<span>For ' + bizName + ', we estimate ' + r.recoverable + ' hours/week recoverable — we\'ll show you exactly which tasks to automate first.</span>';
-        } else {
-          ctaHtml += '<span>We\'ll show you exactly which tasks to automate first — and what to build first.</span>';
-        }
-        if (bizUrl) {
-          var displayUrl = bizUrl.replace(/^https?:\/\//, '');
-          ctaHtml += '<div style="margin-top:10px;font-size:12px;color:var(--accent);font-weight:500;">📎 We\'ll review ' + displayUrl + ' before our call to prepare specific recommendations for your business.</div>';
-        }
-        ctaEl.innerHTML = ctaHtml;
-      }
-
-      // Reset stat displays before animating
-      document.getElementById('stat-weekly').textContent = '0';
-      document.getElementById('stat-annual').textContent = '0';
-      document.getElementById('stat-value').textContent  = '$0';
-
-      setTimeout(function() {
-        animateNumber('stat-weekly', r.recoverable,  '',  '', 900);
-        animateNumber('stat-annual', r.annualHours,  '',  '', 1100);
-        animateNumber('stat-value',  r.annualValue,  '$', '', 1300);
-      }, 200);
-
-      renderRecommendations();
-    }
-
-    // ── Contact form submission ──
-
-    // TODO: Replace with your deployed server URL before going live.
-    // Local dev: http://localhost:5050/webhook/moteops-lead
-    // Deployed:  https://moteops-proposal-engine.onrender.com/webhook/moteops-lead
-    var WEBHOOK_URL = 'https://moteops-proposal-engine.onrender.com/webhook/moteops-lead';
-
-    document.addEventListener('DOMContentLoaded', function() {
-      initSliders();
-
-      // Capture UTM parameters from URL for source tracking
-      var urlParams = new URLSearchParams(window.location.search);
-      quizState.utmParams = {
-        utm_source:   urlParams.get('utm_source')   || null,
-        utm_medium:   urlParams.get('utm_medium')   || null,
-        utm_campaign: urlParams.get('utm_campaign') || null,
-        utm_content:  urlParams.get('utm_content')  || null,
-        utm_term:     urlParams.get('utm_term')     || null
-      };
-
-      var quizForm = document.getElementById('quizContactForm');
-      if (!quizForm) return;
-
-      quizForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        var name  = document.getElementById('c-name').value.trim();
-        var email = document.getElementById('c-email').value.trim();
-        var phone = document.getElementById('c-phone').value.trim();
-        var a     = quizState.answers;
-        var r     = quizState.results;
-
-        var bizLabels = {
-          professional: 'Professional services', ecommerce: 'E-commerce / retail',
-          realestate: 'Real estate / property management', healthcare: 'Healthcare / medical / dental',
-          childcare: 'Childcare / education / daycare', construction: 'Construction / trades / home services',
-          marketing: 'Marketing / creative agency', restaurant: 'Restaurant / food service',
-          fitness: 'Fitness / wellness', salon: 'Salon / beauty / spa',
-          automotive: 'Automotive', veterinary: 'Veterinary / pet services',
-          nonprofit: 'Non-profit / community org', hospitality: 'Hospitality',
-          cleaning: 'Cleaning / janitorial', photography: 'Photography / videography / events',
-          it: 'IT / managed services / tech support', insurance: 'Insurance / financial services',
-          transportation: 'Transportation / logistics', agriculture: 'Agriculture / farming',
-          other: 'Other'
-        };
-        var aiLabels = {
-          active: 'Uses it regularly', tried: 'Tried once or twice',
-          curious: 'No, but curious', none: 'Not familiar with it'
-        };
-        var frustLabels = {
-          manual: 'Too many manual steps', cracks: 'Things fall through the cracks',
-          scale: "Can't scale without hiring", cost: 'Paying for automatable tasks',
-          all: 'All of the above'
-        };
-        var teamLabel =
-          a.teamSize <= 1  ? 'Solopreneur' :
-          a.teamSize <= 4  ? '2–5 people'  :
-          a.teamSize <= 10 ? '6–15 people' :
-          a.teamSize <= 20 ? '16–30 people':
-          a.teamSize <= 35 ? '31–50 people': '50+ people';
-
-        // Disable submit button while sending
-        var submitBtn = quizForm.querySelector('[type="submit"]');
-        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
-
-        // Build webhook payload
-        var payload = {
-          timestamp: new Date().toISOString(),
-          contact: {
-            name:     name,
-            email:    email,
-            phone:    phone || null,
-            bestTime: a.bestTime || null
-          },
-          business: {
-            name:     a.bizName || null,
-            website:  a.bizUrl  || null,
-            industry: bizLabels[a.bizType] || a.bizType,
-            teamSize: teamLabel
-          },
-          timedrains: {
-            email:       a.email,
-            scheduling:  a.scheduling,
-            dataEntry:   a.data,
-            proposals:   a.docs,
-            totalWeekly: a.email + a.scheduling + a.data + a.docs
-          },
-          aiExperience: aiLabels[a.aiExp]          || a.aiExp,
-          frustration:  frustLabels[a.frustration] || a.frustration,
-          savings: r ? {
-            weeklyHours: r.recoverable,
-            annualHours: r.annualHours,
-            annualValue: r.annualValue,
-            grade:       r.grade
-          } : null,
-          recommendations: quizState.recommendations.map(function(rec) { return rec.name; }),
-          utm: quizState.utmParams
-        };
-
-        // Attempt webhook; fall back to mailto on failure
-        var webhookOk = false;
-        try {
-          var resp = await fetch(WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          if (resp.ok) webhookOk = true;
-        } catch (err) {
-          // Network error or webhook unreachable — use mailto fallback
-        }
-
-        if (!webhookOk) {
-          var lines = [
-            '=== MOTE OPS — AI SAVINGS ASSESSMENT ===',
-            '',
-            'CONTACT',
-            'Name: '  + name,
-            'Email: ' + email,
-            'Phone: ' + (phone || 'Not provided'),
-            'Best time to reach: ' + (a.bestTime || 'Not specified'),
-            '',
-            'BUSINESS PROFILE',
-            'Business name: ' + (a.bizName || 'Not provided'),
-            'Website: '       + (a.bizUrl  || 'Not provided'),
-            'Industry: '      + (bizLabels[a.bizType] || a.bizType),
-            'Team size: '     + teamLabel,
-            '',
-            'TIME DRAINS (hours / week)',
-            'Email: '                   + a.email      + ' hrs',
-            'Scheduling & follow-ups: ' + a.scheduling + ' hrs',
-            'Data entry & reports: '    + a.data       + ' hrs',
-            'Proposals & documents: '   + a.docs       + ' hrs',
-            'Total weekly waste: '      + (a.email + a.scheduling + a.data + a.docs) + ' hrs',
-            '',
-            'AI EXPERIENCE',
-            'Current AI usage: '    + (aiLabels[a.aiExp]          || a.aiExp),
-            'Biggest frustration: ' + (frustLabels[a.frustration] || a.frustration),
-            '',
-            'SAVINGS ESTIMATE',
-            'Hours recoverable / week: ' + (r ? r.recoverable               : 'N/A'),
-            'Annual hours saved: '       + (r ? r.annualHours               : 'N/A'),
-            'Estimated annual value: $'  + (r ? r.annualValue.toLocaleString() : 'N/A'),
-            'Savings grade: '            + (r ? r.grade                     : 'N/A'),
-            '',
-            'RECOMMENDED SERVICES',
-            quizState.recommendations.map(function(rec) { return '- ' + rec.name; }).join('\n'),
-            '',
-            '— Submitted via MoteOps.com savings assessment —'
-          ];
-          var subject = encodeURIComponent('MoteOps Assessment — ' + name + ' (' + (bizLabels[a.bizType] || 'Business') + ')');
-          var body    = encodeURIComponent(lines.join('\n'));
-          window.location.href = 'mailto:mikedmote@yahoo.com?subject=' + subject + '&body=' + body;
-        }
-
-        // Show success state
-        var card     = document.getElementById('quizCard');
-        var progress = document.getElementById('quizProgress');
-        var fine     = document.getElementById('quizFine');
-
-        if (card) {
-          var bizName = a.bizName;
-          var bizUrl  = a.bizUrl;
-          var successMsg = bizName
-            ? 'We\'ll review ' + bizName + '\'s profile before we reach out — expect to hear from us within 24 hours.'
-            : 'We\'ll review your savings estimate before we reach out — expect to hear from us within 24 hours.';
-          var websiteLine = bizUrl
-            ? '<p style="font-size:13px;color:var(--accent);margin-top:10px;">📎 We\'ll also take a look at ' + bizUrl.replace(/^https?:\/\//, '') + ' before the call.</p>'
-            : '';
-          card.innerHTML =
-            '<div class="quiz-success">' +
-            '<div class="success-icon-big">✓</div>' +
-            '<h3>You\'re on the list. Talk soon.</h3>' +
-            '<p>' + successMsg + '</p>' +
-            websiteLine +
-            '</div>';
-        }
-        if (progress) progress.style.display = 'none';
-        if (fine) fine.style.display = 'none';
-      });
-    });
-
-    // ── Smooth scroll for anchor links ──
-    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-      anchor.addEventListener('click', function(e) {
-        var target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-  </script>
-
+  });
+</script>
 </body>
 </html>
-<!-- cache bust  1775006913  -->
