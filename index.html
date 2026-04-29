@@ -287,45 +287,6 @@
     }
     .shot:hover .shot-caption { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* ── Trust strip ── */
-    .trust-strip {
-      padding: 36px 0;
-      border-top: 1px solid var(--border-subtle);
-      border-bottom: 1px solid var(--border-subtle);
-      background: linear-gradient(180deg, transparent, rgba(217,119,87,0.015));
-    }
-    .trust-metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      align-items: stretch;
-    }
-    .trust-metric {
-      text-align: left;
-      padding: 8px 0;
-    }
-    .trust-metric + .trust-metric {
-      border-left: 1px solid var(--border-subtle);
-      padding-left: 28px;
-    }
-    .trust-val {
-      font-family: var(--font-mono);
-      font-size: 36px; font-weight: 500;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-      line-height: 1;
-    }
-    .trust-val .accent { color: var(--accent); }
-    .trust-val .small { font-size: 22px; color: var(--text-secondary); }
-    .trust-label {
-      font-size: 12px; font-weight: 600;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      line-height: 1.4;
-    }
-
     /* ── Section header ── */
     .section-eyebrow {
       font-family: var(--font-mono);
@@ -715,10 +676,6 @@
       .shot--front { width: min(220px, 60vw); transform: translateX(-28px) translateY(-32px) rotate(-3deg); margin: 0 auto 0 0; }
       .hero-shots a.shot:hover { transform: translateX(-28px) translateY(-36px) rotate(-3deg); }
       .hero-shots a.shot--rear:hover { transform: rotate(3deg) translateX(28px) translateY(-4px); }
-      .trust-metrics { grid-template-columns: repeat(2, 1fr); gap: 28px; }
-      .trust-metric + .trust-metric { border-left: none; padding-left: 0; }
-      .trust-metric:nth-child(3) { border-top: 1px solid var(--border-subtle); padding-top: 24px; }
-      .trust-metric:nth-child(4) { border-top: 1px solid var(--border-subtle); padding-top: 24px; }
       .gallery-row-large { grid-template-columns: 1fr; }
       .gallery-row-small { grid-template-columns: repeat(2, 1fr); }
       .steps { grid-template-columns: repeat(2, 1fr); }
@@ -796,30 +753,6 @@
     </div>
   </div>
 </header>
-
-<!-- ─────────────── TRUST STRIP ─────────────── -->
-<section class="trust-strip">
-  <div class="container">
-    <div class="trust-metrics">
-      <div class="trust-metric">
-        <div class="trust-val"><span class="accent">6</span></div>
-        <div class="trust-label">Apps in production</div>
-      </div>
-      <div class="trust-metric">
-        <div class="trust-val"><span class="accent">4</span></div>
-        <div class="trust-label">Small businesses running them</div>
-      </div>
-      <div class="trust-metric">
-        <div class="trust-val"><span class="accent">Free</span></div>
-        <div class="trust-label">30-minute discovery call</div>
-      </div>
-      <div class="trust-metric">
-        <div class="trust-val"><span class="accent">113</span></div>
-        <div class="trust-label">Commercial markets · Danny's E&amp;S</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ─────────────── DEMO GALLERY ─────────────── -->
 <section id="gallery">
