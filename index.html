@@ -446,6 +446,65 @@
     .demo-action svg { transition: transform var(--dur-fast) var(--ease-out); }
     a.demo-card:hover .demo-action svg { transform: translateX(4px); }
 
+    /* ── Workflows you'll learn ── */
+    .workflows-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .workflow-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: 24px 22px 22px;
+      display: flex; flex-direction: column;
+      transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+    }
+    .workflow-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-30);
+    }
+    .workflow-icon {
+      width: 32px; height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+    .workflow-icon svg { width: 18px; height: 18px; }
+    .workflow-name {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .workflow-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .workflow-fit {
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+      line-height: 1.5;
+    }
+    .workflow-fit strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
     /* ── How it works ── */
     .steps {
       display: grid;
@@ -678,6 +737,7 @@
       .hero-shots a.shot--rear:hover { transform: rotate(3deg) translateX(28px) translateY(-4px); }
       .gallery-row-large { grid-template-columns: 1fr; }
       .gallery-row-small { grid-template-columns: repeat(2, 1fr); }
+      .workflows-grid { grid-template-columns: repeat(2, 1fr); }
       .steps { grid-template-columns: repeat(2, 1fr); }
       .step-tracks { grid-template-columns: repeat(2, 1fr); }
       .about-grid { grid-template-columns: 1fr; gap: 28px; }
@@ -685,6 +745,7 @@
     }
     @media (max-width: 540px) {
       .gallery-row-small { grid-template-columns: 1fr; }
+      .workflows-grid { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr; }
       .step-tracks { grid-template-columns: 1fr; gap: 8px; }
       .step-tracks span { text-align: left; }
@@ -836,6 +897,73 @@
           <div class="demo-title">Danny's E&amp;S Appetite Guide</div>
           <p class="demo-desc">Built carrier intelligence covering 113 commercial property markets and 42 carriers for Danny, a wholesale insurance broker working California E&amp;S. Refreshed monthly, queried daily from his iPad in the car between meetings. Color signals show which carriers will write each property class before he picks up the phone, because the right tool here was a spreadsheet, not a Next.js dashboard.</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── WORKFLOWS YOU'LL LEARN ─────────────── -->
+<section id="workflows">
+  <div class="container">
+    <div class="section-eyebrow">Teaching</div>
+    <h2>Workflows you'll learn.</h2>
+    <p class="section-lede">
+      Each one runs in my own life today. I'll wire one up for your business, then walk you through how to maintain it yourself.
+    </p>
+
+    <div class="workflows-grid">
+      <div class="workflow-card">
+        <div class="workflow-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><polyline points="3 7 12 13 21 7"></polyline></svg>
+        </div>
+        <div class="workflow-name">Daily inbox triage</div>
+        <p class="workflow-desc">Each morning an agent reads your unread mail, drafts safe replies, opens action URLs in your browser ready for one tap, and texts you a one-line summary.</p>
+        <div class="workflow-fit"><strong>Best fit:</strong> Executives, professionals, anyone losing 90 minutes a day to email.</div>
+      </div>
+
+      <div class="workflow-card">
+        <div class="workflow-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 7 12 10 5 14 19 17 12 21 12"></polyline></svg>
+        </div>
+        <div class="workflow-name">System health briefings</div>
+        <p class="workflow-desc">A daily 8 AM brief reads system messages and alerts, classifies issues, queues auto-fixes for known problems, and tells you only what needs your hands.</p>
+        <div class="workflow-fit"><strong>Best fit:</strong> Founders running multiple tools, small ops teams.</div>
+      </div>
+
+      <div class="workflow-card">
+        <div class="workflow-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><line x1="3" y1="12" x2="21" y2="12"></line><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg>
+        </div>
+        <div class="workflow-name">Multi-platform listing automation</div>
+        <p class="workflow-desc">Your listing posts to every platform automatically. Inbound messages get classified, prospects auto-tracked, silent threads archive themselves and reactivate if the prospect comes back.</p>
+        <div class="workflow-fit"><strong>Best fit:</strong> Rental property managers, marketplace sellers, anyone running listings across more than one site.</div>
+      </div>
+
+      <div class="workflow-card">
+        <div class="workflow-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5z"></path><path d="M18 8h2a1 1 0 0 1 1 1v9a2 2 0 0 1-2 2"></path><line x1="7" y1="9" x2="14" y2="9"></line><line x1="7" y1="13" x2="14" y2="13"></line><line x1="7" y1="17" x2="11" y2="17"></line></svg>
+        </div>
+        <div class="workflow-name">Daily intelligence scout</div>
+        <p class="workflow-desc">Each morning an agent reads the day's AI, tech, and industry news and filters down to items that actually impact your specific projects, with named integration recommendations.</p>
+        <div class="workflow-fit"><strong>Best fit:</strong> Builders, founders, anyone trying to stay current without drowning.</div>
+      </div>
+
+      <div class="workflow-card">
+        <div class="workflow-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="14 7 21 7 21 14"></polyline></svg>
+        </div>
+        <div class="workflow-name">Pre-market trading brief</div>
+        <p class="workflow-desc">A scan of your portfolio plus market state, surfaced as a clean morning text with positions approaching stops, profit targets, and continuation watchlist. The bot watches; you decide.</p>
+        <div class="workflow-fit"><strong>Best fit:</strong> Active investors, traders, anyone managing a real-money book.</div>
+      </div>
+
+      <div class="workflow-card">
+        <div class="workflow-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4z"></path><path d="M4 17a3 3 0 0 1 3-3h11"></path></svg>
+        </div>
+        <div class="workflow-name">Adaptive learning loop</div>
+        <p class="workflow-desc">Turns any video, podcast, or book into a quiz tailored to you, then resurfaces the concepts you missed weeks later, right when you're about to forget them.</p>
+        <div class="workflow-fit"><strong>Best fit:</strong> Knowledge workers, students, anyone who reads or watches a lot but retains too little.</div>
       </div>
     </div>
   </div>
