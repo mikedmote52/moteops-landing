@@ -412,6 +412,37 @@
       display: block;
     }
     .gallery-row-small .demo-shot { aspect-ratio: 16 / 10; }
+    .demo-shot--dual-phones {
+      background: linear-gradient(160deg, #1a1815 0%, #0f0e0b 100%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 18px 24px 14px;
+      gap: 18px;
+    }
+    .demo-shot--dual-phones .phone-frame {
+      position: relative;
+      height: 100%;
+      aspect-ratio: 9 / 19.5;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      box-shadow: 0 18px 40px -14px rgba(0,0,0,0.65), 0 4px 12px rgba(0,0,0,0.35);
+      flex-shrink: 0;
+      transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+    }
+    .demo-shot--dual-phones .phone-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      display: block;
+    }
+    .demo-shot--dual-phones .phone-frame--front {
+      transform: rotate(-2.5deg) translateY(2px);
+      z-index: 2;
+    }
+    .demo-shot--dual-phones .phone-frame--rear {
+      transform: rotate(2.5deg) translateY(-2px);
+      z-index: 1;
+    }
     .demo-meta { padding: 22px 24px 24px; flex: 1; display: flex; flex-direction: column; }
     .gallery-row-small .demo-meta { padding: 18px 20px 20px; }
     .demo-tag {
@@ -812,7 +843,14 @@
         </div>
       </div>
       <div class="demo-card">
-        <div class="demo-shot"><img src="images/squeezeprophet-desktop.png" alt="Squeeze Prophet dashboard" loading="lazy" /></div>
+        <div class="demo-shot demo-shot--dual-phones">
+          <div class="phone-frame phone-frame--front" aria-label="Squeeze Prophet Cognition view">
+            <img src="images/squeeze-prophet-cognition.png" alt="Squeeze Prophet Cognition: decision funnel, regime, weight drift" loading="lazy" />
+          </div>
+          <div class="phone-frame phone-frame--rear" aria-label="Squeeze Prophet Attribution view">
+            <img src="images/squeeze-prophet-attribution.png" alt="Squeeze Prophet Attribution: positions and P&amp;L" loading="lazy" />
+          </div>
+        </div>
         <div class="demo-meta">
           <div class="demo-tag"><span class="pip"></span>Personal · Live · Paper</div>
           <div class="demo-title">Squeeze Prophet</div>
