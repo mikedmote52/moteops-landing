@@ -473,6 +473,7 @@
       line-height: 1.55;
       margin-bottom: 16px;
     }
+    .demo-desc strong { color: var(--text-primary); font-weight: 700; }
     .gallery-row-small .demo-desc { font-size: 13px; line-height: 1.5; }
     .demo-action {
       margin-top: auto;
@@ -835,11 +836,18 @@
     </div>
     <div class="gallery-row-large">
       <div class="demo-card">
-        <div class="demo-shot"><img src="images/learnengine-desktop.png" alt="LearnEngine app" loading="lazy" /></div>
+        <div class="demo-shot demo-shot--dual-phones">
+          <div class="phone-frame phone-frame--front" aria-label="LearnEngine quiz view">
+            <img src="images/learnengine-quiz.png" alt="LearnEngine quiz: AI-generated multiple-choice question on binomial nomenclature" loading="lazy" />
+          </div>
+          <div class="phone-frame phone-frame--rear" aria-label="LearnEngine flashcard deck view">
+            <img src="images/learnengine-deck.png" alt="LearnEngine deck: 15 cards due today, FSRS-scheduled, broken down by source" loading="lazy" />
+          </div>
+        </div>
         <div class="demo-meta">
-          <div class="demo-tag"><span class="pip"></span>Personal · Live</div>
+          <div class="demo-tag"><span class="pip"></span>Personal · Live · YouTube · Podcasts · Books</div>
           <div class="demo-title">LearnEngine</div>
-          <p class="demo-desc">Paste a YouTube link, podcast URL, or photograph a book chapter. Get a quiz built for you in 60 seconds, plus FSRS-scheduled flashcards that show up the day you need them. The app that taught me how to teach. Walk-through on the call.</p>
+          <p class="demo-desc"><strong>YouTube. Podcasts. Books.</strong> Paste a video link, drop in a podcast URL, or photograph a book chapter — LearnEngine reads it cover-to-cover and builds a custom quiz of any size, fifteen to a hundred questions. Miss something? It generates flashcards on the spots you got wrong, scheduled by an FSRS engine that resurfaces each card the exact day you're about to forget it. Used to be "I watched the video, hope it stuck." Now it's "I watched the video, the app made sure it stuck." Walk-through on the call.</p>
         </div>
       </div>
       <div class="demo-card">
