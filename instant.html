@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Talk to Mike now</title>
+<style>
+  :root {
+    --bg-canvas: #0F0E0B;
+    --bg-surface: #161410;
+    --bg-surface-alt: #1F1C16;
+    --bg-overlay: #2A2620;
+    --border-subtle: #221F19;
+    --border-default: #2E2A22;
+    --border-strong: #3D382E;
+    --text-primary: #F5F2EA;
+    --text-secondary: #B8B4A6;
+    --text-tertiary: #7C7869;
+    --accent: #D97757;
+    --accent-hi: #E08566;
+    --accent-soft: rgba(217,119,87,0.10);
+    --accent-glow: rgba(217,119,87,0.18);
+    --good: #6FB66B;
+    --warn: #D9B05F;
+    --bad: #C76258;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --shadow: 0 6px 24px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: var(--bg-canvas); color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    line-height: 1.55; font-size: 15px;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 28px 24px; }
+
+  .panel {
+    background: var(--bg-surface); border: 1px solid var(--border-default);
+    border-radius: var(--radius-md); box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .panel header {
+    padding: 16px 22px; border-bottom: 1px solid var(--border-subtle);
+    display: flex; align-items: center; gap: 10px;
+    background: var(--bg-surface-alt);
+  }
+  .panel header h2 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; color: var(--text-primary); }
+  .panel header .meta { margin-left: auto; font-size: 12px; color: var(--text-tertiary); }
+  .panel .body { padding: 22px; }
+
+  /* Form */
+  form .row { margin-bottom: 14px; }
+  form label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: var(--text-secondary); }
+  form input[type=text], form input[type=email], form input[type=tel], form textarea, form select {
+    width: 100%; padding: 11px 13px; background: var(--bg-canvas);
+    border: 1px solid var(--border-default); border-radius: var(--radius-sm); color: var(--text-primary);
+    font-family: inherit; font-size: 14px;
+  }
+  form textarea { min-height: 70px; resize: vertical; font-family: inherit; }
+  form input:focus, form textarea:focus, form select:focus {
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  form .submit-row { display: flex; gap: 10px; align-items: center; margin-top: 18px; }
+  form .submit-row button {
+    flex: 1; padding: 13px 20px; background: var(--accent); color: #fff;
+    border: 0; border-radius: var(--radius-sm); font-weight: 700; font-size: 14px; cursor: pointer;
+    letter-spacing: -0.01em;
+    box-shadow: 0 6px 20px var(--accent-glow);
+  }
+  form .submit-row button:hover { background: var(--accent-hi); }
+  form .submit-row .cancel { flex: 0 0 auto; background: transparent; color: var(--text-tertiary); box-shadow: none; }
+  form .submit-row .cancel:hover { background: transparent; color: var(--text-primary); }
+  form .row.split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 480px) { form .row.split { grid-template-columns: 1fr; } }
+  form .helper { font-size: 12px; color: var(--text-tertiary); margin-top: 6px; line-height: 1.45; }
+  form .checkbox-row { display: flex; align-items: center; gap: 8px; }
+  form .checkbox-row input { width: auto; accent-color: var(--accent); }
+  form .checkbox-row label { margin: 0; color: var(--text-secondary); font-size: 13px; }
+
+  .hero {
+    text-align: center; padding: 32px 22px 4px 22px;
+  }
+  .hero h1 { margin: 0 0 8px 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  .hero p { margin: 0 0 24px 0; color: var(--text-secondary); font-size: 14px; }
+
+  /* Status spinner */
+  .status-step { display: flex; align-items: center; gap: 12px; padding: 10px 0;
+    color: var(--text-tertiary); font-size: 14px; }
+  .status-step.active { color: var(--text-primary); }
+  .status-step.done { color: var(--good); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border-default); flex-shrink: 0; }
+  .status-step.active .dot { background: var(--accent); animation: pulse 1.4s ease-in-out infinite; }
+  .status-step.done .dot { background: var(--good); }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  .status-summary { padding: 14px 16px; background: var(--bg-surface-alt); border-radius: var(--radius-sm);
+    font-size: 14px; color: var(--text-secondary); margin-top: 14px; line-height: 1.5; }
+
+  /* Chat */
+  .agent-disclosure {
+    padding: 12px 14px; background: var(--accent-soft);
+    border: 1px solid var(--accent-glow);
+    border-radius: var(--radius-sm); font-size: 12px; color: var(--text-secondary); margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .agent-disclosure strong { color: var(--text-primary); }
+  .messages { max-height: 380px; overflow-y: auto; padding: 4px 4px 14px 4px; }
+  .msg { padding: 11px 15px; border-radius: var(--radius-md); margin-bottom: 8px; max-width: 88%;
+    white-space: pre-wrap; word-wrap: break-word; font-size: 14px; line-height: 1.5; }
+  .msg.assistant { background: var(--bg-surface-alt); }
+  .msg.user { background: var(--accent); color: #fff; margin-left: auto; }
+  .composer { display: flex; gap: 8px; margin-top: 12px; }
+  .composer textarea { flex: 1; padding: 11px 13px; background: var(--bg-canvas);
+    border: 1px solid var(--border-default); border-radius: var(--radius-sm); color: var(--text-primary);
+    font-family: inherit; font-size: 14px; resize: none; min-height: 44px; max-height: 120px; }
+  .composer button { padding: 0 20px; background: var(--accent); color: #fff;
+    border: 0; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer; }
+  .composer button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .typing { font-size: 13px; color: var(--text-tertiary); padding: 6px 0; }
+
+  /* Outcome */
+  .outcome { padding: 18px 20px; background: var(--bg-surface-alt); border-radius: var(--radius-sm); }
+  .outcome h3 { margin: 0 0 10px 0; font-size: 17px; font-weight: 700; color: var(--text-primary); }
+  .outcome p { margin: 0 0 16px 0; color: var(--text-secondary); font-size: 14px; line-height: 1.55; }
+  .outcome a.button {
+    display: inline-block; padding: 11px 20px; background: var(--accent); color: #fff;
+    text-decoration: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 14px;
+    box-shadow: 0 6px 20px var(--accent-glow);
+  }
+  .outcome a.button:hover { background: var(--accent-hi); }
+  .outcome.handoff { border-left: 3px solid var(--good); }
+  .outcome.declined { border-left: 3px solid var(--warn); }
+
+  /* Backend-not-reachable banner */
+  .preview-banner {
+    background: rgba(217,176,95,0.08); border: 1px solid rgba(217,176,95,0.25);
+    color: var(--warn); padding: 10px 14px; border-radius: var(--radius-sm); font-size: 12px;
+    margin-bottom: 14px; line-height: 1.5;
+  }
+  .preview-banner.hidden { display: none; }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- VIEW 1: form (no trigger needed; we open this view directly) -->
+  <div id="view-form">
+    <div class="panel">
+      <header>
+        <h2>Talk to Mike now</h2>
+        <span class="meta">~30 seconds</span>
+      </header>
+      <div class="body">
+        <div class="hero">
+          <h1>Find out if Mike's on right now.</h1>
+          <p>Tell us a bit about your situation. If he's reachable we'll text him directly. If not, his agent picks up the conversation and either answers what it can or gets you on his calendar.</p>
+        </div>
+        <div class="preview-banner hidden" id="preview-banner">
+          Backend not reachable. Submitting will fail. Set <code>window.MOTEOPS_API_BASE</code> in this file or run <code>python3 instant-meeting/server/standalone.py</code> on Mike's machine.
+        </div>
+        <form id="intake-form">
+          <div class="row split">
+            <div>
+              <label for="name">Your name</label>
+              <input type="text" name="name" id="name" required autocomplete="name" />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" required autocomplete="email" />
+            </div>
+          </div>
+          <div class="row split">
+            <div>
+              <label for="business">Business</label>
+              <input type="text" name="business" id="business" autocomplete="organization" />
+            </div>
+            <div>
+              <label for="role">Your role</label>
+              <input type="text" name="role" id="role" placeholder="e.g. Owner" />
+            </div>
+          </div>
+          <div class="row split">
+            <div>
+              <label for="phone">Phone (optional)</label>
+              <input type="tel" name="phone" id="phone" autocomplete="tel" />
+            </div>
+            <div>
+              <label for="location">Where you're based</label>
+              <input type="text" name="location" id="location" placeholder="e.g. Costa Mesa, CA" />
+            </div>
+          </div>
+          <div class="row">
+            <label for="what_they_do">In one sentence, what does the business do?</label>
+            <input type="text" name="what_they_do" id="what_they_do" required />
+          </div>
+          <div class="row">
+            <label for="time_leak">What's the thing eating the most time in your week?</label>
+            <textarea name="time_leak" id="time_leak" required></textarea>
+            <div class="helper">Be specific. "scheduling" is fine. "rebooking 80 recurring clients by hand on Sundays" is better.</div>
+          </div>
+          <div class="row split">
+            <div>
+              <label for="decision_authority">Are you the decision maker?</label>
+              <select name="decision_authority" id="decision_authority">
+                <option value="yes">Yes</option>
+                <option value="partner">Joint with a partner</option>
+                <option value="no">No, I report up</option>
+              </select>
+            </div>
+            <div>
+              <label for="urgency">When do you want this fixed?</label>
+              <select name="urgency" id="urgency">
+                <option value="this_week">This week</option>
+                <option value="this_month">This month</option>
+                <option value="exploring">Just exploring</option>
+              </select>
+            </div>
+          </div>
+          <div class="row checkbox-row">
+            <input type="checkbox" name="consent_to_text" id="consent_to_text" checked />
+            <label for="consent_to_text">OK to text my phone if Mike picks up live</label>
+          </div>
+          <div class="submit-row">
+            <button type="button" class="cancel" id="cancel-form">Close</button>
+            <button type="submit">Send and see if Mike's on</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 2: status -->
+  <div id="view-status" class="hidden">
+    <div class="panel">
+      <header>
+        <h2 id="status-title">Routing your request</h2>
+        <span class="meta" id="status-meta">setting up</span>
+      </header>
+      <div class="body">
+        <div class="status-step" id="step-vetting"><span class="dot"></span><span>Reading what you wrote</span></div>
+        <div class="status-step" id="step-presence"><span class="dot"></span><span>Checking if Mike's reachable</span></div>
+        <div class="status-step" id="step-pinging"><span class="dot"></span><span>Pinging Mike's phone</span></div>
+        <div class="status-summary" id="status-summary">Hold for a moment.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 3: agent chat -->
+  <div id="view-chat" class="hidden">
+    <div class="panel">
+      <header>
+        <h2>Mote Ops Agent</h2>
+        <span class="meta">live</span>
+      </header>
+      <div class="body">
+        <div class="agent-disclosure">
+          <strong>Heads up.</strong> You're talking with Mote Ops Agent, an AI Mike built. Mike is not in this chat. The agent can answer questions, share what it knows about Mote Ops, and either get you on Mike's calendar or flag him directly.
+        </div>
+        <div class="messages" id="messages"></div>
+        <div class="typing hidden" id="typing">Agent is typing...</div>
+        <div class="composer">
+          <textarea id="composer-input" placeholder="Type a message..."></textarea>
+          <button id="composer-send">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 4: outcome -->
+  <div id="view-outcome" class="hidden">
+    <div class="panel">
+      <header>
+        <h2 id="outcome-title">Done</h2>
+      </header>
+      <div class="body">
+        <div class="outcome" id="outcome-body"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // === CONFIG ============================================================
+  // Set this to the URL where the instant-meeting backend is reachable.
+  // For local dev, http://localhost:8412 works once you start the server.
+  // For production, this should be a public URL (ngrok tunnel or deployed).
+  // The backend is the one in mote-ops/instant-meeting/server/standalone.py.
+  // Until /instant/* is publicly routed, this widget will run in "preview"
+  // mode: form submits will fail with a clear banner.
+  window.MOTEOPS_API_BASE = window.MOTEOPS_API_BASE || "https://cccc-23-93-211-147.ngrok-free.app";
+  // =======================================================================
+
+  const CALENDLY_FALLBACK = "https://calendly.com/mikedmote/30min";
+  const $ = (id) => document.getElementById(id);
+  const show = (id) => { ["view-form","view-status","view-chat","view-outcome"].forEach(v => $(v).classList.toggle("hidden", v !== id)); };
+
+  let sessionId = null;
+  let eventSource = null;
+  let renderedMessageCount = 0;
+  let outcomeShown = false;
+
+  // Backend health check on load. If the backend isn't reachable, show
+  // the preview banner so visitors know what's up.
+  (async () => {
+    try {
+      const r = await fetch(window.MOTEOPS_API_BASE + "/instant/health", { method: "GET" });
+      if (!r.ok) throw new Error("non-200");
+    } catch (err) {
+      $("preview-banner").classList.remove("hidden");
+    }
+  })();
+
+  $("cancel-form").addEventListener("click", () => {
+    if (window.parent !== window) {
+      window.parent.postMessage({ type: "moteops-instant-close" }, "*");
+    }
+  });
+
+  $("intake-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const data = Object.fromEntries(fd.entries());
+    data.consent_to_text = !!fd.get("consent_to_text");
+
+    try {
+      const res = await fetch(window.MOTEOPS_API_BASE + "/instant/request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        alert("Could not start session: " + (err.error || res.statusText) + "\n\nMike, check that the backend is running and reachable.");
+        return;
+      }
+      const out = await res.json();
+      sessionId = out.session_id;
+      show("view-status");
+      openStream(sessionId);
+    } catch (err) {
+      alert("Network error: " + err.message + "\n\nThe instant-meeting backend may not be reachable from this page yet. You can still book a call: " + CALENDLY_FALLBACK);
+    }
+  });
+
+  function openStream(sid) {
+    if (eventSource) eventSource.close();
+    try {
+      eventSource = new EventSource(window.MOTEOPS_API_BASE + "/instant/stream/" + sid);
+      eventSource.onmessage = (ev) => {
+        try { handleStateUpdate(JSON.parse(ev.data)); }
+        catch (err) { /* ignore */ }
+      };
+      eventSource.onerror = () => {
+        eventSource && eventSource.close(); eventSource = null;
+        pollLoop(sid);
+      };
+    } catch (err) {
+      pollLoop(sid);
+    }
+  }
+
+  async function pollLoop(sid) {
+    while (!outcomeShown) {
+      try {
+        const res = await fetch(window.MOTEOPS_API_BASE + "/instant/status/" + sid);
+        if (res.ok) handleStateUpdate(await res.json());
+      } catch (err) { /* ignore */ }
+      await new Promise(r => setTimeout(r, 1500));
+    }
+  }
+
+  function handleStateUpdate(view) {
+    const state = view.state;
+    setStep("step-vetting", stepStatus(state, ["vetting"]));
+    setStep("step-presence", stepStatus(state, ["presence_check"]));
+    setStep("step-pinging", stepStatus(state, ["notifying_mike"]));
+
+    if (state === "intake_received" || state === "vetting") {
+      $("status-summary").textContent = "Reading what you wrote.";
+    } else if (state === "presence_check") {
+      $("status-summary").textContent = "Looking at Mike's calendar and shift status.";
+    } else if (state === "notifying_mike") {
+      $("status-summary").textContent = "Mike just got a notification on his phone. Waiting for him to reply (up to 60 seconds).";
+    } else if (state === "agent_active") {
+      if (view.agent_messages && view.agent_messages.length > 0) {
+        show("view-chat");
+        renderMessages(view.agent_messages);
+      } else {
+        $("status-summary").textContent = "Mike isn't on right now. Mote Ops Agent is coming on the line.";
+      }
+    } else if (state === "mike_handoff") {
+      showOutcome("handoff", "Mike's coming on", outcomeHandoffBody(view));
+    } else if (state === "book_calendly") {
+      showOutcome("schedule", "Let's get you on Mike's calendar", outcomeScheduleBody(view));
+    } else if (state === "declined") {
+      showOutcome("declined", "Not the right fit right now", outcomeDeclinedBody(view));
+    }
+  }
+
+  function stepStatus(state, activeStates) {
+    const order = ["intake_received", "vetting", "presence_check", "notifying_mike", "agent_active", "mike_handoff", "book_calendly", "declined", "closed"];
+    const cur = order.indexOf(state);
+    const target = Math.min(...activeStates.map(s => order.indexOf(s)));
+    if (cur < 0 || target < 0) return "";
+    if (cur < target) return "";
+    if (cur === target) return "active";
+    return "done";
+  }
+
+  function setStep(id, cls) {
+    const el = $(id);
+    el.classList.remove("active", "done");
+    if (cls) el.classList.add(cls);
+  }
+
+  function renderMessages(messages) {
+    const container = $("messages");
+    if (messages.length === renderedMessageCount) return;
+    container.innerHTML = "";
+    for (const m of messages) {
+      const div = document.createElement("div");
+      div.className = "msg " + (m.role === "user" ? "user" : "assistant");
+      div.textContent = m.content;
+      container.appendChild(div);
+    }
+    container.scrollTop = container.scrollHeight;
+    renderedMessageCount = messages.length;
+  }
+
+  $("composer-send").addEventListener("click", sendMessage);
+  $("composer-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+
+  async function sendMessage() {
+    const input = $("composer-input");
+    const text = input.value.trim();
+    if (!text || !sessionId) return;
+    input.value = "";
+    input.disabled = true;
+    $("composer-send").disabled = true;
+    $("typing").classList.remove("hidden");
+
+    const container = $("messages");
+    const div = document.createElement("div");
+    div.className = "msg user";
+    div.textContent = text;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+
+    try {
+      await fetch(window.MOTEOPS_API_BASE + "/instant/message/" + sessionId, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+    } catch (err) { /* ignore */ }
+    input.disabled = false;
+    $("composer-send").disabled = false;
+    $("typing").classList.add("hidden");
+    input.focus();
+  }
+
+  function outcomeHandoffBody(view) {
+    return `
+      <h3>Mike just said he's coming on.</h3>
+      <p>Expect a text or call within the next two minutes. Keep this tab open if you want, or close it. He'll reach out at the email or phone you gave.</p>
+    `;
+  }
+  function outcomeScheduleBody(view) {
+    const url = (view.outcome && view.outcome.calendly) || view.calendly_url || CALENDLY_FALLBACK;
+    return `
+      <h3>Putting you on Mike's calendar.</h3>
+      <p>Mote Ops Agent has a briefing ready for him so he won't have to ask you the same questions twice.</p>
+      <a class="button" href="${url}" target="_blank" rel="noopener">Pick a time</a>
+    `;
+  }
+  function outcomeDeclinedBody(view) {
+    return `
+      <h3>This isn't a fit for Mote Ops right now.</h3>
+      <p>${(view.outcome && view.outcome.agent_briefing) || "Thanks for hitting the button. If your situation changes, you're welcome back."}</p>
+    `;
+  }
+
+  function showOutcome(kind, title, html) {
+    if (outcomeShown) return;
+    outcomeShown = true;
+    if (eventSource) eventSource.close();
+    show("view-outcome");
+    $("outcome-title").textContent = title;
+    const body = $("outcome-body");
+    body.className = "outcome " + kind;
+    body.innerHTML = html;
+  }
+</script>
+</body>
+</html>

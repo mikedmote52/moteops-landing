@@ -148,6 +148,24 @@
       transform: translateY(-1px);
       box-shadow: 0 6px 20px var(--accent-glow);
     }
+    .nav-actions {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-instant {
+      background: transparent; color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 8px 14px; border-radius: 8px;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 7px;
+      transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+    }
+    .nav-instant:hover { background: var(--accent-soft); transform: translateY(-1px); }
+    .nav-instant .live-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+      animation: instant-pulse 2s ease-in-out infinite;
+    }
 
     /* ── Hero ── */
     .hero {
@@ -227,6 +245,73 @@
     .btn-secondary:hover { color: var(--text-primary); }
     .btn-secondary svg { transition: transform var(--dur-fast) var(--ease-out); }
     .btn-secondary:hover svg { transform: translateY(2px); }
+
+    /* "Talk to Mike now" instant-meeting trigger — outline-style sibling to btn-primary */
+    .btn-instant {
+      background: transparent; color: var(--accent);
+      border: 1px solid var(--accent);
+      font-weight: 600; font-size: 15px;
+      padding: 13px 22px;
+      border-radius: var(--radius-sm);
+      display: inline-flex; align-items: center; gap: 9px;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+    }
+    .btn-instant:hover { background: var(--accent-soft); transform: translateY(-1px); }
+    .btn-instant .live-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+      box-shadow: 0 0 0 0 var(--accent-glow);
+      animation: instant-pulse 2s ease-in-out infinite;
+    }
+    @keyframes instant-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(217,119,87,0.5); }
+      70%  { box-shadow: 0 0 0 6px rgba(217,119,87,0); }
+      100% { box-shadow: 0 0 0 0 rgba(217,119,87,0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .btn-instant .live-dot { animation: none; }
+    }
+
+    /* Instant-meeting modal */
+    #moi-modal {
+      position: fixed; inset: 0; z-index: 9999;
+      display: none; align-items: flex-start; justify-content: center;
+      background: rgba(0,0,0,0.62);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      padding: 4vh 16px;
+      overflow-y: auto;
+    }
+    #moi-modal.open { display: flex; }
+    #moi-modal-shell {
+      position: relative;
+      width: 100%; max-width: 600px;
+      animation: moi-in 0.18s ease-out;
+    }
+    @keyframes moi-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #moi-modal-close {
+      position: absolute; top: -12px; right: -8px;
+      width: 36px; height: 36px;
+      background: var(--bg-overlay); color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; line-height: 1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      z-index: 2;
+    }
+    #moi-modal-close:hover { background: var(--bg-surface-alt); }
+    #moi-modal-frame {
+      width: 100%; height: 78vh; min-height: 560px;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      background: var(--bg-canvas);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    body.moi-locked { overflow: hidden; }
 
     /* Hero screenshot composition */
     .hero-shots {
@@ -751,9 +836,14 @@
       .step-tracks span { text-align: left; }
       .hero-actions { flex-direction: column; align-items: stretch; }
       .hero-actions .btn-primary { justify-content: center; }
+      .hero-actions .btn-instant { justify-content: center; }
       .foot-inner { flex-direction: column; align-items: flex-start; }
       .foot-right { display: flex; flex-wrap: wrap; gap: 8px 24px; }
       .foot-right a { margin-left: 0; }
+      /* Tighten the nav button on narrow phones so it doesn't crowd "Book a call". */
+      .nav-instant-label { display: none; }
+      .nav-instant { padding: 8px 11px; }
+      .nav-instant::after { content: "Live"; font-weight: 600; font-size: 13px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -771,7 +861,13 @@
 <nav class="top">
   <div class="container nav-inner">
     <a href="#" class="logo"><span class="logo-mark"></span> Mote Ops</a>
-    <a class="nav-cta" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a call</a>
+    <div class="nav-actions">
+      <button type="button" class="nav-instant" data-moi-open aria-label="Talk to Mike now">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span class="nav-instant-label">Talk to Mike now</span>
+      </button>
+      <a class="nav-cta" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a call</a>
+    </div>
   </div>
 </nav>
 
@@ -795,6 +891,10 @@
             Book the 30-min call
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
+          <button type="button" class="btn-instant" data-moi-open aria-label="Talk to Mike now">
+            <span class="live-dot" aria-hidden="true"></span>
+            Talk to Mike now
+          </button>
           <a class="btn-secondary" href="#gallery">
             See the work below
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
@@ -1062,10 +1162,19 @@
       <p>
         30 minutes. Free. By the end of the call you'll know what's possible, what it would cost, and whether you want to keep talking.
       </p>
-      <a class="btn-primary" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">
-        Book your free discovery call
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-      </a>
+      <div style="display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap;">
+        <a class="btn-primary" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">
+          Book your free discovery call
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <button type="button" class="btn-instant" data-moi-open aria-label="Talk to Mike now">
+          <span class="live-dot" aria-hidden="true"></span>
+          Talk to Mike now
+        </button>
+      </div>
+      <p style="margin-top:14px; font-size:13px; color:var(--text-tertiary);">
+        "Talk to Mike now" pings his phone. If he's on, you connect in 90 seconds. If not, his agent picks up.
+      </p>
     </div>
   </div>
 </section>
@@ -1083,6 +1192,52 @@
     </div>
   </div>
 </footer>
+
+<!-- ─────────────── INSTANT-MEETING MODAL ─────────────── -->
+<div id="moi-modal" role="dialog" aria-modal="true" aria-label="Talk to Mike now" hidden>
+  <div id="moi-modal-shell">
+    <button id="moi-modal-close" type="button" aria-label="Close">×</button>
+    <iframe id="moi-modal-frame" title="Talk to Mike now" loading="lazy"></iframe>
+  </div>
+</div>
+
+<script>
+  // Instant-meeting modal: open/close + escape + click-outside.
+  (function () {
+    const modal = document.getElementById('moi-modal');
+    const frame = document.getElementById('moi-modal-frame');
+    const closeBtn = document.getElementById('moi-modal-close');
+    let opened = false;
+    function open() {
+      if (opened) return;
+      opened = true;
+      // Lazy-load the iframe src so it doesn't fetch until the user opens.
+      if (!frame.src) frame.src = 'instant.html';
+      modal.hidden = false;
+      modal.classList.add('open');
+      document.body.classList.add('moi-locked');
+      // Focus the iframe so escape works inside.
+      setTimeout(() => { try { frame.contentWindow && frame.contentWindow.focus(); } catch (e) {} }, 50);
+    }
+    function close() {
+      if (!opened) return;
+      opened = false;
+      modal.classList.remove('open');
+      modal.hidden = true;
+      document.body.classList.remove('moi-locked');
+    }
+    document.querySelectorAll('[data-moi-open]').forEach(btn => {
+      btn.addEventListener('click', (e) => { e.preventDefault(); open(); });
+    });
+    closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && opened) close(); });
+    // Allow the iframe to ask us to close (cancel button inside).
+    window.addEventListener('message', (e) => {
+      if (e && e.data && e.data.type === 'moteops-instant-close') close();
+    });
+  })();
+</script>
 
 <script>
   // Smooth scroll for in-page anchors with sticky-nav offset
