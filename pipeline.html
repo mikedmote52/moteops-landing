@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mote Ops — Pipeline</title>
+  <meta name="description" content="Mote Ops live pipeline dashboard — Booking, Prep, Call, Close, Learn." />
+  <meta name="theme-color" content="#08080d" />
+  <meta property="og:title" content="Mote Ops — Pipeline" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #08080d;
+      --bg-surface: #0c0e14;
+      --bg-surface-light: #12151e;
+      --border-color: rgba(255, 255, 255, 0.06);
+      --border-color-light: rgba(255, 255, 255, 0.10);
+      --text-primary: #f0f4f8;
+      --text-secondary: #8fa3af;
+      --text-tertiary: #4a5568;
+      --color-green: #10b981;
+      --color-green-bright: #00e8b0;
+      --color-blue: #3b82f6;
+      --color-purple: #8b5cf6;
+      --color-amber: #f59e0b;
+      --color-red: #ef4444;
+    }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--color-blue); text-decoration: none; transition: color 0.2s ease; }
+    a:hover { color: var(--color-green-bright); }
+
+    /* HEADER */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(8, 8, 13, 0.92) 100%);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.875rem 1rem;
+    }
+    .header-row { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .logo { font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 0.6rem; }
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background-color: var(--color-green);
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .last-updated {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 880px; margin: 0 auto;
+      padding: 1.25rem 1rem 4rem;
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+
+    /* SECTION HEADERS */
+    section { display: flex; flex-direction: column; gap: 0.875rem; }
+    section h2 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin: 0.25rem 0 0;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    section h2 .count-pill {
+      background-color: var(--bg-surface-light);
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 0.1rem 0.55rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      color: var(--text-primary);
+    }
+
+    /* HERO — TODAY QUEUE */
+    .hero {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(59, 130, 246, 0.04) 100%);
+      border: 1px solid var(--border-color-light);
+      border-radius: 14px;
+      padding: 1.25rem 1.25rem 1.1rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-green);
+      font-weight: 700;
+    }
+    .hero-number {
+      font-size: 3rem;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-meta {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+    .hero-meta strong { color: var(--text-primary); font-weight: 600; }
+    .next-call-card {
+      background-color: rgba(8, 8, 13, 0.5);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.95rem 1rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .next-call-row { display: flex; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+    .next-call-name { font-weight: 700; font-size: 1.05rem; }
+    .next-call-when {
+      font-size: 0.85rem; color: var(--color-green-bright); font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .next-call-detail { font-size: 0.85rem; color: var(--text-secondary); }
+    .prep-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.25rem 0.65rem; border-radius: 999px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .prep-pill.ready {
+      background: rgba(16, 185, 129, 0.15); color: var(--color-green-bright);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .prep-pill.missing {
+      background: rgba(245, 158, 11, 0.15); color: var(--color-amber);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .brief-toggle {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.55rem 0.85rem;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-height: 44px;
+    }
+    .brief-toggle:hover, .brief-toggle:active { border-color: var(--color-blue); color: var(--color-blue); }
+    .brief-body {
+      margin-top: 0.6rem;
+      padding: 0.85rem 0.95rem;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      display: none;
+    }
+    .brief-body.open { display: block; }
+    .brief-body strong { color: var(--text-primary); }
+
+    /* STAT GRID */
+    .stat-grid {
+      display: grid; gap: 0.75rem;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .stat-tile {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.95rem 1rem;
+      display: flex; flex-direction: column; gap: 0.25rem;
+    }
+    .stat-value {
+      font-size: 1.65rem; font-weight: 800; letter-spacing: -0.01em;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-value.green { color: var(--color-green); }
+    .stat-value.amber { color: var(--color-amber); }
+    .stat-value.red { color: var(--color-red); }
+    .stat-value.blue { color: var(--color-blue); }
+    .stat-label {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    /* CUSTOMER FUNNEL CARDS */
+    .funnel-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .customer-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      display: flex; flex-direction: column; gap: 0.55rem;
+      border-left-width: 3px;
+    }
+    .customer-card.green { border-left-color: var(--color-green); }
+    .customer-card.amber { border-left-color: var(--color-amber); }
+    .customer-card.red { border-left-color: var(--color-red); }
+    .customer-card-header {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem;
+    }
+    .customer-name { font-weight: 700; font-size: 1.02rem; }
+    .customer-business { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.1rem; }
+    .stage-pill {
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .stage-pill.raw_lead    { background: rgba(143, 163, 175, 0.15); color: var(--text-secondary); }
+    .stage-pill.researched  { background: rgba(139, 92, 246, 0.15); color: var(--color-purple); }
+    .stage-pill.call_scheduled { background: rgba(59, 130, 246, 0.15); color: var(--color-blue); }
+    .stage-pill.in_discovery { background: rgba(0, 232, 176, 0.15); color: var(--color-green-bright); }
+    .stage-pill.proposal_sent { background: rgba(245, 158, 11, 0.15); color: var(--color-amber); }
+    .stage-pill.won { background: rgba(16, 185, 129, 0.2); color: var(--color-green); }
+    .stage-pill.lost { background: rgba(239, 68, 68, 0.15); color: var(--color-red); }
+    .customer-pain {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    .customer-pain::before { content: '"'; }
+    .customer-pain::after { content: '"'; }
+    .customer-meta-row {
+      display: flex; flex-wrap: wrap; gap: 0.6rem 1rem;
+      font-size: 0.72rem; color: var(--text-tertiary);
+      letter-spacing: 0.02em;
+    }
+    .customer-meta-row .meta-tag { white-space: nowrap; }
+    .next-action {
+      margin-top: 0.25rem;
+      padding: 0.65rem 0.8rem;
+      background-color: var(--bg-surface-light);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      display: flex; flex-direction: column; gap: 0.2rem;
+    }
+    .next-action-label { font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+    .next-action-text { font-size: 0.92rem; color: var(--text-primary); }
+    .owner-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 4px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    .owner-tag.founder { background: rgba(245, 158, 11, 0.18); color: var(--color-amber); }
+    .owner-tag.customer { background: rgba(59, 130, 246, 0.18); color: var(--color-blue); }
+    .owner-tag.ai { background: rgba(139, 92, 246, 0.18); color: var(--color-purple); }
+    .owner-tag.dash { background: rgba(143, 163, 175, 0.15); color: var(--text-secondary); }
+
+    /* PENDING REVIEW */
+    .review-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .review-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.75rem 0.9rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+    }
+    .review-card-text { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; flex: 1; }
+    .review-card-title { font-weight: 600; font-size: 0.92rem; }
+    .review-card-meta { font-size: 0.72rem; color: var(--text-tertiary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .review-empty {
+      padding: 1.25rem 1rem;
+      background-color: var(--bg-surface);
+      border: 1px dashed var(--border-color-light);
+      border-radius: 12px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+    }
+
+    /* HEALTH GRID */
+    .health-grid {
+      display: grid; gap: 0.6rem;
+      grid-template-columns: 1fr;
+    }
+    .health-row {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      display: grid;
+      grid-template-columns: 12px 1fr auto;
+      gap: 0.6rem;
+      align-items: center;
+    }
+    .health-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .health-dot.green { background: var(--color-green); box-shadow: 0 0 10px var(--color-green); }
+    .health-dot.amber { background: var(--color-amber); box-shadow: 0 0 10px var(--color-amber); }
+    .health-dot.red { background: var(--color-red); box-shadow: 0 0 10px var(--color-red); }
+    .health-name { font-weight: 600; font-size: 0.92rem; }
+    .health-detail { font-size: 0.75rem; color: var(--text-secondary); }
+    .health-source { font-size: 0.68rem; color: var(--text-tertiary); font-family: 'Monaco', 'SF Mono', monospace; text-align: right; }
+
+    /* ACTIVITY FEED */
+    .activity-feed { display: flex; flex-direction: column; }
+    .activity-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.85rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .activity-row:first-child { padding-top: 0.2rem; }
+    .activity-row:last-child { border-bottom: none; }
+    .activity-time {
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      padding-top: 0.15rem;
+    }
+    .activity-text { display: flex; flex-direction: column; gap: 0.15rem; }
+    .activity-headline { font-size: 0.9rem; font-weight: 500; }
+    .activity-detail { font-size: 0.72rem; color: var(--text-secondary); }
+
+    /* OPERATOR SIGNAL CARD */
+    .signal-card {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(59, 130, 246, 0.04) 100%);
+      border: 1px solid var(--border-color-light);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .signal-card-stat { font-size: 0.85rem; color: var(--text-secondary); }
+    .signal-card-stat strong { color: var(--text-primary); font-weight: 600; }
+    .signal-card-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.85rem; font-weight: 600;
+      padding: 0.55rem 0.8rem;
+      border: 1px solid var(--border-color-light);
+      border-radius: 8px;
+      align-self: flex-start;
+      min-height: 44px;
+    }
+    .signal-card-link:hover { border-color: var(--color-purple); color: var(--color-purple); }
+
+    /* ERROR BANNER */
+    #error-banner {
+      display: none;
+      margin: 1rem; padding: 1rem;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid var(--color-red);
+      border-radius: 10px;
+      color: var(--color-red);
+      font-size: 0.9rem;
+    }
+    #error-banner.shown { display: block; }
+
+    /* CAVEAT FOOTER */
+    .caveats {
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      line-height: 1.65;
+      padding: 1rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 1rem;
+    }
+    .caveats h3 { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.4rem; font-weight: 700; }
+
+    /* DESKTOP BREAKPOINTS */
+    @media (min-width: 640px) {
+      .stat-grid { grid-template-columns: repeat(4, 1fr); }
+      header { padding: 1rem 1.5rem; }
+      main { padding: 1.5rem 1.5rem 4rem; }
+    }
+    @media (min-width: 880px) {
+      .health-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* LOADING SHIMMER */
+    .shimmer {
+      background: linear-gradient(90deg, var(--bg-surface) 0%, var(--bg-surface-light) 50%, var(--bg-surface) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s ease-in-out infinite;
+      border-radius: 8px;
+      color: transparent;
+    }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-row">
+      <div class="logo"><span class="pulse-dot"></span> Mote Ops · Pipeline</div>
+      <div class="last-updated" id="last-updated">loading…</div>
+    </div>
+  </header>
+
+  <div id="error-banner"></div>
+
+  <main>
+    <!-- HERO: TODAY'S QUEUE -->
+    <section id="today">
+      <div class="hero" id="hero-card">
+        <div>
+          <div class="hero-eyebrow">Today's queue</div>
+          <div class="hero-number shimmer" id="today-count">·</div>
+          <div class="hero-meta" id="today-meta">·</div>
+        </div>
+        <div class="next-call-card" id="next-call-card" style="display:none">
+          <div class="next-call-row">
+            <div>
+              <div class="next-call-name" id="next-call-name">·</div>
+              <div class="next-call-detail" id="next-call-detail">·</div>
+            </div>
+            <div class="next-call-when" id="next-call-when">·</div>
+          </div>
+          <div class="next-call-row" style="align-items:center">
+            <span class="prep-pill" id="next-call-prep">·</span>
+            <button class="brief-toggle" id="brief-toggle" type="button">View brief</button>
+          </div>
+          <div class="brief-body" id="brief-body"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METRICS -->
+    <section id="metrics">
+      <h2>Pipeline metrics</h2>
+      <div class="stat-grid" id="stat-grid">
+        <div class="stat-tile"><div class="stat-value blue shimmer">·</div><div class="stat-label">Total</div></div>
+        <div class="stat-tile"><div class="stat-value green shimmer">·</div><div class="stat-label">New 7d</div></div>
+        <div class="stat-tile"><div class="stat-value amber shimmer">·</div><div class="stat-label">Advanced 7d</div></div>
+        <div class="stat-tile"><div class="stat-value shimmer">·</div><div class="stat-label">Win rate</div></div>
+      </div>
+    </section>
+
+    <!-- ACTIVE FUNNEL -->
+    <section id="funnel">
+      <h2>Active customers <span class="count-pill" id="funnel-count">·</span></h2>
+      <div class="funnel-list" id="funnel-list">
+        <div class="customer-card green"><div class="shimmer" style="height:64px">·</div></div>
+      </div>
+    </section>
+
+    <!-- PENDING REVIEW -->
+    <section id="review">
+      <h2>Pending your review <span class="count-pill" id="review-count">·</span></h2>
+      <div class="review-list" id="review-list"></div>
+    </section>
+
+    <!-- SYSTEM HEALTH -->
+    <section id="health">
+      <h2>System health</h2>
+      <div class="health-grid" id="health-grid"></div>
+    </section>
+
+    <!-- ACTIVITY -->
+    <section id="activity">
+      <h2>Recent activity</h2>
+      <div class="activity-feed" id="activity-feed"></div>
+    </section>
+
+    <!-- OPERATOR SIGNAL CARD -->
+    <section id="op-signal">
+      <h2>Operator signal map</h2>
+      <div class="signal-card" id="signal-card"></div>
+    </section>
+
+    <div class="caveats" id="caveats" style="display:none">
+      <h3>Caveats</h3>
+      <div id="caveats-body"></div>
+    </div>
+  </main>
+
+  <script>
+    // ------------------------------------------------------------------
+    // Data fetch
+    // ------------------------------------------------------------------
+    const STATE_URL = 'data/dashboard_state.json?v=' + Date.now();
+
+    async function loadState() {
+      try {
+        const res = await fetch(STATE_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (!data.schema_version) throw new Error('missing schema_version');
+        renderAll(data);
+      } catch (err) {
+        showError(`Could not load dashboard_state.json: ${err.message}. Run tools/dashboard_state_builder.py to generate it.`);
+        console.error(err);
+      }
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('error-banner');
+      el.textContent = msg;
+      el.classList.add('shown');
+    }
+
+    // ------------------------------------------------------------------
+    // Render
+    // ------------------------------------------------------------------
+    function renderAll(s) {
+      renderLastUpdated(s.generated_at);
+      renderToday(s.today_queue);
+      renderMetrics(s.metrics, s.funnel);
+      renderFunnel(s.funnel);
+      renderPendingReview(s.pending_review);
+      renderHealth(s.system_health);
+      renderActivity(s.recent_activity);
+      renderOpSignals(s.operator_signal_summary);
+      renderCaveats(s.caveats);
+    }
+
+    function renderLastUpdated(iso) {
+      const el = document.getElementById('last-updated');
+      const dt = new Date(iso);
+      const now = new Date();
+      const ageMin = Math.floor((now - dt) / 60000);
+      let phrase;
+      if (ageMin < 1) phrase = 'just now';
+      else if (ageMin < 60) phrase = ageMin + 'm ago';
+      else if (ageMin < 1440) phrase = Math.floor(ageMin / 60) + 'h ago';
+      else phrase = Math.floor(ageMin / 1440) + 'd ago';
+      el.textContent = 'Updated ' + phrase;
+    }
+
+    function renderToday(q) {
+      document.getElementById('today-count').classList.remove('shimmer');
+      const countEl = document.getElementById('today-count');
+      const metaEl = document.getElementById('today-meta');
+      const cardEl = document.getElementById('next-call-card');
+
+      countEl.textContent = q.today_count;
+
+      const upcoming = q.upcoming_count || 0;
+      const todayN = q.today_count || 0;
+      let meta = '';
+      if (todayN > 0) {
+        meta = 'on the calendar today';
+      } else if (q.next_call) {
+        meta = `nothing today; next call ${q.next_call.call_relative}`;
+      } else {
+        meta = 'no calls scheduled';
+      }
+      metaEl.textContent = meta;
+
+      if (q.next_call) {
+        cardEl.style.display = 'flex';
+        document.getElementById('next-call-name').textContent =
+          q.next_call.customer_name + (q.next_call.business && q.next_call.business !== 'unknown' ? ' · ' + q.next_call.business : '');
+        document.getElementById('next-call-detail').textContent =
+          (q.next_call.format || '—') + (q.next_call.named_pain ? ' · ' + q.next_call.named_pain : '');
+        document.getElementById('next-call-when').textContent = q.next_call.call_relative;
+        const prepEl = document.getElementById('next-call-prep');
+        if (q.next_call.prepped) {
+          prepEl.textContent = '✓ Brief ready';
+          prepEl.className = 'prep-pill ready';
+        } else {
+          prepEl.textContent = '! Prep needed';
+          prepEl.className = 'prep-pill missing';
+        }
+        const briefBody = document.getElementById('brief-body');
+        const briefBtn = document.getElementById('brief-toggle');
+        if (q.next_call.prepped && q.next_call.brief_path) {
+          briefBtn.style.display = 'inline-flex';
+          briefBody.innerHTML = `
+            <strong>${escapeHtml(q.next_call.customer_name)}</strong>
+            <br/>${escapeHtml(q.next_call.format || '—')} · ${escapeHtml(q.next_call.call_relative)}
+            ${q.next_call.named_pain ? '<br/><span style="color:var(--text-primary)">Time leak: </span>' + escapeHtml(q.next_call.named_pain) : ''}
+            ${q.next_call.help_type ? '<br/><span style="color:var(--text-primary)">Help shape: </span>' + escapeHtml(q.next_call.help_type) : ''}
+            ${q.next_call.verdict ? '<br/><span style="color:var(--text-primary)">Verdict: </span>' + escapeHtml(q.next_call.verdict) : ''}
+            <br/><br/><span style="color:var(--text-primary)">Brief path</span><br/>
+            <code style="font-size:0.7rem;word-break:break-all;color:var(--text-secondary)">${escapeHtml(q.next_call.brief_path)}</code>
+          `;
+          briefBtn.addEventListener('click', () => {
+            briefBody.classList.toggle('open');
+            briefBtn.textContent = briefBody.classList.contains('open') ? 'Hide brief' : 'View brief';
+          });
+        } else {
+          briefBtn.textContent = 'Generate brief';
+          briefBtn.disabled = true;
+          briefBtn.style.opacity = '0.5';
+        }
+      }
+    }
+
+    function renderMetrics(m, funnel) {
+      const grid = document.getElementById('stat-grid');
+      const winRate = m.win_rate == null ? '—' : Math.round(m.win_rate * 100) + '%';
+      grid.innerHTML = `
+        <div class="stat-tile"><div class="stat-value blue">${m.total_customers}</div><div class="stat-label">Total in flight</div></div>
+        <div class="stat-tile"><div class="stat-value green">${m.new_last_7d}</div><div class="stat-label">New · 7d</div></div>
+        <div class="stat-tile"><div class="stat-value amber">${m.advanced_last_7d}</div><div class="stat-label">Advanced · 7d</div></div>
+        <div class="stat-tile"><div class="stat-value">${winRate}</div><div class="stat-label">Win rate</div></div>
+      `;
+    }
+
+    function renderFunnel(funnel) {
+      document.getElementById('funnel-count').textContent = funnel.length;
+      const wrap = document.getElementById('funnel-list');
+      if (funnel.length === 0) {
+        wrap.innerHTML = '<div class="review-empty">No active customers in the funnel yet.</div>';
+        return;
+      }
+      wrap.innerHTML = funnel.map(c => {
+        const stagePill = `<span class="stage-pill ${c.stage}">${escapeHtml(c.stage_label)}</span>`;
+        const painLine = c.named_pain ? `<div class="customer-pain">${escapeHtml(c.named_pain)}</div>` : '';
+        const ownerCls = ({founder: 'founder', customer: 'customer', ai: 'ai'})[c.next_action.owner] || 'dash';
+        const ownerTag = `<span class="owner-tag ${ownerCls}">${escapeHtml(c.next_action.owner === 'ai' ? 'auto' : c.next_action.owner)}</span>`;
+        const meta = [];
+        if (c.confidence != null) meta.push(`conf <strong>${c.confidence.toFixed(2)}</strong>`);
+        if (c.days_in_stage != null) meta.push(`${c.days_in_stage}d in stage`);
+        if (c.interactions_count) meta.push(`${c.interactions_count} interaction${c.interactions_count === 1 ? '' : 's'}`);
+        if (c.source && c.source !== 'unknown') meta.push(escapeHtml(c.source));
+        return `
+          <article class="customer-card ${c.status_color}">
+            <div class="customer-card-header">
+              <div>
+                <div class="customer-name">${escapeHtml(c.name)}</div>
+                <div class="customer-business">${escapeHtml(c.business)}${c.role && c.role !== 'unknown' ? ' · ' + escapeHtml(c.role) : ''}</div>
+              </div>
+              ${stagePill}
+            </div>
+            ${painLine}
+            <div class="customer-meta-row">${meta.map(m => `<span class="meta-tag">${m}</span>`).join('')}</div>
+            <div class="next-action">
+              <div class="next-action-label">Next action ${ownerTag}</div>
+              <div class="next-action-text">${escapeHtml(c.next_action.label)}</div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderPendingReview(items) {
+      document.getElementById('review-count').textContent = items.length;
+      const wrap = document.getElementById('review-list');
+      if (items.length === 0) {
+        wrap.innerHTML = '<div class="review-empty">Nothing staged for review. The system is ahead of you.</div>';
+        return;
+      }
+      wrap.innerHTML = items.map(it => `
+        <div class="review-card">
+          <div class="review-card-text">
+            <div class="review-card-title">${escapeHtml(it.customer_name)} — ${escapeHtml(it.type)}</div>
+            <div class="review-card-meta">${escapeHtml(it.path)}</div>
+          </div>
+          <span class="stage-pill ${typeStageMap(it.type)}">${escapeHtml(it.type)}</span>
+        </div>
+      `).join('');
+    }
+
+    function typeStageMap(t) {
+      if (t === 'proposal') return 'proposal_sent';
+      if (t === 'followup') return 'researched';
+      if (t === 'decline') return 'lost';
+      return 'raw_lead';
+    }
+
+    function renderHealth(rows) {
+      const wrap = document.getElementById('health-grid');
+      wrap.innerHTML = rows.map(r => `
+        <div class="health-row">
+          <span class="health-dot ${r.status}"></span>
+          <div>
+            <div class="health-name">${escapeHtml(r.name)}</div>
+            <div class="health-detail">${escapeHtml(r.detail)}</div>
+          </div>
+          <div class="health-source">${escapeHtml(r.source || '')}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderActivity(events) {
+      const wrap = document.getElementById('activity-feed');
+      if (!events || events.length === 0) {
+        wrap.innerHTML = '<div class="review-empty">No events recorded yet.</div>';
+        return;
+      }
+      const now = new Date();
+      wrap.innerHTML = events.map(ev => {
+        const ago = relative(new Date(ev.timestamp_iso), now);
+        return `
+          <div class="activity-row">
+            <div class="activity-time">${escapeHtml(ago)}</div>
+            <div class="activity-text">
+              <div class="activity-headline">${escapeHtml(ev.headline)}</div>
+              <div class="activity-detail">${escapeHtml(ev.detail || '')}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderOpSignals(s) {
+      const wrap = document.getElementById('signal-card');
+      if (!s.available) {
+        wrap.innerHTML = `<div class="signal-card-stat">${escapeHtml(s.message || 'unavailable')}</div>`;
+        return;
+      }
+      const topPain = (s.top_pain_themes || [])
+        .map(p => `${escapeHtml(p.theme)} (${p.qualified}/${p.occurrences})`)
+        .join(' · ');
+      const topVerts = (s.top_verticals || [])
+        .map(v => `${escapeHtml(v.vertical)} ${v.qualified}/${v.count}`)
+        .join(' · ');
+      wrap.innerHTML = `
+        <div class="signal-card-stat"><strong>${s.qualified || 0}</strong> qualified · <strong>${s.needs_more_info || 0}</strong> need info · <strong>${s.declined || 0}</strong> declined</div>
+        ${topPain ? `<div class="signal-card-stat">Pain themes: ${topPain}</div>` : ''}
+        ${topVerts ? `<div class="signal-card-stat">Verticals: ${topVerts}</div>` : ''}
+        <a class="signal-card-link" href="${escapeHtml(s.report_url)}" target="_blank" rel="noopener">Open full operator-signal report →</a>
+      `;
+    }
+
+    function renderCaveats(caveats) {
+      if (!caveats || caveats.length === 0) return;
+      const wrap = document.getElementById('caveats');
+      wrap.style.display = 'block';
+      document.getElementById('caveats-body').innerHTML =
+        caveats.map(c => `<div>· ${escapeHtml(c)}</div>`).join('');
+    }
+
+    // ------------------------------------------------------------------
+    // helpers
+    // ------------------------------------------------------------------
+    function relative(then, now) {
+      const ms = now - then;
+      const sec = Math.floor(ms / 1000);
+      const fut = sec < 0;
+      const abs = Math.abs(sec);
+      if (abs < 60) return fut ? 'in <1m' : '<1m ago';
+      if (abs < 3600) return fut ? 'in ' + Math.floor(abs / 60) + 'm' : Math.floor(abs / 60) + 'm ago';
+      if (abs < 86400) return fut ? 'in ' + Math.floor(abs / 3600) + 'h' : Math.floor(abs / 3600) + 'h ago';
+      const d = Math.floor(abs / 86400);
+      if (d < 14) return fut ? 'in ' + d + 'd' : d + 'd ago';
+      return fut ? 'in ' + Math.floor(d / 7) + 'w' : Math.floor(d / 7) + 'w ago';
+    }
+
+    function escapeHtml(s) {
+      if (s == null) return '';
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    loadState();
+  </script>
+</body>
+</html>
