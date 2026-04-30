@@ -306,7 +306,7 @@
   // the preview banner so visitors know what's up.
   (async () => {
     try {
-      const r = await fetch(window.MOTEOPS_API_BASE + "/instant/health", { method: "GET" });
+      const r = await fetch(window.MOTEOPS_API_BASE + "/instant/health", { method: "GET", headers: { "ngrok-skip-browser-warning": "1" } });
       if (!r.ok) throw new Error("non-200");
     } catch (err) {
       $("preview-banner").classList.remove("hidden");
@@ -328,7 +328,7 @@
     try {
       const res = await fetch(window.MOTEOPS_API_BASE + "/instant/request", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "ngrok-skip-browser-warning": "1" },
         body: JSON.stringify(data),
       });
       if (!res.ok) {
@@ -365,7 +365,7 @@
   async function pollLoop(sid) {
     while (!outcomeShown) {
       try {
-        const res = await fetch(window.MOTEOPS_API_BASE + "/instant/status/" + sid);
+        const res = await fetch(window.MOTEOPS_API_BASE + "/instant/status/" + sid, { headers: { "ngrok-skip-browser-warning": "1" } });
         if (res.ok) handleStateUpdate(await res.json());
       } catch (err) { /* ignore */ }
       await new Promise(r => setTimeout(r, 1500));
@@ -454,7 +454,7 @@
     try {
       await fetch(window.MOTEOPS_API_BASE + "/instant/message/" + sessionId, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "ngrok-skip-browser-warning": "1" },
         body: JSON.stringify({ text }),
       });
     } catch (err) { /* ignore */ }
