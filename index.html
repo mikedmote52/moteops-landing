@@ -1263,29 +1263,39 @@
     });
   });
 
-  // How-it-works step reveal on scroll. Resilient to fast scroll: anything
-  // already in (or near) the viewport on first paint reveals immediately;
-  // a low threshold + generous rootMargin catches the rest before the user
-  // can outrun the observer.
+  // How-it-works step reveal. Glitch-proof against fast scroll: the
+  // IntersectionObserver provides the nice stagger for slow scrolls, but
+  // multiple independent fallbacks guarantee no card ever stays pending.
+  //   1. First-paint pass: reveal anything already on screen.
+  //   2. IntersectionObserver: low threshold + early rootMargin trigger.
+  //   3. First-scroll listener: flush any card the user has scrolled to or
+  //      past, regardless of whether the observer fired.
+  //   4. Hard backstop: 1200ms after load, force-reveal everything still
+  //      pending. The animation is a polish detail, not load-bearing.
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const steps = document.querySelectorAll('.step.reveal-pending');
   const reveal = (el, delay = 0) => {
+    if (!el || !el.classList.contains('reveal-pending')) return;
     setTimeout(() => {
       el.classList.remove('reveal-pending');
       el.classList.add('reveal-active');
     }, delay);
   };
+  const revealAllRemaining = () => {
+    document.querySelectorAll('.step.reveal-pending').forEach(s => reveal(s));
+  };
+
   if (reduced || !('IntersectionObserver' in window)) {
-    steps.forEach(s => reveal(s));
+    revealAllRemaining();
   } else {
-    // Pass 1: reveal anything already on screen at first paint.
+    // 1. First-paint: anything already visible reveals with a small stagger.
     const vh = window.innerHeight || document.documentElement.clientHeight;
     steps.forEach((s, i) => {
       const r = s.getBoundingClientRect();
       if (r.top < vh && r.bottom > 0) reveal(s, i * 60);
     });
-    // Pass 2: observe the rest. Trigger early via rootMargin so a fast
-    // scroll past the section still fires before the cards leave view.
+    // 2. Observer for the rest. Threshold 0.01 + early rootMargin so even
+    //    a fast scroll briefly satisfies the trigger.
     const obs = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -1299,15 +1309,23 @@
     steps.forEach(s => {
       if (s.classList.contains('reveal-pending')) obs.observe(s);
     });
-    // Safety net: if anything is still pending after 1.5s of being scrolled
-    // past, force-reveal it. Covers the edge case where a very fast scroll
-    // skipped a card entirely before the observer queued.
-    setTimeout(() => {
+    // 3. First-scroll flush: on the very first scroll event, immediately
+    //    reveal any pending card the user has reached or passed. Tied to
+    //    user activity, so it works whether the user scrolls in 200ms or
+    //    20s.
+    const onFirstScroll = () => {
       document.querySelectorAll('.step.reveal-pending').forEach(s => {
         const r = s.getBoundingClientRect();
         if (r.top < window.innerHeight) reveal(s);
       });
-    }, 1500);
+      // Stay attached for a short window in case more cards come into view
+      // mid-scroll, then detach to avoid being a permanent listener.
+      setTimeout(() => window.removeEventListener('scroll', onFirstScroll), 1500);
+    };
+    window.addEventListener('scroll', onFirstScroll, { passive: true });
+    // 4. Hard backstop. If anything is still pending 1.2s after load, give
+    //    up on the entrance animation and just show the cards.
+    setTimeout(revealAllRemaining, 1200);
   }
 </script>
 </body>
