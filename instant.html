@@ -179,7 +179,7 @@
       </header>
       <div class="body">
         <div class="outcome">
-          <h3>Mike's phone just buzzed.</h3>
+          <h3 id="outcome-heading">Mike's phone just buzzed.</h3>
           <p>He'll join you over Google Meet within a few minutes. Watch your <span id="outcome-channel">phone</span> — he'll send the link from there.</p>
           <p>If you don't hear back within 10 minutes, he's away from his desk. <a href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener" style="color: var(--accent);">Pick a calendar slot</a> instead.</p>
           <div class="meta">Request id: <span id="outcome-id">—</span></div>
@@ -314,6 +314,9 @@
         : contact_method === "email" ? "email"
         : "browser";
       $("outcome-channel").textContent = channelLabel;
+      $("outcome-heading").textContent = data.ntfy_ok
+        ? "Mike's phone just buzzed."
+        : "Your request is in.";
       show("view-outcome");
     } catch (err) {
       showErr("Network error: " + err.message + ". Try again or use the calendar.");
