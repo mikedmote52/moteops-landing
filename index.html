@@ -9,7 +9,17 @@
   <meta property="og:description" content="Production AI tools built by a PA-C clinician — autonomous systems running live in healthcare, finance, and small business operations. See the proof, then book a free 30-minute discovery call." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mikedmote52.github.io/moteops-landing/" />
+  <meta property="og:image" content="https://mikedmote52.github.io/moteops-landing/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Mote Ops — See what AI can do. Then learn to use it." />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mote Ops — See what AI can do. Then learn to use it." />
+  <meta name="twitter:description" content="Production AI tools built by a PA-C clinician. Free 30-min call. Quote tied to outcome value." />
+  <meta name="twitter:image" content="https://mikedmote52.github.io/moteops-landing/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -1253,29 +1263,51 @@
     });
   });
 
-  // How-it-works step reveal on scroll
+  // How-it-works step reveal on scroll. Resilient to fast scroll: anything
+  // already in (or near) the viewport on first paint reveals immediately;
+  // a low threshold + generous rootMargin catches the rest before the user
+  // can outrun the observer.
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduced && 'IntersectionObserver' in window) {
-    const steps = document.querySelectorAll('.step.reveal-pending');
+  const steps = document.querySelectorAll('.step.reveal-pending');
+  const reveal = (el, delay = 0) => {
+    setTimeout(() => {
+      el.classList.remove('reveal-pending');
+      el.classList.add('reveal-active');
+    }, delay);
+  };
+  if (reduced || !('IntersectionObserver' in window)) {
+    steps.forEach(s => reveal(s));
+  } else {
+    // Pass 1: reveal anything already on screen at first paint.
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    steps.forEach((s, i) => {
+      const r = s.getBoundingClientRect();
+      if (r.top < vh && r.bottom > 0) reveal(s, i * 60);
+    });
+    // Pass 2: observe the rest. Trigger early via rootMargin so a fast
+    // scroll past the section still fires before the cards leave view.
     const obs = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const target = entry.target;
           const idx = Array.from(steps).indexOf(target);
-          setTimeout(() => {
-            target.classList.remove('reveal-pending');
-            target.classList.add('reveal-active');
-          }, idx * 80);
+          reveal(target, idx * 60);
           obs.unobserve(target);
         }
       });
-    }, { threshold: 0.2 });
-    steps.forEach(s => obs.observe(s));
-  } else {
-    document.querySelectorAll('.step.reveal-pending').forEach(s => {
-      s.classList.remove('reveal-pending');
-      s.classList.add('reveal-active');
+    }, { threshold: 0.01, rootMargin: '0px 0px -10% 0px' });
+    steps.forEach(s => {
+      if (s.classList.contains('reveal-pending')) obs.observe(s);
     });
+    // Safety net: if anything is still pending after 1.5s of being scrolled
+    // past, force-reveal it. Covers the edge case where a very fast scroll
+    // skipped a card entirely before the observer queued.
+    setTimeout(() => {
+      document.querySelectorAll('.step.reveal-pending').forEach(s => {
+        const r = s.getBoundingClientRect();
+        if (r.top < window.innerHeight) reveal(s);
+      });
+    }, 1500);
   }
 </script>
 </body>
