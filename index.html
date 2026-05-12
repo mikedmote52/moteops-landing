@@ -806,6 +806,221 @@
     }
     .foot-right a:hover { color: var(--accent); }
 
+    /* ── Best-fit band ── */
+    .best-fit-band {
+      padding: 28px 0;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+    }
+    .best-fit-row {
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: center;
+      gap: 12px 22px;
+      text-align: center;
+    }
+    .best-fit-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11.5px; font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      text-transform: uppercase;
+      padding-right: 14px;
+      border-right: 1px solid var(--border-strong);
+      line-height: 1;
+    }
+    .best-fit-item {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      letter-spacing: -0.005em;
+      position: relative;
+    }
+    .best-fit-item + .best-fit-item::before {
+      content: '·';
+      color: var(--border-strong);
+      margin-right: 22px;
+      margin-left: -22px;
+    }
+    @media (max-width: 700px) {
+      .best-fit-eyebrow { border-right: none; padding-right: 0; }
+      .best-fit-row { gap: 10px 16px; }
+      .best-fit-item { font-size: 13.5px; }
+      .best-fit-item + .best-fit-item::before { margin-right: 16px; margin-left: -16px; }
+    }
+
+    /* ── Pull quote ── */
+    .pull-quote-section { padding: 72px 0 40px; }
+    .pull-quote-shell {
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+    .pull-quote-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11.5px; font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      position: relative;
+      display: inline-block;
+    }
+    .pull-quote-eyebrow::before,
+    .pull-quote-eyebrow::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 56px; height: 1px;
+      background: var(--border-strong);
+    }
+    .pull-quote-eyebrow::before { right: 100%; margin-right: 18px; }
+    .pull-quote-eyebrow::after  { left: 100%;  margin-left: 18px; }
+    .pull-quote-mark {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(80px, 12vw, 120px);
+      line-height: 0.8;
+      color: var(--accent);
+      opacity: 0.22;
+      display: block;
+      margin: 0 auto -42px;
+      letter-spacing: -0.05em;
+      user-select: none;
+      pointer-events: none;
+    }
+    .pull-quote-text {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.8vw, 30px);
+      line-height: 1.32;
+      letter-spacing: -0.012em;
+      color: var(--text-primary);
+      font-style: italic;
+      font-weight: 400;
+      text-wrap: balance;
+      margin-bottom: 22px;
+      max-width: 660px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pull-quote-meta {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin: 0 auto;
+      text-wrap: pretty;
+    }
+    @media (max-width: 540px) {
+      .pull-quote-eyebrow::before,
+      .pull-quote-eyebrow::after { width: 28px; }
+      .pull-quote-eyebrow::before { margin-right: 12px; }
+      .pull-quote-eyebrow::after  { margin-left: 12px; }
+    }
+
+    /* ── FAQ accordion ── */
+    .faq-list {
+      max-width: 820px;
+      border-top: 1px solid var(--border-default);
+      border-bottom: 1px solid var(--border-default);
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 22px 4px 22px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--text-primary);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .faq-item summary::-webkit-details-marker,
+    .faq-item summary::marker { display: none; content: ''; }
+    .faq-item summary:hover { color: var(--accent); }
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-tertiary);
+      transition: transform var(--dur-base) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out),
+                  color var(--dur-fast) var(--ease-out),
+                  background var(--dur-fast) var(--ease-out);
+    }
+    .faq-chevron svg { width: 10px; height: 10px; }
+    .faq-item summary:hover .faq-chevron {
+      border-color: var(--accent-30);
+      color: var(--accent);
+    }
+    .faq-item[open] .faq-chevron {
+      transform: rotate(180deg);
+      border-color: var(--accent-30);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .faq-answer {
+      padding: 0 56px 26px 4px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      text-wrap: pretty;
+    }
+    @media (max-width: 540px) {
+      .faq-item summary { font-size: 16px; padding: 20px 2px; gap: 16px; }
+      .faq-answer { padding: 0 4px 22px 2px; }
+    }
+
+    /* ── Subtle dot texture on the canvas ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle at 1px 1px, rgba(245, 242, 234, 0.015) 1px, transparent 0);
+      background-size: 28px 28px;
+      z-index: 0;
+    }
+    body > * { position: relative; z-index: 1; }
+
+    /* ── Headline balance ── */
+    h1, h2, .hero-sub, .section-lede { text-wrap: balance; }
+    .demo-desc, .workflow-desc, .step-desc, .about-body p { text-wrap: pretty; }
+
+    /* ── Refined card hover (subtle inner highlight) ── */
+    a.demo-card { position: relative; }
+    a.demo-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: var(--radius-lg);
+      pointer-events: none;
+      box-shadow: inset 0 1px 0 rgba(245, 242, 234, 0.03);
+      transition: box-shadow var(--dur-base) var(--ease-out);
+    }
+    a.demo-card:hover::after { box-shadow: inset 0 1px 0 rgba(245, 242, 234, 0.08); }
+    .workflow-card { position: relative; }
+    .workflow-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: var(--radius-lg);
+      pointer-events: none;
+      box-shadow: inset 0 1px 0 rgba(245, 242, 234, 0.03);
+      transition: box-shadow var(--dur-base) var(--ease-out);
+    }
+    .workflow-card:hover::after { box-shadow: inset 0 1px 0 rgba(245, 242, 234, 0.08); }
+
     /* ── Page-load cascade ── */
     .reveal-init { opacity: 0; transform: translateY(8px); }
     .reveal-step1 { animation: reveal var(--dur-slow) var(--ease-out) 80ms forwards; }
@@ -926,19 +1141,15 @@
 </header>
 
 <!-- ─────────────── BEST-FIT BAND ─────────────── -->
-<section id="best-fit" style="padding: 28px 0; border-top: 1px solid var(--border-subtle); background: var(--bg-surface);">
+<section id="best-fit" class="best-fit-band">
   <div class="container">
-    <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px 22px; justify-content: center; text-align: center;">
-      <span class="mono-caption" style="color: var(--accent);">Best fit</span>
-      <span style="font-size: 15px; color: var(--text-secondary);">Solo practitioners</span>
-      <span style="color: var(--border-strong);">·</span>
-      <span style="font-size: 15px; color: var(--text-secondary);">Family-owned operators</span>
-      <span style="color: var(--border-strong);">·</span>
-      <span style="font-size: 15px; color: var(--text-secondary);">Property managers</span>
-      <span style="color: var(--border-strong);">·</span>
-      <span style="font-size: 15px; color: var(--text-secondary);">Founders running too many tools</span>
-      <span style="color: var(--border-strong);">·</span>
-      <span style="font-size: 15px; color: var(--text-secondary);">Anyone losing 90 minutes a day to admin</span>
+    <div class="best-fit-row">
+      <span class="best-fit-eyebrow">Best fit</span>
+      <span class="best-fit-item">Solo practitioners</span>
+      <span class="best-fit-item">Family-owned operators</span>
+      <span class="best-fit-item">Property managers</span>
+      <span class="best-fit-item">Founders running too many tools</span>
+      <span class="best-fit-item">Anyone losing 90 minutes a day to admin</span>
     </div>
   </div>
 </section>
@@ -1031,15 +1242,18 @@
 </section>
 
 <!-- ─────────────── PULL QUOTE ─────────────── -->
-<section style="padding: 56px 0 24px;">
-  <div class="container" style="max-width: 760px; text-align: center;">
-    <div class="mono-caption" style="color: var(--accent); margin-bottom: 16px;">Every client told me the same thing</div>
-    <p style="font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 30px); line-height: 1.35; color: var(--text-primary); font-style: italic; margin-bottom: 14px;">
-      &ldquo;I knew AI could help my business. I just didn't know where to start.&rdquo;
-    </p>
-    <p style="font-size: 15.5px; color: var(--text-secondary); line-height: 1.6; max-width: 600px; margin: 0 auto;">
-      That's what the call is for. We figure it out together — no slides, no jargon. By the end, you'll know exactly what's possible for your business and what it'd cost.
-    </p>
+<section class="pull-quote-section">
+  <div class="container">
+    <div class="pull-quote-shell">
+      <div class="pull-quote-eyebrow">Every client said the same thing</div>
+      <span class="pull-quote-mark" aria-hidden="true">&ldquo;</span>
+      <p class="pull-quote-text">
+        I knew AI could help my business. I just didn't know where to start.
+      </p>
+      <p class="pull-quote-meta">
+        That's what the call is for. We figure it out together &mdash; no slides, no jargon. By the end, you'll know exactly what's possible for your business and what it'd cost.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -1202,27 +1416,42 @@
     <p class="section-lede">
       What every owner wants to know before booking 30 minutes.
     </p>
-    <div style="display: grid; gap: 16px; max-width: 820px;">
-      <div style="background: var(--bg-canvas); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 22px 24px;">
-        <div style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">What does it actually cost?</div>
-        <p style="font-size: 14.5px; color: var(--text-secondary); line-height: 1.6;">No fixed price card. The free 30-min call comes first. By the end of it (or the next day), you get a specific scope and a specific dollar figure — sized to what the system saves you in time, money, or opportunity. If it doesn't pencil out, I'll tell you on the call.</p>
-      </div>
-      <div style="background: var(--bg-canvas); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 22px 24px;">
-        <div style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">What if I'm not technical?</div>
-        <p style="font-size: 14.5px; color: var(--text-secondary); line-height: 1.6;">Most of my clients aren't. Cindi runs a childcare center; she's not a developer. The systems I build are operator-friendly by design — you click buttons, I write code. After delivery, I walk you through running it with Claude on your own.</p>
-      </div>
-      <div style="background: var(--bg-canvas); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 22px 24px;">
-        <div style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Will AI replace my job or my team?</div>
-        <p style="font-size: 14.5px; color: var(--text-secondary); line-height: 1.6;">I don't build systems that act unsupervised on anything customer-facing. The pattern across every project: AI drafts, you approve. Your judgment stays in the loop where it matters. What gets automated is the repetitive admin nobody enjoys doing anyway.</p>
-      </div>
-      <div style="background: var(--bg-canvas); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 22px 24px;">
-        <div style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">How long does it take?</div>
-        <p style="font-size: 14.5px; color: var(--text-secondary); line-height: 1.6;">A working v1 usually lands in one to three weeks after scope is signed. You get to use it immediately while I refine. The teaching walkthrough comes once you've had real hands on it.</p>
-      </div>
-      <div style="background: var(--bg-canvas); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 22px 24px;">
-        <div style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">What happens to my data?</div>
-        <p style="font-size: 14.5px; color: var(--text-secondary); line-height: 1.6;">Your data stays in your accounts — your email, your Stripe, your Calendly. I build connectors, not a separate database. Nothing leaves your stack to my servers unless you specifically want it to. Compliance-aware where it matters.</p>
-      </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>
+          What does it actually cost?
+          <span class="faq-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        </summary>
+        <div class="faq-answer">No fixed price card. The free 30-min call comes first. By the end of it (or the next day), you get a specific scope and a specific dollar figure &mdash; sized to what the system saves you in time, money, or opportunity. If it doesn't pencil out, I'll tell you on the call.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          What if I'm not technical?
+          <span class="faq-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        </summary>
+        <div class="faq-answer">Most of my clients aren't. Cindi runs a childcare center; she's not a developer. The systems I build are operator-friendly by design &mdash; you click buttons, I write code. After delivery, I walk you through running it with Claude on your own.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          Will AI replace my job or my team?
+          <span class="faq-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        </summary>
+        <div class="faq-answer">I don't build systems that act unsupervised on anything customer-facing. The pattern across every project: AI drafts, you approve. Your judgment stays in the loop where it matters. What gets automated is the repetitive admin nobody enjoys doing anyway.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          How long does it take?
+          <span class="faq-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        </summary>
+        <div class="faq-answer">A working v1 usually lands in one to three weeks after scope is signed. You get to use it immediately while I refine. The teaching walkthrough comes once you've had real hands on it.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          What happens to my data?
+          <span class="faq-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        </summary>
+        <div class="faq-answer">Your data stays in your accounts &mdash; your email, your Stripe, your Calendly. I build connectors, not a separate database. Nothing leaves your stack to my servers unless you specifically want it to. Compliance-aware where it matters.</div>
+      </details>
     </div>
   </div>
 </section>
