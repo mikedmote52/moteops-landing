@@ -285,11 +285,19 @@
   }
   .domain .d-headline {
     font-family: 'Playfair Display', serif;
-    font-weight: 500;
+    font-weight: 400;
+    font-style: italic;
     font-size: clamp(28px, 3.4vw, 40px);
     line-height: 1.1;
     letter-spacing: -0.015em;
     margin-bottom: 18px;
+  }
+  .domain > div:nth-child(2) {
+    border-left: 1px solid rgba(200,136,58,0.35);
+    padding-left: 32px;
+  }
+  @media (max-width: 720px) {
+    .domain > div:nth-child(2) { padding-left: 16px; }
   }
   .domain .d-body {
     font-size: 17px;
@@ -622,6 +630,89 @@
     .shot-pair { grid-template-columns: 1fr; gap: 40px; padding: 40px 0; }
   }
 
+  /* Section 03 . How I build (marginalia + flowing prose) */
+  .stack-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 56px;
+    padding: 56px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .stack-row:first-of-type { border-top: 1px solid var(--rule); }
+  .stack-label {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--amber);
+    padding-top: 6px;
+  }
+  .stack-prose p {
+    font-size: 19px;
+    line-height: 1.75;
+    color: var(--ink);
+    max-width: 60ch;
+    margin-bottom: 18px;
+  }
+  .stack-prose p:last-child { margin-bottom: 0; }
+  .stack-prose em {
+    font-style: italic;
+    color: var(--amber);
+    font-weight: 500;
+  }
+  @media (max-width: 720px) {
+    .stack-row { grid-template-columns: 1fr; gap: 14px; padding: 36px 0; }
+    .stack-label { padding-top: 0; }
+  }
+
+  /* Section 04 . Field notes (editorial in-brief column) */
+  .field-list { border-top: 1px solid var(--rule); }
+  .field-item {
+    padding: 52px 0;
+    border-bottom: 1px solid var(--rule);
+    max-width: 64ch;
+  }
+  .field-item:last-child { border-bottom: 1px solid var(--rule); }
+  .field-dateline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--amber);
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+  }
+  .field-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 18px;
+    max-width: 30ch;
+  }
+  .field-body {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-mute);
+    max-width: 58ch;
+  }
+  .field-footnote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-mute);
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    max-width: 64ch;
+  }
+  @media (max-width: 720px) {
+    .field-item { padding: 36px 0; }
+  }
+
   /* Selection */
   ::selection { background: var(--amber); color: var(--black); }
 
@@ -788,7 +879,7 @@
     <div class="hero-body reveal">
       <div class="col-prose prose">
         <p class="large">The category sells decks, retainers, and dependency. I sell working software, the math behind it, and the walkthrough that lets you keep going without me.</p>
-        <p>Every system here ran on my own life first. The four production systems below were built for family and friends as I learned the toolkit. I am a practicing clinician in a Level I trauma center, which is a setting where AI mistakes have human cost. That posture carries into every system: drafts go through approval, fidelity gets verified, the human stays in the loop where it matters. Mote Ops is the move to take the same pattern to paying clients now.</p>
+        <p>Every system below ran on my own machine first, then shipped to production for real operators. I am a practicing clinician in a Level I trauma center, which is a setting where AI mistakes have human cost. That posture carries into every system: drafts go through approval, fidelity gets verified, the human stays in the loop where it matters.</p>
       </div>
       <div class="col-meta">
         <div class="row"><span>Discipline</span><span>Build, then teach</span></div>
@@ -833,11 +924,11 @@
   <div class="frame">
     <div class="sec-head reveal">
       <div class="sec-num">02</div>
-      <div class="sec-label">What I have built so far &nbsp;·&nbsp; Four production systems, all for family or friends</div>
+      <div class="sec-label">What I have built &nbsp;·&nbsp; Four production systems, currently in daily use</div>
     </div>
 
     <div class="prose reveal" style="margin-bottom: 72px;">
-      <p class="large">Working artifacts beat decks. Each system below was built for someone I know, a family member or a friend losing real time to repetitive admin. All four are in production, all in daily use. They are the proof I want to bring to paying clients now.</p>
+      <p class="large">Each system below was built to solve a specific operational problem an owner couldn't keep doing manually. All four are in production, all in daily use. They are the working proof of the pattern Mote Ops sells.</p>
     </div>
 
     <div class="domains">
@@ -930,11 +1021,102 @@
   </div>
 </section>
 
-<!-- Section 03 . How this works -->
+<!-- Section 03 . How I build -->
+<section id="stack" class="long-form">
+  <div class="frame">
+    <div class="sec-head reveal" style="grid-column: 1 / -1;">
+      <div class="sec-num" style="font-style: italic;">III</div>
+      <div class="sec-label">How I build &nbsp;·&nbsp; The current stack</div>
+    </div>
+    <div></div>
+    <div style="grid-column: 2 / 3;" data-stagger="160">
+      <p class="lede reveal" style="margin-bottom: 80px; max-width: 36ch;">The stack changes as the field changes. This is what is in rotation today, what I am testing this month, and what I expect to land in client builds next.</p>
+
+      <div class="stack-row reveal">
+        <div class="stack-label">Models</div>
+        <div class="stack-prose">
+          <p>Most code paths route to <em>Claude Sonnet 4.6</em> running inside <em>Claude Code</em>. <em>Opus 4.8</em> gets pulled in for architecture decisions and high-stakes drafts where I need the model to flag uncertainty instead of guess. <em>Haiku 4.5</em> handles the high-volume classification work where speed and cost matter more than depth.</p>
+          <p><em>Codex</em> sits in as a second pair of eyes on adversarial code review. <em>Gemini 3 Flash</em> earns its slot when the context window has to swallow a messy enterprise corpus and latency cannot wait. <em>Hermes 4</em> covers the client builds that need to run on open weights inside their own perimeter.</p>
+        </div>
+      </div>
+
+      <div class="stack-row reveal">
+        <div class="stack-label">Frameworks</div>
+        <div class="stack-prose">
+          <p><em>Claude Code</em> is the cockpit for almost every build I ship: plugins, skills, subagents, the whole orchestration surface. <em>Hermes Agent</em> from Nous handles long-horizon background work, the kind of agent that has to think for an hour while I am at the hospital. When neither fits, a thin layer of <em>custom Python</em> around the SDK is still the cleanest answer.</p>
+        </div>
+      </div>
+
+      <div class="stack-row reveal">
+        <div class="stack-label">Infrastructure</div>
+        <div class="stack-prose">
+          <p><em>Vercel</em> sits at the front of most client builds: Edge Functions for the hot path, the new <em>AI Gateway</em> for multi-provider routing so the client is not chained to one model vendor. <em>GitHub Pages</em> covers static demos and front ends where a server would be overkill.</p>
+          <p>When sensitive data has to stay inside a controlled perimeter, the floor is <em>Hostinger VPS</em> with <em>Docker</em>. <em>GitHub Actions</em> runs the CI, the scheduled jobs, and the autonomous handlers that operate between sessions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 04 . Field notes -->
+<section id="field">
+  <div class="frame">
+    <div class="sec-head reveal">
+      <div class="sec-num">04</div>
+      <div class="sec-label">Field notes &nbsp;·&nbsp; Recent in AI</div>
+    </div>
+
+    <div class="prose reveal" style="margin-bottom: 64px;">
+      <p class="large">The catalog moves weekly. Here is what landed this month that is going into client builds, or that I am evaluating before it does.</p>
+    </div>
+
+    <div class="field-list" data-stagger="120">
+      <article class="field-item reveal">
+        <p class="field-dateline">Anthropic &nbsp;·&nbsp; May 28, 2026</p>
+        <h3 class="field-title">Claude Opus 4.8 ships uncertainty-flagging behavior.</h3>
+        <p class="field-body">The model now says "I am not sure" instead of confabulating a confident answer when the ground is thin. For high-stakes drafts in clinical or legal-adjacent work, that single behavior shift retires a category of error my approval rails were built to catch. It moves into client builds this week.</p>
+      </article>
+
+      <article class="field-item reveal">
+        <p class="field-dateline">Anthropic &nbsp;·&nbsp; May 2026</p>
+        <h3 class="field-title">Parallel subagents land in Claude Code.</h3>
+        <p class="field-body">Agents can now spawn other agents in parallel for research and synthesis. The practical effect is that a long-form intake fans out across multiple specialists at once and converges on a single brief, instead of marching through them serially. Cuts wall-clock time on work that used to feel slow without losing the audit trail.</p>
+      </article>
+
+      <article class="field-item reveal">
+        <p class="field-dateline">Vercel &nbsp;·&nbsp; May 2026</p>
+        <h3 class="field-title">Vercel AI Gateway opens multi-provider routing.</h3>
+        <p class="field-body">One endpoint, one bill, cost-based fallbacks at the gateway layer. A client can swap Claude for Gemini for an open-weight variant at the config line instead of a rewrite. For builds where the model choice will move three times before the year ends, this is infrastructure that ages well.</p>
+      </article>
+
+      <article class="field-item reveal">
+        <p class="field-dateline">OpenRouter &nbsp;·&nbsp; May 2026</p>
+        <h3 class="field-title">OpenRouter ships a Human-in-Loop Agent SDK.</h3>
+        <p class="field-body">Formal tooling for agents that have to pause before a destructive action and wait for explicit human approval. This is the pattern Mote Ops already runs by hand on every system. Having a primitive for it means less custom plumbing on the next build and a more legible audit trail for clients in regulated industries.</p>
+      </article>
+
+      <article class="field-item reveal">
+        <p class="field-dateline">Nous Research &nbsp;·&nbsp; May 2026</p>
+        <h3 class="field-title">Nous Portal collapses five API keys into one.</h3>
+        <p class="field-body">One OAuth subscription replaces a wallet of separate keys across OpenAI, Anthropic, Firecrawl, FAL, and Browserbase. The deployment story for a small client gets a lot shorter when there is one credential to rotate instead of five. Quietly one of the bigger ergonomic improvements of the month.</p>
+      </article>
+
+      <article class="field-item reveal">
+        <p class="field-dateline">Supabase &nbsp;·&nbsp; May 2026</p>
+        <h3 class="field-title">Supabase flips the Data API to off by default.</h3>
+        <p class="field-body">New projects no longer expose the public Data API unless the operator opts in. Worth flagging for any client running healthcare-adjacent or otherwise sensitive workloads, because the old default created a foot-gun and the new default lines up with what you actually want. Existing projects need a manual audit.</p>
+      </article>
+    </div>
+
+    <p class="reveal field-footnote">Curated weekly. Last update May 30, 2026.</p>
+  </div>
+</section>
+
+<!-- Section 05 . How this works -->
 <section class="dark" id="how">
   <div class="frame">
     <div class="sec-head reveal">
-      <div class="sec-num">03</div>
+      <div class="sec-num">05</div>
       <div class="sec-label">How this works &nbsp;·&nbsp; Free call, scoped quote, build and teach</div>
     </div>
 
@@ -966,7 +1148,7 @@
 <section id="about" class="long-form">
   <div class="frame">
     <div class="sec-head reveal" style="grid-column: 1 / -1;">
-      <div class="sec-num">04</div>
+      <div class="sec-num">06</div>
       <div class="sec-label">Who builds this &nbsp;·&nbsp; Mike Mote, PA-C</div>
     </div>
     <div></div>
@@ -983,7 +1165,7 @@
         <div class="credentials">
           <div class="row"><div class="label">Practicing</div><div class="value">Highland Hospital ED, Oakland CA</div></div>
           <div class="row"><div class="label">Building</div><div class="value">Production AI for SMB owners</div></div>
-          <div class="row"><div class="label">Built for</div><div class="value">Family and friends. Four production systems across vet medicine, NP wellness, family childcare, specialty insurance wholesale</div></div>
+          <div class="row"><div class="label">In production</div><div class="value">Four systems across vet medicine, NP wellness, family childcare, specialty insurance wholesale</div></div>
           <div class="row"><div class="label">Based</div><div class="value">California, serving the Bay Area and SoCal</div></div>
         </div>
       </div>
@@ -995,7 +1177,7 @@
 <section class="closing" id="book">
   <div class="frame" data-stagger="180">
     <div class="sec-head reveal" style="margin-bottom: 24px;">
-      <div class="sec-num" style="color: var(--amber);">05</div>
+      <div class="sec-num" style="color: var(--amber);">07</div>
       <div class="sec-label" style="color: var(--paper-mute);">Begin &nbsp;·&nbsp; The call is the first artifact</div>
     </div>
     <h2 class="reveal">Thirty minutes. By the end, you will know <em>what is possible, what it would cost,</em> and whether you want to keep talking.</h2>
@@ -1085,9 +1267,11 @@
     var sectionMap = {
       'manifesto': '01',
       'work': '02',
-      'how': '03',
-      'about': '04',
-      'book': '05'
+      'stack': 'III',
+      'field': '04',
+      'how': '05',
+      'about': '06',
+      'book': '07'
     };
     var current = null;
     var secObs = new IntersectionObserver(function (entries) {
