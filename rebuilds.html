@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mote Ops Rebuilds, Before and After</title>
+<meta name="description" content="Three client sites rebuilt into bespoke identities. The previous live site on the left, the new build running live on the right.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1116;--panel:#171C24;--line:#2A323D;--text:#E7ECF2;--muted:#9AA6B4;--accent:#6FE0B0;--before:#F0A35E;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Space Grotesk',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+.wrap{width:min(1280px,94vw);margin-inline:auto}
+header{padding:3.2rem 0 1.5rem;border-bottom:1px solid var(--line)}
+.back{display:inline-block;color:var(--muted);font-size:.85rem;text-decoration:none;margin-bottom:1.4rem;border-bottom:1px dotted var(--muted)}
+h1{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.01em}
+.sub{color:var(--muted);max-width:64ch;margin-top:.8rem;font-size:1.05rem}
+.legend{display:flex;gap:1.4rem;margin-top:1.4rem;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}
+.legend b{color:var(--text)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.4rem;vertical-align:middle}
+.row{padding:2.6rem 0;border-bottom:1px solid var(--line)}
+.row h2{font-family:'Newsreader',serif;font-weight:500;font-size:1.7rem}
+.meta{color:var(--muted);font-size:.92rem;margin:.3rem 0 .4rem}
+.identity{font-size:.86rem;color:var(--muted);max-width:90ch;margin-bottom:1.2rem}
+.identity b{color:var(--accent)}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.3rem}
+.chip{font-size:.74rem;padding:.3rem .65rem;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+.swatch{display:inline-block;width:13px;height:13px;border-radius:3px;margin-right:.35rem;vertical-align:middle;border:1px solid rgba(255,255,255,.18)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pane{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pane .label{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+.pane.before .label{color:var(--before)}
+.pane.after .label{color:var(--accent)}
+.label a{color:var(--muted);text-transform:none;letter-spacing:0;font-size:.78rem;text-decoration:none;border-bottom:1px dotted var(--muted)}
+.framebox{position:relative;width:100%;height:560px;background:#fff;overflow:hidden}
+.framebox iframe{position:absolute;top:0;left:0;width:1280px;height:1120px;border:0;transform:scale(.5);transform-origin:top left}
+.beforeshot{display:block;width:100%;height:560px;object-fit:cover;object-position:top}
+@media(max-width:920px){.compare{grid-template-columns:1fr}.framebox{height:420px}.beforeshot{height:420px}.framebox iframe{width:1100px;height:1100px;transform:scale(.42)}}
+footer{padding:2.4rem 0 4rem;color:var(--muted);font-size:.85rem}
+.note{background:rgba(111,224,176,.07);border:1px solid rgba(111,224,176,.25);border-radius:12px;padding:1rem 1.2rem;margin-top:1.2rem;font-size:.88rem;color:var(--text)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="/">&larr; Back to Mote Ops</a>
+    <h1>Three rebuilds, before and after.</h1>
+    <p class="sub">Each client site was rebuilt into its own bespoke visual identity, deliberately distinct from the other two and from the Mote Ops house look. On the left, the previous live site, captured the moment before deploy. On the right, the new build, running live right now on GitHub Pages.</p>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--before)"></span><b>Before</b>, the previous live site</span>
+      <span><span class="dot" style="background:var(--accent)"></span><b>After</b>, the new build, live now</span>
+    </div>
+  </div>
+</header>
+
+<section class="row">
+  <div class="wrap">
+    <h2>Moving Mountains</h2>
+    <p class="meta">Mobile veterinary rehab and relief DVM staffing &middot; Denver, CO</p>
+    <p class="identity">Identity: <b>alpine and outdoorsy</b>. Forest green and dusk blue with a sunrise clay accent, sturdy Bricolage Grotesque headlines over Hanken Grotesk, Space Mono for the staffing-platform data. Custom SVG ridgelines and topographic contour lines, a two-trail split that gives pet families and the relief marketplace clearly separate architecture.</p>
+    <div class="chips">
+      <span class="chip"><span class="swatch" style="background:#1F4D3A"></span>#1F4D3A</span>
+      <span class="chip"><span class="swatch" style="background:#2B3A55"></span>#2B3A55</span>
+      <span class="chip"><span class="swatch" style="background:#5B8FB9"></span>#5B8FB9</span>
+      <span class="chip"><span class="swatch" style="background:#E8794A"></span>#E8794A</span>
+      <span class="chip">Bricolage Grotesque + Hanken Grotesk + Space Mono</span>
+    </div>
+    <div class="compare">
+      <div class="pane before"><div class="label"><span>Before</span></div><img class="beforeshot" src="images/before-mountains.png" alt="Moving Mountains, previous live site" loading="lazy"></div>
+      <div class="pane after"><div class="label"><span>After, live now</span><a href="https://mikedmote52.github.io/moving-mountains-demo/" target="_blank" rel="noopener">open live &#8599;</a></div><div class="framebox"><iframe src="https://mikedmote52.github.io/moving-mountains-demo/" title="Moving Mountains rebuild, live" loading="lazy"></iframe></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="row">
+  <div class="wrap">
+    <h2>CoreVita Collective</h2>
+    <p class="meta">Nurse-led wellness practice &middot; Newport Beach, CA</p>
+    <p class="identity">Identity: <b>calm, premium, spa-clinical</b>. Cool sage and eucalyptus over forest ink with a single quiet slate-blue accent, elegant Cormorant Garamond paired with humanist Mulish. Botanical line art, concentric contour rings, generous negative space. Broken counters now resolve to real figures, and the membership and fifteen-member cap are surfaced clearly.</p>
+    <div class="chips">
+      <span class="chip"><span class="swatch" style="background:#6F8A7E"></span>#6F8A7E</span>
+      <span class="chip"><span class="swatch" style="background:#20302B"></span>#20302B</span>
+      <span class="chip"><span class="swatch" style="background:#D8D5CE"></span>#D8D5CE</span>
+      <span class="chip"><span class="swatch" style="background:#7E9BB0"></span>#7E9BB0</span>
+      <span class="chip">Cormorant Garamond + Mulish</span>
+    </div>
+    <div class="compare">
+      <div class="pane before"><div class="label"><span>Before</span></div><img class="beforeshot" src="images/before-corevita.png" alt="CoreVita Collective, previous live site" loading="lazy"></div>
+      <div class="pane after"><div class="label"><span>After, live now</span><a href="https://mikedmote52.github.io/corevita-demo/" target="_blank" rel="noopener">open live &#8599;</a></div><div class="framebox"><iframe src="https://mikedmote52.github.io/corevita-demo/" title="CoreVita rebuild, live" loading="lazy"></iframe></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="row">
+  <div class="wrap">
+    <h2>CC's Learning Center</h2>
+    <p class="meta">Family-owned childcare &middot; Brea, CA</p>
+    <p class="identity">Identity: <b>warm, friendly, playful but trustworthy</b>. Crayon-bright coral, sunshine, sky blue and grape on clean white, rounded Fredoka display with Nunito body. A custom hand-drawn schoolhouse scene, floating shapes, wavy section dividers. Parent-facing and joyful, not corporate, with the tour booking always a glance away.</p>
+    <div class="chips">
+      <span class="chip"><span class="swatch" style="background:#FF6052"></span>#FF6052</span>
+      <span class="chip"><span class="swatch" style="background:#FFC233"></span>#FFC233</span>
+      <span class="chip"><span class="swatch" style="background:#3DA5D9"></span>#3DA5D9</span>
+      <span class="chip"><span class="swatch" style="background:#7B5EA7"></span>#7B5EA7</span>
+      <span class="chip">Fredoka + Nunito</span>
+    </div>
+    <div class="compare">
+      <div class="pane before"><div class="label"><span>Before</span></div><img class="beforeshot" src="images/before-ccs.png" alt="CC's Learning Center, previous live site" loading="lazy"></div>
+      <div class="pane after"><div class="label"><span>After, live now</span><a href="https://mikedmote52.github.io/ccs-learning-center/" target="_blank" rel="noopener">open live &#8599;</a></div><div class="framebox"><iframe src="https://mikedmote52.github.io/ccs-learning-center/" title="CC's rebuild, live" loading="lazy"></iframe></div></div>
+    </div>
+    <div class="note">The After panels load the production sites directly. If an After panel looks cropped, it is scaled to fit the panel. Use the "open live" link to view the full site in a new tab.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">These rebuilds are deployed and live. Each After panel is the production site, running now on GitHub Pages. Each Before is the previous live site, captured the moment before deploy.</div>
+</footer>
+</body>
+</html>
