@@ -682,7 +682,7 @@
         </span>
       </label>
       <div class="submit-row">
-        <button type="submit" class="btn-primary" id="btn-ring">Ring Mike</button>
+        <a href="/instant.html" class="btn-primary" id="btn-ring" role="button">Ring Mike</a>
         <span class="submit-help">Response in &lt;60s if available</span>
       </div>
       <div class="err" id="form-err" hidden></div>
@@ -735,38 +735,11 @@
     const form = $('bell-form');
     const errEl = $('form-err');
     const btn = $('btn-ring');
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
-      errEl.hidden = true; errEl.textContent = '';
-      const name = $('name').value.trim();
-      const email = $('email').value.trim();
-      const topic = $('topic').value.trim();
-      const consent = $('consent').checked;
-      if (!name || !email || !topic) { showErr('Fill in all fields.'); return; }
-      if (!consent) { showErr('Recording consent is required.'); return; }
-      btn.disabled = true; btn.textContent = 'Ringing…';
-      try {
-        const res = await fetch('/api/bell-ring', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, topic, consent_given: true }),
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          if (data.detail) showErr(data.detail);
-          else if (data.error === 'busy') showErr('Mike is on another live call right now. Try again in a few minutes, or use the calendar.');
-          else if (data.error === 'rate-limited') showErr(data.detail || 'Too many requests from this network. Wait a bit, then retry.');
-          else showErr(data.error || 'Something went wrong.');
-          btn.disabled = false; btn.textContent = 'Ring Mike';
-          return;
-        }
-        showState('pending');
-        startPolling(data.id, data.poll_interval_ms || 2000);
-      } catch (err) {
-        showErr('Network error: ' + err.message);
-        btn.disabled = false; btn.textContent = 'Ring Mike';
-      }
+      window.location.href = '/instant.html';
     });
+
     function showErr(msg) { errEl.textContent = msg; errEl.hidden = false; }
 
     let pollInterval = null, countdownInterval = null;
