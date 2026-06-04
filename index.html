@@ -682,11 +682,17 @@
         </span>
       </label>
       <div class="submit-row">
-        <a href="/instant.html" class="btn-primary" id="btn-ring" role="button">Ring Mike</a>
+        <button type="submit" class="btn-primary" id="btn-ring">Ring Mike</button>
         <span class="submit-help">Response in &lt;60s if available</span>
       </div>
       <div class="err" id="form-err" hidden></div>
     </form>
+  </section>
+
+  <section id="sent-state" class="block tight wrap state" hidden>
+    <h2><em id="sent-heading">Mike's been pinged.</em></h2>
+    <p>He'll send you a meeting link shortly. Watch your email for the link from Mike.</p>
+    <p>If you don't hear back within 10 minutes, he's away from his desk. <a href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener" style="color: var(--amber);">Pick a calendar slot</a> instead.</p>
   </section>
 
   <section id="pending-state" class="block tight wrap state" hidden>
@@ -716,6 +722,7 @@
     const $ = (id) => document.getElementById(id);
     const sections = {
       form: $('form-state'),
+      sent: $('sent-state'),
       pending: $('pending-state'),
       accepted: $('accepted-state'),
       declined: $('declined-state'),
@@ -732,15 +739,60 @@
     $('now-label').textContent = fmtNow();
     setInterval(() => { $('now-label').textContent = fmtNow(); }, 30000);
 
+    const API_BASE = (window.MOTEOPS_TALK_NOW_API_BASE || 'https://flutelike-pseudobenevolently-federico.ngrok-free.dev').replace(/\/$/, '');
     const form = $('bell-form');
     const errEl = $('form-err');
     const btn = $('btn-ring');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      window.location.href = '/instant.html';
-    });
-
     function showErr(msg) { errEl.textContent = msg; errEl.hidden = false; }
+    function hideErr() { errEl.hidden = true; }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideErr();
+      const name = $('name').value.trim();
+      const email = $('email').value.trim();
+      const topic = $('topic').value.trim();
+      const consent = $('consent').checked;
+      if (!name) return showErr('Please add your name.');
+      if (!email || !email.includes('@')) return showErr('Please add a valid email.');
+      if (!topic) return showErr('Tell Mike one line about what you want to talk about.');
+      if (!consent) return showErr('Please check the recording consent box to continue.');
+      btn.disabled = true;
+      const originalLabel = btn.textContent;
+      btn.textContent = 'Ringing\u2026';
+      try {
+        const res = await fetch(API_BASE + '/api/talk-now', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': '1' },
+          body: JSON.stringify({
+            name,
+            ask: topic,
+            contact_method: 'email',
+            contact_value: email,
+            consent,
+          }),
+        });
+        let data = {};
+        try { data = await res.json(); } catch (_) {}
+        if (!res.ok) {
+          if (res.status === 429) {
+            showErr(data.detail || 'You sent a request recently. Wait a few minutes before retrying.');
+          } else if (res.status === 400) {
+            showErr(data.error || 'Something in the form was off. Check and try again.');
+          } else {
+            showErr('The server is unreachable right now. Use the calendar link above to grab a slot instead.');
+          }
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+          return;
+        }
+        $('sent-heading').textContent = data.ntfy_ok ? "Mike's been pinged." : 'Your request is in.';
+        showState('sent');
+      } catch (err) {
+        showErr('Network error: ' + err.message + '. Try again or use the calendar link above.');
+        btn.disabled = false;
+        btn.textContent = originalLabel;
+      }
+    });
 
     let pollInterval = null, countdownInterval = null;
     function startPolling(id, intervalMs) {
