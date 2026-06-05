@@ -61,6 +61,17 @@
     ::selection { background: rgba(201,162,74,0.28); color: var(--ink); }
     .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
 
+    /* ── Scroll-driven background field (assembling mechanism) ── */
+    /* A page-spanning, fixed layer behind all content. bgfield.js draws a faint
+       constellation that assembles into a mechanism as you scroll: gold over the
+       dark hero, ink line-art over the cream body. Sits at z-index 0; every
+       content band is lifted to z-index 1 so text always reads above it. */
+    #bgfield { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    #bgfield svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .hero-band, section.block, .footer { position: relative; z-index: 1; }
+    .featured, .beat, .shot, .embed-frame,
+    .field input, .field textarea, .consent { position: relative; z-index: 1; }
+
     /* ── Hero (dark) ── */
     .hero-band {
       background: var(--dark);
@@ -430,6 +441,12 @@
       .hero-svg circle:nth-child(7) { animation-delay: 2.0s; }
     }
     @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.95; } }
+    /* The original hero constellation behind "AI you can own" stays put in BOTH
+       variants — Mike loves it. It lives inside .hero-band (z-index 0, behind the
+       headline at z-index 1) and is independent of the page-spanning #bgfield
+       animation, which sits further back. We deliberately do NOT hide it. The
+       inline SVG also remains the fallback when the field never runs. */
+    body.bgfield-on .hero-svg { display: block; }
 
     /* ── Mobile ── */
     @media (max-width: 640px) {
@@ -444,15 +461,31 @@
       .beat { padding: 34px 24px; }
       .step { grid-template-columns: 40px 1fr; gap: 14px; }
       .system-top { gap: 8px; }
+
+      /* Make the hero constellation POP on mobile rather than vanish off the
+         top-right. The slice viewBox crops the constellation (which lives near
+         x=560–820) off the narrow screen, so we pull the constellation groups
+         left into view and enlarge them, and lift opacity/stroke. transform-box
+         maps the CSS transform into SVG view-box units. */
+      .hero-svg { opacity: 1; }
+      .hero-svg .hero-constel {
+        transform-box: view-box;
+        transform-origin: 700px 220px;     /* the constellation's own center */
+        transform: translate(-230px, 30px) scale(0.82);
+      }
+      .hero-svg .hero-constel[stroke] { opacity: 0.5; stroke-width: 1.2; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Scroll-driven background field. Populated by /assets/bgfield.js. -->
+  <div id="bgfield" aria-hidden="true"></div>
+
   <!-- ─────────────  Hero band (dark)  ───────────── -->
   <div class="hero-band">
     <svg class="hero-svg" viewBox="0 0 860 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <g stroke="#C9A24A" stroke-width="1" fill="none" opacity="0.32">
+      <g class="hero-constel" stroke="#C9A24A" stroke-width="1" fill="none" opacity="0.32">
         <line x1="700" y1="70" x2="800" y2="150" />
         <line x1="800" y1="150" x2="740" y2="250" />
         <line x1="740" y1="250" x2="820" y2="330" />
@@ -462,7 +495,7 @@
         <line x1="820" y1="330" x2="700" y2="400" />
         <line x1="740" y1="250" x2="700" y2="400" />
       </g>
-      <g fill="#C9A24A">
+      <g class="hero-constel" fill="#C9A24A">
         <circle cx="700" cy="70" r="3.5" opacity="0.9" />
         <circle cx="800" cy="150" r="2.5" opacity="0.7" />
         <circle cx="740" cy="250" r="4" opacity="0.95" />
@@ -844,6 +877,45 @@
         els.forEach((el) => io.observe(el));
       } else {
         els.forEach((el) => el.classList.add('in'));
+      }
+    })();
+  </script>
+
+  <!-- ─────────────  Scroll-driven background  ─────────────
+       Two interchangeable concepts share the #bgfield layer:
+         · 'orrery' — a constellation that assembles into clockwork rings
+                      (assets/bgfield.js, no dependencies).
+         · 'brain'  — bioluminescent vines grow from the corners and fire into
+                      a central AI brain (assets/bgbrain.js, needs GSAP).
+       Set window.MOTEOPS_BG.variant to choose. Either way, body.bgfield-on is
+       set once the field mounts so the inline hero constellation steps aside.
+       If scripts fail to load, the static hero SVG remains as the fallback. -->
+  <script>window.MOTEOPS_BG = { variant: 'orrery' };</script>
+  <script>
+    (function () {
+      // ?bg=brain or ?bg=orrery overrides the default below, so Mike can scroll
+      // either concept live from the same page without editing code.
+      var qp = new URLSearchParams(location.search).get('bg');
+      var variant = (qp === 'brain' || qp === 'orrery')
+        ? qp
+        : ((window.MOTEOPS_BG || {}).variant || 'orrery');
+      function add(src, onload) {
+        var s = document.createElement('script');
+        s.src = src; s.async = false; if (onload) s.onload = onload;
+        document.body.appendChild(s);
+      }
+      function mounted() {
+        if (window.__bgfield || window.__bgbrain) document.body.classList.add('bgfield-on');
+      }
+      if (variant === 'brain') {
+        // GSAP + ScrollTrigger from CDN, then the brain engine.
+        add('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js', function () {
+          add('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js', function () {
+            add('/assets/bgbrain.js', mounted);
+          });
+        });
+      } else {
+        add('/assets/bgfield.js', mounted);
       }
     })();
   </script>
