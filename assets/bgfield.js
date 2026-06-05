@@ -63,6 +63,10 @@
   // the blur on mobile and lean on the radial-gradient node fills + raised
   // INTENSITY/stroke to keep it bold. Desktop keeps the true glow.
   var USE_GLOW = !IS_MOBILE;
+  // Mobile gets the glow back via radial-gradient halos behind nodes/bodies
+  // instead of the filter — same bloom look, but plain paint, so it never
+  // re-rasterizes a blur per frame. Desktop keeps the true filter and skips these.
+  var USE_HALO = IS_MOBILE;
 
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
   function smooth(t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
@@ -140,6 +144,21 @@
   // cream-ground: bright core, deep-hued rim so nodes stay vivid on cream
   radial('ndWarmCream', lighten(INK, 0.55), darken(INK, 0.10));
   radial('ndCoolCream', lighten(INK_COOL, 0.55), darken(INK_COOL, 0.10));
+
+  // GPU-cheap glow: a soft radial-gradient halo painted BEHIND each node/body,
+  // for mobile (where the feGaussianBlur filter is skipped to avoid per-frame
+  // re-rasterization). A gradient fill is plain paint, not a filter — moving the
+  // halo circle each frame just re-composites, it never runs a blur convolution.
+  // So we get the bloom look at near-zero per-frame cost. Two hues × two grounds.
+  function halo(id, col) {
+    var g = el('radialGradient', { id: id, cx: '50%', cy: '50%', r: '50%' });
+    g.appendChild(el('stop', { offset: '0%', 'stop-color': lighten(col, 0.30), 'stop-opacity': '0.85' }));
+    g.appendChild(el('stop', { offset: '38%', 'stop-color': col, 'stop-opacity': '0.45' }));
+    g.appendChild(el('stop', { offset: '100%', 'stop-color': col, 'stop-opacity': '0' }));
+    defs.appendChild(g);
+  }
+  halo('hloWarmDark', GOLD); halo('hloCoolDark', SLATE);
+  halo('hloWarmCream', INK); halo('hloCoolCream', INK_COOL);
   svg.appendChild(defs);
   // Glow the whole parallax stack on desktop (one filter, lattice blooms). On
   // mobile the filter is skipped — see USE_GLOW — so the layers composite cleanly
@@ -170,6 +189,13 @@
       // varied node sizes: inner ring biggest, a little size variation per node
       // (bigger overall so they read as glowing spheres, not specks)
       var rad = ri === 0 ? (6 + (i % 3 === 0 ? 2 : 0)) : Math.max(3, 5.5 - ri * 0.5 + (i % 4 === 0 ? 1.2 : 0));
+      node.rad = rad;
+      // Mobile glow: soft halo circle painted behind the node (added first so it
+      // sits beneath). Desktop relies on the real blur filter and skips halos.
+      if (USE_HALO) {
+        var hc = el('circle', { r: (rad * 2.8).toFixed(1) });
+        layerG[ring.depth].appendChild(hc); node.halo = hc;
+      }
       var c = el('circle', { r: rad });
       layerG[ring.depth].appendChild(c); node.el = c;
       var ln = el('line', { 'stroke-width': (1.5 * SW).toFixed(2) });
@@ -218,9 +244,14 @@
   var bodies = [];
   for (var bi = 0; bi < bodyCount; bi++) {
     var ring = rings[1 + (bi % Math.max(1, rings.length - 1))];
+    var bd = { ring: ring, phase: bi * 1.7, dir: bi % 2 ? 1 : -1, speed: 0.18 + bi * 0.05 };
+    if (USE_HALO) {
+      var bh = el('circle', { r: (3.2 * 2.8).toFixed(1) });
+      layerG[ring.depth].appendChild(bh); bd.halo = bh;
+    }
     var c = el('circle', { r: 3.2 });
-    layerG[ring.depth].appendChild(c);
-    bodies.push({ el: c, ring: ring, phase: bi * 1.7, dir: bi % 2 ? 1 : -1, speed: 0.18 + bi * 0.05 });
+    layerG[ring.depth].appendChild(c); bd.el = c;
+    bodies.push(bd);
   }
 
   layerG.forEach(function (g) { svg.appendChild(g); });
@@ -260,6 +291,11 @@
       var cool = depth >= 1;
       return 'url(#nd' + (cool ? 'Cool' : 'Warm') + (onCream ? 'Cream' : 'Dark') + ')';
     }
+    // matching soft-halo gradient (mobile glow stand-in)
+    function haloFill(depth) {
+      var cool = depth >= 1;
+      return 'url(#hlo' + (cool ? 'Cool' : 'Warm') + (onCream ? 'Cream' : 'Dark') + ')';
+    }
 
     // Stay bold throughout — only a slight ease on the cream body so the art is
     // clearly visible everywhere, never ghostly.
@@ -296,7 +332,14 @@
       if (nd._fill !== fillId) { nd.el.setAttribute('fill', fillId); nd._fill = fillId; }
       nd._x = x; nd._y = y;
       var tw = reduced ? 0.95 : 0.75 + 0.25 * Math.sin(time * 1.2 + i * 0.9);
-      nd.el.style.opacity = clamp(appear * tw * depthDim[nd.depth] * INTENSITY, 0, 1).toFixed(3);
+      var ndOp = clamp(appear * tw * depthDim[nd.depth] * INTENSITY, 0, 1);
+      nd.el.style.opacity = ndOp.toFixed(3);
+      if (nd.halo) {
+        nd.halo.setAttribute('cx', x); nd.halo.setAttribute('cy', y);
+        var hf = haloFill(nd.depth);
+        if (nd._hf !== hf) { nd.halo.setAttribute('fill', hf); nd._hf = hf; }
+        nd.halo.style.opacity = (ndOp * 0.6).toFixed(3);   // soft bloom under the node
+      }
       nd.link.setAttribute('x1', cx); nd.link.setAttribute('y1', cy);
       nd.link.setAttribute('x2', x); nd.link.setAttribute('y2', y);
       nd.link.setAttribute('stroke', toneStroke(nd.depth));
@@ -327,7 +370,14 @@
       bd.el.setAttribute('cx', x); bd.el.setAttribute('cy', y);
       var bFill = nodeFill(bd.ring.depth);
       if (bd._fill !== bFill) { bd.el.setAttribute('fill', bFill); bd._fill = bFill; }
-      bd.el.style.opacity = clamp(appear * 0.7 * depthDim[bd.ring.depth] * INTENSITY, 0, 0.95).toFixed(3);
+      var bOp = clamp(appear * 0.7 * depthDim[bd.ring.depth] * INTENSITY, 0, 0.95);
+      bd.el.style.opacity = bOp.toFixed(3);
+      if (bd.halo) {
+        bd.halo.setAttribute('cx', x); bd.halo.setAttribute('cy', y);
+        var bhf = haloFill(bd.ring.depth);
+        if (bd._hf !== bhf) { bd.halo.setAttribute('fill', bhf); bd._hf = bhf; }
+        bd.halo.style.opacity = (bOp * 0.6).toFixed(3);
+      }
     });
   }
 

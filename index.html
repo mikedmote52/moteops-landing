@@ -68,6 +68,12 @@
        content band is lifted to z-index 1 so text always reads above it. */
     #bgfield { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
     #bgfield svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    /* Binary-code field: a quiet digital texture around the viewport perimeter,
+       fading inward, that comes forward as you scroll. Single <canvas>, drawn by
+       /assets/bgcode.js. Sits at z-index 0 (behind all content at z-index 1) so
+       it frames the central animation and never touches text legibility. */
+    #bgcode { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    #bgcode canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
     .hero-band, section.block, .footer { position: relative; z-index: 1; }
     .featured, .beat, .shot, .embed-frame,
     .field input, .field textarea, .consent { position: relative; z-index: 1; }
@@ -481,6 +487,8 @@
 
   <!-- Scroll-driven background field. Populated by /assets/bgfield.js. -->
   <div id="bgfield" aria-hidden="true"></div>
+  <!-- Binary-code perimeter texture. Populated by /assets/bgcode.js (canvas). -->
+  <div id="bgcode" aria-hidden="true"></div>
 
   <!-- ─────────────  Hero band (dark)  ───────────── -->
   <div class="hero-band">
@@ -917,6 +925,8 @@
       } else {
         add('/assets/bgfield.js', mounted);
       }
+      // Binary-code perimeter texture — variant-independent, frames either concept.
+      add('/assets/bgcode.js');
     })();
   </script>
 </body>
