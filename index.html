@@ -456,16 +456,47 @@
 
     /* ── Mobile ── */
     @media (max-width: 640px) {
-      .topbar { padding-bottom: 64px; }
-      .hero-inner { padding: 28px 0 72px; }
-      .hero h1 { font-size: clamp(46px, 15vw, 64px); margin-bottom: 22px; }
-      .hero .lede { font-size: 17px; }
-      .hero .sub { font-size: 14.5px; }
-      section.block { padding: 60px 0; }
-      section.block.tight { padding: 48px 0; }
-      .featured { padding: 28px 22px; }
-      .beat { padding: 34px 24px; }
-      .step { grid-template-columns: 40px 1fr; gap: 14px; }
+      /* Core flow fix: on desktop the .wrap gutter comes from max-width + auto
+         margins, but below 860px there's no auto-margin, and the per-section
+         `padding: Npx 0` shorthands zero out .wrap's horizontal padding — so all
+         content ran edge-to-edge. Restore a real side gutter here (longhand, so it
+         never clobbers the vertical section padding). This insets every section,
+         card, iframe and the step numbers in one move. Desktop is untouched. */
+      .wrap { padding-left: 20px; padding-right: 20px; }
+      /* These set vertical padding via the `padding: Npx 0` shorthand at a higher
+         specificity than .wrap, which expands to padding-left/right:0 and wins. So
+         the side gutter must be restated on them directly (longhand, vertical kept
+         by their own rules). */
+      section.block, section.block.tight, .footer {
+        padding-left: 20px; padding-right: 20px;
+      }
+
+      .topbar { padding-bottom: 52px; }
+      .hero-inner { padding-top: 26px; padding-bottom: 60px; }
+      /* Slightly smaller, tighter headline so it doesn't crowd both edges. */
+      .hero h1 { font-size: clamp(40px, 12.5vw, 56px); line-height: 1.02; margin-bottom: 20px; }
+      .hero .lede { font-size: 16.5px; line-height: 1.55; }
+      .hero .sub { font-size: 14px; margin-top: 22px; padding-top: 18px; }
+
+      /* Tighten vertical rhythm — the stacked section + marker + element paddings
+         left whole-screen dead gaps when scrolling on a phone. */
+      section.block { padding-top: 44px; padding-bottom: 44px; }
+      section.block.tight { padding-top: 38px; padding-bottom: 38px; }
+      .marker { margin-bottom: 18px; }
+      h2.head { font-size: clamp(27px, 7.2vw, 34px); line-height: 1.12; margin-bottom: 14px; }
+      .body-lg { font-size: 16.5px; line-height: 1.6; }
+
+      .featured { padding: 26px 20px; margin-top: 22px; }
+      .beat { padding: 30px 22px; }
+      .beat p { font-size: clamp(21px, 5.6vw, 27px); line-height: 1.32; max-width: none; }
+
+      /* Process steps: keep the number column, tighten spacing, size copy for the
+         narrow measure and make sure descriptions don't overrun. */
+      .steps { margin-top: 24px; }
+      .step { grid-template-columns: 34px 1fr; gap: 12px; padding: 18px 0; }
+      .step .sn { font-size: 12px; }
+      .step .st { font-size: 18.5px; }
+      .step .sd { font-size: 15px; line-height: 1.55; max-width: none; }
       .system-top { gap: 8px; }
 
       /* Make the hero constellation POP on mobile rather than vanish off the
@@ -480,6 +511,28 @@
         transform: translate(-230px, 30px) scale(0.82);
       }
       .hero-svg .hero-constel[stroke] { opacity: 0.5; stroke-width: 1.2; }
+
+      /* Shipped-work cards, media rows and embeds: tighten the measure and let the
+         demo frames fill the (now inset) column at a comfortable phone height. */
+      .system h3, .sys-copy h3, .sysfull h3 { font-size: clamp(21px, 5.6vw, 26px); }
+      .system p, .sys-copy p, .sysfull > p { font-size: 15.5px; line-height: 1.58; max-width: none; }
+      .system { padding: 24px 0; }
+      .sysrow { gap: 14px; padding: 26px 0; }
+      .sysfull { padding: 26px 0; }
+      .shot { height: 220px; }
+      .embed-frame { height: 380px; margin-top: 18px; }
+      .stat-row { gap: 24px 36px; margin-top: 20px; }
+      .stat-n { font-size: 36px; }
+
+      /* Contact: full-width fields, comfortable tap targets, tighter dividers. */
+      .contact-primary { font-size: 16.5px; }
+      .contact-divider { margin: 34px 0 16px; }
+      .live-intro { font-size: 14.5px; }
+      .form { max-width: none; gap: 16px; }
+      .field input, .field textarea { padding: 13px 14px; }   /* 16px font already prevents iOS zoom */
+      .btn-cal, .btn-primary { display: inline-block; padding: 15px 26px; min-height: 48px; }
+      .submit-row { gap: 16px; }
+      .footer { padding-top: 26px; padding-bottom: 48px; gap: 10px; }
     }
   </style>
 </head>
