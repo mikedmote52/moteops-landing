@@ -88,6 +88,14 @@
   var INTENSITY = IS_MOBILE ? 1.5 : 1.0;
   function tierPick(arr) { return IS_MOBILE ? arr[Math.max(1, SCALE)] : arr[SCALE]; }
 
+  // feGaussianBlur (bgGlow stdDev 5, bgBloom stdDev 22) re-rasterizes every frame
+  // as the vine/brain/pulse groups animate — the dominant scroll-jank cost on
+  // phone GPUs. Skip the glow references on mobile; the radial-gradient node fills
+  // + raised INTENSITY keep it bold. Desktop keeps the true bloom.
+  var USE_GLOW = !IS_MOBILE;
+  function glowAttrs(id) { return USE_GLOW ? { filter: 'url(#' + id + ')' } : {}; }
+  function merge(a, b) { for (var k in b) a[k] = b[k]; return a; }
+
   var DENDRITES_PER_VINE = tierPick([2, 3, 4]);            // sub-vines per corner
   var PULSES_PER_VINE    = tierPick([1, 2, 3]);            // staggered pulses
   var BRAIN_RING_COUNT   = tierPick([3, 4, 4]);            // concentric rings
@@ -138,6 +146,13 @@
       '<stop offset="0%" stop-color="' + mix2(GOLD, '#FFFFFF', 0.35) + '" stop-opacity="0.55"/>' +
       '<stop offset="55%" stop-color="' + AMBER + '" stop-opacity="0.22"/>' +
       '<stop offset="100%" stop-color="' + GOLD + '" stop-opacity="0"/>' +
+    '</radialGradient>' +
+    // Soft bloom halo as a pure radial gradient — the cheap mobile stand-in for
+    // the feGaussianBlur bloom, so convergence still glows without per-frame blur.
+    '<radialGradient id="brainBloom" cx="50%" cy="50%" r="50%">' +
+      '<stop offset="0%" stop-color="' + AMBER + '" stop-opacity="0.9"/>' +
+      '<stop offset="45%" stop-color="' + AMBER + '" stop-opacity="0.35"/>' +
+      '<stop offset="100%" stop-color="' + AMBER + '" stop-opacity="0"/>' +
     '</radialGradient>';
   svg.appendChild(defs);
 
@@ -153,12 +168,17 @@
 
   /* ── Convergence bloom (behind everything, swells at assembly) ────────────── */
   // Bloom carries a touch more saturation (amber) so the convergence reads warm.
-  var bloom = el('circle', { cx: CX, cy: CY, r: brainR * 0.9, fill: AMBER, opacity: 0, filter: 'url(#bgBloom)' });
+  // Desktop: solid amber disc + feGaussianBlur bloom. Mobile: a soft radial-
+  // gradient halo (no blur) over a wider radius so it glows without GPU cost.
+  var bloom = USE_GLOW
+    ? el('circle', { cx: CX, cy: CY, r: brainR * 0.9, fill: AMBER, opacity: 0, filter: 'url(#bgBloom)' })
+    : el('circle', { cx: CX, cy: CY, r: brainR * 1.6, fill: 'url(#brainBloom)', opacity: 0 });
   svg.appendChild(bloom);
 
   /* ── Vines + branching dendrites ──────────────────────────────────────────── */
   // Glow on the vine group so the growing lines read as luminous neural light.
-  var vineG = el('g', { filter: 'url(#bgGlow)' });
+  var vineG = el('g', glowAttrs('bgGlow'));
+  vineG.style.willChange = 'transform, opacity';
   var vines = [];      // main vines: { el, len, from:[x,y], endAngle }
   var dendrites = [];  // sub-vines:  { el, len }
 
@@ -215,7 +235,8 @@
   svg.appendChild(vineG);
 
   /* ── The brain: structured internal lattice ───────────────────────────────── */
-  var brainG = el('g', { opacity: '0', filter: 'url(#bgGlow)' });
+  var brainG = el('g', merge({ opacity: '0' }, glowAttrs('bgGlow')));
+  brainG.style.willChange = 'transform, opacity';
   // Soft interior haze behind the lattice — gives the brain volume/shading so it
   // reads as a lit mass rather than a flat wire ring. Static fill, no cost.
   brainG.appendChild(el('circle', { cx: CX, cy: CY, r: brainR * 0.92, fill: 'url(#brainHaze)' }));
@@ -262,7 +283,8 @@
   svg.appendChild(brainG);
 
   /* ── Pulse pool (reused; one set fires per scrub pass) ─────────────────────── */
-  var pulseG = el('g', { filter: 'url(#bgGlow)' });
+  var pulseG = el('g', glowAttrs('bgGlow'));
+  pulseG.style.willChange = 'transform, opacity';
   var pulses = [];   // { el, vine, offset }  offset staggers start along the path
   vines.forEach(function (v) {
     for (var k = 0; k < PULSES_PER_VINE; k++) {

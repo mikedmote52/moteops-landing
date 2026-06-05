@@ -58,6 +58,11 @@
   // not flatten the small screen into nothing.
   var IS_MOBILE = vw <= 640;
   var INTENSITY = IS_MOBILE ? 1.7 : 1.0;   // multiplies line/node/body opacity
+  // SVG feGaussianBlur over the parallax groups re-rasterizes every frame as the
+  // layers translate — the dominant cost behind scroll jank on phone GPUs. Skip
+  // the blur on mobile and lean on the radial-gradient node fills + raised
+  // INTENSITY/stroke to keep it bold. Desktop keeps the true glow.
+  var USE_GLOW = !IS_MOBILE;
 
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
   function smooth(t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
@@ -91,8 +96,9 @@
     { r: 398, n: 12, speed: 0.022,  depth: 1 },
     { r: 486, n: 14, speed: -0.016, depth: 2 }
   ];
-  // Keep a generous ring count on mobile (don't let low tier strip it bare).
-  var ringCount = IS_MOBILE ? 5 : [4, 5, 6][LVL];
+  // Mobile keeps a strong-but-leaner ring count: 4 rings still reads as a full
+  // orrery while cutting per-frame circle/node/link work for smoother scroll.
+  var ringCount = IS_MOBILE ? 4 : [4, 5, 6][LVL];
   var rings = allRings.slice(0, ringCount);
 
   /* ── Parallax layers (3 depth planes, different scroll rates) ──────────────── */
@@ -120,7 +126,7 @@
   glow.setAttribute('width', '160%'); glow.setAttribute('height', '160%');
   glow.innerHTML = '<feGaussianBlur stdDeviation="3.2" result="b"/>' +
                    '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>';
-  defs.appendChild(glow);
+  if (USE_GLOW) defs.appendChild(glow);
   function radial(id, coreCol, rimCol) {
     var g = el('radialGradient', { id: id, cx: '36%', cy: '32%', r: '75%' });
     g.appendChild(el('stop', { offset: '0%', 'stop-color': lighten(coreCol, 0.4) }));
@@ -135,13 +141,22 @@
   radial('ndWarmCream', lighten(INK, 0.55), darken(INK, 0.10));
   radial('ndCoolCream', lighten(INK_COOL, 0.55), darken(INK_COOL, 0.10));
   svg.appendChild(defs);
-  // Glow the whole parallax stack — cheap (one filter) and makes the lattice pop.
-  layerG.forEach(function (g) { g.setAttribute('filter', 'url(#orrGlow)'); });
+  // Glow the whole parallax stack on desktop (one filter, lattice blooms). On
+  // mobile the filter is skipped — see USE_GLOW — so the layers composite cleanly
+  // and scroll stays smooth. will-change hints the compositor to keep each
+  // translating layer on its own GPU layer.
+  layerG.forEach(function (g) {
+    if (USE_GLOW) g.setAttribute('filter', 'url(#orrGlow)');
+    g.style.willChange = 'transform';
+  });
+
+  // Without the blur, mobile strokes need a touch more weight to stay bold.
+  var SW = IS_MOBILE ? 1.35 : 1.0;   // stroke-width multiplier
 
   // ring circles, grouped by depth so they parallax with their layer
   var ringEls = [];
   rings.forEach(function (ring) {
-    var c = el('circle', { cx: cx, cy: cy, r: ring.r, fill: 'none', 'stroke-width': '1.8' });
+    var c = el('circle', { cx: cx, cy: cy, r: ring.r, fill: 'none', 'stroke-width': (1.8 * SW).toFixed(2) });
     layerG[ring.depth].appendChild(c);
     ringEls.push({ el: c, ring: ring });
   });
@@ -157,7 +172,7 @@
       var rad = ri === 0 ? (6 + (i % 3 === 0 ? 2 : 0)) : Math.max(3, 5.5 - ri * 0.5 + (i % 4 === 0 ? 1.2 : 0));
       var c = el('circle', { r: rad });
       layerG[ring.depth].appendChild(c); node.el = c;
-      var ln = el('line', { 'stroke-width': '1.5' });
+      var ln = el('line', { 'stroke-width': (1.5 * SW).toFixed(2) });
       layerG[ring.depth].appendChild(ln); node.link = ln;
       nodes.push(node);
     }
@@ -168,7 +183,7 @@
   var r0 = nodes.filter(function (n) { return n.ri === 0; });
   [[0, 1], [1, 2], [2, 3], [0, 4], [4, 5], [3, 6]].forEach(function (p) {
     if (r0[p[0]] && r0[p[1]]) {
-      var ln = el('line', { 'stroke-width': '1.8' });
+      var ln = el('line', { 'stroke-width': (1.8 * SW).toFixed(2) });
       layerG[0].appendChild(ln); innerLinks.push({ a: r0[p[0]], b: r0[p[1]], el: ln });
     }
   });
@@ -189,7 +204,7 @@
         if (d < bestD) { bestD = d; best = inner[ii]; }
       }
       if (best) {
-        var ln = el('line', { 'stroke-width': '1.3' });
+        var ln = el('line', { 'stroke-width': (1.3 * SW).toFixed(2) });
         layerG[outer[oi].depth].appendChild(ln);
         crossLinks.push({ a: best, b: outer[oi], el: ln, ri: ri });
       }
@@ -197,8 +212,9 @@
   }
 
   /* ── Small bodies tracing along the rings (life) ───────────────────────────── */
-  // Mobile keeps tracing bodies (motion = "alive"); never zero on small screens.
-  var bodyCount = IS_MOBILE ? 4 : [0, 3, 5][LVL];
+  // Mobile keeps tracing bodies (motion = "alive"); trimmed to 3 to lighten the
+  // per-frame loop while staying clearly alive.
+  var bodyCount = IS_MOBILE ? 3 : [0, 3, 5][LVL];
   var bodies = [];
   for (var bi = 0; bi < bodyCount; bi++) {
     var ring = rings[1 + (bi % Math.max(1, rings.length - 1))];
