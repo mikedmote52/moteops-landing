@@ -1,754 +1,756 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mote Ops · Honest proof, not portfolio theater</title>
-  <meta
-    name="description"
-    content="The current Mote Ops proof page: strongest proof direction is the hosted Email Organizer system, with honest notes on what is real, what is informing the work, and what is not yet proof."
-  />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-  <style>
-    :root {
-      --bg: #f4ede3;
-      --paper: rgba(255, 250, 244, 0.84);
-      --panel: rgba(255, 251, 246, 0.74);
-      --ink: #18130f;
-      --ink-soft: #4d4035;
-      --muted: #7a6c60;
-      --line: rgba(24, 19, 15, 0.1);
-      --accent: #ba5a3f;
-      --accent-deep: #8c402a;
-      --amber: #d9aa53;
-      --sage: #687a61;
-      --sky: #88a5c7;
-      --teal: #4f8984;
-      --shadow-xl: 0 30px 90px rgba(57, 40, 25, 0.14);
-      --shadow-lg: 0 18px 44px rgba(57, 40, 25, 0.1);
-      --radius-xl: 36px;
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --max: 1240px;
-      --pad: clamp(20px, 4vw, 48px);
-      --serif: "Fraunces", Georgia, serif;
-      --sans: "Plus Jakarta Sans", system-ui, sans-serif;
-      --mono: "IBM Plex Mono", ui-monospace, monospace;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mote Ops · Proof and the install menu</title>
+<meta name="description" content="One system live and proven, an install menu built on its core, and honest labels on everything else. If it isn't ready to sell, it says so.">
+<meta property="og:title" content="Mote Ops · Proof and the install menu">
+<meta property="og:description" content="One system live and proven, an install menu built on its core, and honest labels on everything else. If it isn't ready to sell, it says so.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moteops.tech/rebuilds.html">
+<meta name="theme-color" content="#FAF6EF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EF;
+    --ink:#1A1510;
+    --ink-soft:#4A3F35;
+    --muted:#8A7A6C;
+    --line:rgba(26,21,16,0.16);
+    --line-soft:rgba(26,21,16,0.07);
+    --accent:#B4552F;
+    --dark:#171310;
+    --paper:#FFFDF8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:17px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 32px;
+    position:relative;
+  }
+  section, footer .wrap{
+    padding-top:clamp(88px,11vw,160px);
+    padding-bottom:clamp(88px,11vw,160px);
+    position:relative;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-optical-sizing:auto;
+    font-weight:500;
+  }
+  em{ font-style:italic; }
+  a{color:inherit;text-decoration:none;}
+  hr.rule{ border:none; border-top:1px solid var(--line); width:100%; }
+  .kicker{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:var(--muted);
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+    position:relative;
+    z-index:2;
+  }
+  .kicker::after{
+    content:"";
+    display:inline-block;
+    width:24px;
+    height:1px;
+    background:var(--line);
+  }
+  .btn{
+    display:inline-block;
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    padding:14px 26px;
+    border-radius:2px;
+    border:1px solid var(--ink);
+    cursor:pointer;
+  }
+  .btn-primary{ background:var(--ink); color:var(--bg); }
+  .btn-secondary{ background:transparent; color:var(--ink); border:1px solid var(--ink); }
+  .btn-row{ display:flex; gap:14px; flex-wrap:wrap; margin-top:32px; }
+
+  /* ghost numerals */
+  .ghost-num{
+    position:absolute;
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:clamp(120px,16vw,220px);
+    color:var(--ink);
+    opacity:0.05;
+    line-height:1;
+    z-index:0;
+    pointer-events:none;
+    user-select:none;
+  }
+  .ghost-num.left{ left:-8px; top:clamp(40px,6vw,70px); }
+  .ghost-num.right{ right:-8px; top:clamp(20px,4vw,40px); }
+  @media (max-width:720px){ .ghost-num{ display:none; } }
+
+  /* ---------- Topbar ---------- */
+  .topbar{ border-bottom:1px solid var(--line); }
+  .topbar-inner{
+    padding-top:22px; padding-bottom:22px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+  }
+  .logo{ font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.14em; font-weight:500; }
+  .nav-links{ display:flex; align-items:center; gap:32px; font-size:14px; font-weight:500; }
+  .nav-links a.navlink{ color:var(--ink-soft); }
+  .nav-links a.navlink:hover{ color:var(--ink); }
+  .topbar .btn{ padding:10px 20px; font-size:14px; }
+
+  /* ---------- Hero ---------- */
+  .hero-single{
+    max-width:800px;
+    position:relative;
+    z-index:2;
+  }
+  .hero-single h1{
+    font-size:clamp(48px,10vw,96px);
+    line-height:0.92;
+    letter-spacing:-0.045em;
+    margin-bottom:28px;
+  }
+  .lede{
+    font-size:22px;
+    color:var(--ink-soft);
+    max-width:60ch;
+    line-height:1.5;
+    margin-bottom:18px;
+  }
+
+  .panel{
+    border:1px solid var(--line);
+    background:var(--paper);
+    padding:32px;
+  }
+  .panel-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:24px; }
+  .panel-label{ font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); font-weight:500; }
+  .tag{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em;
+    color:var(--accent); border:1px solid var(--accent); background:rgba(180,85,47,0.08);
+    padding:4px 10px; border-radius:2px;
+  }
+  .def-table{ width:100%; border-collapse:collapse; }
+  .def-table tr{ border-top:1px solid var(--line); }
+  .def-table tr:first-child{ border-top:none; }
+  .def-table td{ padding:14px 0; vertical-align:top; font-size:15px; }
+  .def-table td:first-child{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--muted); width:38%; padding-right:16px;
+  }
+  .def-table td:last-child{ color:var(--ink-soft); }
+  .chip-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
+  .chip{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.08em;
+    border:1px solid var(--line); padding:6px 12px; border-radius:2px; color:var(--ink-soft);
+  }
+  .panel-footer{ font-size:12px; color:var(--muted); margin-top:24px; }
+
+  /* ---------- Section headers ---------- */
+  .section-head{ max-width:640px; margin-bottom:56px; position:relative; z-index:2; }
+  .section-head h2{ font-size:clamp(40px,5.5vw,72px); line-height:0.94; margin-bottom:20px; letter-spacing:-0.02em; }
+  .section-head p{ font-size:17px; color:var(--ink-soft); max-width:60ch; }
+
+  /* ---------- Anchor proof ---------- */
+  .proof-layout{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:start;
+    position:relative;
+    z-index:2;
+  }
+  .proof-side{ display:flex; flex-direction:column; gap:32px; }
+  .proof-item .kicker{ margin-bottom:10px; }
+  .proof-item p{ font-size:16px; color:var(--ink-soft); }
+
+  /* ---------- Install menu ledger ---------- */
+  .menu-intro{ max-width:70ch; position:relative; z-index:2; }
+  .ledger{ position:relative; z-index:2; margin-top:48px; }
+  .ledger-row{
+    display:grid;
+    grid-template-columns:60px 1fr auto;
+    gap:24px;
+    align-items:start;
+    border-top:2px solid var(--ink);
+    padding:36px 0;
+  }
+  .ledger-row:last-child{ border-bottom:2px solid var(--ink); }
+  .ledger-roman{ font-family:'Fraunces',serif; font-style:italic; font-size:28px; color:var(--accent); }
+  .ledger-content h3{ font-size:26px; margin-bottom:10px; font-weight:500; }
+  .ledger-pain{ font-family:'Fraunces',serif; font-style:italic; font-size:18px; color:var(--ink-soft); margin-bottom:12px; }
+  .ledger-body{ font-size:16px; color:var(--ink-soft); margin-bottom:14px; max-width:70ch; }
+  .ledger-stays{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--muted);
+    text-transform:uppercase;
+  }
+  .ledger-thisweek{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--accent);
+    text-transform:uppercase; margin-top:6px;
+  }
+  .status-chip{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--accent); border:1px solid var(--accent); background:rgba(180,85,47,0.08);
+    padding:5px 10px; border-radius:2px;
+    white-space:nowrap;
+  }
+  .status-chip.bench{
+    color:var(--muted); border:1px solid var(--line); background:transparent;
+  }
+
+  /* ---------- Day band ---------- */
+  .day-band{
+    background:var(--dark);
+    color:#F5EFE6;
+  }
+  .day-band .kicker{ color:rgba(245,239,230,0.5); }
+  .day-band .kicker::after{ background:rgba(245,239,230,0.2); }
+  .day-band h2{ color:#F5EFE6; font-size:clamp(40px,5.5vw,72px); line-height:0.94; letter-spacing:-0.02em; margin-bottom:56px; }
+  .trade-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px 32px;
+    position:relative;
+    padding-top:24px;
+  }
+  .trade-grid::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:1px;
+    background:rgba(245,239,230,0.18);
+  }
+  .trade-item{ position:relative; padding-top:20px; }
+  .trade-item::before{
+    content:"";
+    position:absolute;
+    top:-4px; left:0;
+    width:1px; height:9px;
+    background:var(--accent);
+  }
+  .trade-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    color:var(--accent);
+    margin-bottom:12px;
+    display:block;
+  }
+  .trade-item p{ font-size:15px; color:rgba(245,239,230,0.82); line-height:1.6; }
+  .day-note{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:rgba(245,239,230,0.55);
+    margin-top:56px;
+  }
+
+  /* ---------- Research log ---------- */
+  .research-week{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; color:var(--muted);
+    text-transform:uppercase; margin-bottom:8px; position:relative; z-index:2;
+  }
+  .research-list{ position:relative; z-index:2; margin-top:8px; }
+  .research-item{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:24px;
+    border-top:1px solid var(--line);
+    padding:24px 0;
+  }
+  .research-item:last-child{ border-bottom:1px solid var(--line); }
+  .research-label{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--accent);
+  }
+  .research-item p{ font-size:16px; color:var(--ink-soft); margin:0; }
+  .research-footnote{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted);
+    margin-top:32px; position:relative; z-index:2;
+  }
+  @media (max-width:720px){
+    .research-item{ grid-template-columns:1fr; gap:8px; }
+  }
+
+  /* ---------- Context engagements ---------- */
+  .engagement-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:32px;
+    position:relative;
+    z-index:2;
+  }
+  .engagement-card{ border:1px solid var(--line); background:var(--paper); }
+  .engagement-card img{
+    display:block;
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-bottom:1px solid var(--line);
+    border-radius:4px 4px 0 0;
+  }
+  .engagement-card-body{ padding:24px; }
+  .engagement-card h3{ font-size:22px; margin-bottom:10px; font-weight:500; }
+  .engagement-status{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--muted); margin-bottom:12px; display:block;
+  }
+  .engagement-card p{ font-size:15px; color:var(--ink-soft); }
+
+  /* ---------- Pull line ---------- */
+  .pull-line{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:24px;
+    line-height:1.4;
+    color:var(--ink);
+    max-width:56ch;
+    position:relative;
+    z-index:2;
+  }
+
+  /* ---------- Footer CTA ---------- */
+  .footer-cta-shell{
+    background:var(--dark);
+    color:var(--bg);
+    border-radius:4px;
+    padding:56px;
+    position:relative;
+    overflow:hidden;
+  }
+  .footer-cta-shell .kicker{ color:rgba(250,246,239,0.55); }
+  .footer-cta-shell .kicker::after{ background:rgba(250,246,239,0.2); }
+  .footer-cta-shell h2{ font-size:clamp(32px,5vw,52px); margin-bottom:20px; color:var(--bg); }
+  .footer-cta-shell p{ font-size:17px; color:rgba(250,246,239,0.78); max-width:64ch; margin-bottom:8px; position:relative; z-index:2; }
+  .footer-cta-shell .btn-row{ margin-top:32px; position:relative; z-index:2; }
+  .btn-inverted{ background:var(--bg); color:var(--ink); border:1px solid var(--bg); }
+  .btn-outline-light{ background:transparent; color:var(--bg); border:1px solid rgba(250,246,239,0.4); }
+  .cta-ghost{
+    position:absolute;
+    right:24px;
+    bottom:-30px;
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:clamp(90px,12vw,180px);
+    color:#F5EFE6;
+    opacity:0.08;
+    z-index:0;
+    pointer-events:none;
+  }
+
+  footer.site-footer{ text-align:center; padding-top:40px; padding-bottom:40px; }
+  footer.site-footer p{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; color:var(--muted); text-transform:uppercase;
+  }
+
+  /* ---------- Reveal animation ---------- */
+  @media (prefers-reduced-motion: no-preference){
+    html.js section > .wrap > *,
+    html.js footer.site-footer > .wrap > *{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
     }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      color: var(--ink);
-      font-family: var(--sans);
-      line-height: 1.6;
-      background:
-        radial-gradient(circle at 10% 10%, rgba(217, 170, 83, 0.17), transparent 20%),
-        radial-gradient(circle at 88% 14%, rgba(136, 165, 199, 0.18), transparent 20%),
-        linear-gradient(180deg, #fbf7f0 0%, var(--bg) 100%);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-      overflow-x: hidden;
+    html.js section > .wrap > *:nth-child(1),
+    html.js footer.site-footer > .wrap > *:nth-child(1){ transition-delay:0ms; }
+    html.js section > .wrap > *:nth-child(2),
+    html.js footer.site-footer > .wrap > *:nth-child(2){ transition-delay:60ms; }
+    html.js section > .wrap > *:nth-child(3){ transition-delay:120ms; }
+    html.js section > .wrap > *:nth-child(4){ transition-delay:180ms; }
+    html.js section > .wrap > *:nth-child(5){ transition-delay:240ms; }
+    html.js section.revealed > .wrap > *,
+    html.js footer.site-footer.revealed > .wrap > *{
+      opacity:1;
+      transform:translateY(0);
     }
+  }
 
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
+  /* ---------- Responsive ---------- */
+  @media (max-width:1080px){
+    .proof-layout{ grid-template-columns:1fr; }
+    .trade-grid{ grid-template-columns:1fr; gap:32px; }
+    .trade-grid::before{ display:none; }
+    .trade-item{ padding-left:20px; padding-top:0; }
+    .trade-item::before{ top:6px; left:0; width:9px; height:1px; }
+    .engagement-row{ grid-template-columns:1fr; }
+    .ledger-row{ grid-template-columns:44px 1fr; }
+    .ledger-row .status-chip{ grid-column:1 / -1; justify-self:start; margin-top:12px; }
+    .nav-links{ gap:20px; }
+  }
 
-    .wrap {
-      width: min(var(--max), calc(100% - 2 * var(--pad)));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      padding: 22px 0 10px;
-    }
-
-    .nav-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 11px 16px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(255, 255, 255, 0.82);
-      box-shadow: 0 12px 28px rgba(57, 40, 25, 0.08);
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .hero {
-      padding: 14px 0 32px;
-    }
-
-    .hero-shell {
-      position: relative;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      gap: 24px;
-      padding: 34px;
-      border-radius: var(--radius-xl);
-      background: linear-gradient(180deg, rgba(255, 250, 244, 0.92), rgba(255, 246, 237, 0.84));
-      border: 1px solid rgba(255, 255, 255, 0.86);
-      box-shadow: var(--shadow-xl);
-    }
-
-    .hero-shell::after {
-      content: "";
-      position: absolute;
-      inset: auto -90px -90px auto;
-      width: 280px;
-      height: 280px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(186, 90, 63, 0.12), transparent 72%);
-      pointer-events: none;
-    }
-
-    .eyebrow,
-    .section-kicker,
-    .system-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .eyebrow {
-      margin-bottom: 16px;
-    }
-
-    h1 {
-      margin: 0;
-      font-family: var(--serif);
-      font-size: clamp(44px, 7vw, 84px);
-      line-height: 0.92;
-      letter-spacing: -0.045em;
-      max-width: 10ch;
-    }
-
-    .hero-copy p {
-      margin: 18px 0 0;
-      font-size: 18px;
-      color: var(--ink-soft);
-      max-width: 58ch;
-    }
-
-    .hero-actions,
-    .footer-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .hero-actions {
-      margin-top: 26px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 18px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      font-size: 14px;
-      font-weight: 700;
-      transition: transform 180ms ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn.primary {
-      background: var(--ink);
-      color: #fff;
-      border-color: transparent;
-      box-shadow: 0 14px 28px rgba(24, 19, 15, 0.16);
-    }
-
-    .btn.secondary {
-      background: rgba(255, 255, 255, 0.56);
-      color: var(--ink);
-    }
-
-    .hero-rail,
-    .rail-list,
-    .proof-side,
-    .audit-stack,
-    .artifact-stack,
-    .context-grid,
-    .status-grid,
-    .mini-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .hero-rail {
-      align-content: start;
-    }
-
-    .rail-card,
-    .proof-card,
-    .mini-card,
-    .status-card,
-    .audit-card,
-    .artifact-surface,
-    .artifact-row,
-    .lane-card,
-    .footer-shell {
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(24, 19, 15, 0.08);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .rail-card,
-    .proof-card,
-    .mini-card,
-    .status-card,
-    .audit-card,
-    .artifact-surface,
-    .footer-shell {
-      padding: 18px;
-    }
-
-    .rail-card h3,
-    .proof-card h3,
-    .status-card h3,
-    .mini-card h3,
-    .audit-card h3,
-    .artifact-surface h3 {
-      margin: 0 0 10px;
-      line-height: 1.08;
-    }
-
-    .rail-card p,
-    .proof-card p,
-    .status-card p,
-    .mini-card p,
-    .audit-card p,
-    .artifact-surface p {
-      margin: 0;
-      color: var(--ink-soft);
-      font-size: 14px;
-    }
-
-    .rail-item {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 12px 14px;
-      border-radius: 18px;
-      background: rgba(255, 250, 244, 0.9);
-      border: 1px solid rgba(24, 19, 15, 0.06);
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      margin-top: 7px;
-      background: linear-gradient(145deg, var(--accent), var(--amber));
-    }
-
-    .rail-item strong,
-    .artifact-row strong,
-    .audit-card strong,
-    .proof-card strong,
-    .status-card strong {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .rail-item span,
-    .artifact-row span,
-    .audit-card span,
-    .proof-card span,
-    .status-card span,
-    .lane-card span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .section {
-      padding: 0 0 34px;
-    }
-
-    .section-head {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 24px;
-      max-width: 72ch;
-    }
-
-    h2.section-title {
-      margin: 0;
-      font-family: var(--serif);
-      font-size: clamp(34px, 5vw, 56px);
-      line-height: 0.98;
-      letter-spacing: -0.04em;
-      max-width: 14ch;
-    }
-
-    .section-copy {
-      margin: 0;
-      color: var(--ink-soft);
-      font-size: 17px;
-    }
-
-    .proof-shell {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .artifact-surface {
-      padding: 22px;
-      border-radius: 30px;
-      background: linear-gradient(180deg, rgba(255, 251, 246, 0.9), rgba(255, 245, 236, 0.84));
-      box-shadow: var(--shadow-xl);
-    }
-
-    .chip,
-    .signal-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .chip {
-      background: rgba(186, 90, 63, 0.1);
-      color: var(--accent-deep);
-    }
-
-    .signal-tag {
-      background: rgba(79, 137, 132, 0.12);
-      color: var(--teal);
-    }
-
-    .signal-tag::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: currentColor;
-    }
-
-    .artifact-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .artifact-surface h3 {
-      margin-top: 8px;
-      font-size: 30px;
-      max-width: 14ch;
-    }
-
-    .artifact-stack {
-      margin-top: 18px;
-    }
-
-    .artifact-row {
-      display: grid;
-      grid-template-columns: 96px 1fr auto;
-      gap: 12px;
-      align-items: center;
-      padding: 14px;
-      background: rgba(255, 250, 244, 0.96);
-      border: 1px solid rgba(24, 19, 15, 0.06);
-    }
-
-    .lane-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .lane-card {
-      padding: 14px;
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(24, 19, 15, 0.06);
-    }
-
-    .lane-card strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 13px;
-    }
-
-    .audit-stack {
-      grid-template-columns: 1fr;
-    }
-
-    .audit-card {
-      background: rgba(255, 255, 255, 0.68);
-    }
-
-    .mini-grid,
-    .context-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .status-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .image-frame {
-      overflow: hidden;
-      border-radius: 22px;
-      border: 1px solid rgba(24, 19, 15, 0.08);
-      margin-bottom: 14px;
-      box-shadow: 0 16px 34px rgba(57, 40, 25, 0.08);
-    }
-
-    .image-frame img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      object-position: top center;
-    }
-
-    .footer-cta {
-      padding-bottom: 46px;
-    }
-
-    .footer-shell {
-      display: grid;
-      gap: 18px;
-      padding: 28px;
-      border-radius: 30px;
-      background: rgba(24, 19, 15, 0.94);
-      color: #fdf7f0;
-      box-shadow: 0 28px 70px rgba(24, 19, 15, 0.24);
-    }
-
-    .footer-shell h2 {
-      margin: 0;
-      font-family: var(--serif);
-      font-size: clamp(34px, 5vw, 54px);
-      line-height: 0.98;
-      letter-spacing: -0.04em;
-      max-width: 12ch;
-    }
-
-    .footer-shell p {
-      margin: 0;
-      color: rgba(253, 247, 240, 0.76);
-      font-size: 16px;
-      max-width: 60ch;
-    }
-
-    .footer-actions .btn.primary {
-      background: #fff4e8;
-      color: var(--ink);
-    }
-
-    .footer-actions .btn.secondary {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.14);
-    }
-
-    @media (max-width: 1080px) {
-      .hero-shell,
-      .proof-shell,
-      .mini-grid,
-      .context-grid,
-      .status-grid,
-      .lane-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .hero-shell,
-      .artifact-surface,
-      .footer-shell {
-        padding: 20px;
-      }
-
-      .artifact-row {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        max-width: 11ch;
-      }
-    }
-  </style>
+  @media (max-width:720px){
+    .wrap{ padding:0 20px; }
+    .topbar-inner{ flex-direction:column; align-items:flex-start; gap:16px; }
+    .nav-links{ flex-wrap:wrap; gap:16px; width:100%; }
+    .btn-row{ flex-direction:column; align-items:stretch; }
+    .btn-row .btn{ text-align:center; }
+    .footer-cta-shell{ padding:32px; }
+    .panel{ padding:24px; }
+    .def-table td:first-child{ width:44%; }
+    .cta-ghost{ display:none; }
+  }
+</style>
 </head>
 <body>
-  <header class="topbar wrap">
-    <a class="nav-link" href="index.html">Back to the homepage</a>
-  </header>
 
-  <main>
-    <section class="hero wrap">
-      <div class="hero-shell">
-        <div class="hero-copy">
-          <div class="eyebrow">Proof should reduce doubt</div>
-          <h1>Honest proof, not portfolio theater.</h1>
-          <p>
-            This page is here to show what Mote Ops can truthfully stand behind right now. The strongest current proof direction is the hosted Email Organizer system, not a broad claim that every internal build is already a mature commercial offer.
-          </p>
-          <p>
-            The goal is to make the commercial core obvious, show what is genuinely proven, and separate that from the work that is still shaping the consultancy rather than proving repeatable installs.
-          </p>
-          <div class="hero-actions">
-            <a class="btn primary" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a consultation</a>
-            <a class="btn secondary" href="index.html">Return home</a>
-          </div>
-        </div>
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="logo">MOTE OPS</div>
+    <nav class="nav-links">
+      <a class="navlink" href="index.html">Back to homepage</a>
+      <a class="navlink" href="#menu">The menu</a>
+      <a class="btn btn-primary" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a call</a>
+    </nav>
+  </div>
+</div>
 
-        <aside class="hero-rail">
-          <div class="rail-card">
-            <h3>What this page is for</h3>
-            <div class="rail-list">
-              <div class="rail-item">
-                <div class="dot"></div>
-                <div>
-                  <strong>Show the strongest current proof lane.</strong>
-                  <span>Email Organizer leads because it best matches what is actually live and commercially relevant.</span>
-                </div>
-              </div>
-              <div class="rail-item">
-                <div class="dot"></div>
-                <div>
-                  <strong>Explain the method behind the installs.</strong>
-                  <span>Reusable systems, client-specific adaptation, and approval boundaries are part of the proof.</span>
-                </div>
-              </div>
-              <div class="rail-item">
-                <div class="dot"></div>
-                <div>
-                  <strong>Keep active work honest.</strong>
-                  <span>Real engagements can inform the consultancy without being overstated as finished proof assets.</span>
-                </div>
-              </div>
-            </div>
-          </div>
+<main>
 
-          <div class="rail-card">
-            <h3>What this page is not</h3>
-            <p>
-              It is not a claim that Voice OS, meeting capture, or every internal experiment is part of the client-ready commercial core. It is not a before-and-after portfolio pretending all builds prove the same thing.
-            </p>
-          </div>
-        </aside>
-      </div>
-    </section>
+  <!-- HERO -->
+  <section class="hero-section">
+    <span class="ghost-num right">01</span>
+    <div class="wrap hero-single">
+      <div class="kicker">01 · Proof, honestly labeled</div>
+      <h1>Real ideas. Honest labels.</h1>
+      <p class="lede">This page is the install menu and the evidence behind it. One system is live and proven. The rest are built on its core or one integration away, and every item is labeled exactly as mature as it is. When something isn't ready to sell, it says so.</p>
+    </div>
+  </section>
 
-    <section class="section wrap">
+  <hr class="rule">
+
+  <!-- ANCHOR PROOF -->
+  <section>
+    <div class="wrap">
       <div class="section-head">
-        <div class="section-kicker">Strongest current proof</div>
-        <h2 class="section-title">Hosted Email Organizer is the clearest proof of useful AI at Mote Ops today.</h2>
-        <p class="section-copy">
-          As of the June 2026 internal reliability audit, this is the strongest public-facing direction because it combines a reusable system, real onboarding paths, honest trust posture, and a concrete business pain point: communication workflow overload.
-        </p>
+        <div class="kicker">02 · The proven core</div>
+        <h2>The Email Organizer is live. Everything else stands on it.</h2>
       </div>
-
-      <div class="proof-shell">
-        <div class="artifact-surface">
-          <div class="artifact-top">
-            <div class="system-label">System artifact wall</div>
-            <div class="signal-tag">invite-only hosted beta</div>
+      <div class="proof-layout">
+        <div class="panel">
+          <div class="panel-head">
+            <div class="panel-label">The Email Organizer · Today</div>
+            <div class="tag">Invite-only beta</div>
           </div>
-
-          <span class="chip">communication workflow relief</span>
-          <h3>Show the operating shape, not a fake finished app.</h3>
-          <p>
-            The proof should feel like a real install: a Morning Digest, visible review states, draft preparation, and learning that stays subordinate to trust.
-          </p>
-
-          <div class="artifact-stack">
-            <div class="artifact-row">
-              <span class="chip">Digest</span>
-              <div>
-                <strong>People waiting on us, tasks, money, bundles, learning</strong>
-                <span>The owner starts from a clearer operating picture, not raw inbox chaos.</span>
-              </div>
-              <span class="signal-tag">owner-first view</span>
-            </div>
-            <div class="artifact-row">
-              <span class="chip">Review</span>
-              <div>
-                <strong>Messages can be triaged without pretending judgment disappeared</strong>
-                <span>Relationship-sensitive items remain visible for approval.</span>
-              </div>
-              <span class="signal-tag">trust visible</span>
-            </div>
-            <div class="artifact-row">
-              <span class="chip">Drafts</span>
-              <div>
-                <strong>Replies can be prepared before the business sends anything</strong>
-                <span>The workflow stays commercially useful without overclaiming autonomy.</span>
-              </div>
-              <span class="signal-tag">draft before send</span>
-            </div>
-          </div>
-
-          <div class="lane-grid">
-            <div class="lane-card">
-              <strong>Needs review</strong>
-              <span>Human judgment is explicit.</span>
-            </div>
-            <div class="lane-card">
-              <strong>Draft prepared</strong>
-              <span>Work is staged for approval.</span>
-            </div>
-            <div class="lane-card">
-              <strong>Learned rule</strong>
-              <span>Reusable logic forms after proof.</span>
-            </div>
-          </div>
+          <table class="def-table">
+            <tr><td>Tests passing</td><td>129 of 129</td></tr>
+            <tr><td>Inboxes</td><td>Real Gmail and Yahoo, syncing live</td></tr>
+            <tr><td>Sending</td><td>Never automatic. Drafts save to your inbox; you send.</td></tr>
+            <tr><td>Learning</td><td>Visible rules you can switch off or delete</td></tr>
+          </table>
+          <p class="panel-footer">This is the real state of the system, not a mockup.</p>
         </div>
-
-        <div class="audit-stack">
-          <div class="audit-card">
-            <strong>Hosted beta path is live.</strong>
-            <p>The current strongest proof is not hypothetical architecture. It is a hosted beta direction with real route flow and durable client-facing surfaces.</p>
+        <div class="proof-side">
+          <div class="proof-item">
+            <div class="kicker">It installs</div>
+            <p>Practical AI landed inside a real workflow, not a demo that stalls after the pitch.</p>
           </div>
-          <div class="audit-card">
-            <strong>Audit signal is concrete.</strong>
-            <p>The June 2026 internal reliability summary marks Email Organizer Stage 1 as deployed with 129/129 tests passing and multi-account live runs verified.</p>
+          <div class="proof-item">
+            <div class="kicker">It asks</div>
+            <p>Approval is built into the product: nothing reaches a customer without a human pressing send.</p>
           </div>
-          <div class="audit-card">
-            <strong>Trust posture is visible.</strong>
-            <p>The system is strongest where review, digesting, and draft preparation stay explicit instead of being hidden behind exaggerated autonomy claims.</p>
-          </div>
-          <div class="audit-card">
-            <strong>Reusable core, client-specific install.</strong>
-            <p>The proof is not only the feature list. It is that the system can be adapted business by business while preserving consistent trust rules.</p>
+          <div class="proof-item">
+            <div class="kicker">It transfers</div>
+            <p>The owner learns to run and extend it. The system stays when I leave.</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section wrap">
+  <hr class="rule">
+
+  <!-- INSTALL MENU -->
+  <section id="menu">
+    <span class="ghost-num left">03</span>
+    <div class="wrap">
       <div class="section-head">
-        <div class="section-kicker">What that proves</div>
-        <h2 class="section-title">Three things Email Organizer proves about Mote Ops.</h2>
-        <p class="section-copy">
-          This is the core commercial claim the site should support now, and it is narrower than a generic AI consultancy pitch.
-        </p>
+        <div class="kicker">03 · The install menu</div>
+        <h2>Eight ways in, labeled honestly.</h2>
       </div>
+      <p class="menu-intro">Every item below runs on the same proven loop: capture the work, sort it, draft the response, wait for your approval, and show you a clear morning picture. The labels tell you the truth about maturity, and one item is on the bench because we won't sell what we haven't proven. The status line under each row is refreshed weekly, so what you're reading is this week's truth, not last quarter's brochure.</p>
 
-      <div class="mini-grid">
-        <article class="mini-card">
-          <h3>Mote Ops can install practical AI into a real workflow.</h3>
-          <p>The first valuable layer does not need to be everything. It needs to remove friction from a workflow that is already hurting the business.</p>
-        </article>
-        <article class="mini-card">
-          <h3>Mote Ops treats trust as part of the product.</h3>
-          <p>Approval boundaries, visible review, and honest workflow claims are embedded into the install instead of promised later.</p>
-        </article>
-        <article class="mini-card">
-          <h3>Mote Ops can teach and expand from a stable base.</h3>
-          <p>Once the first communication layer is working, adjacent systems can grow around it without pretending maturity came first.</p>
-        </article>
+      <div class="ledger">
+        <div class="ledger-row">
+          <span class="ledger-roman">i</span>
+          <div class="ledger-content">
+            <h3>Inbox and follow-up control.</h3>
+            <p class="ledger-pain">You answer email at 9 PM and still miss the one that mattered.</p>
+            <p class="ledger-body">Real mail sorted into honest review lanes, replies drafted and held, follow-ups that stop slipping. This is the lead install, and the one with live proof behind it.</p>
+            <p class="ledger-stays">Stays yours: every send, every learned rule, reversible any time.</p>
+            <p class="ledger-thisweek">THIS WEEK · Live beta on real inboxes; first-tester proof capture in progress.</p>
+          </div>
+          <span class="status-chip">Live · invite-only beta</span>
+        </div>
+
+        <div class="ledger-row">
+          <span class="ledger-roman">ii</span>
+          <div class="ledger-content">
+            <h3>The owner's morning brief.</h3>
+            <p class="ledger-pain">The day starts with an hour of digging just to find out what's on fire.</p>
+            <p class="ledger-body">One five-minute picture at 7 AM: who's waiting on you, which quotes went quiet, which invoices are aging, which reviews need a reply. It comes with every install because it's how you steer the rest.</p>
+            <p class="ledger-stays">Stays yours: what counts as urgent — you teach it.</p>
+            <p class="ledger-thisweek">THIS WEEK · Ships with the beta today; non-email inputs deliberately on the bench.</p>
+          </div>
+          <span class="status-chip">Part of every install</span>
+        </div>
+
+        <div class="ledger-row">
+          <span class="ledger-roman">iii</span>
+          <div class="ledger-content">
+            <h3>Reviews and reputation.</h3>
+            <p class="ledger-pain">You know you should answer every Google review. It's 10 PM. You don't.</p>
+            <p class="ledger-body">Review requests go out after finished jobs. Responses get drafted in your voice, for the glowing ones and the rough ones, and hold for your OK. The rough ones never post without your edit.</p>
+            <p class="ledger-stays">Stays yours: every word that goes public.</p>
+            <p class="ledger-thisweek">THIS WEEK · Response templates written; next in the adaptation queue from the live core.</p>
+          </div>
+          <span class="status-chip">Built on the proven core</span>
+        </div>
+
+        <div class="ledger-row">
+          <span class="ledger-roman">iv</span>
+          <div class="ledger-content">
+            <h3>Quote and lead chasing.</h3>
+            <p class="ledger-pain">The quote you sent Tuesday died quietly because nobody followed up.</p>
+            <p class="ledger-body">A polite nudge at day two, a value note at day five, a clean close-the-loop at day ten. Each one drafted and waiting for your go-ahead, so won-then-lost jobs stop happening.</p>
+            <p class="ledger-stays">Stays yours: pricing, discounts, and the send button.</p>
+            <p class="ledger-thisweek">THIS WEEK · The day-2/5/10 sequence templates are written; wiring to the core is next.</p>
+          </div>
+          <span class="status-chip">Built on the proven core</span>
+        </div>
+
+        <div class="ledger-row">
+          <span class="ledger-roman">v</span>
+          <div class="ledger-content">
+            <h3>Invoice nudges.</h3>
+            <p class="ledger-pain">Chasing money feels awkward, so cash sits in unpaid invoices.</p>
+            <p class="ledger-body">A gentle reminder at one week, a firmer note with payment options at three, a flag for a phone call at six. Drafted from your invoice list, never auto-sent, and it never invents fees your terms don't have.</p>
+            <p class="ledger-stays">Stays yours: every dollar decision.</p>
+            <p class="ledger-thisweek">THIS WEEK · Reminder-ladder templates written; invoice-list integration being scoped.</p>
+          </div>
+          <span class="status-chip">One integration away</span>
+        </div>
+
+        <div class="ledger-row">
+          <span class="ledger-roman">vi</span>
+          <div class="ledger-content">
+            <h3>Winning back quiet customers.</h3>
+            <p class="ledger-pain">Your best future customers already hired you once, then drifted.</p>
+            <p class="ledger-body">Outreach on your service's real rhythm: furnace tune-up season, the week-six haircut, the quarterly deep clean. One concrete reason to come back, no fake urgency, no "we miss you" filler.</p>
+            <p class="ledger-stays">Stays yours: who gets contacted, and when.</p>
+            <p class="ledger-thisweek">THIS WEEK · Outreach templates written; dormancy detection being scoped.</p>
+          </div>
+          <span class="status-chip">One integration away</span>
+        </div>
+
+        <div class="ledger-row">
+          <span class="ledger-roman">vii</span>
+          <div class="ledger-content">
+            <h3>After-hours intake.</h3>
+            <p class="ledger-pain">The 9 PM tour request or estimate question waits until morning, or forever.</p>
+            <p class="ledger-body">Questions answered from your actual policies, never guessed. Tours and estimates booked while you sleep, feeding a lead list you read with coffee. The pattern comes from a real daycare engagement.</p>
+            <p class="ledger-stays">Stays yours: the policies, the calendar, the final word.</p>
+            <p class="ledger-thisweek">THIS WEEK · Currently adapting for daycares inside a real engagement.</p>
+          </div>
+          <span class="status-chip">One integration away</span>
+        </div>
+
+        <div class="ledger-row">
+          <span class="ledger-roman">viii</span>
+          <div class="ledger-content">
+            <h3>Missed-call rescue.</h3>
+            <p class="ledger-pain">You're under a sink. The caller books whoever answers.</p>
+            <p class="ledger-body">A text back within a minute that captures the job and offers a time. It's the highest-demand item on this page, and it needs phone-system integration we haven't proven yet. So we don't sell it. When it earns its label, it moves up.</p>
+            <p class="ledger-stays">Stays yours: nothing yet — that's the point of the label.</p>
+            <p class="ledger-thisweek">THIS WEEK · Research only. The phone path stays unsold until proven.</p>
+          </div>
+          <span class="status-chip bench">On the bench · not sold yet</span>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section wrap">
+  <hr class="rule">
+
+  <!-- DAY BAND -->
+  <section class="day-band">
+    <div class="wrap">
+      <div class="kicker">04 · In your shop</div>
+      <h2>What this looks like where you work.</h2>
+      <div class="trade-grid">
+        <div class="trade-item">
+          <span class="trade-label">HVAC & PLUMBING</span>
+          <p>Tuesday's estimate gets its day-two nudge without you remembering it. Maintenance-due customers get seasonal reminders you approve in one batch.</p>
+        </div>
+        <div class="trade-item">
+          <span class="trade-label">BARBERS & SALONS</span>
+          <p>Week-six clients get a "your usual slot?" note. Reminders quietly cut no-shows while you're mid-fade.</p>
+        </div>
+        <div class="trade-item">
+          <span class="trade-label">CLEANING</span>
+          <p>Quarterly deep-clean win-backs go out on schedule. New reviews get answered the same day, in your voice.</p>
+        </div>
+        <div class="trade-item">
+          <span class="trade-label">RESTAURANTS</span>
+          <p>Review responses drafted before the weekend rush. Catering inquiries answered from your real menu after close.</p>
+        </div>
+        <div class="trade-item">
+          <span class="trade-label">DAYCARES</span>
+          <p>Tour requests booked at 9 PM. Parent questions answered from your handbook, never guessed.</p>
+        </div>
+        <div class="trade-item">
+          <span class="trade-label">SOLO PRACTICES</span>
+          <p>The morning brief replaces the hour of digging. Client follow-ups stop living in your head.</p>
+        </div>
+      </div>
+      <p class="day-note">The inbox layer is live in beta today. The rest installs lane by lane, each one approval-first.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- RESEARCH LOG -->
+  <section>
+    <span class="ghost-num left">05</span>
+    <div class="wrap">
       <div class="section-head">
-        <div class="section-kicker">Context, not overclaim</div>
-        <h2 class="section-title">Other real work that informs the consultancy.</h2>
-        <p class="section-copy">
-          These are real engagements or builds that shape the Mote Ops point of view, but they are not being presented here as equivalent proof of a mature, repeatable installed product.
-        </p>
+        <div class="kicker">05 · The research log</div>
+        <h2>What owners keep telling us.</h2>
+        <p class="research-week">WEEK OF JUNE 29, 2026</p>
       </div>
-
-      <div class="context-grid">
-        <article class="status-card">
-          <div class="image-frame">
-            <img src="/images/ccs-desktop.png" alt="CC's Learning Center site concept" />
-          </div>
-          <h3>CC's Learning Center</h3>
-          <strong>Real engagement. Not a proof asset yet.</strong>
-          <p>The work matters because it is shaping how Mote Ops thinks about business friction, staffing, finances, and operational support inside a real daycare business. It should not be sold as finished public proof yet.</p>
-        </article>
-
-        <article class="status-card">
-          <div class="image-frame">
-            <img src="/images/mountains-desktop.png" alt="Moving Mountains website" />
-          </div>
-          <h3>Moving Mountains</h3>
-          <strong>Founder and venture adaptation example.</strong>
-          <p>This shows how Mote Ops can help shape a business idea and a front door around domain expertise. It is informative context, not the main commercial proof claim.</p>
-        </article>
-
-        <article class="status-card">
-          <div class="image-frame">
-            <img src="/images/corevita-desktop.png" alt="CoreVita Collective website" />
-          </div>
-          <h3>CoreVita Collective</h3>
-          <strong>Launch support and owner enablement example.</strong>
-          <p>This demonstrates Mote Ops helping a founder move from idea to a site she can own. It supports the adaptation story more than the current systems-proof story.</p>
-        </article>
+      <div class="research-list">
+        <div class="research-item">
+          <span class="research-label">FOLLOW-UP LOSS</span>
+          <p>Quotes and leads die from silence, not rejection. Owners lose jobs they had already won.</p>
+        </div>
+        <div class="research-item">
+          <span class="research-label">REVIEW GUILT</span>
+          <p>Every owner knows unanswered reviews cost them. The block is emotional, not technical.</p>
+        </div>
+        <div class="research-item">
+          <span class="research-label">AFTER-HOURS DEMAND</span>
+          <p>Inquiries arrive at 9 PM. Response speed, not quality, decides who gets the job.</p>
+        </div>
+        <div class="research-item">
+          <span class="research-label">DRAFTS, NOT ROBOTS</span>
+          <p>Owners don't want AI speaking as them. They want drafts they approve. Approval-first wins every conversation.</p>
+        </div>
+        <div class="research-item">
+          <span class="research-label">APP FATIGUE</span>
+          <p>Nobody wants another dashboard. Owners want answers where they already work, which is why everything here lands in email and one morning brief.</p>
+        </div>
       </div>
-    </section>
+      <p class="research-footnote">Refreshed weekly from real conversations and install work. This list decides what moves up the menu.</p>
+    </div>
+  </section>
 
-    <section class="section wrap">
+  <hr class="rule">
+
+  <!-- CONTEXT ENGAGEMENTS -->
+  <section>
+    <div class="wrap">
       <div class="section-head">
-        <div class="section-kicker">Commercial core now</div>
-        <h2 class="section-title">What the consultancy should sound like today.</h2>
-        <p class="section-copy">
-          Lead with practical AI systems for business owners. Emphasize communication workflow relief, operational trust, reusable systems deployed in tailored ways, and owner education. Do not lead with experimental voice or a broad agent-platform identity.
-        </p>
+        <div class="kicker">06 · Context, not overclaim</div>
+        <h2>Real work that shapes the playbook.</h2>
+        <p>These engagements inform how I build. They are not being presented as finished proof, and won't be until they earn it.</p>
       </div>
+      <div class="engagement-row">
+        <div class="engagement-card">
+          <img src="images/ccs-desktop.png" alt="CC's Learning Center site concept">
+          <div class="engagement-card-body">
+            <h3>CC's Learning Center</h3>
+            <span class="engagement-status">Real engagement · not a proof asset yet</span>
+            <p>A working daycare engagement shaping the after-hours intake and parent-communication playbook.</p>
+          </div>
+        </div>
+        <div class="engagement-card">
+          <img src="images/mountains-desktop.png" alt="Moving Mountains website">
+          <div class="engagement-card-body">
+            <h3>Moving Mountains</h3>
+            <span class="engagement-status">Venture-shaping example</span>
+            <p>Helping a founder turn real expertise into a clearer business model and front door.</p>
+          </div>
+        </div>
+        <div class="engagement-card">
+          <img src="images/corevita-desktop.png" alt="CoreVita Collective website">
+          <div class="engagement-card-body">
+            <h3>CoreVita Collective</h3>
+            <span class="engagement-status">Founder-launch example</span>
+            <p>Moving a nontechnical founder from idea to a site she owns and can keep evolving.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <div class="status-grid">
-        <div class="proof-card">
-          <strong>Lead offer</strong>
-          <p>Communication workflow relief through Email Organizer-style installs, followed by adjacent operational layers once the first trust boundary is working.</p>
-        </div>
-        <div class="proof-card">
-          <strong>Expansion path</strong>
-          <p>Private AI or local model ownership can become part of the relationship later, but only after the first useful business workflow is mapped and installed honestly.</p>
-        </div>
-      </div>
-    </section>
+  <hr class="rule">
 
-    <section class="footer-cta wrap">
-      <div class="footer-shell">
-        <div class="section-kicker" style="color: rgba(253, 247, 240, 0.65);">If the business owner is still the operating system</div>
-        <h2>Start with the workflow that is costing the most attention.</h2>
-        <p>
-          Mote Ops can diagnose the current communication or coordination burden, map the trust boundaries, and install the first practical AI layer without overclaiming what is already solved.
-        </p>
-        <div class="footer-actions">
-          <a class="btn primary" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a consultation</a>
-          <a class="btn secondary" href="index.html">Return to homepage</a>
-        </div>
+  <!-- CLOSING -->
+  <section>
+    <span class="ghost-num left">07</span>
+    <div class="wrap">
+      <div class="kicker">07 · The rule behind the labels</div>
+      <p class="pull-line">Everything on this page is labeled as mature as it actually is. That rule costs me sales this month and earns them for years.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER CTA -->
+<section>
+  <div class="wrap">
+    <div class="footer-cta-shell">
+      <span class="cta-ghost">07</span>
+      <div class="kicker">Pick the row that hurts most</div>
+      <h2>Book thirty free minutes.</h2>
+      <p>Tell me which row on that menu made you wince. That's usually the first install. The call is recorded and transcribed so I can take real notes; the recording stays on my machine.</p>
+      <div class="btn-row">
+        <a class="btn btn-inverted" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a call</a>
+        <a class="btn btn-outline-light" href="index.html">Back to the homepage</a>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p>Mote Ops · AI you can own · Oakland, CA · v0.5</p>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+if(window.matchMedia('(prefers-reduced-motion: no-preference)').matches){
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('revealed');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15});
+  document.querySelectorAll('section, footer.site-footer').forEach(function(s){
+    io.observe(s);
+  });
+}
+</script>
+
 </body>
 </html>
