@@ -1,120 +1,754 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mote Ops Rebuilds, Before and After</title>
-<meta name="description" content="Three client sites rebuilt into bespoke identities. The previous live site on the left, the new build running live on the right.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#0E1116;--panel:#171C24;--line:#2A323D;--text:#E7ECF2;--muted:#9AA6B4;--accent:#6FE0B0;--before:#F0A35E;}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Space Grotesk',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
-.wrap{width:min(1280px,94vw);margin-inline:auto}
-header{padding:3.2rem 0 1.5rem;border-bottom:1px solid var(--line)}
-.back{display:inline-block;color:var(--muted);font-size:.85rem;text-decoration:none;margin-bottom:1.4rem;border-bottom:1px dotted var(--muted)}
-h1{font-family:'Newsreader',serif;font-weight:500;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.01em}
-.sub{color:var(--muted);max-width:64ch;margin-top:.8rem;font-size:1.05rem}
-.legend{display:flex;gap:1.4rem;margin-top:1.4rem;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}
-.legend b{color:var(--text)}
-.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.4rem;vertical-align:middle}
-.row{padding:2.6rem 0;border-bottom:1px solid var(--line)}
-.row h2{font-family:'Newsreader',serif;font-weight:500;font-size:1.7rem}
-.meta{color:var(--muted);font-size:.92rem;margin:.3rem 0 .4rem}
-.identity{font-size:.86rem;color:var(--muted);max-width:90ch;margin-bottom:1.2rem}
-.identity b{color:var(--accent)}
-.chips{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.3rem}
-.chip{font-size:.74rem;padding:.3rem .65rem;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
-.swatch{display:inline-block;width:13px;height:13px;border-radius:3px;margin-right:.35rem;vertical-align:middle;border:1px solid rgba(255,255,255,.18)}
-.compare{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
-.pane{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.pane .label{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--line)}
-.pane.before .label{color:var(--before)}
-.pane.after .label{color:var(--accent)}
-.label a{color:var(--muted);text-transform:none;letter-spacing:0;font-size:.78rem;text-decoration:none;border-bottom:1px dotted var(--muted)}
-.framebox{position:relative;width:100%;height:560px;background:#fff;overflow:hidden}
-.framebox iframe{position:absolute;top:0;left:0;width:1280px;height:1120px;border:0;transform:scale(.5);transform-origin:top left}
-.beforeshot{display:block;width:100%;height:560px;object-fit:cover;object-position:top}
-@media(max-width:920px){.compare{grid-template-columns:1fr}.framebox{height:420px}.beforeshot{height:420px}.framebox iframe{width:1100px;height:1100px;transform:scale(.42)}}
-footer{padding:2.4rem 0 4rem;color:var(--muted);font-size:.85rem}
-.note{background:rgba(111,224,176,.07);border:1px solid rgba(111,224,176,.25);border-radius:12px;padding:1rem 1.2rem;margin-top:1.2rem;font-size:.88rem;color:var(--text)}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mote Ops · Honest proof, not portfolio theater</title>
+  <meta
+    name="description"
+    content="The current Mote Ops proof page: strongest proof direction is the hosted Email Organizer system, with honest notes on what is real, what is informing the work, and what is not yet proof."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #f4ede3;
+      --paper: rgba(255, 250, 244, 0.84);
+      --panel: rgba(255, 251, 246, 0.74);
+      --ink: #18130f;
+      --ink-soft: #4d4035;
+      --muted: #7a6c60;
+      --line: rgba(24, 19, 15, 0.1);
+      --accent: #ba5a3f;
+      --accent-deep: #8c402a;
+      --amber: #d9aa53;
+      --sage: #687a61;
+      --sky: #88a5c7;
+      --teal: #4f8984;
+      --shadow-xl: 0 30px 90px rgba(57, 40, 25, 0.14);
+      --shadow-lg: 0 18px 44px rgba(57, 40, 25, 0.1);
+      --radius-xl: 36px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max: 1240px;
+      --pad: clamp(20px, 4vw, 48px);
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(217, 170, 83, 0.17), transparent 20%),
+        radial-gradient(circle at 88% 14%, rgba(136, 165, 199, 0.18), transparent 20%),
+        linear-gradient(180deg, #fbf7f0 0%, var(--bg) 100%);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 2 * var(--pad)));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      padding: 22px 0 10px;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow: 0 12px 28px rgba(57, 40, 25, 0.08);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero {
+      padding: 14px 0 32px;
+    }
+
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 24px;
+      padding: 34px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 250, 244, 0.92), rgba(255, 246, 237, 0.84));
+      border: 1px solid rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .hero-shell::after {
+      content: "";
+      position: absolute;
+      inset: auto -90px -90px auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(186, 90, 63, 0.12), transparent 72%);
+      pointer-events: none;
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .system-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .eyebrow {
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(44px, 7vw, 84px);
+      line-height: 0.92;
+      letter-spacing: -0.045em;
+      max-width: 10ch;
+    }
+
+    .hero-copy p {
+      margin: 18px 0 0;
+      font-size: 18px;
+      color: var(--ink-soft);
+      max-width: 58ch;
+    }
+
+    .hero-actions,
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-actions {
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform 180ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: var(--ink);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 14px 28px rgba(24, 19, 15, 0.16);
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.56);
+      color: var(--ink);
+    }
+
+    .hero-rail,
+    .rail-list,
+    .proof-side,
+    .audit-stack,
+    .artifact-stack,
+    .context-grid,
+    .status-grid,
+    .mini-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .hero-rail {
+      align-content: start;
+    }
+
+    .rail-card,
+    .proof-card,
+    .mini-card,
+    .status-card,
+    .audit-card,
+    .artifact-surface,
+    .artifact-row,
+    .lane-card,
+    .footer-shell {
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(24, 19, 15, 0.08);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .rail-card,
+    .proof-card,
+    .mini-card,
+    .status-card,
+    .audit-card,
+    .artifact-surface,
+    .footer-shell {
+      padding: 18px;
+    }
+
+    .rail-card h3,
+    .proof-card h3,
+    .status-card h3,
+    .mini-card h3,
+    .audit-card h3,
+    .artifact-surface h3 {
+      margin: 0 0 10px;
+      line-height: 1.08;
+    }
+
+    .rail-card p,
+    .proof-card p,
+    .status-card p,
+    .mini-card p,
+    .audit-card p,
+    .artifact-surface p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .rail-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255, 250, 244, 0.9);
+      border: 1px solid rgba(24, 19, 15, 0.06);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      margin-top: 7px;
+      background: linear-gradient(145deg, var(--accent), var(--amber));
+    }
+
+    .rail-item strong,
+    .artifact-row strong,
+    .audit-card strong,
+    .proof-card strong,
+    .status-card strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .rail-item span,
+    .artifact-row span,
+    .audit-card span,
+    .proof-card span,
+    .status-card span,
+    .lane-card span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section {
+      padding: 0 0 34px;
+    }
+
+    .section-head {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 24px;
+      max-width: 72ch;
+    }
+
+    h2.section-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 14ch;
+    }
+
+    .section-copy {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 17px;
+    }
+
+    .proof-shell {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .artifact-surface {
+      padding: 22px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255, 251, 246, 0.9), rgba(255, 245, 236, 0.84));
+      box-shadow: var(--shadow-xl);
+    }
+
+    .chip,
+    .signal-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .chip {
+      background: rgba(186, 90, 63, 0.1);
+      color: var(--accent-deep);
+    }
+
+    .signal-tag {
+      background: rgba(79, 137, 132, 0.12);
+      color: var(--teal);
+    }
+
+    .signal-tag::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .artifact-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .artifact-surface h3 {
+      margin-top: 8px;
+      font-size: 30px;
+      max-width: 14ch;
+    }
+
+    .artifact-stack {
+      margin-top: 18px;
+    }
+
+    .artifact-row {
+      display: grid;
+      grid-template-columns: 96px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      background: rgba(255, 250, 244, 0.96);
+      border: 1px solid rgba(24, 19, 15, 0.06);
+    }
+
+    .lane-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .lane-card {
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(24, 19, 15, 0.06);
+    }
+
+    .lane-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .audit-stack {
+      grid-template-columns: 1fr;
+    }
+
+    .audit-card {
+      background: rgba(255, 255, 255, 0.68);
+    }
+
+    .mini-grid,
+    .context-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .status-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .image-frame {
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(24, 19, 15, 0.08);
+      margin-bottom: 14px;
+      box-shadow: 0 16px 34px rgba(57, 40, 25, 0.08);
+    }
+
+    .image-frame img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .footer-cta {
+      padding-bottom: 46px;
+    }
+
+    .footer-shell {
+      display: grid;
+      gap: 18px;
+      padding: 28px;
+      border-radius: 30px;
+      background: rgba(24, 19, 15, 0.94);
+      color: #fdf7f0;
+      box-shadow: 0 28px 70px rgba(24, 19, 15, 0.24);
+    }
+
+    .footer-shell h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 12ch;
+    }
+
+    .footer-shell p {
+      margin: 0;
+      color: rgba(253, 247, 240, 0.76);
+      font-size: 16px;
+      max-width: 60ch;
+    }
+
+    .footer-actions .btn.primary {
+      background: #fff4e8;
+      color: var(--ink);
+    }
+
+    .footer-actions .btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    @media (max-width: 1080px) {
+      .hero-shell,
+      .proof-shell,
+      .mini-grid,
+      .context-grid,
+      .status-grid,
+      .lane-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero-shell,
+      .artifact-surface,
+      .footer-shell {
+        padding: 20px;
+      }
+
+      .artifact-row {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        max-width: 11ch;
+      }
+    }
+  </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <a class="back" href="/">&larr; Back to Mote Ops</a>
-    <h1>Three rebuilds, before and after.</h1>
-    <p class="sub">Each client site was rebuilt into its own bespoke visual identity, deliberately distinct from the other two and from the Mote Ops house look. On the left, the previous live site, captured the moment before deploy. On the right, the new build, running live right now on GitHub Pages.</p>
-    <div class="legend">
-      <span><span class="dot" style="background:var(--before)"></span><b>Before</b>, the previous live site</span>
-      <span><span class="dot" style="background:var(--accent)"></span><b>After</b>, the new build, live now</span>
-    </div>
-  </div>
-</header>
+  <header class="topbar wrap">
+    <a class="nav-link" href="index.html">Back to the homepage</a>
+  </header>
 
-<section class="row">
-  <div class="wrap">
-    <h2>Moving Mountains</h2>
-    <p class="meta">Mobile veterinary rehab and relief DVM staffing &middot; Denver, CO</p>
-    <p class="identity">Identity: <b>alpine and outdoorsy</b>. Forest green and dusk blue with a sunrise clay accent, sturdy Bricolage Grotesque headlines over Hanken Grotesk, Space Mono for the staffing-platform data. Custom SVG ridgelines and topographic contour lines, a two-trail split that gives pet families and the relief marketplace clearly separate architecture.</p>
-    <div class="chips">
-      <span class="chip"><span class="swatch" style="background:#1F4D3A"></span>#1F4D3A</span>
-      <span class="chip"><span class="swatch" style="background:#2B3A55"></span>#2B3A55</span>
-      <span class="chip"><span class="swatch" style="background:#5B8FB9"></span>#5B8FB9</span>
-      <span class="chip"><span class="swatch" style="background:#E8794A"></span>#E8794A</span>
-      <span class="chip">Bricolage Grotesque + Hanken Grotesk + Space Mono</span>
-    </div>
-    <div class="compare">
-      <div class="pane before"><div class="label"><span>Before</span></div><img class="beforeshot" src="images/before-mountains.png" alt="Moving Mountains, previous live site" loading="lazy"></div>
-      <div class="pane after"><div class="label"><span>After, live now</span><a href="https://mikedmote52.github.io/moving-mountains-demo/" target="_blank" rel="noopener">open live &#8599;</a></div><div class="framebox"><iframe src="https://mikedmote52.github.io/moving-mountains-demo/" title="Moving Mountains rebuild, live" loading="lazy"></iframe></div></div>
-    </div>
-  </div>
-</section>
+  <main>
+    <section class="hero wrap">
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <div class="eyebrow">Proof should reduce doubt</div>
+          <h1>Honest proof, not portfolio theater.</h1>
+          <p>
+            This page is here to show what Mote Ops can truthfully stand behind right now. The strongest current proof direction is the hosted Email Organizer system, not a broad claim that every internal build is already a mature commercial offer.
+          </p>
+          <p>
+            The goal is to make the commercial core obvious, show what is genuinely proven, and separate that from the work that is still shaping the consultancy rather than proving repeatable installs.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a consultation</a>
+            <a class="btn secondary" href="index.html">Return home</a>
+          </div>
+        </div>
 
-<section class="row">
-  <div class="wrap">
-    <h2>CoreVita Collective</h2>
-    <p class="meta">Nurse-led wellness practice &middot; Newport Beach, CA</p>
-    <p class="identity">Identity: <b>calm, premium, spa-clinical</b>. Cool sage and eucalyptus over forest ink with a single quiet slate-blue accent, elegant Cormorant Garamond paired with humanist Mulish. Botanical line art, concentric contour rings, generous negative space. Broken counters now resolve to real figures, and the membership and fifteen-member cap are surfaced clearly.</p>
-    <div class="chips">
-      <span class="chip"><span class="swatch" style="background:#6F8A7E"></span>#6F8A7E</span>
-      <span class="chip"><span class="swatch" style="background:#20302B"></span>#20302B</span>
-      <span class="chip"><span class="swatch" style="background:#D8D5CE"></span>#D8D5CE</span>
-      <span class="chip"><span class="swatch" style="background:#7E9BB0"></span>#7E9BB0</span>
-      <span class="chip">Cormorant Garamond + Mulish</span>
-    </div>
-    <div class="compare">
-      <div class="pane before"><div class="label"><span>Before</span></div><img class="beforeshot" src="images/before-corevita.png" alt="CoreVita Collective, previous live site" loading="lazy"></div>
-      <div class="pane after"><div class="label"><span>After, live now</span><a href="https://mikedmote52.github.io/corevita-demo/" target="_blank" rel="noopener">open live &#8599;</a></div><div class="framebox"><iframe src="https://mikedmote52.github.io/corevita-demo/" title="CoreVita rebuild, live" loading="lazy"></iframe></div></div>
-    </div>
-  </div>
-</section>
+        <aside class="hero-rail">
+          <div class="rail-card">
+            <h3>What this page is for</h3>
+            <div class="rail-list">
+              <div class="rail-item">
+                <div class="dot"></div>
+                <div>
+                  <strong>Show the strongest current proof lane.</strong>
+                  <span>Email Organizer leads because it best matches what is actually live and commercially relevant.</span>
+                </div>
+              </div>
+              <div class="rail-item">
+                <div class="dot"></div>
+                <div>
+                  <strong>Explain the method behind the installs.</strong>
+                  <span>Reusable systems, client-specific adaptation, and approval boundaries are part of the proof.</span>
+                </div>
+              </div>
+              <div class="rail-item">
+                <div class="dot"></div>
+                <div>
+                  <strong>Keep active work honest.</strong>
+                  <span>Real engagements can inform the consultancy without being overstated as finished proof assets.</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-<section class="row">
-  <div class="wrap">
-    <h2>CC's Learning Center</h2>
-    <p class="meta">Family-owned childcare &middot; Brea, CA</p>
-    <p class="identity">Identity: <b>warm, friendly, playful but trustworthy</b>. Crayon-bright coral, sunshine, sky blue and grape on clean white, rounded Fredoka display with Nunito body. A custom hand-drawn schoolhouse scene, floating shapes, wavy section dividers. Parent-facing and joyful, not corporate, with the tour booking always a glance away.</p>
-    <div class="chips">
-      <span class="chip"><span class="swatch" style="background:#FF6052"></span>#FF6052</span>
-      <span class="chip"><span class="swatch" style="background:#FFC233"></span>#FFC233</span>
-      <span class="chip"><span class="swatch" style="background:#3DA5D9"></span>#3DA5D9</span>
-      <span class="chip"><span class="swatch" style="background:#7B5EA7"></span>#7B5EA7</span>
-      <span class="chip">Fredoka + Nunito</span>
-    </div>
-    <div class="compare">
-      <div class="pane before"><div class="label"><span>Before</span></div><img class="beforeshot" src="images/before-ccs.png" alt="CC's Learning Center, previous live site" loading="lazy"></div>
-      <div class="pane after"><div class="label"><span>After, live now</span><a href="https://mikedmote52.github.io/ccs-learning-center/" target="_blank" rel="noopener">open live &#8599;</a></div><div class="framebox"><iframe src="https://mikedmote52.github.io/ccs-learning-center/" title="CC's rebuild, live" loading="lazy"></iframe></div></div>
-    </div>
-    <div class="note">The After panels load the production sites directly. If an After panel looks cropped, it is scaled to fit the panel. Use the "open live" link to view the full site in a new tab.</div>
-  </div>
-</section>
+          <div class="rail-card">
+            <h3>What this page is not</h3>
+            <p>
+              It is not a claim that Voice OS, meeting capture, or every internal experiment is part of the client-ready commercial core. It is not a before-and-after portfolio pretending all builds prove the same thing.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-<footer>
-  <div class="wrap">These rebuilds are deployed and live. Each After panel is the production site, running now on GitHub Pages. Each Before is the previous live site, captured the moment before deploy.</div>
-</footer>
+    <section class="section wrap">
+      <div class="section-head">
+        <div class="section-kicker">Strongest current proof</div>
+        <h2 class="section-title">Hosted Email Organizer is the clearest proof of useful AI at Mote Ops today.</h2>
+        <p class="section-copy">
+          As of the June 2026 internal reliability audit, this is the strongest public-facing direction because it combines a reusable system, real onboarding paths, honest trust posture, and a concrete business pain point: communication workflow overload.
+        </p>
+      </div>
+
+      <div class="proof-shell">
+        <div class="artifact-surface">
+          <div class="artifact-top">
+            <div class="system-label">System artifact wall</div>
+            <div class="signal-tag">invite-only hosted beta</div>
+          </div>
+
+          <span class="chip">communication workflow relief</span>
+          <h3>Show the operating shape, not a fake finished app.</h3>
+          <p>
+            The proof should feel like a real install: a Morning Digest, visible review states, draft preparation, and learning that stays subordinate to trust.
+          </p>
+
+          <div class="artifact-stack">
+            <div class="artifact-row">
+              <span class="chip">Digest</span>
+              <div>
+                <strong>People waiting on us, tasks, money, bundles, learning</strong>
+                <span>The owner starts from a clearer operating picture, not raw inbox chaos.</span>
+              </div>
+              <span class="signal-tag">owner-first view</span>
+            </div>
+            <div class="artifact-row">
+              <span class="chip">Review</span>
+              <div>
+                <strong>Messages can be triaged without pretending judgment disappeared</strong>
+                <span>Relationship-sensitive items remain visible for approval.</span>
+              </div>
+              <span class="signal-tag">trust visible</span>
+            </div>
+            <div class="artifact-row">
+              <span class="chip">Drafts</span>
+              <div>
+                <strong>Replies can be prepared before the business sends anything</strong>
+                <span>The workflow stays commercially useful without overclaiming autonomy.</span>
+              </div>
+              <span class="signal-tag">draft before send</span>
+            </div>
+          </div>
+
+          <div class="lane-grid">
+            <div class="lane-card">
+              <strong>Needs review</strong>
+              <span>Human judgment is explicit.</span>
+            </div>
+            <div class="lane-card">
+              <strong>Draft prepared</strong>
+              <span>Work is staged for approval.</span>
+            </div>
+            <div class="lane-card">
+              <strong>Learned rule</strong>
+              <span>Reusable logic forms after proof.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="audit-stack">
+          <div class="audit-card">
+            <strong>Hosted beta path is live.</strong>
+            <p>The current strongest proof is not hypothetical architecture. It is a hosted beta direction with real route flow and durable client-facing surfaces.</p>
+          </div>
+          <div class="audit-card">
+            <strong>Audit signal is concrete.</strong>
+            <p>The June 2026 internal reliability summary marks Email Organizer Stage 1 as deployed with 129/129 tests passing and multi-account live runs verified.</p>
+          </div>
+          <div class="audit-card">
+            <strong>Trust posture is visible.</strong>
+            <p>The system is strongest where review, digesting, and draft preparation stay explicit instead of being hidden behind exaggerated autonomy claims.</p>
+          </div>
+          <div class="audit-card">
+            <strong>Reusable core, client-specific install.</strong>
+            <p>The proof is not only the feature list. It is that the system can be adapted business by business while preserving consistent trust rules.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="section-head">
+        <div class="section-kicker">What that proves</div>
+        <h2 class="section-title">Three things Email Organizer proves about Mote Ops.</h2>
+        <p class="section-copy">
+          This is the core commercial claim the site should support now, and it is narrower than a generic AI consultancy pitch.
+        </p>
+      </div>
+
+      <div class="mini-grid">
+        <article class="mini-card">
+          <h3>Mote Ops can install practical AI into a real workflow.</h3>
+          <p>The first valuable layer does not need to be everything. It needs to remove friction from a workflow that is already hurting the business.</p>
+        </article>
+        <article class="mini-card">
+          <h3>Mote Ops treats trust as part of the product.</h3>
+          <p>Approval boundaries, visible review, and honest workflow claims are embedded into the install instead of promised later.</p>
+        </article>
+        <article class="mini-card">
+          <h3>Mote Ops can teach and expand from a stable base.</h3>
+          <p>Once the first communication layer is working, adjacent systems can grow around it without pretending maturity came first.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="section-head">
+        <div class="section-kicker">Context, not overclaim</div>
+        <h2 class="section-title">Other real work that informs the consultancy.</h2>
+        <p class="section-copy">
+          These are real engagements or builds that shape the Mote Ops point of view, but they are not being presented here as equivalent proof of a mature, repeatable installed product.
+        </p>
+      </div>
+
+      <div class="context-grid">
+        <article class="status-card">
+          <div class="image-frame">
+            <img src="/images/ccs-desktop.png" alt="CC's Learning Center site concept" />
+          </div>
+          <h3>CC's Learning Center</h3>
+          <strong>Real engagement. Not a proof asset yet.</strong>
+          <p>The work matters because it is shaping how Mote Ops thinks about business friction, staffing, finances, and operational support inside a real daycare business. It should not be sold as finished public proof yet.</p>
+        </article>
+
+        <article class="status-card">
+          <div class="image-frame">
+            <img src="/images/mountains-desktop.png" alt="Moving Mountains website" />
+          </div>
+          <h3>Moving Mountains</h3>
+          <strong>Founder and venture adaptation example.</strong>
+          <p>This shows how Mote Ops can help shape a business idea and a front door around domain expertise. It is informative context, not the main commercial proof claim.</p>
+        </article>
+
+        <article class="status-card">
+          <div class="image-frame">
+            <img src="/images/corevita-desktop.png" alt="CoreVita Collective website" />
+          </div>
+          <h3>CoreVita Collective</h3>
+          <strong>Launch support and owner enablement example.</strong>
+          <p>This demonstrates Mote Ops helping a founder move from idea to a site she can own. It supports the adaptation story more than the current systems-proof story.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="section-head">
+        <div class="section-kicker">Commercial core now</div>
+        <h2 class="section-title">What the consultancy should sound like today.</h2>
+        <p class="section-copy">
+          Lead with practical AI systems for business owners. Emphasize communication workflow relief, operational trust, reusable systems deployed in tailored ways, and owner education. Do not lead with experimental voice or a broad agent-platform identity.
+        </p>
+      </div>
+
+      <div class="status-grid">
+        <div class="proof-card">
+          <strong>Lead offer</strong>
+          <p>Communication workflow relief through Email Organizer-style installs, followed by adjacent operational layers once the first trust boundary is working.</p>
+        </div>
+        <div class="proof-card">
+          <strong>Expansion path</strong>
+          <p>Private AI or local model ownership can become part of the relationship later, but only after the first useful business workflow is mapped and installed honestly.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer-cta wrap">
+      <div class="footer-shell">
+        <div class="section-kicker" style="color: rgba(253, 247, 240, 0.65);">If the business owner is still the operating system</div>
+        <h2>Start with the workflow that is costing the most attention.</h2>
+        <p>
+          Mote Ops can diagnose the current communication or coordination burden, map the trust boundaries, and install the first practical AI layer without overclaiming what is already solved.
+        </p>
+        <div class="footer-actions">
+          <a class="btn primary" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a consultation</a>
+          <a class="btn secondary" href="index.html">Return to homepage</a>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
