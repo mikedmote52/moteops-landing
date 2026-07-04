@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reviews &amp; Reputation Lane — Demo</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f4f5f7;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 24px;
+  }
+  .watermark {
+    background: #b45309;
+    color: white;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 1.4rem;
+    margin: 0 0 4px 0;
+  }
+  .subtitle {
+    color: #555;
+    margin-bottom: 20px;
+  }
+  .summary {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .summary .stat {
+    background: white;
+    border-radius: 10px;
+    padding: 12px 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    min-width: 140px;
+  }
+  .summary .stat .num {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .summary .stat .label {
+    font-size: 0.8rem;
+    color: #666;
+  }
+  .review-card {
+    background: white;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-left: 6px solid #ccc;
+  }
+  .review-card.positive { border-left-color: #16a34a; }
+  .review-card.negative { border-left-color: #dc2626; }
+  .review-header {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .stars { color: #d97706; font-size: 1.1rem; }
+  .reviewer { font-weight: 600; }
+  .date { color: #888; font-size: 0.85rem; }
+  .review-text { font-style: italic; color: #333; }
+  .draft-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #666;
+    margin-top: 10px;
+  }
+  .draft-body {
+    background: #f8f9fb;
+    border: 1px solid #e2e4e8;
+    border-radius: 8px;
+    padding: 12px;
+    white-space: pre-wrap;
+    font-family: inherit;
+    font-size: 0.92rem;
+  }
+  .status {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .status.blocked {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .status.ready {
+    background: #dcfce7;
+    color: #166534;
+  }
+  .footer-watermark {
+    text-align: center;
+    color: #999;
+    margin-top: 24px;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+  <div class="watermark">SAMPLE DATA — DEMO MODE / AWAITING CREDENTIALS</div>
+  <h1>Reviews &amp; Reputation Lane</h1>
+  <div class="subtitle">Lane status: <strong>awaiting_credentials</strong> &middot; Platform: google_business &middot; Phase 1: drafts forever, no posting, no outreach.</div>
+
+  <div class="summary">
+    <div class="stat"><div class="num">7</div><div class="label">Total reviews</div></div>
+    <div class="stat"><div class="num">4</div><div class="label">Positive (4-5&#9733;)</div></div>
+    <div class="stat"><div class="num">3</div><div class="label">Negative (1-3&#9733;)</div></div>
+    <div class="stat"><div class="num">3</div><div class="label">Blocked on edit-before-approve</div></div>
+  </div>
+
+  
+            <div class="review-card positive">
+              <div class="review-header">
+                <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="reviewer">Dana K.</span>
+                <span class="date">2026-06-18</span>
+              </div>
+              <p class="review-text">&ldquo;Called on a Saturday with a burst pipe and they had someone out within the hour. Marcus was professional, explained everything, and didn&#x27;t try to upsell us on stuff we didn&#x27;t need. Fair price too. Highly recommend.&rdquo;</p>
+              <div class="draft-label">POSITIVE — template 3 draft</div><pre class="draft-body">Thanks so much, Dana K. &quot;Called on a Saturday with a burst pipe and they had someone out…&quot; — that&#x27;s exactly what we aim for, and it means a lot that you took the time to write this. Come see us again anytime.
+
+- Alex</pre>
+              <div class="status ready">&#10003; Ready for owner approval (draft only &mdash; nothing sends or posts automatically).</div>
+            </div>
+            
+
+            <div class="review-card negative">
+              <div class="review-header">
+                <span class="stars">&#9733;&#9734;&#9734;&#9734;&#9734;</span>
+                <span class="reviewer">Tom R.</span>
+                <span class="date">2026-06-20</span>
+              </div>
+              <p class="review-text">&ldquo;Waited three days for a callback after they said someone would reach out same day. When the tech finally came he fixed the leak but left a mess in the bathroom and didn&#x27;t clean up. Not worth the hassle.&rdquo;</p>
+              <div class="draft-label">NEGATIVE — template 4 draft</div><pre class="draft-body">Tom R, thank you for letting us know. I am sorry your experience did not go the way we both wanted. I would like to understand what happened and make it right. Please reach me directly at (555) 010-0100 or alex@riverbendplumbing.example so we can talk it through.
+
+- Alex</pre>
+              <div class="status blocked">&#128683; BLOCKED &mdash; edit-before-approve required. Owner must edit this draft before it can be approved.</div>
+            </div>
+            
+
+            <div class="review-card positive">
+              <div class="review-header">
+                <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="reviewer">Priya S.</span>
+                <span class="date">2026-06-22</span>
+              </div>
+              <p class="review-text">&ldquo;We&#x27;ve used Riverbend twice now for water heater issues. Both times fast, clean work, and they showed up when they said they would. That alone puts them above every other plumber we&#x27;ve tried in this area.&rdquo;</p>
+              <div class="draft-label">POSITIVE — template 3 draft</div><pre class="draft-body">Thanks so much, Priya S. &quot;We&#x27;ve used Riverbend twice now for water heater issues&quot; — that&#x27;s exactly what we aim for, and it means a lot that you took the time to write this. Come see us again anytime.
+
+- Alex</pre>
+              <div class="status ready">&#10003; Ready for owner approval (draft only &mdash; nothing sends or posts automatically).</div>
+            </div>
+            
+
+            <div class="review-card negative">
+              <div class="review-header">
+                <span class="stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span>
+                <span class="reviewer">G. Alvarez</span>
+                <span class="date">2026-06-25</span>
+              </div>
+              <p class="review-text">&ldquo;Quoted me one price over the phone and then the invoice was almost double once the tech was already at the house. Felt like a bait and switch. The actual repair seems fine so far but the pricing situation soured the whole experience.&rdquo;</p>
+              <div class="draft-label">NEGATIVE — template 4 draft</div><pre class="draft-body">G. Alvarez, thank you for letting us know. I am sorry your experience did not go the way we both wanted. I would like to understand what happened and make it right. Please reach me directly at (555) 010-0100 or alex@riverbendplumbing.example so we can talk it through.
+
+- Alex</pre>
+              <div class="status blocked">&#128683; BLOCKED &mdash; edit-before-approve required. Owner must edit this draft before it can be approved.</div>
+            </div>
+            
+
+            <div class="review-card positive">
+              <div class="review-header">
+                <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                <span class="reviewer">Wendy H.</span>
+                <span class="date">2026-06-27</span>
+              </div>
+              <p class="review-text">&ldquo;Good experience overall, fixed our garbage disposal quickly. Only reason it&#x27;s not 5 stars is scheduling took a couple calls to lock down a time. Would still call them again.&rdquo;</p>
+              <div class="draft-label">POSITIVE — template 3 draft</div><pre class="draft-body">Thanks so much, Wendy H. &quot;Good experience overall, fixed our garbage disposal quickly&quot; — that&#x27;s exactly what we aim for, and it means a lot that you took the time to write this. Come see us again anytime.
+
+- Alex</pre>
+              <div class="status ready">&#10003; Ready for owner approval (draft only &mdash; nothing sends or posts automatically).</div>
+            </div>
+            
+
+            <div class="review-card negative">
+              <div class="review-header">
+                <span class="stars">&#9733;&#9734;&#9734;&#9734;&#9734;</span>
+                <span class="reviewer">Anonymous</span>
+                <span class="date">2026-06-29</span>
+              </div>
+              <p class="review-text">&ldquo;Tech was rude to my elderly mother and made her feel talked down to about a simple faucet repair. We will not be calling this company again and I&#x27;m telling everyone I know to avoid them.&rdquo;</p>
+              <div class="draft-label">NEGATIVE — template 4 draft</div><pre class="draft-body">Anonymous, thank you for letting us know. I am sorry your experience did not go the way we both wanted. I would like to understand what happened and make it right. Please reach me directly at (555) 010-0100 or alex@riverbendplumbing.example so we can talk it through.
+
+- Alex</pre>
+              <div class="status blocked">&#128683; BLOCKED &mdash; edit-before-approve required. Owner must edit this draft before it can be approved.</div>
+            </div>
+            
+
+            <div class="review-card positive">
+              <div class="review-header">
+                <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="reviewer">James O.</span>
+                <span class="date">2026-07-01</span>
+              </div>
+              <p class="review-text">&ldquo;Emergency sewer backup on a holiday weekend and they still answered the phone and walked me through what to shut off before the crew arrived. That kind of responsiveness is rare. Money well spent.&rdquo;</p>
+              <div class="draft-label">POSITIVE — template 3 draft</div><pre class="draft-body">Thanks so much, James O. &quot;Emergency sewer backup on a holiday weekend and they still answered…&quot; — that&#x27;s exactly what we aim for, and it means a lot that you took the time to write this. Come see us again anytime.
+
+- Alex</pre>
+              <div class="status ready">&#10003; Ready for owner approval (draft only &mdash; nothing sends or posts automatically).</div>
+            </div>
+            
+
+  <div class="footer-watermark">SAMPLE DATA — DEMO MODE / AWAITING CREDENTIALS &mdash; not connected to a real Google Business Profile.</div>
+</body>
+</html>
