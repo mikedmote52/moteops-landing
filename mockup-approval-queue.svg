@@ -1,0 +1,58 @@
+<svg width="820" height="600" viewBox="0 0 820 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mockup of the approval queue screen, sample data">
+  <defs>
+    <style>
+      .lbl { font-family: -apple-system, 'Inter', 'Helvetica Neue', Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="820" height="600" fill="#F0EBE1"/>
+
+  <!-- browser chrome -->
+  <rect x="20" y="20" width="780" height="560" rx="14" fill="#FFFFFF" stroke="#DCD5C8" stroke-width="1.5"/>
+  <rect x="20" y="20" width="780" height="40" rx="14" fill="#F0EBE1"/>
+  <circle cx="44" cy="40" r="5" fill="#DCD5C8"/>
+  <circle cx="62" cy="40" r="5" fill="#DCD5C8"/>
+  <circle cx="80" cy="40" r="5" fill="#DCD5C8"/>
+  <text x="400" y="45" text-anchor="middle" class="lbl" font-size="12" fill="#5B6763">moteops.app/approvals</text>
+
+  <text x="770" y="590" text-anchor="end" class="lbl" font-size="12" fill="#9C9384" font-style="italic">Sample data — not a real customer</text>
+
+  <text x="52" y="100" class="lbl" font-size="22" font-weight="700" fill="#1C2321">Approval Queue</text>
+  <text x="52" y="122" class="lbl" font-size="13" fill="#5B6763">3 drafts waiting · nothing sends without your yes · sample data</text>
+
+  <!-- Draft card 1 -->
+  <rect x="52" y="144" width="716" height="130" rx="12" fill="#FAF7F2" stroke="#DCD5C8"/>
+  <text x="72" y="170" class="lbl" font-size="12" fill="#5B6763">REVIEW REPLY  ·  Google Business Profile  ·  1-star review</text>
+  <line x1="72" y1="180" x2="748" y2="180" stroke="#DCD5C8"/>
+  <text x="72" y="202" class="lbl" font-size="13" fill="#1C2321">"Sample: We're sorry your visit didn't meet expectations. We'd like to</text>
+  <text x="72" y="222" class="lbl" font-size="13" fill="#1C2321">make this right — please call the shop and ask for the owner directly."</text>
+  <rect x="72" y="236" width="96" height="28" rx="7" fill="#3B5249"/>
+  <text x="86" y="255" class="lbl" font-size="12" font-weight="700" fill="#FAF7F2">Approve</text>
+  <rect x="178" y="236" width="70" height="28" rx="7" fill="none" stroke="#5B6763"/>
+  <text x="192" y="255" class="lbl" font-size="12" font-weight="700" fill="#5B6763">Edit</text>
+  <text x="700" y="255" text-anchor="end" class="lbl" font-size="11" fill="#8A6D2F" font-weight="700">NEEDS REVIEW</text>
+
+  <!-- Draft card 2 -->
+  <rect x="52" y="286" width="716" height="130" rx="12" fill="#FAF7F2" stroke="#DCD5C8"/>
+  <text x="72" y="312" class="lbl" font-size="12" fill="#5B6763">QUOTE FOLLOW-UP  ·  Email  ·  Day 7, no response</text>
+  <line x1="72" y1="322" x2="748" y2="322" stroke="#DCD5C8"/>
+  <text x="72" y="344" class="lbl" font-size="13" fill="#1C2321">"Sample: Hi Dana — following up on the estimate from last week.</text>
+  <text x="72" y="364" class="lbl" font-size="13" fill="#1C2321">Any questions before we schedule? Happy to adjust the scope."</text>
+  <rect x="72" y="378" width="96" height="28" rx="7" fill="#3B5249"/>
+  <text x="86" y="397" class="lbl" font-size="12" font-weight="700" fill="#FAF7F2">Approve</text>
+  <rect x="178" y="378" width="70" height="28" rx="7" fill="none" stroke="#5B6763"/>
+  <text x="192" y="397" class="lbl" font-size="12" font-weight="700" fill="#5B6763">Edit</text>
+  <text x="700" y="397" text-anchor="end" class="lbl" font-size="11" fill="#8A6D2F" font-weight="700">NEEDS REVIEW</text>
+
+  <!-- Draft card 3 -->
+  <rect x="52" y="428" width="716" height="130" rx="12" fill="#FAF7F2" stroke="#DCD5C8"/>
+  <text x="72" y="454" class="lbl" font-size="12" fill="#5B6763">INVOICE REMINDER  ·  Email  ·  21 days past due</text>
+  <line x1="72" y1="464" x2="748" y2="464" stroke="#DCD5C8"/>
+  <text x="72" y="486" class="lbl" font-size="13" fill="#1C2321">"Sample: Hi Marcus — quick nudge on invoice #1042, now 21 days</text>
+  <text x="72" y="506" class="lbl" font-size="13" fill="#1C2321">past due. Let me know if there's an issue or a good time to settle it."</text>
+  <rect x="72" y="520" width="96" height="28" rx="7" fill="#3B5249"/>
+  <text x="86" y="539" class="lbl" font-size="12" font-weight="700" fill="#FAF7F2">Approve</text>
+  <rect x="178" y="520" width="70" height="28" rx="7" fill="none" stroke="#5B6763"/>
+  <text x="192" y="539" class="lbl" font-size="12" font-weight="700" fill="#5B6763">Edit</text>
+  <text x="700" y="539" text-anchor="end" class="lbl" font-size="11" fill="#8A6D2F" font-weight="700">NEEDS REVIEW</text>
+</svg>

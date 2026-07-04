@@ -1,0 +1,42 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mote Ops open graph share image">
+  <defs>
+    <style>
+      .lbl { font-family: -apple-system, 'Inter', 'Helvetica Neue', Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="#FAF7F2"/>
+  <rect x="0" y="0" width="1200" height="10" fill="#3B5249"/>
+
+  <!-- Mark -->
+  <rect x="90" y="90" width="64" height="64" rx="14" fill="#3B5249"/>
+  <rect x="106" y="112" width="34" height="5" rx="2.5" fill="#FAF7F2" opacity="0.9"/>
+  <rect x="106" y="124" width="24" height="5" rx="2.5" fill="#FAF7F2" opacity="0.6"/>
+  <path d="M104 138 L112 146 L128 130" fill="none" stroke="#B5793A" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="170" y="140" class="lbl" font-size="32" font-weight="700" fill="#1C2321">Mote Ops</text>
+
+  <!-- Positioning line -->
+  <text x="90" y="270" class="lbl" font-size="46" font-weight="700" fill="#1C2321">One install. One morning brief.</text>
+  <text x="90" y="326" class="lbl" font-size="46" font-weight="700" fill="#3B5249">No subscription.</text>
+
+  <text x="90" y="380" class="lbl" font-size="22" fill="#5B6763">Owned, approval-first AI workflows — installed and taught,</text>
+  <text x="90" y="410" class="lbl" font-size="22" fill="#5B6763">not rented forever.</text>
+
+  <!-- Triage chips -->
+  <g class="lbl" font-size="14" font-weight="700">
+    <rect x="90" y="460" width="120" height="40" rx="8" fill="#FAF7F2" stroke="#8C3B2E"/>
+    <text x="150" y="485" text-anchor="middle" fill="#8C3B2E">URGENT</text>
+
+    <rect x="222" y="460" width="170" height="40" rx="8" fill="#FAF7F2" stroke="#8A6D2F"/>
+    <text x="307" y="485" text-anchor="middle" fill="#8A6D2F">NEEDS REVIEW</text>
+
+    <rect x="404" y="460" width="100" height="40" rx="8" fill="#FAF7F2" stroke="#5B6763"/>
+    <text x="454" y="485" text-anchor="middle" fill="#5B6763">READ</text>
+
+    <rect x="516" y="460" width="110" height="40" rx="8" fill="#FAF7F2" stroke="#9C9384"/>
+    <text x="571" y="485" text-anchor="middle" fill="#9C9384">TRASH</text>
+  </g>
+
+  <text x="90" y="560" class="lbl" font-size="16" fill="#5B6763">Approval-first. Drafts, always. Nothing sends without your yes.</text>
+</svg>

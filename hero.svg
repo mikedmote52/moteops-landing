@@ -1,0 +1,81 @@
+<svg width="720" height="560" viewBox="0 0 720 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of an owner's morning brief showing triaged email and a draft awaiting approval">
+  <defs>
+    <style>
+      .lbl { font-family: -apple-system, 'Inter', 'Helvetica Neue', Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="560" fill="#FAF7F2"/>
+
+  <!-- Soft desk/window suggestion, very minimal, no clichés -->
+  <rect x="0" y="0" width="720" height="90" fill="#F0EBE1"/>
+  <circle cx="642" cy="45" r="26" fill="#B5793A" opacity="0.18"/>
+  <circle cx="642" cy="45" r="16" fill="#B5793A" opacity="0.35"/>
+
+  <!-- Header bar: "Morning Brief" -->
+  <text x="48" y="55" class="lbl" font-size="22" font-weight="700" fill="#1C2321">Your Morning Brief</text>
+  <text x="48" y="76" class="lbl" font-size="13" fill="#5B6763">Tuesday · 6:04 AM · 1 inbox, 4 buckets, nothing sent without you</text>
+
+  <!-- Main panel -->
+  <rect x="40" y="112" width="640" height="408" rx="16" fill="#FFFFFF" stroke="#DCD5C8" stroke-width="1.5"/>
+
+  <!-- Triage bucket row -->
+  <g class="lbl">
+    <!-- URGENT -->
+    <rect x="64" y="140" width="140" height="86" rx="10" fill="#FAF7F2" stroke="#DCD5C8"/>
+    <circle cx="84" cy="162" r="5" fill="#8C3B2E"/>
+    <text x="98" y="167" font-size="13" font-weight="700" fill="#8C3B2E">URGENT</text>
+    <text x="80" y="192" font-size="26" font-weight="700" fill="#1C2321">3</text>
+    <text x="80" y="210" font-size="11" fill="#5B6763">needs a reply today</text>
+
+    <!-- NEEDS_REVIEW -->
+    <rect x="216" y="140" width="140" height="86" rx="10" fill="#FAF7F2" stroke="#DCD5C8"/>
+    <circle cx="236" cy="162" r="5" fill="#8A6D2F"/>
+    <text x="250" y="167" font-size="13" font-weight="700" fill="#8A6D2F">NEEDS REVIEW</text>
+    <text x="232" y="192" font-size="26" font-weight="700" fill="#1C2321">5</text>
+    <text x="232" y="210" font-size="11" fill="#5B6763">drafts waiting on you</text>
+
+    <!-- READ -->
+    <rect x="368" y="140" width="140" height="86" rx="10" fill="#FAF7F2" stroke="#DCD5C8"/>
+    <circle cx="388" cy="162" r="5" fill="#5B6763"/>
+    <text x="402" y="167" font-size="13" font-weight="700" fill="#5B6763">READ</text>
+    <text x="384" y="192" font-size="26" font-weight="700" fill="#1C2321">12</text>
+    <text x="384" y="210" font-size="11" fill="#5B6763">already handled</text>
+
+    <!-- TRASH -->
+    <rect x="520" y="140" width="140" height="86" rx="10" fill="#FAF7F2" stroke="#DCD5C8"/>
+    <circle cx="540" cy="162" r="5" fill="#9C9384"/>
+    <text x="554" y="167" font-size="13" font-weight="700" fill="#9C9384">TRASH</text>
+    <text x="536" y="192" font-size="26" font-weight="700" fill="#1C2321">21</text>
+    <text x="536" y="210" font-size="11" fill="#5B6763">filtered out for you</text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="64" y1="248" x2="656" y2="248" stroke="#DCD5C8" stroke-width="1"/>
+
+  <!-- Draft awaiting approval card -->
+  <text x="64" y="278" class="lbl" font-size="14" font-weight="700" fill="#1C2321">Draft waiting on your yes</text>
+
+  <rect x="64" y="292" width="592" height="146" rx="12" fill="#F0EBE1" stroke="#DCD5C8"/>
+  <text x="84" y="318" class="lbl" font-size="12" fill="#5B6763">To: J. Alvarez  ·  Re: Tuesday estimate follow-up</text>
+  <line x1="84" y1="330" x2="640" y2="330" stroke="#DCD5C8"/>
+  <text x="84" y="352" class="lbl" font-size="13" fill="#1C2321">"Hi Joaquin — checking in on the estimate from last</text>
+  <text x="84" y="372" class="lbl" font-size="13" fill="#1C2321">week. Happy to answer questions or adjust scope.</text>
+  <text x="84" y="392" class="lbl" font-size="13" fill="#1C2321">Let me know if Thursday still works for the crew."</text>
+
+  <!-- Approve / Edit buttons -->
+  <rect x="84" y="406" width="96" height="30" rx="7" fill="#3B5249"/>
+  <text x="98" y="426" class="lbl" font-size="12" font-weight="700" fill="#FAF7F2">Approve</text>
+
+  <rect x="190" y="406" width="72" height="30" rx="7" fill="none" stroke="#5B6763"/>
+  <text x="204" y="426" class="lbl" font-size="12" font-weight="700" fill="#5B6763">Edit</text>
+
+  <text x="540" y="426" class="lbl" font-size="11" fill="#5B6763">Saved to drafts. Nothing sends until you say so.</text>
+
+  <!-- Bottom note -->
+  <text x="64" y="466" class="lbl" font-size="12" fill="#5B6763">One inbox. One brief. No auto-send.</text>
+
+  <!-- AI-generated illustration caption -->
+  <text x="656" y="510" text-anchor="end" class="lbl" font-size="11" fill="#9C9384" font-style="italic">Illustration — AI-generated</text>
+</svg>

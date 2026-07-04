@@ -1,0 +1,24 @@
+<svg width="360" height="80" viewBox="0 0 360 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mote Ops wordmark">
+  <title>Mote Ops</title>
+  <defs>
+    <style>
+      .wm-text {
+        font-family: -apple-system, 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+    </style>
+  </defs>
+
+  <!-- Mark: a simple morning-brief / approval check glyph -->
+  <!-- Rounded square "page" with a single checked line, suggesting one brief, one approval -->
+  <rect x="4" y="14" width="52" height="52" rx="12" fill="#3B5249"/>
+  <!-- three lines of the "brief" -->
+  <rect x="16" y="28" width="28" height="4" rx="2" fill="#FAF7F2" opacity="0.9"/>
+  <rect x="16" y="38" width="20" height="4" rx="2" fill="#FAF7F2" opacity="0.6"/>
+  <!-- approval check, in amber, sitting over the third line -->
+  <path d="M15 49.5 L21 55.5 L33 43" fill="none" stroke="#B5793A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Wordmark text -->
+  <text x="72" y="49" class="wm-text" font-size="34" fill="#1C2321">Mote Ops</text>
+</svg>
