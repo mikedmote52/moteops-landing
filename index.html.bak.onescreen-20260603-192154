@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mote Ops · AI you can own</title>
+  <meta name="theme-color" content="#14110E" />
+  <meta name="description" content="Mote Ops builds working AI systems for small businesses, then teaches you to run them without us. You own the software, the logic, and the ability to extend it yourself." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://moteops.tech/" />
+  <meta property="og:title" content="Mote Ops · AI you can own" />
+  <meta property="og:description" content="Working AI systems for small businesses, built then handed over. You own the software, the logic, and the ability to extend it yourself." />
+  <meta property="og:image" content="https://moteops.tech/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mote Ops · AI you can own" />
+  <meta name="twitter:description" content="Working AI systems for small businesses, built then handed over. You own the code." />
+  <meta name="twitter:image" content="https://moteops.tech/og-image.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #FCFBF9;
+      --bg-2:      #F4F0E8;
+      --dark:      #14110E;
+      --dark-2:    #211C17;
+      --amber:     #C9A24A;
+      --amber-lt:  #E6C982;
+      --ink:       #1A1714;
+      --ink-2:     #5B544C;
+      --ink-dim:   #A8A096;
+      --ink-faint: #D8D3C8;
+      --cream:     #F4F0E8;
+      --cream-dim: #9A9081;
+      --ok:        #6FBE7E;
+      --line:      #E9E3D8;
+      --line-dk:   #38312A;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      --max-w: 860px;
+      --pad-x: clamp(22px, 6vw, 64px);
+    }
+    html, body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.6;
+      letter-spacing: 0.005em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: var(--amber); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    ::selection { background: rgba(201,162,74,0.28); color: var(--ink); }
+    .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
+
+    /* ── Hero (dark) ── */
+    .hero-band {
+      background: var(--dark);
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 34px 0 96px;
+    }
+    .topbar {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-bottom: 110px;
+    }
+    .brand {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--cream);
+      letter-spacing: 0.08em;
+    }
+    .brand .slash { color: var(--amber); }
+    .topbar-meta {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--cream-dim);
+      letter-spacing: 0.05em;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(52px, 11vw, 116px);
+      line-height: 0.98;
+      letter-spacing: -0.01em;
+      color: var(--cream);
+      margin-bottom: 28px;
+    }
+    .hero h1 em { font-style: italic; color: var(--amber); }
+    .hero .lede {
+      font-size: clamp(18px, 2vw, 21px);
+      color: var(--cream);
+      opacity: 0.92;
+      line-height: 1.6;
+      max-width: 50ch;
+      font-weight: 300;
+      margin-bottom: 18px;
+    }
+    .hero .lede strong { font-weight: 500; color: #fff; }
+    .hero .sub {
+      font-size: 15.5px;
+      color: var(--cream-dim);
+      line-height: 1.6;
+      max-width: 56ch;
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line-dk);
+    }
+
+    /* ── Section scaffolding ── */
+    section.block { padding: 84px 0; }
+    section.block.tight { padding: 64px 0; }
+    .marker {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .marker .num { color: var(--amber); }
+    .marker::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    h2.head {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(30px, 4.4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: 0.003em;
+      margin-bottom: 18px;
+    }
+    h2.head em { font-style: italic; color: var(--amber); }
+    .body-lg { font-size: 18px; color: var(--ink-2); max-width: 60ch; line-height: 1.65; }
+    .body-lg strong { color: var(--ink); font-weight: 500; }
+
+    /* ── How it works steps ── */
+    .steps { margin-top: 34px; display: grid; gap: 0; }
+    .step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 20px;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+      align-items: start;
+    }
+    .step:last-child { border-bottom: 1px solid var(--line); }
+    .step .sn {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--amber);
+      padding-top: 3px;
+      letter-spacing: 0.04em;
+    }
+    .step .st { font-family: var(--serif); font-size: 20px; color: var(--ink); margin-bottom: 4px; }
+    .step .sd { font-size: 15.5px; color: var(--ink-2); max-width: 58ch; }
+
+    /* ── Systems / engagements ── */
+    .systems { margin-top: 12px; }
+    .system {
+      padding: 30px 0;
+      border-top: 1px solid var(--line);
+    }
+    .system:last-child { border-bottom: 1px solid var(--line); }
+    .system-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .system-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .system-label .v { color: var(--ink-2); }
+    .chip {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .chip .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 3px rgba(111,190,126,0.18);
+    }
+    .system h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(22px, 2.8vw, 28px);
+      line-height: 1.14;
+      margin-bottom: 10px;
+    }
+    .system p { color: var(--ink-2); font-size: 16px; line-height: 1.62; max-width: 64ch; }
+    .system .demo {
+      display: inline-block;
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+    .featured {
+      background: var(--dark);
+      color: var(--cream);
+      border-radius: 8px;
+      padding: 36px 34px;
+      margin-top: 26px;
+    }
+    .featured .system-label { color: var(--cream-dim); }
+    .featured .system-label .v { color: var(--amber-lt); }
+    .featured h3 { color: var(--cream); }
+    .featured p { color: var(--cream); opacity: 0.86; }
+    .featured .chip { color: var(--cream-dim); }
+    .featured .chip .dot { background: var(--amber); box-shadow: 0 0 0 3px rgba(201,162,74,0.2); }
+
+    /* ── Alternating media rows ── */
+    .sysrow {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: clamp(22px, 4vw, 44px);
+      align-items: center;
+      padding: 42px 0;
+      border-top: 1px solid var(--line);
+    }
+    .sysrow.flip .sys-media { order: -1; }
+    .sys-copy .system-top { margin-bottom: 12px; }
+    .sys-copy h3 {
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(22px, 2.8vw, 28px); line-height: 1.14; margin-bottom: 10px;
+    }
+    .sys-copy p { color: var(--ink-2); font-size: 16px; line-height: 1.62; }
+    .sys-media { display: block; }
+    .sys-media:hover { text-decoration: none; }
+    .shot {
+      position: relative; width: 100%; height: 320px; overflow: hidden;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--bg-2);
+      transition: box-shadow 240ms ease, transform 240ms ease;
+    }
+    .sys-media:hover .shot { box-shadow: 0 12px 34px rgba(20,17,14,0.12); transform: translateY(-2px); }
+    .shot iframe { width: 100%; height: 920px; border: 0; pointer-events: none; }
+    .shot::after {
+      content: ''; position: absolute; inset: 0; border-radius: 8px;
+      box-shadow: inset 0 0 0 1px rgba(20,17,14,0.04);
+    }
+    .sys-media .demo { display: inline-block; margin-top: 13px; }
+
+    /* ── Full-width rows (interactive embed + insurance) ── */
+    .sysfull { padding: 42px 0; border-top: 1px solid var(--line); }
+    .sysfull .system-top { margin-bottom: 12px; }
+    .sysfull h3 {
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(22px, 2.8vw, 28px); line-height: 1.14; margin-bottom: 10px;
+    }
+    .sysfull > p { color: var(--ink-2); font-size: 16px; line-height: 1.62; max-width: 64ch; }
+    .embed-frame {
+      margin-top: 22px; width: 100%; height: 560px;
+      border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--bg-2);
+    }
+    .embed-frame iframe { width: 100%; height: 100%; border: 0; }
+    .embed-cap { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); margin-top: 13px; letter-spacing: 0.03em; }
+    .stat-row { display: flex; gap: 48px; margin-top: 24px; flex-wrap: wrap; }
+    .stat { display: flex; flex-direction: column; }
+    .stat-n { font-family: var(--serif); font-size: 42px; color: var(--ink); line-height: 1; }
+    .stat-l { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); margin-top: 7px; }
+    @media (max-width: 640px) {
+      .sysrow { grid-template-columns: 1fr; gap: 16px; padding: 32px 0; }
+      .sysrow.flip .sys-media { order: 0; }
+      .shot { height: 240px; }
+      .embed-frame { height: 440px; }
+      .stat-row { gap: 30px; }
+    }
+
+    /* ── Practitioner beat ── */
+    .beat {
+      background: var(--bg-2);
+      border-radius: 8px;
+      padding: 44px clamp(28px, 5vw, 56px);
+    }
+    .beat .marker { color: var(--cream-dim); }
+    .beat p {
+      font-family: var(--serif);
+      font-size: clamp(22px, 3.2vw, 32px);
+      line-height: 1.3;
+      color: var(--ink);
+      max-width: 26ch;
+      font-weight: 400;
+    }
+    .beat p em { font-style: italic; color: var(--amber); }
+    .beat .note { font-family: var(--sans); font-size: 15px; color: var(--ink-2); margin-top: 18px; max-width: 56ch; line-height: 1.6; }
+
+    /* ── Contact ── */
+    .contact-primary { font-size: 18px; color: var(--ink-2); line-height: 1.6; max-width: 56ch; margin-bottom: 22px; }
+    .contact-primary strong { color: var(--ink); font-weight: 500; }
+    .btn-cal {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--dark);
+      padding: 15px 30px;
+      border-radius: 4px;
+      transition: opacity 180ms ease, transform 100ms ease;
+    }
+    .btn-cal:hover { text-decoration: none; opacity: 0.9; }
+    .btn-cal:active { transform: translateY(1px); }
+    .contact-divider {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin: 46px 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact-divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    .live-intro { font-size: 15px; color: var(--ink-2); line-height: 1.55; max-width: 58ch; margin-bottom: 22px; }
+    .form { display: flex; flex-direction: column; gap: 18px; max-width: 560px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.10em;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+    }
+    .field input, .field textarea {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 12px 14px;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.5;
+      transition: border-color 200ms ease;
+    }
+    .field input:focus, .field textarea:focus { outline: none; border-color: var(--amber); }
+    .field textarea { resize: vertical; min-height: 92px; }
+    .consent {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font-size: 14px; color: var(--ink-2); line-height: 1.5;
+    }
+    .consent input[type="checkbox"] { margin-top: 3px; flex-shrink: 0; width: 16px; height: 16px; accent-color: var(--amber); cursor: pointer; }
+    .consent label { cursor: pointer; }
+    .consent strong { color: var(--ink); font-weight: 500; }
+    .submit-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 4px; }
+    .btn-primary {
+      font-family: var(--mono); font-size: 12px; letter-spacing: 0.10em; text-transform: uppercase;
+      color: var(--bg); background: var(--amber); border: 0; padding: 14px 28px; cursor: pointer;
+      border-radius: 4px; font-weight: 500; transition: opacity 200ms ease, transform 100ms ease;
+    }
+    .btn-primary:hover { opacity: 0.92; }
+    .btn-primary:active { transform: translateY(1px); }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    .submit-help { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); letter-spacing: 0.04em; }
+    .state { padding: 8px 0; }
+    .state h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 3.6vw, 36px); line-height: 1.1; margin-bottom: 16px; }
+    .state h2 em { font-style: italic; color: var(--amber); }
+    .state p { color: var(--ink-2); max-width: 56ch; font-size: 17px; margin-bottom: 12px; }
+    .pulse-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--amber); margin-right: 10px; animation: pulse 1.4s ease-in-out infinite; vertical-align: middle; }
+    @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.85); } }
+    .countdown { font-family: var(--mono); font-size: 14px; color: var(--ink-dim); margin-top: 16px; letter-spacing: 0.06em; }
+    .err { color: #A33B2A; font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; margin-top: 8px; }
+    [hidden] { display: none !important; }
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 30px 0 64px;
+      font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint);
+      letter-spacing: 0.06em; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+
+    /* ── Motion ── */
+    .reveal { opacity: 1; }
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+      .reveal.in { opacity: 1; transform: none; }
+      .hero-svg circle { animation: twinkle 4.5s ease-in-out infinite; }
+      .hero-svg circle:nth-child(1) { animation-delay: 0s; }
+      .hero-svg circle:nth-child(2) { animation-delay: 0.8s; }
+      .hero-svg circle:nth-child(3) { animation-delay: 1.6s; }
+      .hero-svg circle:nth-child(4) { animation-delay: 2.4s; }
+      .hero-svg circle:nth-child(5) { animation-delay: 0.4s; }
+      .hero-svg circle:nth-child(6) { animation-delay: 3.0s; }
+      .hero-svg circle:nth-child(7) { animation-delay: 2.0s; }
+    }
+    @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.95; } }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .topbar { padding-bottom: 64px; }
+      .hero-inner { padding: 28px 0 72px; }
+      .hero h1 { font-size: clamp(46px, 15vw, 64px); margin-bottom: 22px; }
+      .hero .lede { font-size: 17px; }
+      .hero .sub { font-size: 14.5px; }
+      section.block { padding: 60px 0; }
+      section.block.tight { padding: 48px 0; }
+      .featured { padding: 28px 22px; }
+      .beat { padding: 34px 24px; }
+      .step { grid-template-columns: 40px 1fr; gap: 14px; }
+      .system-top { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────  Hero band (dark)  ───────────── -->
+  <div class="hero-band">
+    <svg class="hero-svg" viewBox="0 0 860 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g stroke="#C9A24A" stroke-width="1" fill="none" opacity="0.32">
+        <line x1="700" y1="70" x2="800" y2="150" />
+        <line x1="800" y1="150" x2="740" y2="250" />
+        <line x1="740" y1="250" x2="820" y2="330" />
+        <line x1="700" y1="70" x2="620" y2="130" />
+        <line x1="620" y1="130" x2="740" y2="250" />
+        <line x1="620" y1="130" x2="560" y2="60" />
+        <line x1="820" y1="330" x2="700" y2="400" />
+        <line x1="740" y1="250" x2="700" y2="400" />
+      </g>
+      <g fill="#C9A24A">
+        <circle cx="700" cy="70" r="3.5" opacity="0.9" />
+        <circle cx="800" cy="150" r="2.5" opacity="0.7" />
+        <circle cx="740" cy="250" r="4" opacity="0.95" />
+        <circle cx="820" cy="330" r="2.5" opacity="0.65" />
+        <circle cx="620" cy="130" r="3" opacity="0.8" />
+        <circle cx="560" cy="60" r="2" opacity="0.5" />
+        <circle cx="700" cy="400" r="3" opacity="0.75" />
+      </g>
+    </svg>
+    <div class="wrap hero-inner">
+      <header class="topbar">
+        <div class="brand">Mote Ops <span class="slash">/</span> AI you can own</div>
+        <div class="topbar-meta" id="now-label">&middot;</div>
+      </header>
+      <div class="hero">
+        <h1>AI you can <em>own</em>.</h1>
+        <p class="lede">
+          Mote Ops builds working AI systems for small business owners, then hands them over.
+          You get the software, the reasoning behind it, and a walkthrough that lets you keep
+          going on your own.
+        </p>
+        <p class="lede"><strong>No retainer. No black box. No dependency.</strong></p>
+        <p class="sub">
+          Most AI consultants sell decks and monthly fees. I ship software that runs, show you
+          the math behind it, and leave you able to maintain it yourself. Built by someone who
+          works in a Level I trauma center, a place where software that gets it wrong is not an
+          abstraction.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────  How it works  ───────────── -->
+  <section class="block wrap reveal">
+    <div class="marker"><span class="num">01</span> How it works</div>
+    <h2 class="head">A scoped build that fits your business, then it's <em>yours</em>.</h2>
+    <p class="body-lg">
+      The work is priced to the outcome, not the hour. There are no fixed tiers and no
+      subscriptions. Most first versions ship in one to three weeks.
+    </p>
+    <div class="steps">
+      <div class="step">
+        <div class="sn">01</div>
+        <div><div class="st">Thirty free minutes</div><div class="sd">A short, plain conversation about where AI could quietly take work off your plate. No pitch, no slides.</div></div>
+      </div>
+      <div class="step">
+        <div class="sn">02</div>
+        <div><div class="st">A scoped quote</div><div class="sd">One clear price tied to the value of the outcome. You see exactly what gets built before anything starts.</div></div>
+      </div>
+      <div class="step">
+        <div class="sn">03</div>
+        <div><div class="st">A working v1</div><div class="sd">Real software running on your business in one to three weeks, not a prototype that stalls.</div></div>
+      </div>
+      <div class="step">
+        <div class="sn">04</div>
+        <div><div class="st">The walkthrough</div><div class="sd">I show you how it works and how to extend it yourself with a current AI assistant. You own the code. Then I leave.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────  Shipped systems  ───────────── -->
+  <section class="block tight wrap reveal">
+    <div class="marker"><span class="num">02</span> What I've shipped &middot; in daily use</div>
+    <h2 class="head">Working software for real operators.</h2>
+    <p class="body-lg">
+      Each system below solved a specific problem an owner could not keep doing by hand. Every
+      one runs in production today. They are the proof of the pattern, not a portfolio of demos.
+    </p>
+    <p class="rebuilds-link" style="margin-top:18px;">
+      <a href="/rebuilds.html" style="font-family:var(--mono);font-size:13px;letter-spacing:0.04em;border-bottom:1px solid var(--amber);padding-bottom:2px;">See three of them rebuilt, before and after &rarr;</a>
+    </p>
+
+    <div class="systems">
+
+      <!-- i. Mobile veterinary -->
+      <div class="sysrow reveal">
+        <div class="sys-copy">
+          <div class="system-top">
+            <span class="system-label">i &middot; <span class="v">Mobile veterinary medicine</span></span>
+            <span class="chip"><span class="dot"></span>Live &middot; Denver, CO</span>
+          </div>
+          <h3>The coordination lives in the software, not in someone's head.</h3>
+          <p>
+            A two-sided platform for a Denver-metro mobile rehabilitation practice. Pet families
+            book at-home visits on the front end. On the back end, a relief-staffing marketplace
+            pairs credentialed vets with hospitals through the state's veterinary shortage, with
+            rules-based matching, embedded payments, and credential-renewal tracking.
+          </p>
+        </div>
+        <a class="sys-media" href="https://mikedmote52.github.io/moving-mountains-demo/" target="_blank" rel="noopener" aria-label="Open the mobile veterinary demo in a new tab">
+          <div class="shot"><iframe src="https://mikedmote52.github.io/moving-mountains-demo/" loading="lazy" scrolling="no" tabindex="-1" title="Mobile veterinary practice, live preview"></iframe></div>
+          <span class="demo">View live demo &rarr;</span>
+        </a>
+      </div>
+
+      <!-- ii. Nurse-practitioner wellness -->
+      <div class="sysrow flip reveal">
+        <div class="sys-copy">
+          <div class="system-top">
+            <span class="system-label">ii &middot; <span class="v">Nurse-practitioner wellness</span></span>
+            <span class="chip"><span class="dot"></span>Live &middot; Newport Beach, CA</span>
+          </div>
+          <h3>One practitioner, operating like a small clinic.</h3>
+          <p>
+            Clinical software for a solo nurse practitioner running a fifteen-member wellness
+            practice, capped at fifteen on purpose. The system drafts each session brief from her
+            notes and surfaces trends across weeks of member data, but nothing reaches a client
+            until she has reviewed and approved it. Phase tracking and billing built in.
+          </p>
+        </div>
+        <a class="sys-media" href="https://mikedmote52.github.io/corevita-demo/" target="_blank" rel="noopener" aria-label="Open the nurse-practitioner wellness demo in a new tab">
+          <div class="shot"><iframe src="https://mikedmote52.github.io/corevita-demo/" loading="lazy" scrolling="no" tabindex="-1" title="Nurse-practitioner wellness, live preview"></iframe></div>
+          <span class="demo">View live demo &rarr;</span>
+        </a>
+      </div>
+
+      <!-- iii. Family-owned childcare, interactive live embed -->
+      <div class="sysfull reveal">
+        <div class="system-top">
+          <span class="system-label">iii &middot; <span class="v">Family-owned childcare</span></span>
+          <span class="chip"><span class="dot"></span>Live &middot; Brea, CA</span>
+        </div>
+        <h3>So the owner can stop answering messages at midnight.</h3>
+        <p>
+          A learning-center site with a round-the-clock parent assistant for a fifteen-year
+          family business. It books tours, answers parent questions after hours, and feeds leads
+          into an owner dashboard, while a weekly sweep keeps an eye on the local competition.
+        </p>
+        <div class="embed-frame"><iframe src="https://mikedmote52.github.io/ccs-learning-center/" loading="lazy" title="Live childcare site, fully interactive"></iframe></div>
+        <div class="embed-cap">The real site, running live below. Scroll it, open the chat, then <a href="https://mikedmote52.github.io/ccs-learning-center/" target="_blank" rel="noopener">open it full &rarr;</a></div>
+      </div>
+
+      <!-- iv. Specialty insurance wholesale -->
+      <div class="sysfull reveal">
+        <div class="system-top">
+          <span class="system-label">iv &middot; <span class="v">Specialty insurance wholesale</span></span>
+          <span class="chip"><span class="dot"></span>Live &middot; California</span>
+        </div>
+        <h3>The system writes the boring parts. The broker keeps the relationships.</h3>
+        <p>
+          An internal operations layer for a California excess-and-surplus broker. Submission
+          triage, carrier matching, and the paperwork choreography that used to live in the
+          broker's head. This one runs inside the brokerage, so there's no public demo.
+        </p>
+        <div class="stat-row">
+          <div class="stat"><span class="stat-n">113</span><span class="stat-l">commercial markets</span></div>
+          <div class="stat"><span class="stat-n">42</span><span class="stat-l">carriers</span></div>
+        </div>
+      </div>
+
+      <article class="system featured">
+        <div class="system-top">
+          <span class="system-label">Featured build &middot; <span class="v">ChartFlow</span></span>
+          <span class="chip"><span class="dot"></span>Live</span>
+        </div>
+        <h3>Clinical encounter intelligence, built for the rhythm of a shift.</h3>
+        <p>
+          Dictate your notes and get back a structured, Epic-ready chart in seconds. ChartFlow is
+          the build closest to my own work: clinical documentation where accuracy and the human
+          staying in the loop are the entire point.
+        </p>
+        <a class="demo" href="https://chartflow-ten.vercel.app" target="_blank" rel="noopener">View ChartFlow &rarr;</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ─────────────  Practitioner beat  ───────────── -->
+  <section class="block wrap reveal">
+    <div class="beat">
+      <div class="marker"><span class="num">03</span> Why me</div>
+      <p>A practitioner who <em>builds</em> for practitioners.</p>
+      <p class="note">
+        I work in a Level I trauma center, a setting where mistakes carry a human cost, and I
+        build autonomous systems on my own machine before I sell any of them. That posture
+        carries into every build: drafts go through approval, fidelity gets checked, and the
+        human stays in the loop where it matters.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────  Contact  ───────────── -->
+  <section class="block tight wrap reveal" id="form-state">
+    <div class="marker"><span class="num">04</span> Work with me</div>
+    <h2 class="head">Start with thirty free minutes.</h2>
+    <p class="contact-primary">
+      The first step is a short, no-pressure conversation about your business and where AI could
+      quietly remove work you should not be doing. <strong>Grab a time whenever it suits you.</strong>
+    </p>
+    <a class="btn-cal" id="cal-primary" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a call &rarr;</a>
+
+    <div class="contact-divider">or, if I'm at my desk right now</div>
+    <p class="live-intro">
+      Want to talk this minute? Ring me for a live call. If I'm around I'll pick up within a
+      minute. If I'm not, you'll see a calendar link, so either way your time isn't wasted.
+    </p>
+
+    <form class="form" id="bell-form" autocomplete="on" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required autocomplete="name" maxlength="200" />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autocomplete="email" maxlength="200" />
+      </div>
+      <div class="field">
+        <label for="topic">What do you want to talk about?</label>
+        <textarea id="topic" name="topic" required maxlength="1000" placeholder="One line is fine. The shape of the time leak, an AI tool you've been wondering about, anything specific."></textarea>
+      </div>
+      <label class="consent">
+        <input type="checkbox" id="consent" name="consent" required />
+        <span>
+          <strong>Recording consent.</strong> I understand this call will be recorded and
+          transcribed so Mike can take real notes instead of scribbling. The recording stays on
+          his machine and goes to his customer profile for me. Required by California law.
+        </span>
+      </label>
+      <div class="submit-row">
+        <a href="/instant.html" class="btn-primary" id="btn-ring" role="button">Ring Mike</a>
+        <span class="submit-help">Response in &lt;60s if available</span>
+      </div>
+      <div class="err" id="form-err" hidden></div>
+    </form>
+  </section>
+
+  <section id="pending-state" class="block tight wrap state" hidden>
+    <h2><span class="pulse-dot"></span><em>Ringing Mike…</em></h2>
+    <p>Stay on this page. If he's around, he'll respond within a minute and your browser will redirect you straight into the meeting.</p>
+    <p>If he doesn't pick up in 5 minutes, you'll see a calendar link to grab a future slot.</p>
+    <div class="countdown" id="countdown">5:00 remaining</div>
+  </section>
+
+  <section id="accepted-state" class="block tight wrap state" hidden>
+    <h2>He's in. <em>Joining now.</em></h2>
+    <p>Your browser is opening the meeting. If it doesn't pop up automatically, <a id="meet-link" href="#" target="_blank">click here</a>.</p>
+  </section>
+
+  <section id="declined-state" class="block tight wrap state" hidden>
+    <h2>Not right now.</h2>
+    <p id="decline-reason">Mike is wrapping up something else.</p>
+    <p>Pick a future slot here: <a id="cal-link" href="#" target="_blank">moteops calendar</a></p>
+  </section>
+
+  <footer class="footer wrap">
+    <div>moteops &middot; AI you can own</div>
+    <div>v0.3</div>
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const sections = {
+      form: $('form-state'),
+      pending: $('pending-state'),
+      accepted: $('accepted-state'),
+      declined: $('declined-state'),
+    };
+    function showState(name) {
+      Object.keys(sections).forEach((k) => sections[k].hidden = (k !== name));
+    }
+    function fmtNow() {
+      const dt = new Date();
+      const date = dt.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', timeZone: 'America/Los_Angeles' });
+      const time = dt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Los_Angeles' });
+      return `${date} · ${time} PT`;
+    }
+    $('now-label').textContent = fmtNow();
+    setInterval(() => { $('now-label').textContent = fmtNow(); }, 30000);
+
+    const form = $('bell-form');
+    const errEl = $('form-err');
+    const btn = $('btn-ring');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      window.location.href = '/instant.html';
+    });
+
+    function showErr(msg) { errEl.textContent = msg; errEl.hidden = false; }
+
+    let pollInterval = null, countdownInterval = null;
+    function startPolling(id, intervalMs) {
+      const startedAt = Date.now();
+      const ttlMs = 5 * 60 * 1000;
+      function updateCountdown() {
+        const remaining = Math.max(0, ttlMs - (Date.now() - startedAt));
+        const m = Math.floor(remaining / 60000);
+        const s = Math.floor((remaining % 60000) / 1000);
+        $('countdown').textContent = `${m}:${String(s).padStart(2, '0')} remaining`;
+        if (remaining <= 0) { stopPolling(); showDeclined({ decline_reason: 'No answer.', decline_calendar_url: 'https://calendly.com/mikedmote/30min' }); }
+      }
+      updateCountdown();
+      countdownInterval = setInterval(updateCountdown, 1000);
+      async function poll() {
+        try {
+          const res = await fetch(`/api/bell-status?id=${encodeURIComponent(id)}`);
+          if (!res.ok) return;
+          const data = await res.json();
+          if (data.status === 'accepted' && data.meet_url) { stopPolling(); showAccepted(data.meet_url); }
+          else if (data.status === 'declined') { stopPolling(); showDeclined(data); }
+          else if (data.status === 'expired') { stopPolling(); showDeclined({ decline_reason: 'No answer.', decline_calendar_url: data.decline_calendar_url }); }
+        } catch (e) {}
+      }
+      poll();
+      pollInterval = setInterval(poll, intervalMs);
+    }
+    function stopPolling() {
+      if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+      if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+    }
+    function showAccepted(meetUrl) { $('meet-link').href = meetUrl; showState('accepted'); setTimeout(() => { window.location.href = meetUrl; }, 1200); }
+    function showDeclined({ decline_reason, decline_calendar_url }) {
+      if (decline_reason) $('decline-reason').textContent = decline_reason;
+      if (decline_calendar_url) $('cal-link').href = decline_calendar_url;
+      showState('declined');
+    }
+
+    // ─────────────  Scroll reveal  ─────────────
+    (function () {
+      const els = document.querySelectorAll('.reveal');
+      const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+      if (motionOK && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('in'));
+      }
+    })();
+  </script>
+</body>
+</html>

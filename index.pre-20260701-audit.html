@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mote Ops · AI businesses, systems, local models, and front doors</title>
+  <meta name="theme-color" content="#f4ede3" />
+  <meta
+    name="description"
+    content="Mote Ops helps people turn AI into real businesses, real operating systems, local AI setups, and real front doors. Websites, workflows, training, staffing logic, follow-up systems, and owner-level AI capability."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://moteops.tech/" />
+  <meta property="og:title" content="Mote Ops · AI businesses, systems, local models, and front doors" />
+  <meta
+    property="og:description"
+    content="We help owners and founders navigate AI by building the front door, installing the operating layer, setting up local AI when needed, and teaching the stack."
+  />
+  <meta property="og:image" content="https://moteops.tech/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mote Ops · AI businesses, systems, local models, and front doors" />
+  <meta
+    name="twitter:description"
+    content="Mote Ops helps founders and owner-led businesses navigate AI with real websites, real workflows, local AI options, and real operating systems."
+  />
+  <meta name="twitter:image" content="https://moteops.tech/og-image.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #f4ede3;
+      --paper: #fff8f1;
+      --paper-2: #fffdf9;
+      --ink: #18120d;
+      --ink-soft: #46392f;
+      --muted: #7b6d61;
+      --line: rgba(24, 18, 13, 0.1);
+      --line-strong: rgba(24, 18, 13, 0.18);
+      --accent: #bb5a3d;
+      --accent-deep: #8d3d26;
+      --amber: #d7a44a;
+      --sage: #5f775f;
+      --sky: #89a7cb;
+      --violet: #77689c;
+      --teal: #4b8b87;
+      --dark: #18120d;
+      --radius-xl: 36px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --shadow-xl: 0 30px 80px rgba(57, 39, 24, 0.13);
+      --shadow-lg: 0 18px 40px rgba(57, 39, 24, 0.11);
+      --max: 1280px;
+      --pad: clamp(20px, 4vw, 48px);
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 8% 8%, rgba(215, 164, 74, 0.18), transparent 18%),
+        radial-gradient(circle at 92% 10%, rgba(137, 167, 203, 0.16), transparent 16%),
+        radial-gradient(circle at 78% 62%, rgba(95, 119, 95, 0.1), transparent 18%),
+        linear-gradient(180deg, #fbf7f0 0%, var(--bg) 100%);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .page {
+      position: relative;
+      overflow: clip;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(10px);
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .orb-1 {
+      width: 320px;
+      height: 320px;
+      top: 140px;
+      left: -120px;
+      background: radial-gradient(circle, rgba(187, 90, 61, 0.15), transparent 72%);
+    }
+
+    .orb-2 {
+      width: 280px;
+      height: 280px;
+      top: 80px;
+      right: -100px;
+      background: radial-gradient(circle, rgba(137, 167, 203, 0.18), transparent 72%);
+    }
+
+    .orb-3 {
+      width: 260px;
+      height: 260px;
+      bottom: 18%;
+      left: 55%;
+      background: radial-gradient(circle, rgba(95, 119, 95, 0.12), transparent 70%);
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 2 * var(--pad)));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      padding: 22px 0 10px;
+    }
+
+    .topbar-shell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 18px;
+      border-radius: 999px;
+      background: rgba(255, 250, 243, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow: 0 14px 34px rgba(57, 39, 24, 0.08);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, rgba(187, 90, 61, 0.18), rgba(215, 164, 74, 0.24));
+      border: 1px solid rgba(187, 90, 61, 0.22);
+      color: var(--accent-deep);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .brand-copy { min-width: 0; }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 17px;
+      border-radius: 999px;
+      background: var(--dark);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 12px 22px rgba(24, 18, 13, 0.16);
+    }
+
+    .hero {
+      padding: 18px 0 28px;
+    }
+
+    .hero-shell {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      padding: 24px 0 14px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(24, 18, 13, 0.08);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: linear-gradient(145deg, var(--accent), var(--amber));
+      box-shadow: 0 0 0 5px rgba(187, 90, 61, 0.08);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(54px, 8vw, 108px);
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      max-width: 9ch;
+    }
+
+    .hero-copy .lede {
+      margin: 22px 0 0;
+      max-width: 28ch;
+      color: var(--ink-soft);
+      font-size: clamp(19px, 2.2vw, 24px);
+      line-height: 1.45;
+    }
+
+    .hero-copy .context {
+      margin: 16px 0 0;
+      max-width: 55ch;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--dark), #30231b);
+      color: #fff;
+      box-shadow: 0 16px 28px rgba(24, 18, 13, 0.16);
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.72);
+      border-color: rgba(24, 18, 13, 0.08);
+      color: var(--ink);
+      box-shadow: 0 12px 24px rgba(57, 39, 24, 0.06);
+    }
+
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .kpi {
+      padding: 14px 14px 12px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(24, 18, 13, 0.06);
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .kpi span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .hero-stage {
+      position: relative;
+      overflow: hidden;
+      padding: 22px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 250, 243, 0.88), rgba(255, 246, 237, 0.82));
+      border: 1px solid rgba(255, 255, 255, 0.84);
+      box-shadow: var(--shadow-xl);
+      min-height: 100%;
+    }
+
+    .hero-stage::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -70px;
+      top: -40px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(187, 90, 61, 0.11), transparent 70%);
+      pointer-events: none;
+    }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stage-card,
+    .stage-image,
+    .strip-card,
+    .statement-card,
+    .proof-card,
+    .service-card,
+    .build-card,
+    .system-card,
+    .process-card,
+    .cta-panel {
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(14px);
+    }
+
+    .stage-card {
+      padding: 18px;
+      min-height: 100%;
+    }
+
+    .card-kicker {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .stage-card h2,
+    .statement-card h2,
+    .build-card h3,
+    .system-card h3,
+    .cta-panel h2 {
+      margin: 0;
+      font-family: var(--serif);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .stage-card h2 {
+      font-size: clamp(28px, 3vw, 44px);
+      max-width: 12ch;
+    }
+
+    .stage-card p {
+      margin: 12px 0 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .stack {
+      list-style: none;
+      margin: 16px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .stack li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      padding: 12px 12px 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(24, 18, 13, 0.06);
+    }
+
+    .stack li strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .stack li span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.48;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      margin-top: 6px;
+    }
+
+    .stage-side {
+      display: grid;
+      gap: 14px;
+    }
+
+    .stage-image {
+      overflow: hidden;
+      min-height: 200px;
+    }
+
+    .stage-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .mini-card {
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(255, 255, 255, 0.84);
+      box-shadow: 0 14px 28px rgba(57, 39, 24, 0.07);
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .ticker {
+      overflow: hidden;
+      padding: 6px 0 40px;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 16px;
+      min-width: max-content;
+      animation: drift 28s linear infinite;
+    }
+
+    .ticker-item {
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(24, 18, 13, 0.08);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    @keyframes drift {
+      from { transform: translateX(0); }
+      to { transform: translateX(-35%); }
+    }
+
+    .section {
+      padding: 0 0 38px;
+    }
+
+    .section-head {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 0.96;
+      letter-spacing: -0.045em;
+      max-width: 12ch;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 66ch;
+      color: var(--ink-soft);
+      font-size: 17px;
+    }
+
+    .statement-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .statement-card {
+      padding: 22px;
+    }
+
+    .statement-card h2 {
+      font-size: clamp(28px, 4vw, 52px);
+      max-width: 11ch;
+    }
+
+    .statement-card p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 42ch;
+    }
+
+    .statement-card.emphasis {
+      background: linear-gradient(145deg, rgba(255, 250, 243, 0.8), rgba(255, 255, 255, 0.66));
+    }
+
+    .proof-grid,
+    .services-grid,
+    .systems-grid,
+    .process-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .proof-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .proof-card,
+    .service-card,
+    .system-card,
+    .process-card {
+      padding: 20px;
+    }
+
+    .proof-card strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .proof-card h3,
+    .service-card h3,
+    .system-card h3,
+    .process-card h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.1;
+    }
+
+    .proof-card p,
+    .service-card p,
+    .system-card p,
+    .process-card p,
+    .build-card p,
+    .cta-panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.58;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .service-card ul,
+    .build-card ul,
+    .system-card ul {
+      list-style: none;
+      margin: 14px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .service-card li,
+    .build-card li,
+    .system-card li {
+      position: relative;
+      padding-left: 16px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .service-card li::before,
+    .build-card li::before,
+    .system-card li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--amber);
+    }
+
+    .builds-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .build-card {
+      overflow: hidden;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .build-card .media {
+      height: 220px;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(24, 18, 13, 0.08);
+    }
+
+    .build-card .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .build-card .copy {
+      padding: 18px;
+    }
+
+    .card-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(24, 18, 13, 0.08);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .build-card .links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .build-card .links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .build-card .links .primary {
+      background: var(--dark);
+      color: #fff;
+    }
+
+    .build-card .links .secondary {
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(24, 18, 13, 0.08);
+      color: var(--ink);
+    }
+
+    .systems-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .process-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .step-no {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .cta-panel {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: 24px;
+      background: linear-gradient(145deg, rgba(255, 247, 235, 0.84), rgba(255, 255, 255, 0.68));
+    }
+
+    .cta-panel h2 {
+      font-size: clamp(32px, 4vw, 56px);
+      max-width: 10ch;
+    }
+
+    .footer {
+      padding: 12px 0 50px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-shell,
+      .statement-grid,
+      .cta-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-grid,
+      .proof-grid,
+      .services-grid,
+      .builds-grid,
+      .systems-grid,
+      .process-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar-shell {
+        align-items: flex-start;
+        flex-direction: column;
+        border-radius: 24px;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .hero-copy {
+        padding-top: 6px;
+      }
+
+      .hero-kpis,
+      .stage-grid,
+      .mini-grid,
+      .proof-grid,
+      .services-grid,
+      .builds-grid,
+      .systems-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-shell,
+      .hero-stage,
+      .statement-card,
+      .proof-card,
+      .service-card,
+      .build-card,
+      .system-card,
+      .process-card,
+      .cta-panel {
+        border-radius: 24px;
+      }
+
+      .ticker-track {
+        animation-duration: 22s;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <header class="topbar">
+      <div class="wrap topbar-shell">
+        <a class="brand" href="/">
+          <span class="brand-mark">MO</span>
+          <span class="brand-copy">
+            <span class="brand-name">Mote Ops</span>
+            <span class="brand-sub">AI businesses, systems, local models, and front doors</span>
+          </span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#what">What we do</a>
+          <a href="#builds">Real builds</a>
+          <a href="/rebuilds.html">Proof</a>
+          <a class="cta" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a consultation</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap hero-shell">
+          <div class="hero-copy">
+            <div class="eyebrow">We help people navigate AI with them, not at them</div>
+            <h1>Turn AI into something real.</h1>
+            <p class="lede">
+              Businesses. Operating systems. Front doors. Staffing logic. Follow-up loops. Local AI when ownership matters.
+              The point is not to talk about AI. The point is to make it useful.
+            </p>
+            <p class="context">
+              Mote Ops helps founders, owner-led businesses, and real-world operators use AI to launch ideas,
+              modernize how they work, and learn the stack well enough to keep evolving with it.
+            </p>
+            <div class="hero-actions">
+              <a class="btn primary" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a consultation</a>
+              <a class="btn secondary" href="/rebuilds.html">See the venture builds</a>
+            </div>
+            <div class="hero-kpis">
+              <div class="kpi">
+                <strong>Front doors</strong>
+                <span>sites that make the business feel real and legible</span>
+              </div>
+              <div class="kpi">
+                <strong>Operating layers</strong>
+                <span>workflows, follow-up loops, summaries, manager systems, and local AI options</span>
+              </div>
+              <div class="kpi">
+                <strong>Teach-the-stack</strong>
+                <span>clients learn how to keep using AI themselves</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-stage">
+            <div class="stage-grid">
+              <div class="stage-card">
+                <div class="card-kicker">What Mote Ops actually feels like</div>
+                <h2>Not just a prettier website. A more capable business.</h2>
+                <p>
+                  The website is often the first visible layer. Underneath it, we help shape the business logic,
+                  the workflow, the communication system, and the owner’s actual relationship to AI.
+                </p>
+                <ul class="stack">
+                  <li>
+                    <span class="dot" style="background: var(--accent);"></span>
+                    <div>
+                      <strong>Launch the front door</strong>
+                      <span>Turn the idea into something polished, credible, and alive.</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="dot" style="background: var(--sage);"></span>
+                    <div>
+                      <strong>Install the operating layer</strong>
+                      <span>Build the loops behind intake, follow-up, staffing, reporting, coordination, and local AI where it matters.</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="dot" style="background: var(--amber);"></span>
+                    <div>
+                      <strong>Teach the stack</strong>
+                      <span>Help the founder or owner actually use AI well enough to keep evolving with it.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="stage-side">
+                <div class="stage-image">
+                  <img src="/images/ccs-desktop.png" alt="CC's Learning Center build" />
+                </div>
+                <div class="mini-grid">
+                  <div class="mini-card">
+                    <strong>Childcare ops</strong>
+                    <p>Website, parent communication, management friction, and business systems.</p>
+                  </div>
+                  <div class="mini-card">
+                    <strong>Ventures</strong>
+                    <p>AI helping shape real staffing, wellness, and service-business models.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Capabilities">
+        <div class="wrap">
+          <div class="ticker-track">
+            <div class="ticker-item">websites that convert</div>
+            <div class="ticker-item">AI operating systems</div>
+            <div class="ticker-item">follow-up loops</div>
+            <div class="ticker-item">staffing workflows</div>
+            <div class="ticker-item">manager summaries</div>
+            <div class="ticker-item">business-model shaping</div>
+            <div class="ticker-item">teach-the-stack</div>
+            <div class="ticker-item">real-world deployment</div>
+            <div class="ticker-item">websites that convert</div>
+            <div class="ticker-item">AI operating systems</div>
+            <div class="ticker-item">follow-up loops</div>
+            <div class="ticker-item">staffing workflows</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="what">
+        <div class="wrap">
+          <div class="statement-grid">
+            <div class="statement-card emphasis">
+              <div class="eyebrow">What most people think they need</div>
+              <h2>“Can AI build me a website?”</h2>
+              <p>
+                Sometimes yes. But that question is usually attached to a bigger one:
+                can AI help me launch the business, handle the operations better, and let me work differently?
+              </p>
+            </div>
+            <div class="statement-card">
+              <div class="eyebrow">What they actually need</div>
+              <h2>A business that becomes more capable.</h2>
+              <p>
+                Mote Ops sits where design, workflow, systems thinking, and AI capability overlap.
+                That is why the outcome feels bigger than a page refresh.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">What we actually do</div>
+            <h2>Three ways we help make AI useful.</h2>
+            <p>
+              The work changes depending on the business, but it usually lands in one of these three buckets.
+            </p>
+          </div>
+          <div class="services-grid">
+            <article class="service-card">
+              <h3>Build the front door</h3>
+              <p>
+                We create websites and brand surfaces that make the business feel real, modern, and aligned with the founder’s vision.
+              </p>
+              <ul>
+                <li>High-end visual design</li>
+                <li>Founder-owned front doors</li>
+                <li>Conversion and trust clarity</li>
+              </ul>
+            </article>
+            <article class="service-card">
+              <h3>Install the operating layer</h3>
+              <p>
+                We turn messy follow-up, intake, staffing, admin, communication, and reporting work into cleaner systems with AI in the loop.
+              </p>
+              <ul>
+                <li>Workflow design</li>
+                <li>Summaries, follow-up, and queue logic</li>
+                <li>AI-assisted manager and owner systems</li>
+              </ul>
+            </article>
+            <article class="service-card">
+              <h3>Teach people how to use AI</h3>
+              <p>
+                We help clients understand the stack itself, so they can keep building and adapting instead of depending on a black box forever.
+              </p>
+              <ul>
+                <li>Practical tool and subscription guidance</li>
+                <li>How to think with AI, not just click it</li>
+                <li>Long-term founder and owner capability</li>
+              </ul>
+            </article>
+            <article class="service-card">
+              <h3>Help people own local AI</h3>
+              <p>
+                When privacy, ownership, resilience, cost control, or model access matter, we can help clients stand up local AI systems they control themselves.
+              </p>
+              <ul>
+                <li>Local-model setup and guidance</li>
+                <li>Self-hosted AI options for the right client</li>
+                <li>Less dependence on shifting platform access</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="builds">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">Three real builds in motion</div>
+            <h2>These projects say more about Mote Ops than generic case studies ever could.</h2>
+            <p>
+              They are different on purpose. Each one shows a different way AI can meet a person, a business idea,
+              or a real client engagement.
+            </p>
+          </div>
+
+          <div class="builds-grid">
+            <article class="build-card">
+              <div class="media">
+                <img src="/images/mountains-desktop.png" alt="Moving Mountains" />
+              </div>
+              <div class="copy">
+                <div class="card-label">Moving Mountains</div>
+                <h3>AI helping shape a specialist service business with staffing potential.</h3>
+                <p>
+                  This shows how Mote Ops can help a client turn real expertise and real market demand into a clearer business model, stronger front door, and smarter operating concept.
+                </p>
+                <ul>
+                  <li>Business-model clarification</li>
+                  <li>Service-business and staffing logic exploration</li>
+                  <li>AI-assisted viability and operations thinking</li>
+                </ul>
+                <div class="links">
+                  <a class="primary" href="https://mikedmote52.github.io/moving-mountains-demo/" target="_blank" rel="noopener">Open live</a>
+                  <a class="secondary" href="/rebuilds.html#moving-mountains">Read the story</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="build-card">
+              <div class="media">
+                <img src="/images/corevita-desktop.png" alt="CoreVita Collective" />
+              </div>
+              <div class="copy">
+                <div class="card-label">CoreVita Collective</div>
+                <h3>AI helping a founder move from concept to credible launch.</h3>
+                <p>
+                  This shows how Mote Ops can help a nontechnical founder turn an early idea into a polished business presence she can actually own and keep evolving.
+                </p>
+                <ul>
+                  <li>Ground-up business expression</li>
+                  <li>Founder-owned front door</li>
+                  <li>AI lowering the friction to launch</li>
+                </ul>
+                <div class="links">
+                  <a class="primary" href="https://mikedmote52.github.io/corevita-demo/" target="_blank" rel="noopener">Open live</a>
+                  <a class="secondary" href="/rebuilds.html#corevita">Read the story</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="build-card">
+              <div class="media">
+                <img src="/images/ccs-desktop.png" alt="CC's Learning Center" />
+              </div>
+              <div class="copy">
+                <div class="card-label">CC's Learning Center</div>
+                <h3>A website becoming the entry point into broader AI operations work.</h3>
+                <p>
+                  This shows how Mote Ops can start with a public-facing redesign, then move deeper into management workflows, communication, staffing, and day-to-day operating friction.
+                </p>
+                <ul>
+                  <li>Parent-facing redesign</li>
+                  <li>Operations, finance, and staffing opportunity</li>
+                  <li>Real active client engagement</li>
+                </ul>
+                <div class="links">
+                  <a class="primary" href="https://mikedmote52.github.io/ccs-learning-center/" target="_blank" rel="noopener">Open concept</a>
+                  <a class="secondary" href="/rebuilds.html#ccs">Read the story</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">The bigger trajectory</div>
+            <h2>Websites are only one visible expression of the system.</h2>
+            <p>
+              The deeper Mote Ops direction is helping people build their own AIOS, or helping us install one with them:
+              inboxes, calendars, missed calls, staffing, follow-up, manager summaries, finances, local models, and the practical tool stack around it.
+            </p>
+          </div>
+
+          <div class="systems-grid">
+            <article class="system-card">
+              <h3>Inbox and follow-up</h3>
+              <p>Drafting, sorting, and tracking the communication loops that normally disappear into a busy owner’s day.</p>
+            </article>
+            <article class="system-card">
+              <h3>Calls and missed revenue</h3>
+              <p>Turning missed calls and after-hours demand into visible next actions instead of lost business.</p>
+            </article>
+            <article class="system-card">
+              <h3>Staffing and coordination</h3>
+              <p>Where AI can support the logic, routing, and office-work layer behind people-intensive businesses.</p>
+            </article>
+            <article class="system-card">
+              <h3>Local AI ownership</h3>
+              <p>Helping the right client set up local models and self-hosted AI so capability is not entirely dependent on outside platforms.</p>
+            </article>
+            <article class="system-card">
+              <h3>Teach-the-stack capability</h3>
+              <p>Helping the client actually learn how to use AI the same way you do, not just consume the output.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">How we work</div>
+            <h2>We do not drop AI on top of the business and leave.</h2>
+          </div>
+          <div class="process-grid">
+            <article class="process-card">
+              <div class="step-no">Step 01</div>
+              <h3>Understand the human and the business.</h3>
+              <p>Start from the real skills, constraints, relationships, and bottlenecks already there.</p>
+            </article>
+            <article class="process-card">
+              <div class="step-no">Step 02</div>
+              <h3>Translate the vision into something visible.</h3>
+              <p>Often that means a front door, a concept, a workflow, or a concrete business surface someone can react to.</p>
+            </article>
+            <article class="process-card">
+              <div class="step-no">Step 03</div>
+              <h3>Build the useful system underneath.</h3>
+              <p>That is where the follow-up loops, staffing logic, reporting, summaries, and AI behaviors start taking shape.</p>
+            </article>
+            <article class="process-card">
+              <div class="step-no">Step 04</div>
+              <h3>Teach the stack and keep evolving.</h3>
+              <p>The goal is a more capable owner or founder and a business that keeps getting sharper as AI improves.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="cta-panel">
+            <div>
+              <div class="eyebrow">If your business or idea is ready to become more real</div>
+              <h2>Let’s build the front door and the system behind it.</h2>
+              <p>
+                If you already know AI can help but you want someone who can design, build, think through the workflow,
+                and help you actually learn it, Mote Ops is built for that exact moment.
+              </p>
+            </div>
+            <div class="hero-actions">
+              <a class="btn primary" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener">Book a consultation</a>
+              <a class="btn secondary" href="/rebuilds.html">See the venture builds</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        Mote Ops · Oakland, CA · helping people turn AI into real businesses, systems, and front doors
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

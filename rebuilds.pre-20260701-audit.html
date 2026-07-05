@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mote Ops · What we can build with AI</title>
+  <meta
+    name="description"
+    content="Three examples of what Mote Ops can build with AI: founder front doors, venture systems, and operational layers for real businesses."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #f4ede3;
+      --paper: #fffaf3;
+      --panel: rgba(255, 250, 243, 0.82);
+      --ink: #19130f;
+      --ink-soft: #4c4034;
+      --muted: #7b6c5f;
+      --line: rgba(25, 19, 15, 0.1);
+      --accent: #bb5a3d;
+      --amber: #d7a44a;
+      --sage: #657a64;
+      --sky: #87a4c6;
+      --violet: #77689c;
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --shadow: 0 24px 70px rgba(53, 37, 24, 0.12);
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+      --max: 1280px;
+      --pad: clamp(20px, 4vw, 48px);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(215, 164, 74, 0.16), transparent 22%),
+        radial-gradient(circle at 90% 16%, rgba(135, 164, 198, 0.18), transparent 18%),
+        linear-gradient(180deg, #fbf7f0 0%, var(--bg) 100%);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 2 * var(--pad)));
+      margin: 0 auto;
+    }
+
+    .nav {
+      padding: 24px 0 6px;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 12px 28px rgba(53, 37, 24, 0.08);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero {
+      padding: 14px 0 34px;
+    }
+
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 26px;
+      padding: 34px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 250, 243, 0.9), rgba(255, 246, 236, 0.8));
+      border: 1px solid rgba(255, 255, 255, 0.84);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-shell::after {
+      content: "";
+      position: absolute;
+      inset: auto -90px -90px auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(187, 90, 61, 0.12), transparent 72%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(44px, 7vw, 86px);
+      line-height: 0.92;
+      letter-spacing: -0.045em;
+      max-width: 10ch;
+    }
+
+    .hero-copy p {
+      margin: 18px 0 0;
+      font-size: 18px;
+      color: var(--ink-soft);
+      max-width: 56ch;
+    }
+
+    .hero-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .hero-point {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(25, 19, 15, 0.06);
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      margin-top: 7px;
+    }
+
+    .hero-point strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .hero-point span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-visual {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-stack {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .hero-card {
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(255, 255, 255, 0.84);
+      box-shadow: 0 12px 34px rgba(53, 37, 24, 0.08);
+    }
+
+    .hero-card h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .hero-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero-card.tall {
+      grid-column: span 2;
+      padding: 0;
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .hero-card.tall img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .ticker {
+      padding: 0 0 34px;
+      overflow: hidden;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 16px;
+      min-width: max-content;
+      animation: drift 28s linear infinite;
+    }
+
+    .ticker-item {
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(25, 19, 15, 0.08);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    @keyframes drift {
+      from { transform: translateX(0); }
+      to { transform: translateX(-35%); }
+    }
+
+    .section {
+      padding: 0 0 34px;
+    }
+
+    .section-head {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 12ch;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 68ch;
+      color: var(--ink-soft);
+      font-size: 17px;
+    }
+
+    .builds {
+      display: grid;
+      gap: 22px;
+    }
+
+    .build {
+      display: grid;
+      grid-template-columns: 0.98fr 1.02fr;
+      gap: 22px;
+      padding: 24px;
+      border-radius: var(--radius-xl);
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.84);
+      box-shadow: var(--shadow);
+      align-items: start;
+    }
+
+    .build-media {
+      position: sticky;
+      top: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .shot {
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(25, 19, 15, 0.08);
+      background: var(--paper);
+      min-height: 420px;
+    }
+
+    .shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .link-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .pill-link.primary {
+      background: linear-gradient(135deg, var(--ink), #31251d);
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(25, 19, 15, 0.16);
+    }
+
+    .pill-link.secondary {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(25, 19, 15, 0.08);
+      color: var(--ink);
+    }
+
+    .build-copy .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(25, 19, 15, 0.08);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .build-copy h3 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .build-meta {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .story-card,
+    .proof-card {
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(25, 19, 15, 0.06);
+    }
+
+    .story-card h4,
+    .proof-card h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.15;
+    }
+
+    .story-card p,
+    .proof-card p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.58;
+    }
+
+    .story-card ul,
+    .proof-card ul {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .story-card li,
+    .proof-card li {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .story-card li::before,
+    .proof-card li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--amber);
+    }
+
+    .proof-bar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .proof-card strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .footer {
+      padding: 8px 0 48px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-shell,
+      .build {
+        grid-template-columns: 1fr;
+      }
+
+      .build-media {
+        position: static;
+      }
+
+      .proof-bar,
+      .story-grid,
+      .hero-stack {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-card.tall {
+        min-height: 220px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero-shell,
+      .build {
+        padding: 22px;
+      }
+
+      .proof-bar,
+      .story-grid,
+      .hero-stack {
+        grid-template-columns: 1fr;
+      }
+
+      .shot {
+        min-height: 260px;
+      }
+
+      .ticker-track {
+        animation-duration: 22s;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap">
+      <a class="nav-link" href="/">&larr; Back to Mote Ops</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap hero-shell">
+      <div class="hero-copy">
+        <div class="eyebrow">What we can build with AI</div>
+        <h1>AI can do much more than generate a page.</h1>
+        <p>
+          These examples show how Mote Ops helps turn AI into something more useful:
+          a founder-ready business front door, a new venture taking shape, or an operating layer inside a real company.
+        </p>
+        <div class="hero-points">
+          <div class="hero-point">
+            <span class="dot" style="background: var(--accent);"></span>
+            <div>
+              <strong>For new ventures</strong>
+              <span>We can help turn a raw business idea into a visible brand, a real front door, and the first operating logic behind it.</span>
+            </div>
+          </div>
+          <div class="hero-point">
+            <span class="dot" style="background: var(--sage);"></span>
+            <div>
+              <strong>For founder-led businesses</strong>
+              <span>We can help someone use AI to launch faster, own the result, and keep evolving it instead of staying dependent.</span>
+            </div>
+          </div>
+          <div class="hero-point">
+            <span class="dot" style="background: var(--amber);"></span>
+            <div>
+              <strong>For active operators</strong>
+              <span>We can use the website as the front door into deeper workflow, staffing, reporting, and management system work.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-stack">
+          <div class="hero-card">
+            <h3>What this page is for</h3>
+            <p>Helping a potential client understand the different kinds of outcomes Mote Ops can create with AI.</p>
+          </div>
+          <div class="hero-card">
+            <h3>What this page is not</h3>
+            <p>A generic redesign gallery. Each project below reflects a different role AI can play in a real business.</p>
+          </div>
+          <div class="hero-card tall">
+            <img src="/images/ccs-desktop.png" alt="CC's Learning Center front door concept" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="ticker">
+    <div class="wrap">
+      <div class="ticker-track">
+        <div class="ticker-item">AI front doors</div>
+        <div class="ticker-item">business modeling</div>
+        <div class="ticker-item">workflow design</div>
+        <div class="ticker-item">staffing logic</div>
+        <div class="ticker-item">operator systems</div>
+        <div class="ticker-item">teaching the stack</div>
+        <div class="ticker-item">real-world deployment</div>
+        <div class="ticker-item">client-owned capability</div>
+        <div class="ticker-item">AI front doors</div>
+        <div class="ticker-item">business modeling</div>
+        <div class="ticker-item">workflow design</div>
+        <div class="ticker-item">staffing logic</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section class="section">
+      <div class="section-head">
+        <div class="eyebrow">Three examples of capability</div>
+        <h2>What Mote Ops can help a client do with AI.</h2>
+        <p>
+          Each project below demonstrates a different value proposition. Sometimes the need is a founder-ready front door.
+          Sometimes it is translating an idea into a business model. Sometimes it is using the website as the entry point into operational AI work.
+        </p>
+      </div>
+
+      <div class="builds">
+        <article class="build" id="moving-mountains">
+          <div class="build-media">
+            <div class="shot">
+              <img src="/images/mountains-desktop.png" alt="Moving Mountains website" />
+            </div>
+            <div class="link-row">
+              <a class="pill-link primary" href="https://mikedmote52.github.io/moving-mountains-demo/" target="_blank" rel="noopener">Open the live build</a>
+            </div>
+          </div>
+          <div class="build-copy">
+            <div class="label">Moving Mountains · venture design</div>
+            <h3>What Mote Ops can do when a client has expertise, demand, and a business idea that needs shape.</h3>
+            <div class="build-meta">Example outcome: AI-assisted venture shaping, front-door design, and operational thinking for a service business with staffing potential.</div>
+
+            <div class="story-grid">
+              <div class="story-card">
+                <h4>What this proves</h4>
+                <p>
+                  Mote Ops can help take a person’s existing expertise and market access, then turn it into a more concrete business concept using AI.
+                </p>
+                <ul>
+                  <li>Sharper expression of the business itself</li>
+                  <li>Better articulation of multiple revenue paths</li>
+                  <li>A visible front door that makes the venture feel real</li>
+                </ul>
+              </div>
+              <div class="story-card">
+                <h4>How AI helps</h4>
+                <p>
+                  AI is not just generating copy here. It helps pressure-test the business, accelerate the design process, and support thinking through the operating model.
+                </p>
+                <ul>
+                  <li>Business-model exploration</li>
+                  <li>Staffing and workflow logic support</li>
+                  <li>Faster movement from idea to operating concept</li>
+                </ul>
+              </div>
+              <div class="story-card">
+                <h4>What a client should see</h4>
+                <p>
+                  If you have real expertise and a business idea, Mote Ops can help you make that idea legible, testable, and more operationally intelligent.
+                </p>
+              </div>
+              <div class="story-card">
+                <h4>Best fit client</h4>
+                <p>
+                  Someone who already has skill, credibility, or local market access, but needs help translating that into a business AI can support.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="build" id="corevita">
+          <div class="build-media">
+            <div class="shot">
+              <img src="/images/corevita-desktop.png" alt="CoreVita Collective website" />
+            </div>
+            <div class="link-row">
+              <a class="pill-link primary" href="https://mikedmote52.github.io/corevita-demo/" target="_blank" rel="noopener">Open the live build</a>
+            </div>
+          </div>
+          <div class="build-copy">
+            <div class="label">CoreVita Collective · founder launch</div>
+            <h3>What Mote Ops can do when a founder needs a business front door she can actually own.</h3>
+            <div class="build-meta">Example outcome: a brand-new founder concept turned into a polished site and a more believable business presence.</div>
+
+            <div class="story-grid">
+              <div class="story-card">
+                <h4>What this proves</h4>
+                <p>
+                  Mote Ops can help a nontechnical founder move from idea-stage ambiguity to a real front door that feels premium, clear, and launchable.
+                </p>
+                <ul>
+                  <li>Concept shaping from scratch</li>
+                  <li>Founder-owned identity and site presence</li>
+                  <li>AI-assisted launch without losing authorship</li>
+                </ul>
+              </div>
+              <div class="story-card">
+                <h4>How AI helps</h4>
+                <p>
+                  AI accelerates concept translation, design exploration, and content shaping so the founder can see the business take form faster.
+                </p>
+                <ul>
+                  <li>Rapid concept-to-site movement</li>
+                  <li>Better founder iteration speed</li>
+                  <li>Lower barrier to maintaining the site over time</li>
+                </ul>
+              </div>
+              <div class="story-card">
+                <h4>What a client should see</h4>
+                <p>
+                  If you are trying to start something and need a site that feels like a real business instead of a half-finished thought, this is the kind of help Mote Ops can provide.
+                </p>
+              </div>
+              <div class="story-card">
+                <h4>Best fit client</h4>
+                <p>
+                  A founder or solo operator who knows the direction, but needs help using AI to reach a stronger business surface quickly and intelligently.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="build" id="ccs">
+          <div class="build-media">
+            <div class="shot">
+              <img src="/images/ccs-desktop.png" alt="CC's Learning Center website" />
+            </div>
+            <div class="link-row">
+              <a class="pill-link primary" href="https://mikedmote52.github.io/ccs-learning-center/" target="_blank" rel="noopener">Open the live concept</a>
+              <a class="pill-link secondary" href="https://www.ccslearningcenter.com/" target="_blank" rel="noopener">Open the current public site</a>
+            </div>
+          </div>
+          <div class="build-copy">
+            <div class="label">CC's Learning Center · active client</div>
+            <h3>What Mote Ops can do when the website is only the beginning.</h3>
+            <div class="build-meta">Example outcome: a better front door used as the entry point into broader AI operations work inside a real business.</div>
+
+            <div class="story-grid">
+              <div class="story-card">
+                <h4>What this proves</h4>
+                <p>
+                  Mote Ops can begin with a visible design problem, then expand into deeper AI help across management, communication, and operations.
+                </p>
+                <ul>
+                  <li>Modernized public-facing presence</li>
+                  <li>Better trust and clarity at the front door</li>
+                  <li>Natural path into broader workflow improvement</li>
+                </ul>
+              </div>
+              <div class="story-card">
+                <h4>How AI helps</h4>
+                <p>
+                  AI becomes useful here by reducing friction inside the business itself: admin work, reporting, management support, and operational bottlenecks.
+                </p>
+                <ul>
+                  <li>Website modernization and communication support</li>
+                  <li>Management and reporting assistance</li>
+                  <li>Operational-system exploration beyond the site</li>
+                </ul>
+              </div>
+              <div class="story-card">
+                <h4>What a client should see</h4>
+                <p>
+                  If your business feels held together by memory, spreadsheets, messages, and repeated manual work, Mote Ops can use the website as the first surface and then go deeper.
+                </p>
+              </div>
+              <div class="story-card">
+                <h4>Best fit client</h4>
+                <p>
+                  A real operating business that needs both a stronger public face and a smarter internal system behind it.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="eyebrow">What these examples show</div>
+        <h2>Three different ways Mote Ops can help a client use AI.</h2>
+      </div>
+      <div class="proof-bar">
+        <div class="proof-card">
+          <strong>01</strong>
+          <h4>Shape a business idea into something real.</h4>
+          <p>For clients with expertise and demand, AI can help clarify the model, structure the concept, and make the business visible faster.</p>
+        </div>
+        <div class="proof-card">
+          <strong>02</strong>
+          <h4>Give a founder a front door she can actually own.</h4>
+          <p>For early-stage founders, AI can accelerate the move from abstract idea to a polished site and a credible business presence.</p>
+        </div>
+        <div class="proof-card">
+          <strong>03</strong>
+          <h4>Use the website as the start of a deeper system.</h4>
+          <p>For active businesses, the front door often becomes the opening move into broader AI workflow and operations work.</p>
+        </div>
+        <div class="proof-card">
+          <strong>04</strong>
+          <h4>Bridge design, systems, and AI capability.</h4>
+          <p>Mote Ops sits between vision, execution, workflows, and teaching the client how to keep using AI after the first build.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      Mote Ops works best when AI meets a real operator, a real idea, and a system that needs to become more capable.
+    </div>
+  </footer>
+</body>
+</html>
