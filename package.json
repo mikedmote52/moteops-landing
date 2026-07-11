@@ -4,6 +4,7 @@
   "description": "Landing page for Mote Ops — fractional AI consulting for small businesses",
   "scripts": {
     "dev": "npx serve .",
+    "test": "node --test tests/*.test.mjs",
     "build": "echo 'Static site — no build step required'",
     "deploy": "npx vercel --prod"
   },
