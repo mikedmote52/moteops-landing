@@ -65,6 +65,18 @@ footer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;padding:45px max(
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important;animation-iteration-count:1!important}.signal-path [data-system-layer].is-active{transform:none}}
 
 /* Signal orange is reserved for non-text accents; compact copy uses AA-safe pairs. */
+.kicker,
+.eyebrow {
+  color:var(--forest);
+}
+
+.system-section .kicker,
+.loop-section .kicker,
+.about .kicker,
+.closing .kicker {
+  color:var(--brass);
+}
+
 .button {
   border-color:var(--signal);
   background:var(--forest);
