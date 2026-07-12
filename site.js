@@ -147,7 +147,7 @@ const documentStatus = document.querySelector('[data-document-status]');
 const documentIntro = {
   finding: 'Choose a bounded task to inspect the fictional source files.',
   source: 'Only the three listed fictional sources will be used.',
-  status: 'Ready for a synthetic document task.'
+  status: 'Document demonstration reset and ready. No files were read and nothing was changed.'
 };
 
 function renderDocumentTask(data) {
@@ -167,10 +167,7 @@ function runDocumentTask(name) {
 documentTaskButtons.forEach((button) => button.addEventListener('click', () => runDocumentTask(button.dataset.documentTask)));
 documentReset?.addEventListener('click', () => {
   documentTaskButtons.forEach((button) => button.setAttribute('aria-pressed', 'false'));
-  documentFindings?.replaceChildren(documentIntro.finding);
-  documentSource?.replaceChildren(documentIntro.source);
-  documentStatus?.replaceChildren(documentIntro.status);
-  announce('Document demonstration reset. No files were read and nothing was changed.', documentStatus);
+  renderDocumentTask(documentIntro);
 });
 
 const SYSTEM_ROUTES = {
@@ -462,6 +459,7 @@ window.addEventListener('resize', updateStickyCta);
 setDemoState(0);
 if (galleryTabButtons.length) setGalleryDemo('operator');
 if (operatorRequestButtons.length) setOperatorRequest('attention');
+if (documentTaskButtons.length) runDocumentTask('commitments');
 if (systemRouteButtons.length) setSystemRoute('brief');
 updateStickyCta();
 requestAnimationFrame(() => requestAnimationFrame(updateStickyCta));

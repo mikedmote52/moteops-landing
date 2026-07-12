@@ -63,7 +63,9 @@ test('runs document tasks and updates findings, source, and status locally', () 
   assert.match(helper, /\bannounce\s*\(/i, 'renderDocumentTask must announce its result');
   assert.match(helper, /announce\s*\(\s*data\.status\s*,\s*documentStatus\s*\)/i);
   assertRenderPurity('renderDocumentTask', helper);
-  assert.match(js, /data-document-reset[\s\S]{0,1200}addEventListener\s*\(\s*['"]click['"][\s\S]{0,1200}(?:data-document-findings|data-document-source|data-document-status|runDocumentTask)[\s\S]{0,500}\bannounce\s*\(/i, 'document reset must restore fields and announce');
+  assert.match(js, /documentReset\?\.addEventListener\s*\(\s*['"]click['"][\s\S]{0,500}renderDocumentTask\(\s*documentIntro\s*\)/i, 'document reset must render the single intro state');
+  assert.equal((js.match(/renderDocumentTask\(\s*documentIntro\s*\)/g) ?? []).length, 1, 'document reset must render its intro exactly once');
+  assert.match(js, /if\s*\(\s*documentTaskButtons\.length\s*\)\s*runDocumentTask\(\s*['"]commitments['"]\s*\)/i, 'document demo must initialize its selected task and visible result together');
 });
 
 test('retains lead and Care selectors inside the unified gallery', () => {
