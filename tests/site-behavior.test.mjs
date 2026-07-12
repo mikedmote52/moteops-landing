@@ -5,25 +5,16 @@ import { resolve } from 'node:path';
 
 const js = readFileSync(resolve(import.meta.dirname, '..', 'site.js'), 'utf8');
 
-function functionBody(name) {
-  const declaration = js.match(new RegExp(`function\\s+${name}\\s*\\([^)]*\\)\\s*\\{`, 'i'));
-  assert.ok(declaration, `missing ${name} function declaration`);
-  const start = declaration.index + declaration[0].length;
-  let depth = 1;
-  for (let index = start; index < js.length; index += 1) {
-    if (js[index] === '{') depth += 1;
-    if (js[index] === '}') depth -= 1;
-    if (depth === 0) return js.slice(start, index);
-  }
-  assert.fail(`missing closing brace for ${name}`);
-}
-
-function assertFieldWrite(body, selector, valueExpression) {
+function assertCachedFieldWrite(functionName, selector, valueExpression) {
   const escape = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const direct = js.match(new RegExp(`(?:const|let)\\s+([A-Za-z_$][\\w$]*)\\s*=\\s*document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)`, 'i'));
+  const objectField = js.match(new RegExp(`(?:const|let)\\s+([A-Za-z_$][\\w$]*)\\s*=\\s*\\{[\\s\\S]{0,1200}?([A-Za-z_$][\\w$]*)\\s*:\\s*document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)`, 'i'));
+  const reference = direct?.[1] ?? (objectField ? `${objectField[1]}.${objectField[2]}` : null);
+  assert.ok(reference, `${selector} needs a named cached element or field reference`);
   assert.match(
-    body,
-    new RegExp(`querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)[\\s\\S]{0,240}(?:textContent|innerText|replaceChildren)[\\s\\S]{0,100}${escape(valueExpression)}`, 'i'),
-    `${selector} must be selected and written from ${valueExpression} inside the function body`,
+    js,
+    new RegExp(`function\\s+${functionName}\\s*\\([^)]*\\)\\s*\\{[\\s\\S]{0,3000}${escape(reference)}\\s*(?:\\?\\.)?\\s*(?:textContent|innerText|replaceChildren)[\\s\\S]{0,120}${escape(valueExpression)}`, 'i'),
+    `${functionName} must write ${selector} from ${valueExpression}`,
   );
 }
 
@@ -39,20 +30,20 @@ test('implements the four-demo gallery with wrapped keyboard navigation', () => 
 
 test('updates every operator request field from local demo data', () => {
   assert.match(js, /OPERATOR_REQUESTS/);
-  const body = functionBody('setOperatorRequest');
+  assert.match(js, /function\s+setOperatorRequest\s*\(([^)]*)\)\s*\{[\s\S]{0,700}(?:const|let)\s+request\s*=\s*OPERATOR_REQUESTS\s*\[[^\]]+\]/i, 'setOperatorRequest must select its request from OPERATOR_REQUESTS');
   for (const field of ['request', 'context', 'route', 'result', 'approval']) {
-    assertFieldWrite(body, `data-operator-${field}`, `request.${field}`);
+    assertCachedFieldWrite('setOperatorRequest', `data-operator-${field}`, `request.${field}`);
   }
-  assert.match(body, /\bannounce\s*\(/i, 'setOperatorRequest must announce its result');
+  assert.match(js, /function\s+setOperatorRequest\s*\([^)]*\)\s*\{[\s\S]{0,3000}\bannounce\s*\(/i, 'setOperatorRequest must announce its result');
 });
 
 test('runs document tasks and updates findings, source, and status locally', () => {
   assert.match(js, /DOCUMENT_TASKS/);
-  const body = functionBody('runDocumentTask');
-  assertFieldWrite(body, 'data-document-findings', 'task.finding');
-  assertFieldWrite(body, 'data-document-source', 'task.source');
-  assertFieldWrite(body, 'data-document-status', 'task.status');
-  assert.match(body, /\bannounce\s*\(/i, 'runDocumentTask must announce its result');
+  assert.match(js, /function\s+runDocumentTask\s*\(([^)]*)\)\s*\{[\s\S]{0,700}(?:const|let)\s+task\s*=\s*DOCUMENT_TASKS\s*\[[^\]]+\]/i, 'runDocumentTask must select its task from DOCUMENT_TASKS');
+  assertCachedFieldWrite('runDocumentTask', 'data-document-findings', 'task.finding');
+  assertCachedFieldWrite('runDocumentTask', 'data-document-source', 'task.source');
+  assertCachedFieldWrite('runDocumentTask', 'data-document-status', 'task.status');
+  assert.match(js, /function\s+runDocumentTask\s*\([^)]*\)\s*\{[\s\S]{0,3000}\bannounce\s*\(/i, 'runDocumentTask must announce its result');
   assert.match(js, /data-document-reset[\s\S]{0,1200}addEventListener\s*\(\s*['"]click['"][\s\S]{0,1200}(?:data-document-findings|data-document-source|data-document-status|runDocumentTask)[\s\S]{0,500}\bannounce\s*\(/i, 'document reset must restore fields and announce');
 });
 

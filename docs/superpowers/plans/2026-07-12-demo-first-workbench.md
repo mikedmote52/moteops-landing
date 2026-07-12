@@ -53,7 +53,7 @@ test('leads with customer problems before demos or architecture', () => {
 
 - [ ] **Step 2: Add gallery structure and disclosure contracts**
 
-Require four stable gallery tabs and one `role="tabpanel"`, outcome-based public labels, persistent synthetic/no-live labels inside each workspace, and a collapsed `<details id="architecture-details">` after the gallery.
+Require four stable gallery tabs and four distinct `role="tabpanel"` workspaces, outcome-based public labels, persistent synthetic/no-live labels inside each workspace, and a collapsed `<details id="architecture-details">` after the gallery. Each tab owns one complete workspace through unique `id`/`aria-controls` and `aria-labelledby` pairings.
 
 Required tab values: `operator`, `documents`, `leads`, `care`.
 

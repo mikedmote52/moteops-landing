@@ -42,7 +42,7 @@ function galleryPanelRanges(gallery) {
   const panels = tagsWithRole(gallery.source, null, 'tabpanel').map((openingTag) => ({
     openingTag,
     id: attribute(openingTag, 'id'),
-    workspace: attribute(openingTag, 'data-gallery-workspace'),
+    panel: attribute(openingTag, 'data-gallery-panel'),
     start: gallery.source.indexOf(openingTag),
   })).sort((a, b) => a.start - b.start);
   return panels.map((panel, index) => ({
@@ -64,7 +64,10 @@ test('leads with customer problems before demos or architecture', () => {
   const gallery = elementById('demo-gallery', 'section');
   assert.ok(hero.end <= problems.start, 'hero must end before problem recognition begins');
   assert.ok(problems.end <= gallery.start, 'problem recognition must end before the demo gallery begins');
-  assert.doesNotMatch(`${hero.source}\n${problems.source}`, /\b(?:AIOS|local LLM|operating layer|model routing)\b/i);
+  assert.doesNotMatch(
+    `${hero.source}\n${problems.source}`,
+    /\b(?:AIOS|local LLM|operating layer|model routing|API|RAG|inference|embeddings?|vector database|prompt engineering|agents?|orchestration|webhooks?|schemas?|pipelines?)\b/i,
+  );
   assert.match(problems.source, /Does this sound familiar\?/i);
   for (const phrase of [
     "You're drowning in follow-ups and small tasks.",
@@ -90,6 +93,8 @@ test('publishes four accessible outcome-led demos with persistent safety disclos
   tabs.forEach((tag) => assert.equal(attribute(tag, 'tabindex'), attribute(tag, 'aria-selected') === 'true' ? '0' : '-1'));
   const panels = galleryPanelRanges(gallery);
   assert.equal(panels.length, 4);
+  assert.deepEqual(panels.map(({ panel }) => panel), ['operator', 'documents', 'leads', 'care']);
+  assert.equal(new Set(panels.map(({ panel }) => panel)).size, 4, 'gallery panel identities must be unique');
   assert.equal(new Set(panels.map(({ id }) => id)).size, 4, 'gallery panel ids must be unique');
   assert.deepEqual(tabs.map((tag) => attribute(tag, 'aria-controls')), panels.map(({ id }) => id));
   assert.deepEqual(panels.map(({ openingTag }) => attribute(openingTag, 'aria-labelledby')), tabIds);
@@ -97,11 +102,11 @@ test('publishes four accessible outcome-led demos with persistent safety disclos
     assert.match(gallery.source, new RegExp(label, 'i'));
   }
   for (const panel of panels) {
-    assert.match(panel.source, /Synthetic demonstration/i, `${panel.workspace} workspace needs a synthetic-data label`);
-    assert.match(panel.source, /No live (?:business data|connection)/i, `${panel.workspace} workspace needs a no-live-data label`);
+    assert.match(panel.source, /Synthetic demonstration/i, `${panel.panel} workspace needs a synthetic-data label`);
+    assert.match(panel.source, /No live (?:business data|connection)/i, `${panel.panel} workspace needs a no-live-data label`);
   }
-  assert.match(panels.find(({ workspace }) => workspace === 'leads')?.source ?? '', /data-demo-(?:state|next|reset)/i, 'lead hooks must be inside the leads tabpanel');
-  assert.match(panels.find(({ workspace }) => workspace === 'care')?.source ?? '', /data-care-(?:tab|task|form)/i, 'Care hooks must be inside the Care tabpanel');
+  assert.match(panels.find(({ panel }) => panel === 'leads')?.source ?? '', /data-demo-(?:state|next|reset)/i, 'lead hooks must be inside the leads tabpanel');
+  assert.match(panels.find(({ panel }) => panel === 'care')?.source ?? '', /data-care-(?:tab|task|form)/i, 'Care hooks must be inside the Care tabpanel');
 });
 
 test('demotes architecture to a collapsed disclosure after the demo gallery', () => {
