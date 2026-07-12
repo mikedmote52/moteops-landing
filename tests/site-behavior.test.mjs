@@ -63,6 +63,18 @@ test('routes synthetic requests through the five AIOS layers', () => {
   assert.match(js, /function\s+setSystemRoute\b[\s\S]{0,1800}(?:classList\.(?:add|remove|toggle)|hidden\s*=|setAttribute\()[\s\S]{0,1800}(?:textContent|innerText|replaceChildren)[\s\S]{0,1000}\bannounce\s*\(/i);
 });
 
+test('tracks one current layer while completing a sequential route', () => {
+  assert.match(js, /classList\.remove\(['"]is-active['"],\s*['"]is-current['"]\)/);
+  assert.match(js, /systemLayers\.forEach\(\(currentLayer\)\s*=>\s*currentLayer\.classList\.remove\(['"]is-current['"]\)\)/);
+  assert.match(js, /layer\.classList\.add\(['"]is-active['"],\s*['"]is-current['"]\)/);
+  assert.match(js, /systemLayers\[systemLayers\.length\s*-\s*1\][\s\S]{0,100}classList\.add\(['"]is-current['"]\)/);
+});
+
+test('keeps the route tab connected to the changing panel', () => {
+  assert.match(js, /systemPanel/);
+  assert.match(js, /setAttribute\(['"]aria-labelledby['"],\s*activeButton\.id\)/);
+});
+
 test('supports wrapped keyboard navigation between system routes', () => {
   assert.match(js, /ArrowRight/);
   assert.match(js, /ArrowDown/);

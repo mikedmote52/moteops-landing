@@ -41,6 +41,45 @@ test('shows all five layers of the private AI operating system', () => {
   assert.match(html, /human-approved/i);
 });
 
+test('implements complete ARIA tabs for the system route panel', () => {
+  for (const id of ['system-route-brief', 'system-route-private-files', 'system-route-follow-up']) {
+    assert.match(html, new RegExp(`<button\\b[^>]*\\bid="${id}"[^>]*\\baria-controls="system-panel"`, 'i'));
+  }
+  assert.match(html, /<div\b[^>]*role="tabpanel"[^>]*id="system-panel"[^>]*aria-labelledby="system-route-brief"/i);
+});
+
+test('publishes a truthful three-category evidence ledger', () => {
+  for (const heading of ['Verified on Mike’s Mac', 'Demonstrated publicly', 'Configured per client']) {
+    assert.match(html, new RegExp(heading, 'i'));
+  }
+  for (const phrase of [
+    'qwen3-coder:30b', 'qwen3:14b', 'canonical operating context', 'Voice OS',
+    'project/status routing', 'CC’s Care Hub', 'synthetic routing',
+    'sample local-model response', 'sample approval', 'sample control-center records',
+    'integrations', 'permissions', 'retention', 'local-versus-cloud choice', 'live business data',
+  ]) assert.match(html, new RegExp(phrase, 'i'));
+});
+
+test('describes the operator day with the correct tasks and times', () => {
+  const day = sectionById('operator-day');
+  assert.match(day, /7:00 AM[\s\S]*morning brief/i);
+  assert.match(day, /10:15 AM[\s\S]*phone[\s\S]*project[\s\S]*customer status/i);
+  assert.match(day, /1:30 PM[\s\S]*local model[\s\S]*bounded private-file review/i);
+  assert.match(day, /4:45 PM[\s\S]*owner approves follow-ups[\s\S]*records decisions/i);
+});
+
+test('starts with morning-brief intelligence copy', () => {
+  assert.match(html, /data-system-model>Current project state is summarized with the configured task model\./i);
+  assert.doesNotMatch(html, /data-system-model>A local model handles the synthetic private-file task\./i);
+});
+
+test('shows mobile descriptions only for the current route layer', () => {
+  const mobile = css.match(/@media\(max-width:760px\)\{[\s\S]*?\}\s*@media\(prefers-reduced-motion:reduce\)/)?.[0] ?? '';
+  assert.match(mobile, /\[data-system-layer\] p\{display:none\}/);
+  assert.match(css, /\[data-system-layer\]\.is-active:not\(\.is-current\) p\{display:none\}/);
+  assert.match(css, /\[data-system-layer\]\.is-current p\{display:block\}/);
+});
+
 test('states current local-model evidence without making it a universal requirement', () => {
   assert.match(html, /qwen3-coder:30b/);
   assert.match(html, /qwen3:14b/);

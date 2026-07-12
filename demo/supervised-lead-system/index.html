@@ -53,14 +53,15 @@
       </div>
       <div class="system-console">
         <div class="system-requests" role="tablist" aria-label="Sample requests">
-          <button type="button" role="tab" aria-selected="true" data-system-route="brief">What needs my attention today?</button>
-          <button type="button" role="tab" aria-selected="false" data-system-route="private-files">Review these private files</button>
-          <button type="button" role="tab" aria-selected="false" data-system-route="follow-up">Prepare the next follow-up</button>
+          <button type="button" role="tab" id="system-route-brief" aria-controls="system-panel" aria-selected="true" data-system-route="brief">What needs my attention today?</button>
+          <button type="button" role="tab" id="system-route-private-files" aria-controls="system-panel" aria-selected="false" data-system-route="private-files">Review these private files</button>
+          <button type="button" role="tab" id="system-route-follow-up" aria-controls="system-panel" aria-selected="false" data-system-route="follow-up">Prepare the next follow-up</button>
         </div>
+        <div role="tabpanel" id="system-panel" aria-labelledby="system-route-brief">
         <ol class="signal-path">
           <li data-system-layer="inputs"><small>01 · INPUTS</small><strong data-system-layer-title>Phone request</strong><p data-system-layer-copy>The owner asks from a secure phone interface.</p></li>
           <li data-system-layer="context"><small>02 · CONTEXT</small><strong>Operating memory</strong><p>Canonical documents and current project state are attached.</p></li>
-          <li data-system-layer="intelligence"><small>03 · INTELLIGENCE</small><strong>Task-appropriate model</strong><p data-system-model>A local model handles the synthetic private-file task.</p></li>
+          <li data-system-layer="intelligence"><small>03 · INTELLIGENCE</small><strong>Task-appropriate model</strong><p data-system-model>Current project state is summarized with the configured task model.</p></li>
           <li data-system-layer="control"><small>04 · CONTROL</small><strong>Rules and permissions</strong><p>Boundaries, audit state, and approval requirements are applied.</p></li>
           <li data-system-layer="outputs"><small>05 · OUTPUTS</small><strong data-system-output>Owner brief</strong><p>A visible result waits for the owner where judgment is required.</p></li>
         </ol>
@@ -68,10 +69,15 @@
           <span class="plate-stamp">SYNTHETIC DEMONSTRATION</span>
           <h3>Route evidence</h3>
           <p data-system-status>Ready to trace the morning-brief request.</p>
-          <dl><div><dt>Mike's current Mac installation</dt><dd>Ollama with qwen3-coder:30b and qwen3:14b on Mike's Mac</dd></div><div><dt>Client installation</dt><dd>Configured per client after privacy, task, and hardware review</dd></div></dl>
+          <div class="evidence-ledger">
+            <section><h4>Verified on Mike’s Mac</h4><p>Mike’s current Mac installation: Ollama qwen3-coder:30b and qwen3:14b; canonical operating context and bridge artifacts; working Voice OS and phone-access patterns; tested project/status routing; CC’s Care Hub build.</p></section>
+            <section><h4>Demonstrated publicly</h4><p>Synthetic routing, sample local-model response, sample approval, and sample control-center records.</p></section>
+            <section><h4>Configured per client</h4><p>Integrations, permissions, retention, local-versus-cloud choice, and live business data.</p></section>
+          </div>
           <button type="button" data-system-approve>Approve sample output</button>
           <button type="button" data-system-reset>Reset route</button>
         </aside>
+        </div>
       </div>
     </section>
 
@@ -89,7 +95,7 @@
 
     <section class="operator-day section-pad" id="operator-day" aria-labelledby="operator-day-title">
       <div class="section-heading"><p class="kicker">AN OPERATOR DAY</p><h2 id="operator-day-title">The system carries context. People keep judgment.</h2></div>
-      <ol><li><time>7:00 AM</time><p>An owner brief collects open decisions and exceptions.</p></li><li><time>10:15 AM</time><p>A private-file review cites the source and waits for approval.</p></li><li><time>1:30 PM</time><p>A customer follow-up draft returns to the accountable operator.</p></li><li><time>4:45 PM</time><p>The control center shows what moved, stalled, or needs tomorrow.</p></li></ol>
+      <ol><li><time>7:00 AM</time><p>The morning brief collects open decisions and exceptions.</p></li><li><time>10:15 AM</time><p>From the phone, the owner asks for project and customer status.</p></li><li><time>1:30 PM</time><p>A local model performs a bounded private-file review.</p></li><li><time>4:45 PM</time><p>The owner approves follow-ups and records decisions.</p></li></ol>
       <p>Illustrative composite—not a claim that every event runs unattended.</p>
     </section>
 

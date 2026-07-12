@@ -42,6 +42,7 @@ const SYSTEM_ROUTES = {
 
 const systemRouteButtons = [...document.querySelectorAll('[data-system-route]')];
 const systemLayers = [...document.querySelectorAll('[data-system-layer]')];
+const systemPanel = document.querySelector('#system-panel');
 const systemEvidence = document.querySelector('[data-system-evidence]');
 const systemStatus = document.querySelector('[data-system-status]');
 const systemInputTitle = document.querySelector('[data-system-layer-title]');
@@ -68,17 +69,28 @@ function setSystemRoute(routeName) {
     button.setAttribute('aria-selected', String(active));
     button.tabIndex = active ? 0 : -1;
   });
+  const activeButton = systemRouteButtons.find((button) => button.dataset.systemRoute === selectedRoute);
+  if (systemPanel && activeButton) systemPanel.setAttribute('aria-labelledby', activeButton.id);
   const routeRun = ++systemRouteRun;
-  systemLayers.forEach((layer, index) => {
-    layer.classList.remove('is-active');
-    layer.style.transitionDelay = reduceSystemMotion ? '0ms' : `${index * 90}ms`;
+  systemLayers.forEach((layer) => {
+    layer.classList.remove('is-active', 'is-current');
+    layer.style.transitionDelay = '0ms';
   });
   const activateLayers = () => {
     if (routeRun !== systemRouteRun) return;
     systemLayers.forEach((layer) => layer.classList.add('is-active'));
+    systemLayers[systemLayers.length - 1]?.classList.add('is-current');
   };
   if (reduceSystemMotion) activateLayers();
-  else requestAnimationFrame(() => requestAnimationFrame(activateLayers));
+  else requestAnimationFrame(() => requestAnimationFrame(() => {
+    systemLayers.forEach((layer, index) => {
+      window.setTimeout(() => {
+        if (routeRun !== systemRouteRun) return;
+        systemLayers.forEach((currentLayer) => currentLayer.classList.remove('is-current'));
+        layer.classList.add('is-active', 'is-current');
+      }, index * 120);
+    });
+  }));
   if (systemInputTitle) systemInputTitle.textContent = route.input;
   if (systemInputCopy) systemInputCopy.textContent = route.inputCopy;
   if (systemModel) systemModel.textContent = route.model;
