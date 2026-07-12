@@ -5,6 +5,28 @@ import { resolve } from 'node:path';
 
 const js = readFileSync(resolve(import.meta.dirname, '..', 'site.js'), 'utf8');
 
+function functionBody(name) {
+  const declaration = js.match(new RegExp(`function\\s+${name}\\s*\\([^)]*\\)\\s*\\{`, 'i'));
+  assert.ok(declaration, `missing ${name} function declaration`);
+  const start = declaration.index + declaration[0].length;
+  let depth = 1;
+  for (let index = start; index < js.length; index += 1) {
+    if (js[index] === '{') depth += 1;
+    if (js[index] === '}') depth -= 1;
+    if (depth === 0) return js.slice(start, index);
+  }
+  assert.fail(`missing closing brace for ${name}`);
+}
+
+function assertFieldWrite(body, selector, valueExpression) {
+  const escape = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  assert.match(
+    body,
+    new RegExp(`querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)[\\s\\S]{0,240}(?:textContent|innerText|replaceChildren)[\\s\\S]{0,100}${escape(valueExpression)}`, 'i'),
+    `${selector} must be selected and written from ${valueExpression} inside the function body`,
+  );
+}
+
 test('implements the four-demo gallery with wrapped keyboard navigation', () => {
   assert.match(js, /DEMO_GALLERY/);
   assert.match(js, /setGalleryDemo/);
@@ -17,20 +39,21 @@ test('implements the four-demo gallery with wrapped keyboard navigation', () => 
 
 test('updates every operator request field from local demo data', () => {
   assert.match(js, /OPERATOR_REQUESTS/);
-  assert.match(js, /setOperatorRequest/);
+  const body = functionBody('setOperatorRequest');
   for (const field of ['request', 'context', 'route', 'result', 'approval']) {
-    assert.match(js, new RegExp(`data-operator-${field}`, 'i'));
+    assertFieldWrite(body, `data-operator-${field}`, `request.${field}`);
   }
-  assert.match(js, /function\s+setOperatorRequest\b[\s\S]{0,2500}(?:textContent|innerText|replaceChildren)/i);
+  assert.match(body, /\bannounce\s*\(/i, 'setOperatorRequest must announce its result');
 });
 
 test('runs document tasks and updates findings, source, and status locally', () => {
   assert.match(js, /DOCUMENT_TASKS/);
-  assert.match(js, /runDocumentTask/);
-  for (const field of ['findings', 'source', 'status']) {
-    assert.match(js, new RegExp(`data-document-${field}`, 'i'));
-  }
-  assert.match(js, /function\s+runDocumentTask\b[\s\S]{0,2500}(?:textContent|innerText|replaceChildren)/i);
+  const body = functionBody('runDocumentTask');
+  assertFieldWrite(body, 'data-document-findings', 'task.finding');
+  assertFieldWrite(body, 'data-document-source', 'task.source');
+  assertFieldWrite(body, 'data-document-status', 'task.status');
+  assert.match(body, /\bannounce\s*\(/i, 'runDocumentTask must announce its result');
+  assert.match(js, /data-document-reset[\s\S]{0,1200}addEventListener\s*\(\s*['"]click['"][\s\S]{0,1200}(?:data-document-findings|data-document-source|data-document-status|runDocumentTask)[\s\S]{0,500}\bannounce\s*\(/i, 'document reset must restore fields and announce');
 });
 
 test('retains lead and Care selectors inside the unified gallery', () => {

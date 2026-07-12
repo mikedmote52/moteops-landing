@@ -9,60 +9,106 @@ const css = readFileSync(resolve(root, 'site.css'), 'utf8');
 const js = readFileSync(resolve(root, 'site.js'), 'utf8');
 
 function sectionById(id) {
-  const match = html.match(new RegExp(`<section\\b[^>]*\\bid=["']${id}["'][^>]*>[\\s\\S]*?<\\/section>`, 'i'));
-  assert.ok(match, `missing #${id} section`);
-  return match[0];
+  return elementById(id, 'section').source;
+}
+
+function attribute(tag, name) {
+  return tag.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']*)["']`, 'i'))?.[1] ?? null;
+}
+
+function elementById(id, expectedTag) {
+  const opening = [...html.matchAll(/<([a-z][\w:-]*)\b[^>]*>/gi)].find((match) =>
+    (!expectedTag || match[1].toLowerCase() === expectedTag.toLowerCase()) && attribute(match[0], 'id') === id);
+  assert.ok(opening, `missing #${id}${expectedTag ? ` ${expectedTag}` : ''}`);
+  const tag = opening[1].toLowerCase();
+  const tokens = [...html.slice(opening.index).matchAll(new RegExp(`<\\/?${tag}\\b[^>]*>`, 'gi'))];
+  let depth = 0;
+  for (const token of tokens) {
+    depth += /^<\//.test(token[0]) ? -1 : 1;
+    if (depth === 0) {
+      const end = opening.index + token.index + token[0].length;
+      return { start: opening.index, end, openingTag: opening[0], source: html.slice(opening.index, end) };
+    }
+  }
+  assert.fail(`missing closing </${tag}> for #${id}`);
+}
+
+function tagsWithRole(source, tagName, role) {
+  return [...source.matchAll(new RegExp(`<${tagName ?? '[a-z][\\w:-]*'}\\b[^>]*>`, 'gi'))]
+    .map(([tag]) => tag).filter((tag) => attribute(tag, 'role') === role);
+}
+
+function galleryPanelRanges(gallery) {
+  const panels = tagsWithRole(gallery.source, null, 'tabpanel').map((openingTag) => ({
+    openingTag,
+    id: attribute(openingTag, 'id'),
+    workspace: attribute(openingTag, 'data-gallery-workspace'),
+    start: gallery.source.indexOf(openingTag),
+  })).sort((a, b) => a.start - b.start);
+  return panels.map((panel, index) => ({
+    ...panel,
+    source: gallery.source.slice(panel.start, panels[index + 1]?.start ?? gallery.source.length),
+  }));
 }
 
 test('leads with the private AI system promise in plain language', () => {
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
-  assert.match(html, /build private AI systems around the way your business already works/i);
-  assert.match(html, /phone/i);
-  assert.match(html, /email/i);
-  assert.match(html, /files/i);
-  assert.match(html, /human approval/i);
+  const hero = sectionById('top');
+  assert.match(hero, />Your business is running on your memory, your inbox, and too many open tabs\.<\/h1>/i);
+  assert.match(hero, /Mote Ops finds the repetitive work slowing you down and builds a simple, supervised AI system around the tools you already use\./i);
 });
 
 test('leads with customer problems before demos or architecture', () => {
-  assert.match(html, /Your business is running on your memory, your inbox, and too many open tabs/i);
-  assert.match(html, /finds the repetitive work slowing you down/i);
+  const hero = elementById('top', 'section');
+  const problems = elementById('problem-recognition', 'section');
+  const gallery = elementById('demo-gallery', 'section');
+  assert.ok(hero.end <= problems.start, 'hero must end before problem recognition begins');
+  assert.ok(problems.end <= gallery.start, 'problem recognition must end before the demo gallery begins');
+  assert.doesNotMatch(`${hero.source}\n${problems.source}`, /\b(?:AIOS|local LLM|operating layer|model routing)\b/i);
+  assert.match(problems.source, /Does this sound familiar\?/i);
   for (const phrase of [
-    'drowning in follow-ups',
-    "inbox has become your company's to-do list",
-    'struggle to find the latest customer',
-    'inquiries arrive after hours',
-    'because you remember it',
-    "want to use AI in your business, but you don't know where to begin",
-  ]) assert.match(html, new RegExp(phrase, 'i'));
-
-  const problemsIndex = html.indexOf('Does this sound familiar?');
-  const galleryIndex = html.indexOf('id="demo-gallery"');
-  const architectureIndex = html.indexOf('id="architecture-details"');
-  assert.ok(problemsIndex >= 0, 'missing customer-problem section');
-  assert.ok(galleryIndex >= 0, 'missing demo gallery');
-  assert.ok(architectureIndex >= 0, 'missing architecture disclosure');
-  assert.ok(problemsIndex < galleryIndex, 'customer problems must appear before demos');
-  assert.ok(galleryIndex < architectureIndex, 'demos must appear before architecture');
+    "You're drowning in follow-ups and small tasks.",
+    "Your inbox has become your company's to-do list.",
+    'You struggle to find the latest customer, project, or policy information.',
+    'New inquiries arrive after hours and wait too long for a response.',
+    'Important work only happens because you remember it.',
+    "You want to use AI in your business, but you don't know where to begin—or what is actually worth paying for.",
+  ]) assert.ok(problems.source.includes(phrase), `missing exact problem statement: ${phrase}`);
 });
 
 test('publishes four accessible outcome-led demos with persistent safety disclosures', () => {
-  const gallery = sectionById('demo-gallery');
-  const tabs = [...gallery.matchAll(/<button\b[^>]*\brole=["']tab["'][^>]*\bdata-gallery-demo=["'](operator|documents|leads|care)["'][^>]*>([\s\S]*?)<\/button>/gi)];
-  assert.deepEqual(tabs.map(([, value]) => value), ['operator', 'documents', 'leads', 'care']);
-  assert.equal((gallery.match(/\brole=["']tabpanel["']/gi) ?? []).length, 1);
+  const gallery = elementById('demo-gallery', 'section');
+  assert.equal(tagsWithRole(gallery.source, null, 'tablist').length, 1, 'gallery needs exactly one tablist');
+  const tabs = tagsWithRole(gallery.source, 'button', 'tab');
+  assert.equal(tabs.length, 4);
+  assert.deepEqual(tabs.map((tag) => attribute(tag, 'data-gallery-demo')), ['operator', 'documents', 'leads', 'care']);
+  const tabIds = tabs.map((tag) => attribute(tag, 'id'));
+  assert.ok(tabIds.every(Boolean), 'every gallery tab needs an id');
+  assert.equal(new Set(tabIds).size, 4, 'gallery tab ids must be unique');
+  assert.equal(tabs.filter((tag) => attribute(tag, 'aria-selected') === 'true').length, 1);
+  assert.equal(tabs.filter((tag) => attribute(tag, 'tabindex') === '0').length, 1);
+  tabs.forEach((tag) => assert.equal(attribute(tag, 'tabindex'), attribute(tag, 'aria-selected') === 'true' ? '0' : '-1'));
+  const panels = galleryPanelRanges(gallery);
+  assert.equal(panels.length, 4);
+  assert.equal(new Set(panels.map(({ id }) => id)).size, 4, 'gallery panel ids must be unique');
+  assert.deepEqual(tabs.map((tag) => attribute(tag, 'aria-controls')), panels.map(({ id }) => id));
+  assert.deepEqual(panels.map(({ openingTag }) => attribute(openingTag, 'aria-labelledby')), tabIds);
   for (const label of ['What needs my attention', 'Review a private document', 'Follow up with a lead', 'Run a care workflow']) {
-    assert.match(gallery, new RegExp(label, 'i'));
+    assert.match(gallery.source, new RegExp(label, 'i'));
   }
-  for (const demo of ['operator', 'documents', 'leads', 'care']) {
-    const workspace = gallery.match(new RegExp(`<[^>]+\\bdata-gallery-workspace=["']${demo}["'][^>]*>[\\s\\S]*?<\\/[^>]+>`, 'i'))?.[0] ?? '';
-    assert.match(workspace, /Synthetic demonstration/i, `${demo} workspace needs a synthetic-data label`);
-    assert.match(workspace, /No live (?:business data|connection)/i, `${demo} workspace needs a no-live-data label`);
+  for (const panel of panels) {
+    assert.match(panel.source, /Synthetic demonstration/i, `${panel.workspace} workspace needs a synthetic-data label`);
+    assert.match(panel.source, /No live (?:business data|connection)/i, `${panel.workspace} workspace needs a no-live-data label`);
   }
+  assert.match(panels.find(({ workspace }) => workspace === 'leads')?.source ?? '', /data-demo-(?:state|next|reset)/i, 'lead hooks must be inside the leads tabpanel');
+  assert.match(panels.find(({ workspace }) => workspace === 'care')?.source ?? '', /data-care-(?:tab|task|form)/i, 'Care hooks must be inside the Care tabpanel');
 });
 
 test('demotes architecture to a collapsed disclosure after the demo gallery', () => {
-  assert.match(html, /<details\b(?![^>]*\bopen\b)[^>]*\bid=["']architecture-details["'][^>]*>/i);
-  assert.ok(html.indexOf('id="demo-gallery"') < html.indexOf('id="architecture-details"'));
+  const gallery = elementById('demo-gallery', 'section');
+  const architecture = elementById('architecture-details', 'details');
+  assert.doesNotMatch(architecture.openingTag, /\bopen(?:\s*=|\s|>)/i, 'architecture disclosure must be collapsed');
+  assert.ok(gallery.end <= architecture.start, 'architecture must begin after the demo gallery closes');
 });
 
 test('marks exactly one in-hero element as the sticky CTA visibility boundary', () => {
