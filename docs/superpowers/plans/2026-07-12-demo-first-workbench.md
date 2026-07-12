@@ -63,8 +63,10 @@ Require:
 
 - `DEMO_GALLERY` data and `setGalleryDemo`.
 - Wrapped arrow/Home/End gallery navigation.
-- `OPERATOR_REQUESTS`, a pure `renderOperatorRequest(data)` helper updating request/context/route/result/approval fields, and `setOperatorRequest` selecting `const data = OPERATOR_REQUESTS[name]` before calling `renderOperatorRequest(data)`.
-- `DOCUMENT_TASKS`, a pure `renderDocumentTask(data)` helper updating findings/source/status, and `runDocumentTask` selecting `const data = DOCUMENT_TASKS[name]` before calling `renderDocumentTask(data)`.
+- `OPERATOR_REQUESTS`, a pure straight-line `renderOperatorRequest(data)` helper updating request/context/route/result/approval fields, and `setOperatorRequest` selecting `const data = OPERATOR_REQUESTS[name]` before calling `renderOperatorRequest(data)`.
+- `DOCUMENT_TASKS`, a pure straight-line `renderDocumentTask(data)` helper updating findings/source/status, and `runDocumentTask` selecting `const data = DOCUMENT_TASKS[name]` before calling `renderDocumentTask(data)`.
+
+Both render helpers are render-only functions with no nested blocks, conditionals, loops, selection, or fallback logic. Their bodies contain only permitted DOM field writes and the required `announce(...)` call. All lookup, validation, and fallback behavior stays in `setOperatorRequest` and `runDocumentTask`. This straight-line contract makes the first newline-leading `}` the exact helper boundary for static contract tests.
 - Existing lead/Care selectors still present.
 - Sticky guard includes `#demo-gallery` rather than relying on nested hidden sections.
 - No networking primitives.
@@ -166,11 +168,11 @@ Problem-section `data-open-demo` links call `setGalleryDemo`, then focus the sel
 
 - [ ] **Step 2: Implement operator request states**
 
-Define three `OPERATOR_REQUESTS` objects containing `request`, `context`, `route`, `result`, `approval`, and `status`. `setOperatorRequest(name)` selects `const data = OPERATOR_REQUESTS[name]` and passes it to the pure `renderOperatorRequest(data)` helper. The render helper updates all visible fields and announces the synthetic result. Approval changes only local state and says nothing was sent or changed.
+Define three `OPERATOR_REQUESTS` objects containing `request`, `context`, `route`, `result`, `approval`, and `status`. `setOperatorRequest(name)` owns selection/fallback logic, selects `const data = OPERATOR_REQUESTS[name]`, and passes it to the pure, straight-line `renderOperatorRequest(data)` helper. The render helper has no nested blocks, conditionals, or loops; it only updates visible fields and announces the synthetic result. Approval changes only local state and says nothing was sent or changed.
 
 - [ ] **Step 3: Implement document tasks**
 
-Define three `DOCUMENT_TASKS` objects with `task`, `finding`, `source`, and `status`. `runDocumentTask(name)` selects `const data = DOCUMENT_TASKS[name]` and passes it to the pure `renderDocumentTask(data)` helper. The render helper displays the synthetic finding, cited fictional source, and status. Reset returns to the intro state. Never use `fetch`, `XMLHttpRequest`, `WebSocket`, `EventSource`, or `sendBeacon`.
+Define three `DOCUMENT_TASKS` objects with `task`, `finding`, `source`, and `status`. `runDocumentTask(name)` owns selection/fallback logic, selects `const data = DOCUMENT_TASKS[name]`, and passes it to the pure, straight-line `renderDocumentTask(data)` helper. The render helper has no nested blocks, conditionals, or loops; it only displays the synthetic finding, cited fictional source, and status, then announces. Reset returns to the intro state. Never use `fetch`, `XMLHttpRequest`, `WebSocket`, `EventSource`, or `sendBeacon`.
 
 - [ ] **Step 4: Simplify sticky guards**
 

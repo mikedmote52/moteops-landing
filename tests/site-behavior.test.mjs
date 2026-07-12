@@ -5,10 +5,19 @@ import { resolve } from 'node:path';
 
 const js = readFileSync(resolve(import.meta.dirname, '..', 'site.js'), 'utf8');
 
-function topLevelFunction(name) {
-  const match = js.match(new RegExp(`function\\s+${name}\\s*\\([^)]*\\)\\s*\\{[\\s\\S]*?\\n\\}(?=\\n(?:\\n|function\\s|(?:const|let|var)\\s|[A-Za-z_$][\\w$]*[?.]*\\.))`, 'i'));
-  assert.ok(match, `missing conventionally bounded top-level ${name} helper`);
-  return match[0];
+function straightLineRenderFunction(name) {
+  const match = js.match(new RegExp(`function\\s+${name}\\s*\\(\\s*data\\s*\\)\\s*\\{\\n([\\s\\S]*?)\\n\\}`, 'i'));
+  assert.ok(match, `missing straight-line ${name}(data) helper`);
+  assert.doesNotMatch(match[1], /[{}]/, `${name} must not contain nested blocks`);
+  return match[1];
+}
+
+function assertRenderPurity(name, helper) {
+  assert.doesNotMatch(helper, /\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB)\b|\blocation\b|\bwindow\s*\.\s*open\b/i);
+  const calls = [...helper.matchAll(/\b([A-Za-z_$][\w$]*(?:\s*\.\s*[A-Za-z_$][\w$]*)*)\s*\(/g)]
+    .map(([, call]) => call.replace(/\s+/g, ''));
+  const unexpected = calls.filter((call) => call !== 'announce' && call !== 'document.querySelector' && !call.endsWith('.replaceChildren'));
+  assert.deepEqual(unexpected, [], `${name} contains non-render calls: ${unexpected.join(', ')}`);
 }
 
 function assertRenderField(helper, selector, valueExpression) {
@@ -17,7 +26,7 @@ function assertRenderField(helper, selector, valueExpression) {
   const objectField = js.match(new RegExp(`(?:const|let)\\s+([A-Za-z_$][\\w$]*)\\s*=\\s*\\{[\\s\\S]{0,1200}?([A-Za-z_$][\\w$]*)\\s*:\\s*document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)`, 'i'));
   const reference = direct?.[1] ?? (objectField ? `${objectField[1]}.${objectField[2]}` : null);
   const cachedWrite = reference && new RegExp(`${escape(reference)}\\s*(?:\\?\\.)?\\s*(?:textContent|innerText)\\s*=\\s*${escape(valueExpression)}|${escape(reference)}\\s*(?:\\?\\.)?\\s*replaceChildren\\(\\s*${escape(valueExpression)}`, 'i').test(helper);
-  const directWrite = new RegExp(`document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)\\s*(?:\\?\\.)?\\s*(?:textContent|innerText)\\s*=\\s*${escape(valueExpression)}`, 'i').test(helper);
+  const directWrite = new RegExp(`document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)\\s*(?:\\?\\.)?\\s*(?:(?:textContent|innerText)\\s*=\\s*${escape(valueExpression)}|replaceChildren\\(\\s*${escape(valueExpression)}\\s*\\))`, 'i').test(helper);
   assert.ok(cachedWrite || directWrite, `${selector} must be written from ${valueExpression} inside its render helper`);
 }
 
@@ -34,21 +43,23 @@ test('implements the four-demo gallery with wrapped keyboard navigation', () => 
 test('updates every operator request field from local demo data', () => {
   assert.match(js, /OPERATOR_REQUESTS/);
   assert.match(js, /function\s+setOperatorRequest\s*\(\s*name\s*\)\s*\{\s*const\s+data\s*=\s*OPERATOR_REQUESTS\s*\[\s*name\s*\][\s\S]{0,300}renderOperatorRequest\(\s*data\s*\)/i);
-  const helper = topLevelFunction('renderOperatorRequest');
+  const helper = straightLineRenderFunction('renderOperatorRequest');
   for (const field of ['request', 'context', 'route', 'result', 'approval']) {
     assertRenderField(helper, `data-operator-${field}`, `data.${field}`);
   }
   assert.match(helper, /\bannounce\s*\(/i, 'renderOperatorRequest must announce its result');
+  assertRenderPurity('renderOperatorRequest', helper);
 });
 
 test('runs document tasks and updates findings, source, and status locally', () => {
   assert.match(js, /DOCUMENT_TASKS/);
   assert.match(js, /function\s+runDocumentTask\s*\(\s*name\s*\)\s*\{\s*const\s+data\s*=\s*DOCUMENT_TASKS\s*\[\s*name\s*\][\s\S]{0,300}renderDocumentTask\(\s*data\s*\)/i);
-  const helper = topLevelFunction('renderDocumentTask');
+  const helper = straightLineRenderFunction('renderDocumentTask');
   assertRenderField(helper, 'data-document-findings', 'data.finding');
   assertRenderField(helper, 'data-document-source', 'data.source');
   assertRenderField(helper, 'data-document-status', 'data.status');
   assert.match(helper, /\bannounce\s*\(/i, 'renderDocumentTask must announce its result');
+  assertRenderPurity('renderDocumentTask', helper);
   assert.match(js, /data-document-reset[\s\S]{0,1200}addEventListener\s*\(\s*['"]click['"][\s\S]{0,1200}(?:data-document-findings|data-document-source|data-document-status|runDocumentTask)[\s\S]{0,500}\bannounce\s*\(/i, 'document reset must restore fields and announce');
 });
 
