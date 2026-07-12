@@ -156,13 +156,14 @@ test('uses the non-blue workbench palette', () => {
     '#eee5d1', '#f7f0df', '#171713', '#292820', '#173b30', '#285747',
     '#9b552f', '#d94b24', '#b7ad43', '#6d695d', '#bcb29c', '#fff', '#ffffff',
   ]);
-  const usedHexColors = [...css.matchAll(/#[\da-f]{3}(?:[\da-f]{3})?\b/gi)]
+  const usedHexColors = [...css.matchAll(/#[\da-f]{8}\b|#[\da-f]{6}\b|#[\da-f]{4}\b|#[\da-f]{3}\b/gi)]
     .map(([color]) => color.toLowerCase());
   const unapprovedHexColors = [...new Set(usedHexColors.filter((color) => !approvedHexColors.has(color)))].sort();
   assert.deepEqual(unapprovedHexColors, [], `unapproved CSS hex colors: ${unapprovedHexColors.join(', ')}`);
 
-  const colorFunctions = [...css.matchAll(/\b(?:rgba?|hsla?)\([^)]*\)/gi)].map(([color]) => color);
-  const neutralAlphaShadow = /^rgba?\(\s*0(?:\s*,\s*0){2}\s*(?:,|\/)\s*(?:0?\.\d+|0|1(?:\.0+)?)\s*\)$/i;
+  const colorFunctions = [...css.matchAll(/\b(?:rgba?|hsla?|oklch|oklab|lab|lch|hwb|color)\([^)]*\)/gi)]
+    .map(([color]) => color);
+  const neutralAlphaShadow = /^rgba\(\s*0\s*,\s*0\s*,\s*0\s*,\s*(?:0?\.\d+|0|1(?:\.0+)?)\s*\)$/i;
   const unapprovedColorFunctions = [...new Set(colorFunctions.filter((color) => !neutralAlphaShadow.test(color)))].sort();
   assert.deepEqual(unapprovedColorFunctions, [], `unapproved CSS color functions: ${unapprovedColorFunctions.join(', ')}`);
 
