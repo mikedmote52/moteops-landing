@@ -34,12 +34,16 @@ test('maintains accessible sticky CTA and announces interaction status', () => {
   assert.match(js, /announce/);
 });
 
-test('suppresses the sticky booking action while demo controls are in view', () => {
-  assert.match(js, /demoSection/);
+test('suppresses the sticky booking action while any interactive demo is in view', () => {
+  for (const selector of ['#aios-workbench', '#demo', '#care-hub-demo']) {
+    assert.match(js, new RegExp(`['"]${selector}['"]`));
+  }
+  assert.match(js, /stickyGuardSections/);
+  assert.match(js, /guardSectionsInView/);
   assert.match(js, /heroInView/);
-  assert.match(js, /demoInView/);
   assert.match(js, /updateStickyCta/);
-  assert.match(js, /!heroInView\s*&&\s*!demoInView/);
+  assert.match(js, /!heroInView\s*&&\s*guardSectionsInView\.size\s*===\s*0/);
+  assert.match(js, /IntersectionObserver/);
 });
 
 test('implements Care Hub tabs and local-only task and form controls', () => {

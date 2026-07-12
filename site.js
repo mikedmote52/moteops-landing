@@ -258,20 +258,25 @@ document.querySelectorAll('[data-care-form]').forEach((button) => button.addEven
 if (careTabButtons.length) setCareTab('pipeline');
 
 const heroBooking = document.querySelector('#hero-booking');
-const demoSection = document.querySelector('#demo');
+const stickyGuardSections = ['#aios-workbench', '#demo', '#care-hub-demo']
+  .map((selector) => document.querySelector(selector))
+  .filter(Boolean);
 const stickyCta = document.querySelector('[data-sticky-cta]');
 let heroInView = true;
-let demoInView = false;
+const guardSectionsInView = new Set();
 function updateStickyCta() {
   if (!stickyCta) return;
   const heroRect = heroBooking?.getBoundingClientRect();
-  const demoRect = demoSection?.getBoundingClientRect();
   heroInView = Boolean(heroRect && heroRect.top < window.innerHeight && heroRect.bottom > 0);
-  demoInView = Boolean(demoRect && demoRect.top < window.innerHeight && demoRect.bottom > 0);
-  const show = !heroInView && !demoInView;
-    stickyCta.classList.toggle('is-visible', show);
-    stickyCta.setAttribute('aria-hidden', String(!show));
-    stickyCta.tabIndex = show ? 0 : -1;
+  guardSectionsInView.clear();
+  stickyGuardSections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) guardSectionsInView.add(section);
+  });
+  const show = !heroInView && guardSectionsInView.size === 0;
+  stickyCta.classList.toggle('is-visible', show);
+  stickyCta.setAttribute('aria-hidden', String(!show));
+  stickyCta.tabIndex = show ? 0 : -1;
 }
 if (heroBooking && stickyCta && 'IntersectionObserver' in window) {
   const heroObserver = new IntersectionObserver(([entry]) => {
@@ -279,13 +284,8 @@ if (heroBooking && stickyCta && 'IntersectionObserver' in window) {
     updateStickyCta();
   }, { threshold: 0.1 });
   heroObserver.observe(heroBooking);
-  if (demoSection) {
-    const demoObserver = new IntersectionObserver(([entry]) => {
-      demoInView = entry.isIntersecting;
-      updateStickyCta();
-    }, { threshold: 0 });
-    demoObserver.observe(demoSection);
-  }
+  const guardObserver = new IntersectionObserver(() => updateStickyCta(), { threshold: 0 });
+  stickyGuardSections.forEach((section) => guardObserver.observe(section));
 }
 window.addEventListener('scroll', updateStickyCta, { passive: true });
 window.addEventListener('resize', updateStickyCta);
