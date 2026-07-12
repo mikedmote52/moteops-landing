@@ -52,33 +52,6 @@
       </ol>
     </section>
 
-    <section class="systems-section section-pad" id="systems" aria-labelledby="systems-title">
-      <div class="section-heading"><p class="kicker">PLATES 02–07 · WHAT WE INSTALL</p><h2 id="systems-title">Six parts, selected and configured around the work.</h2></div>
-      <div class="equipment-grid">
-        <article class="equipment-plate"><span>02</span><h3>Private AI Control Center</h3><p><strong>Problem</strong> Work and approvals are scattered.</p><p><strong>Installed</strong> One supervised command surface.</p><p><strong>Human-owned</strong> Priorities, approvals, and exceptions.</p><p><strong>Evidence</strong> Visible queues and audit state.</p></article>
-        <article class="equipment-plate"><span>03</span><h3>Local LLM Workstation</h3><p><strong>Problem</strong> Private tasks need tighter boundaries.</p><p><strong>Installed</strong> Task-appropriate local models where justified.</p><p><strong>Human-owned</strong> Model selection and sensitive-use limits.</p><p><strong>Evidence</strong> Current hardware and task evaluation.</p></article>
-        <article class="equipment-plate"><span>04</span><h3>Phone and Voice Operator</h3><p><strong>Problem</strong> Requests arrive away from the desk.</p><p><strong>Installed</strong> A secure voice and phone interface.</p><p><strong>Human-owned</strong> Consequential calls and sends.</p><p><strong>Evidence</strong> Transcript, route, and approval record.</p></article>
-        <article class="equipment-plate"><span>05</span><h3>Operational Memory</h3><p><strong>Problem</strong> Current truth lives across files and people.</p><p><strong>Installed</strong> Canonical context and project state.</p><p><strong>Human-owned</strong> What becomes authoritative.</p><p><strong>Evidence</strong> Sources attached to each result.</p></article>
-        <article class="equipment-plate"><span>06</span><h3>Supervised Customer Workflow</h3><p><strong>Problem</strong> Follow-ups vanish between tools.</p><p><strong>Installed</strong> Intake, drafting, and approval queues.</p><p><strong>Human-owned</strong> Every consequential customer action.</p><p><strong>Evidence</strong> Status, reasoning, and next owner.</p></article>
-        <article class="equipment-plate"><span>07</span><h3>Client Workspace</h3><p><strong>Problem</strong> Teams cannot see the same next step.</p><p><strong>Installed</strong> A role-appropriate operating workspace.</p><p><strong>Human-owned</strong> Access, judgment, and final decisions.</p><p><strong>Evidence</strong> Shared state with explicit boundaries.</p></article>
-      </div>
-    </section>
-
-    <section class="operator-day section-pad" id="operator-day" aria-labelledby="operator-day-title">
-      <div class="section-heading"><p class="kicker">AN OPERATOR DAY</p><h2 id="operator-day-title">The system carries context. People keep judgment.</h2></div>
-      <ol><li><time>7:00 AM</time><p>The morning brief collects open decisions and exceptions.</p></li><li><time>10:15 AM</time><p>From the phone, the owner asks for project and customer status.</p></li><li><time>1:30 PM</time><p>A local model performs a bounded private-file review.</p></li><li><time>4:45 PM</time><p>The owner approves follow-ups and records decisions.</p></li></ol>
-      <p>Illustrative composite—not a claim that every event runs unattended.</p>
-    </section>
-
-    <section class="audience-strip" aria-labelledby="audience-title">
-      <p class="kicker" id="audience-title">BUILT AROUND THE WORK YOUR BUSINESS ALREADY DOES</p>
-      <div class="audience-grid">
-        <article><span>HOME SERVICES</span><h2>HVAC, plumbing &amp; electrical</h2><p>New service calls, missing job details, estimates, and follow-ups that need a clear owner.</p></article>
-        <article><span>LEARNING &amp; CARE</span><h2>Learning centers &amp; childcare</h2><p>Enrollment inquiries, tours, forms, family follow-ups, and placement steps that cross several tools.</p></article>
-        <article><span>LOCAL PROFESSIONALS</span><h2>Appointment-based teams</h2><p>Consultations, intake questions, document requests, and next actions that should not live in someone’s memory.</p></article>
-      </div>
-    </section>
-
     <section class="section-pad" id="demo-gallery" aria-labelledby="gallery-title">
       <div class="section-heading"><p class="kicker">TRY A REAL EXAMPLE</p><h2 id="gallery-title">Choose the problem that feels most familiar.</h2></div>
       <div class="gallery-tabs" role="tablist" aria-label="Mote Ops demonstrations">
@@ -88,7 +61,7 @@
         <button id="gallery-tab-care" type="button" role="tab" aria-controls="gallery-panel-care" aria-selected="false" tabindex="-1" data-gallery-demo="care">Keep Every Family Moving Toward Enrollment</button>
       </div>
 
-      <div id="gallery-panel-operator" role="tabpanel" aria-labelledby="gallery-tab-operator" data-gallery-panel="operator">
+      <div id="gallery-panel-operator" role="tabpanel" aria-labelledby="gallery-tab-operator" data-gallery-panel="operator" tabindex="0">
         <div class="section-heading split-heading"><div><p class="kicker">Mote Ops Operator demonstration</p><h3>Ask what needs attention from wherever the day takes you.</h3></div><p>This proves that an owner can ask for current business status from a phone while project context and approval boundaries stay attached.</p></div>
         <div class="demo-label"><span>Working pattern</span> · <span>Synthetic public data</span> · <span>Synthetic demonstration</span> · <span>No live connection to Mike’s Mac</span></div>
         <div class="product-window operator-workspace">
@@ -97,7 +70,7 @@
         </div>
       </div>
 
-      <div id="gallery-panel-documents" role="tabpanel" aria-labelledby="gallery-tab-documents" data-gallery-panel="documents" hidden>
+      <div id="gallery-panel-documents" role="tabpanel" aria-labelledby="gallery-tab-documents" data-gallery-panel="documents" tabindex="0" hidden>
         <div class="section-heading split-heading"><div><p class="kicker">Private document-review demonstration</p><h3>Find a bounded answer without digging through files.</h3></div><p>Review fictional business information while every finding stays tied to its source.</p></div>
         <div class="demo-label"><span>Working pattern</span> · <span>Synthetic public data</span> · <span>Synthetic demonstration</span> · <span>No live connection</span></div>
         <div class="product-window document-workspace">
@@ -106,8 +79,8 @@
         </div>
       </div>
 
-      <div id="gallery-panel-leads" role="tabpanel" aria-labelledby="gallery-tab-leads" data-gallery-panel="leads" hidden>
-        <div class="demo-label"><span>Synthetic demonstration</span> · <span>No live business data</span></div>
+      <div id="gallery-panel-leads" role="tabpanel" aria-labelledby="gallery-tab-leads" data-gallery-panel="leads" tabindex="0" hidden>
+        <div class="demo-label"><span>Working pattern</span> · <span>Synthetic public data</span> · <span>No live connection</span></div>
     <section class="demo-section section-pad" id="demo" aria-labelledby="demo-title">
       <div class="section-heading split-heading">
         <div><p class="kicker">TRY THE WORKFLOW</p><h2 id="demo-title">One lead. Three moments. You stay in control.</h2></div>
@@ -163,8 +136,8 @@
       </div>
     </section>
       </div>
-      <div id="gallery-panel-care" role="tabpanel" aria-labelledby="gallery-tab-care" data-gallery-panel="care" hidden>
-        <div class="demo-label"><span>Synthetic demonstration</span> · <span>No live business data</span></div>
+      <div id="gallery-panel-care" role="tabpanel" aria-labelledby="gallery-tab-care" data-gallery-panel="care" tabindex="0" hidden>
+        <div class="demo-label"><span>Working pattern</span> · <span>Synthetic public data</span> · <span>No live connection</span></div>
     <section class="care-demo section-pad" id="care-hub-demo" aria-labelledby="care-demo-title">
       <div class="section-heading split-heading">
         <div><p class="kicker">SECOND WORKING DEMONSTRATION</p><h2 id="care-demo-title">From first family inquiry to first day—without losing the warm touch.</h2></div>
@@ -172,7 +145,7 @@
       </div>
       <div class="care-app">
         <header class="care-head"><div><span class="care-logo">CC</span><div><strong>CC’s Care Hub</strong><small>Families &amp; Enrollment</small></div></div><a href="https://care.moteops.tech/" target="_blank" rel="noopener noreferrer">Owner access — sign-in required <span aria-hidden="true">↗</span></a></header>
-        <div class="care-safety"><span class="live-dot"></span><strong>Synthetic demo</strong> · No real family records · No external systems connected</div>
+        <div class="care-safety"><span class="live-dot"></span><strong>Synthetic demonstration</strong> · No real family records · No external systems connected</div>
         <div class="care-metrics"><article><small>ENROLLMENT PIPELINE</small><strong>6 families</strong><span>Across 4 stages</span></article><article><small>TOUR REQUESTS</small><strong>2 open</strong><span>One needs times</span></article><article><small>REQUIRED FORMS</small><strong>3 / 5</strong><span>Two follow-ups due</span></article><article><small>CLASSROOM PLACEMENT</small><strong>1 review</strong><span>Director decision</span></article></div>
         <div class="care-workspace">
           <nav class="care-tabs" aria-label="Care Hub demonstration"><button class="is-active" type="button" aria-pressed="true" data-care-tab="pipeline">Pipeline</button><button type="button" aria-pressed="false" data-care-tab="tours">Tours</button><button type="button" aria-pressed="false" data-care-tab="forms">Required forms</button><button type="button" aria-pressed="false" data-care-tab="placement">Classroom placement</button></nav>
@@ -192,6 +165,33 @@
       <ol class="signal-path"><li data-system-layer="inputs"><strong>Inputs</strong><p>The phone, email, files, and software where work begins.</p></li><li data-system-layer="context"><strong>Context</strong><p>Current business information and source material.</p></li><li data-system-layer="intelligence"><strong>Intelligence</strong><p>The task-appropriate model, chosen for the work.</p></li><li data-system-layer="control"><strong>Control</strong><p>Permissions, boundaries, and human approval.</p></li><li data-system-layer="outputs"><strong>Outputs</strong><p>Briefs, drafts, decisions, and visible next steps.</p></li></ol>
       <div class="evidence-ledger"><section><h4>Verified on Mike’s Mac</h4><p>Mike’s current Mac installation: Ollama qwen3-coder:30b and qwen3:14b; canonical operating context and bridge artifacts; working Voice OS components and phone-access patterns; tested project/status routing; CC’s Care Hub build.</p></section><section><h4>Demonstrated publicly</h4><p>Synthetic routing, sample local-model response, sample approval, and sample control-center records.</p></section><section><h4>Configured per client</h4><p>Integrations, permissions, retention, local-versus-cloud choice, and live business data.</p></section></div>
     </details>
+
+    <section class="systems-section section-pad" id="systems" aria-labelledby="systems-title">
+      <div class="section-heading"><p class="kicker">PLATES 02–07 · WHAT WE INSTALL</p><h2 id="systems-title">Six parts, selected and configured around the work.</h2></div>
+      <div class="equipment-grid">
+        <article class="equipment-plate"><span>02</span><h3>Private AI Control Center</h3><p><strong>Problem</strong> Work and approvals are scattered.</p><p><strong>Installed</strong> One supervised command surface.</p><p><strong>Human-owned</strong> Priorities, approvals, and exceptions.</p><p><strong>Evidence</strong> Visible queues and audit state.</p></article>
+        <article class="equipment-plate"><span>03</span><h3>Local LLM Workstation</h3><p><strong>Problem</strong> Private tasks need tighter boundaries.</p><p><strong>Installed</strong> Task-appropriate local models where justified.</p><p><strong>Human-owned</strong> Model selection and sensitive-use limits.</p><p><strong>Evidence</strong> Current hardware and task evaluation.</p></article>
+        <article class="equipment-plate"><span>04</span><h3>Phone and Voice Operator</h3><p><strong>Problem</strong> Requests arrive away from the desk.</p><p><strong>Installed</strong> A secure voice and phone interface.</p><p><strong>Human-owned</strong> Consequential calls and sends.</p><p><strong>Evidence</strong> Transcript, route, and approval record.</p></article>
+        <article class="equipment-plate"><span>05</span><h3>Operational Memory</h3><p><strong>Problem</strong> Current truth lives across files and people.</p><p><strong>Installed</strong> Canonical context and project state.</p><p><strong>Human-owned</strong> What becomes authoritative.</p><p><strong>Evidence</strong> Sources attached to each result.</p></article>
+        <article class="equipment-plate"><span>06</span><h3>Supervised Customer Workflow</h3><p><strong>Problem</strong> Follow-ups vanish between tools.</p><p><strong>Installed</strong> Intake, drafting, and approval queues.</p><p><strong>Human-owned</strong> Every consequential customer action.</p><p><strong>Evidence</strong> Status, reasoning, and next owner.</p></article>
+        <article class="equipment-plate"><span>07</span><h3>Client Workspace</h3><p><strong>Problem</strong> Teams cannot see the same next step.</p><p><strong>Installed</strong> A role-appropriate operating workspace.</p><p><strong>Human-owned</strong> Access, judgment, and final decisions.</p><p><strong>Evidence</strong> Shared state with explicit boundaries.</p></article>
+      </div>
+    </section>
+
+    <section class="operator-day section-pad" id="operator-day" aria-labelledby="operator-day-title">
+      <div class="section-heading"><p class="kicker">AN OPERATOR DAY</p><h2 id="operator-day-title">The system carries context. People keep judgment.</h2></div>
+      <ol><li><time>7:00 AM</time><p>The morning brief collects open decisions and exceptions.</p></li><li><time>10:15 AM</time><p>From the phone, the owner asks for project and customer status.</p></li><li><time>1:30 PM</time><p>A local model performs a bounded private-file review.</p></li><li><time>4:45 PM</time><p>The owner approves follow-ups and records decisions.</p></li></ol>
+      <p>Illustrative composite—not a claim that every event runs unattended.</p>
+    </section>
+
+    <section class="audience-strip" aria-labelledby="audience-title">
+      <p class="kicker" id="audience-title">BUILT AROUND THE WORK YOUR BUSINESS ALREADY DOES</p>
+      <div class="audience-grid">
+        <article><span>HOME SERVICES</span><h2>HVAC, plumbing &amp; electrical</h2><p>New service calls, missing job details, estimates, and follow-ups that need a clear owner.</p></article>
+        <article><span>LEARNING &amp; CARE</span><h2>Learning centers &amp; childcare</h2><p>Enrollment inquiries, tours, forms, family follow-ups, and placement steps that cross several tools.</p></article>
+        <article><span>LOCAL PROFESSIONALS</span><h2>Appointment-based teams</h2><p>Consultations, intake questions, document requests, and next actions that should not live in someone’s memory.</p></article>
+      </div>
+    </section>
 
     <section class="loop-section section-pad" id="how-it-works" aria-labelledby="loop-title">
       <div class="section-heading"><p class="kicker">THE SUPERVISED LOOP</p><h2 id="loop-title">Useful automation stops where judgment begins.</h2></div>
