@@ -6,12 +6,15 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const html = readFileSync(resolve(root, 'index.html'), 'utf8');
 
-test('leads with the concrete home-service promise', () => {
+test('leads with a concrete local-service promise that includes CC-like businesses', () => {
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
   assert.match(html, /After-hours leads shouldn.t wait until Monday/i);
   assert.match(html, /HVAC/);
   assert.match(html, /plumbing/i);
   assert.match(html, /electrical/i);
+  assert.match(html, /learning centers/i);
+  assert.match(html, /childcare/i);
+  assert.match(html, /appointment-based/i);
   assert.match(html, /nothing goes out without you/i);
 });
 
