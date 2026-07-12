@@ -23,6 +23,14 @@ test('leads with the private AI system promise in plain language', () => {
   assert.match(html, /human approval/i);
 });
 
+test('marks exactly one in-hero element as the sticky CTA visibility boundary', () => {
+  assert.equal((html.match(/\bid=["']hero-booking["']/gi) ?? []).length, 1);
+  assert.match(
+    html,
+    /<section\b[^>]*class=["'][^"']*\bhero\b[^"']*["'][^>]*>[\s\S]*?<a\b[^>]*\bid=["']hero-booking["'][^>]*\bhref=["']#aios-workbench["'][^>]*>\s*Trace a request through the system/i,
+  );
+});
+
 test('shows all five layers of the private AI operating system', () => {
   assert.match(html, /id="aios-workbench"/);
   for (const layer of ['Inputs', 'Context', 'Intelligence', 'Control', 'Outputs']) {
