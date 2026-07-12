@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mote Ops — Supervised inquiry and follow-up systems for small businesses</title>
-  <meta name="description" content="Mote Ops helps home services, learning centers, childcare operators, and appointment-based local businesses organize inquiries and keep follow-ups visible until a human closes them.">
+  <title>Mote Ops — Private AI systems for small businesses</title>
+  <meta name="description" content="Mote Ops builds private AI systems around the phone, email, files, policies, and software small businesses already use.">
   <meta name="theme-color" content="#f5f1e8">
-  <meta property="og:title" content="After-hours leads shouldn’t wait until Monday">
-  <meta property="og:description" content="Supervised inquiry, intake, and follow-up workflows built around the tools your small business already uses.">
+  <meta property="og:title" content="Private AI systems built around the way your business works">
+  <meta property="og:description" content="A supervised operating layer connecting the tools your small business already uses.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://moteops.tech/">
   <meta property="og:image" content="https://moteops.tech/og-image.png">
@@ -20,34 +20,77 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Mote Ops, back to top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>MOTE OPS</span></a>
-    <nav aria-label="Main navigation">
-      <a href="#demo">Demo</a><a href="#how-it-works">How it works</a><a href="#pricing">Pricing</a><a href="#fit">Fit</a><a href="#proof">Proof</a>
+    <nav aria-label="Primary navigation">
+      <a href="#aios-workbench">The system</a><a href="#systems">What we install</a><a href="#working-demos">Working demos</a><a href="#pricing">Start here</a><a href="#proof">Evidence</a>
     </nav>
     <a class="button button-small" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Book a fit call <span aria-hidden="true">↗</span></a>
   </header>
 
   <main id="main">
-    <section class="hero" id="top" aria-labelledby="hero-title">
+    <section class="hero workbench-hero" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="signal-dot"></span> Built for owner-led local businesses</p>
-        <h1 id="hero-title">After-hours leads shouldn’t wait until Monday.</h1>
-        <p class="hero-lede">Mote Ops organizes every new inquiry, identifies what the customer needs, drafts the next response, and holds it for your approval. For service calls, enrollment questions, and appointment requests: nothing gets missed, and nothing goes out without you.</p>
-        <div class="hero-actions" id="hero-booking">
-          <a class="button" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Book a 30-minute fit call <span aria-hidden="true">↗</span></a>
-          <a class="text-link" href="#demo">Watch a lead move through the system <span aria-hidden="true">↓</span></a>
+        <p class="eyebrow"><span class="signal-lamp"></span> PRIVATE AI SYSTEMS FOR SMALL BUSINESS</p>
+        <h1 id="hero-title">We build private AI systems around the way your business already works.</h1>
+        <p class="hero-lede">Connect the phone, email, files, policies, and software you already use to a supervised operating layer—with local models where they earn their place and human approval where judgment matters.</p>
+        <div class="hero-actions">
+          <a class="button" href="#aios-workbench">Trace a request through the system <span aria-hidden="true">↓</span></a>
+          <a class="text-link" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Book a fit call <span aria-hidden="true">↗</span></a>
         </div>
-        <div class="hero-trust"><span>Human-approved</span><span>Works with your tools</span><span>No autonomous sends</span></div>
       </div>
+      <div class="hero-system-plate" aria-label="System overview">
+        <span class="plate-stamp">ASSEMBLED FOR THE WORK BETWEEN YOUR TOOLS</span>
+        <div class="hero-inputs"><span>Phone</span><span>Email</span><span>Files</span></div>
+        <div class="hero-core"><small>PRIVATE OPERATING LAYER</small><strong>Context + models + rules</strong><em>Human approval stays in circuit</em></div>
+        <div class="hero-outputs"><span>Owner brief</span><span>Control center</span><span>Voice operator</span></div>
+      </div>
+    </section>
 
-      <aside class="lead-preview" aria-label="Synthetic sample lead preview">
-        <div class="demo-label"><span class="live-dot"></span> Synthetic demonstration — sample data</div>
-        <div class="preview-source"><span>VOICEMAIL</span><time>9:42 PM</time></div>
-        <blockquote>“Hi, it’s Dana. Our AC stopped working this afternoon, and it’s getting really hot. We have a newborn. Do you handle emergency calls?”</blockquote>
-        <div class="preview-fields">
-          <div><small>CUSTOMER</small><strong>Dana</strong></div><div><small>REQUEST</small><strong>AC not cooling</strong></div><div class="warning"><small>URGENCY</small><strong>High</strong></div><div class="missing"><small>SERVICE ADDRESS</small><strong>Missing</strong></div>
+    <section class="system-section section-pad" id="aios-workbench" aria-labelledby="system-title">
+      <div class="workbench-heading">
+        <p class="kicker">PLATE 01 · TRACE THE SIGNAL</p>
+        <h2 id="system-title">See what happens between a question and a useful answer.</h2>
+        <p>Select a synthetic request. No live connection to Mike's Mac, local models, or client systems is made.</p>
+      </div>
+      <div class="system-console">
+        <div class="system-requests" role="tablist" aria-label="Sample requests">
+          <button type="button" role="tab" aria-selected="true" data-system-route="brief">What needs my attention today?</button>
+          <button type="button" role="tab" aria-selected="false" data-system-route="private-files">Review these private files</button>
+          <button type="button" role="tab" aria-selected="false" data-system-route="follow-up">Prepare the next follow-up</button>
         </div>
-        <div class="preview-footer"><span>2 details need review</span><a href="#demo">Open demo <span aria-hidden="true">→</span></a></div>
-      </aside>
+        <ol class="signal-path">
+          <li data-system-layer="inputs"><small>01 · INPUTS</small><strong data-system-layer-title>Phone request</strong><p data-system-layer-copy>The owner asks from a secure phone interface.</p></li>
+          <li data-system-layer="context"><small>02 · CONTEXT</small><strong>Operating memory</strong><p>Canonical documents and current project state are attached.</p></li>
+          <li data-system-layer="intelligence"><small>03 · INTELLIGENCE</small><strong>Task-appropriate model</strong><p data-system-model>A local model handles the synthetic private-file task.</p></li>
+          <li data-system-layer="control"><small>04 · CONTROL</small><strong>Rules and permissions</strong><p>Boundaries, audit state, and approval requirements are applied.</p></li>
+          <li data-system-layer="outputs"><small>05 · OUTPUTS</small><strong data-system-output>Owner brief</strong><p>A visible result waits for the owner where judgment is required.</p></li>
+        </ol>
+        <aside class="evidence-log" data-system-evidence aria-live="polite">
+          <span class="plate-stamp">SYNTHETIC DEMONSTRATION</span>
+          <h3>Route evidence</h3>
+          <p data-system-status>Ready to trace the morning-brief request.</p>
+          <dl><div><dt>Mike's current Mac installation</dt><dd>Ollama with qwen3-coder:30b and qwen3:14b on Mike's Mac</dd></div><div><dt>Client installation</dt><dd>Configured per client after privacy, task, and hardware review</dd></div></dl>
+          <button type="button" data-system-approve>Approve sample output</button>
+          <button type="button" data-system-reset>Reset route</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="systems-section section-pad" id="systems" aria-labelledby="systems-title">
+      <div class="section-heading"><p class="kicker">PLATES 02–07 · WHAT WE INSTALL</p><h2 id="systems-title">Six parts, selected and configured around the work.</h2></div>
+      <div class="equipment-grid">
+        <article class="equipment-plate"><span>02</span><h3>Private AI Control Center</h3><p><strong>Problem</strong> Work and approvals are scattered.</p><p><strong>Installed</strong> One supervised command surface.</p><p><strong>Human-owned</strong> Priorities, approvals, and exceptions.</p><p><strong>Evidence</strong> Visible queues and audit state.</p></article>
+        <article class="equipment-plate"><span>03</span><h3>Local LLM Workstation</h3><p><strong>Problem</strong> Private tasks need tighter boundaries.</p><p><strong>Installed</strong> Task-appropriate local models where justified.</p><p><strong>Human-owned</strong> Model selection and sensitive-use limits.</p><p><strong>Evidence</strong> Current hardware and task evaluation.</p></article>
+        <article class="equipment-plate"><span>04</span><h3>Phone and Voice Operator</h3><p><strong>Problem</strong> Requests arrive away from the desk.</p><p><strong>Installed</strong> A secure voice and phone interface.</p><p><strong>Human-owned</strong> Consequential calls and sends.</p><p><strong>Evidence</strong> Transcript, route, and approval record.</p></article>
+        <article class="equipment-plate"><span>05</span><h3>Operational Memory</h3><p><strong>Problem</strong> Current truth lives across files and people.</p><p><strong>Installed</strong> Canonical context and project state.</p><p><strong>Human-owned</strong> What becomes authoritative.</p><p><strong>Evidence</strong> Sources attached to each result.</p></article>
+        <article class="equipment-plate"><span>06</span><h3>Supervised Customer Workflow</h3><p><strong>Problem</strong> Follow-ups vanish between tools.</p><p><strong>Installed</strong> Intake, drafting, and approval queues.</p><p><strong>Human-owned</strong> Every consequential customer action.</p><p><strong>Evidence</strong> Status, reasoning, and next owner.</p></article>
+        <article class="equipment-plate"><span>07</span><h3>Client Workspace</h3><p><strong>Problem</strong> Teams cannot see the same next step.</p><p><strong>Installed</strong> A role-appropriate operating workspace.</p><p><strong>Human-owned</strong> Access, judgment, and final decisions.</p><p><strong>Evidence</strong> Shared state with explicit boundaries.</p></article>
+      </div>
+    </section>
+
+    <section class="operator-day section-pad" id="operator-day" aria-labelledby="operator-day-title">
+      <div class="section-heading"><p class="kicker">AN OPERATOR DAY</p><h2 id="operator-day-title">The system carries context. People keep judgment.</h2></div>
+      <ol><li><time>7:00 AM</time><p>An owner brief collects open decisions and exceptions.</p></li><li><time>10:15 AM</time><p>A private-file review cites the source and waits for approval.</p></li><li><time>1:30 PM</time><p>A customer follow-up draft returns to the accountable operator.</p></li><li><time>4:45 PM</time><p>The control center shows what moved, stalled, or needs tomorrow.</p></li></ol>
+      <p>Illustrative composite—not a claim that every event runs unattended.</p>
     </section>
 
     <section class="audience-strip" aria-labelledby="audience-title">
@@ -59,6 +102,8 @@
       </div>
     </section>
 
+    <div id="working-demos">
+      <div class="section-heading section-pad"><p class="kicker">WORKING DEMOS</p><h2>Two businesses. One supervised pattern. Different installations.</h2></div>
     <section class="demo-section section-pad" id="demo" aria-labelledby="demo-title">
       <div class="section-heading split-heading">
         <div><p class="kicker">TRY THE WORKFLOW</p><h2 id="demo-title">One lead. Three moments. You stay in control.</h2></div>
@@ -113,7 +158,6 @@
         <div class="demo-footer"><p aria-live="polite" data-demo-status>Stage 1 of 3: Lead arrives.</p><button class="button" type="button" data-demo-next>Next: complete intake <span aria-hidden="true">→</span></button></div>
       </div>
     </section>
-
     <section class="care-demo section-pad" id="care-hub-demo" aria-labelledby="care-demo-title">
       <div class="section-heading split-heading">
         <div><p class="kicker">SECOND WORKING DEMONSTRATION</p><h2 id="care-demo-title">From first family inquiry to first day—without losing the warm touch.</h2></div>
@@ -133,6 +177,7 @@
         <p class="care-status" aria-live="polite" data-care-status>Care Hub demo ready. Explore the fictional enrollment pipeline.</p>
       </div>
     </section>
+    </div>
 
     <section class="loop-section section-pad" id="how-it-works" aria-labelledby="loop-title">
       <div class="section-heading"><p class="kicker">THE SUPERVISED LOOP</p><h2 id="loop-title">Useful automation stops where judgment begins.</h2></div>
@@ -154,7 +199,7 @@
     </section>
 
     <section class="symptoms section-pad" aria-labelledby="symptoms-title">
-      <div class="section-heading split-heading"><div><p class="kicker">SOUND FAMILIAR?</p><h2 id="symptoms-title">Your tools work. The handoffs don’t.</h2></div><p>Mote Ops does not replace Jobber, QuickBooks, Gmail, or your phone system. It works on the gaps between them.</p></div>
+      <div class="section-heading split-heading"><div><p class="kicker">SOUND FAMILIAR?</p><h2 id="symptoms-title">Your tools work. The operating layer between them is missing.</h2></div><p>Mote Ops does not replace Jobber, QuickBooks, Gmail, your files, or your phone system. It connects the gaps between them with context, rules, and human approval.</p></div>
       <div class="symptom-grid"><article><span>01</span><h3>The call came after hours</h3><p>By the time someone responds, the customer has already called the next company.</p></article><article><span>02</span><h3>The quote went quiet</h3><p>Everyone remembers the follow-up differently, and nobody owns the next step.</p></article><article><span>03</span><h3>The form is incomplete</h3><p>Your office has to chase the same missing details before work can begin.</p></article><article><span>04</span><h3>The owner holds the system together</h3><p>Important work remains visible only because you keep carrying it in your head.</p></article></div>
     </section>
 
@@ -163,14 +208,14 @@
       <div class="pricing-grid">
         <article><span class="price-step">01 · START HERE</span><h3>Workflow Audit</h3><strong>$1,000</strong><p>One week, one workflow, and an honest automate, simplify, configure, or leave it alone verdict.</p><ul><li>Current-state map</li><li>Time and friction tally</li><li>Written recommendation</li></ul></article>
         <article><span class="price-step">02 · PROVE ONE PIECE</span><h3>Micro-Sprint</h3><strong>$1,500–$2,500</strong><p>Test one narrow supervised handoff before committing to a complete installation.</p><ul><li>One bounded workflow</li><li>Synthetic-first testing</li><li>Measured acceptance check</li></ul></article>
-        <article class="featured"><span class="price-step">03 · INSTALL</span><h3>Full Installation</h3><strong>$4,000–$6,000</strong><p>The supervised lead system, adapted to the tools and policies your team already uses.</p><ul><li>Intake and follow-up queue</li><li>Human approval controls</li><li>Training and handoff</li></ul></article>
+        <article class="featured"><span class="price-step">03 · INSTALL</span><h3>Full Installation</h3><strong>$4,000–$6,000</strong><p>A bounded private AI system, adapted to the tools, policies, and approval points your team already uses.</p><ul><li>Configured operating layer</li><li>Human approval controls</li><li>Training and handoff</li></ul></article>
         <article><span class="price-step">04 · OPTIONAL</span><h3>90-Day Support</h3><strong>$750<span>/month</span></strong><p>Three months of monitoring, tuning, training, and measured outcome review.</p><ul><li>Issue review</li><li>Rule adjustments</li><li>End-of-period handoff</li></ul></article>
       </div>
       <p class="pricing-note">If the audit supports a build, Mote Ops scopes the work separately. You are never committed to continuing.</p>
     </section>
 
     <section class="proof-section section-pad" id="proof" aria-labelledby="proof-title">
-      <div class="section-heading"><p class="kicker">WHAT’S REAL TODAY</p><h2 id="proof-title">Working systems. One real client. Results still being established.</h2></div>
+      <div class="section-heading"><p class="kicker">WHAT’S REAL TODAY</p><h2 id="proof-title">Working components across the larger system. One real client. Results still being established.</h2></div>
       <div class="proof-grid"><article class="case-card"><div class="case-top"><span>REAL CLIENT BUILD</span><span>DEMONSTRATION DATA</span></div><h3>CC’s Care Hub</h3><p>A real client project covering enrollment inquiries, tours, forms, follow-ups, and classroom placement. The current workspace uses demonstration data while the operating workflow is validated.</p><div class="case-flow"><span>Inquiry</span><i>→</i><span>Tour</span><i>→</i><span>Forms</span><i>→</i><span>Placement</span></div></article><article class="truth-card"><h3>No inflated proof</h3><p>Mote Ops has technically working intake, classification, drafting, approval queues, meeting follow-up, customer records, and morning briefs.</p><p>Mote Ops is establishing its first measured client results now. You will not see invented ROI, padded customer counts, or autonomous-agent claims here.</p><ul><li>Every public demo uses synthetic data</li><li>Every consequential action stays human-approved</li><li>A no-build recommendation is a valid result</li></ul></article></div>
     </section>
 
@@ -184,14 +229,14 @@
     </section>
 
     <section class="faq section-pad" id="faq" aria-labelledby="faq-title">
-      <div class="section-heading"><p class="kicker">FAIR QUESTIONS</p><h2 id="faq-title">Before you hand anyone a workflow.</h2></div>
-      <div class="faq-list"><details><summary>Does this replace Jobber, ServiceTitan, or QuickBooks?<span>+</span></summary><p>No. If your current software already solves the problem, the audit recommends configuring it. Mote Ops works on the unfinished handoffs between your existing tools.</p></details><details><summary>Does the system contact customers automatically?<span>+</span></summary><p>Not in the first installation. It organizes information and drafts the next action. A person approves, edits, or skips consequential messages.</p></details><details><summary>What access do you need?<span>+</span></summary><p>Only what is necessary for the agreed workflow, defined before work begins. Synthetic and safely scoped tests come before production access.</p></details><details><summary>What happens if the audit says not to build?<span>+</span></summary><p>Then the audit worked. You receive the evidence and a simpler recommendation—configure an existing tool, change the process, or leave it alone.</p></details><details><summary>What happens after an “automate it” verdict?<span>+</span></summary><p>Mote Ops can scope a micro-sprint or full installation separately. The audit never obligates you to continue.</p></details></div>
+      <div class="section-heading"><p class="kicker">FAIR QUESTIONS</p><h2 id="faq-title">Before you connect a private operating layer.</h2></div>
+      <div class="faq-list"><details><summary>Does this replace Jobber, ServiceTitan, or QuickBooks?<span>+</span></summary><p>No. If your current software already solves the problem, the audit recommends configuring it. Mote Ops works on the unfinished handoffs between your existing tools.</p></details><details><summary>Does every installation require a local model?<span>+</span></summary><p>No. Models and infrastructure are configured per client after reviewing privacy, task, and hardware needs. Local models earn their place task by task.</p></details><details><summary>Does the system contact customers automatically?<span>+</span></summary><p>Not in the first installation. It organizes information and drafts the next action. A person approves, edits, or skips consequential messages.</p></details><details><summary>What access do you need?<span>+</span></summary><p>Only what is necessary for the agreed workflow, defined before work begins. Synthetic and safely scoped tests come before production access.</p></details><details><summary>What happens if the audit says not to build?<span>+</span></summary><p>Then the audit worked. You receive the evidence and a simpler recommendation—configure an existing tool, change the process, or leave it alone.</p></details><details><summary>What happens after an “automate it” verdict?<span>+</span></summary><p>Mote Ops can scope a micro-sprint or full installation separately. The audit never obligates you to continue.</p></details></div>
     </section>
 
-    <section class="closing section-pad" aria-labelledby="closing-title"><p class="kicker">START WITH THE GAP</p><h2 id="closing-title">Which lead or follow-up keeps falling through?</h2><p>Bring one workflow to a 30-minute fit call. If it is not a good first project, I’ll say so.</p><div class="closing-actions"><a class="button button-light" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Book the fit call <span>↗</span></a><a class="email-link" href="mailto:hello@moteops.tech?subject=Send%20me%20the%20Mote%20Ops%20diagnostic%20process">Email me the diagnostic process <span>→</span></a></div><small>No pitch deck. No obligation. One honest fit check.</small></section>
+    <section class="closing section-pad" aria-labelledby="closing-title"><p class="kicker">START WITH THE GAP</p><h2 id="closing-title">Where does useful context stop moving through your business?</h2><p>Bring one workflow, handoff, or recurring decision to a 30-minute fit call. If a private AI system is not the right answer, I’ll say so.</p><div class="closing-actions"><a class="button button-light" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Book the fit call <span>↗</span></a><a class="email-link" href="mailto:hello@moteops.tech?subject=Send%20me%20the%20Mote%20Ops%20diagnostic%20process">Email me the diagnostic process <span>→</span></a></div><small>No pitch deck. No obligation. One honest fit check.</small></section>
   </main>
 
-  <footer><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>MOTE OPS</span></a><p>Supervised inquiry and follow-up systems for owner-led small businesses.<br>Built and run by Mike Mote in California.</p><div><a href="mailto:hello@moteops.tech">hello@moteops.tech</a><span>© 2026 Mote Ops</span></div></footer>
+  <footer><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>MOTE OPS</span></a><p>Private AI systems for owner-led small businesses.<br>Built and run by Mike Mote in California.</p><div><a href="mailto:hello@moteops.tech">hello@moteops.tech</a><span>© 2026 Mote Ops</span></div></footer>
   <a class="sticky-cta button" data-sticky-cta aria-hidden="true" tabindex="-1" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Book a fit call <span>↗</span></a>
 </body>
 </html>
