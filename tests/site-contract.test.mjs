@@ -5,6 +5,14 @@ import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
 const html = readFileSync(resolve(root, 'index.html'), 'utf8');
+const css = readFileSync(resolve(root, 'site.css'), 'utf8');
+const js = readFileSync(resolve(root, 'site.js'), 'utf8');
+
+function sectionById(id) {
+  const match = html.match(new RegExp(`<section\\b[^>]*\\bid=["']${id}["'][^>]*>[\\s\\S]*?<\\/section>`, 'i'));
+  assert.ok(match, `missing #${id} section`);
+  return match[0];
+}
 
 test('leads with the private AI system promise in plain language', () => {
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
@@ -28,7 +36,7 @@ test('shows all five layers of the private AI operating system', () => {
 test('states current local-model evidence without making it a universal requirement', () => {
   assert.match(html, /qwen3-coder:30b/);
   assert.match(html, /qwen3:14b/);
-  assert.match(html, /Mike.s current Mac installation/i);
+  assert.match(html, /Mike['’]s current Mac installation/i);
   assert.match(html, /configured per client/i);
   assert.doesNotMatch(html, /every client (?:gets|requires|needs) (?:a )?local (?:LLM|model)/i);
 });
@@ -44,8 +52,8 @@ test('publishes installable systems as equipment plates', () => {
 });
 
 test('contains one connected synthetic lead demonstration', () => {
-  assert.match(html, /id="demo"/);
-  assert.match(html, /Synthetic demonstration.{0,20}sample data/is);
+  const demo = sectionById('demo');
+  assert.match(demo, /Synthetic demonstration.{0,20}sample data/is);
   assert.match(html, /Dana/);
   assert.match(html, /AC not cooling/);
   assert.match(html, /Service address.{0,30}Missing/is);
@@ -58,14 +66,14 @@ test('contains one connected synthetic lead demonstration', () => {
 });
 
 test('includes a safe public CC’s Care Hub demonstration', () => {
-  assert.match(html, /id="care-hub-demo"/);
-  assert.match(html, /CC.s Care Hub/i);
+  const careHubDemo = sectionById('care-hub-demo');
+  assert.match(careHubDemo, /CC['’]s Care Hub/i);
+  assert.match(careHubDemo, /No real family records/i);
   assert.match(html, /Families &amp; Enrollment/i);
   assert.match(html, /Enrollment pipeline/i);
   assert.match(html, /Tour requests/i);
   assert.match(html, /Required forms/i);
   assert.match(html, /Classroom placement/i);
-  assert.match(html, /No real family records/i);
   assert.match(html, /href="https:\/\/care\.moteops\.tech\/"/);
   assert.match(html, /Owner access.{0,40}sign-in required/is);
 });
@@ -93,7 +101,7 @@ test('includes visitor-controlled friction math without guaranteed results', () 
 });
 
 test('describes current proof precisely', () => {
-  assert.match(html, /CC.s Care Hub/i);
+  assert.match(html, /CC['’]s Care Hub/i);
   assert.match(html, /real client (?:build|project)/i);
   assert.match(html, /demonstration data/i);
   assert.match(html, /establishing (?:its|our) first measured client results/i);
@@ -130,16 +138,29 @@ test('references local assets that exist and supports reduced motion', () => {
 });
 
 test('does not expose private local services or production client data', () => {
-  assert.doesNotMatch(html, /(?:localhost|127\.0\.0\.1|0\.0\.0\.0):(?:11434|8787)/i);
-  assert.doesNotMatch(html, /api\/tags|token=/i);
-  assert.match(html, /No live connection to Mike.s Mac/i);
+  const publicSources = [html, css, js].join('\n');
+  const privateHost = String.raw`(?:localhost|0\.0\.0\.0|127(?:\.\d{1,3}){3}|10(?:\.\d{1,3}){3}|192\.168(?:\.\d{1,3}){2}|172\.(?:1[6-9]|2\d|3[01])(?:\.\d{1,3}){2}|\[?::1\]?|[\w.-]+\.local)`;
+  const privatePath = String.raw`(?:\/api\/tags\b|\/ollama(?:\/|\b)|\/voice[-_]?os(?:\/|\b)|\/agent-bridge(?:\/|\b)|\/client[-_](?:data|records)(?:\/|\b)|token=)`;
+  assert.doesNotMatch(publicSources, new RegExp(privateHost, 'i'));
+  assert.doesNotMatch(publicSources, new RegExp(privatePath, 'i'));
+  assert.doesNotMatch(html, new RegExp(String.raw`<(?:form|a|link|script|img|source|iframe)\b[^>]*(?:action|href|src)=["'][^"']*(?:${privateHost}|${privatePath})`, 'i'));
+  assert.doesNotMatch(js, /\b(?:fetch|EventSource|WebSocket)\s*\(|\b(?:navigator\.)?sendBeacon\s*\(|\bnew\s+XMLHttpRequest\b/i);
+  assert.match(html, /No live connection to Mike['’]s Mac/i);
 });
 
 test('uses the non-blue workbench palette', () => {
-  const css = readFileSync(resolve(root, 'site.css'), 'utf8');
   for (const token of ['--bone', '--soot', '--forest', '--copper', '--signal']) {
     assert.match(css, new RegExp(token));
   }
-  assert.doesNotMatch(css, /#5046e5|#3328b8|#149eb5/i);
+  const prohibitedColorFamilies = /\b(?:blue|indigo|purple|violet|cyan|teal|navy|aqua|turquoise)\b/i;
+  const legacyColors = /(?:#(?:5046e5|3328b8|149eb5)\b|rgba?\(\s*(?:80\s*,\s*70\s*,\s*229|51\s*,\s*40\s*,\s*184|20\s*,\s*158\s*,\s*181)(?:\s*,[^)]*)?\)|hsla?\(\s*(?:243(?:\.\d+)?\s*(?:deg)?\s*,\s*76(?:\.\d+)?%\s*,\s*59(?:\.\d+)?%|245(?:\.\d+)?\s*(?:deg)?\s*,\s*66(?:\.\d+)?%\s*,\s*44(?:\.\d+)?%|188(?:\.\d+)?\s*(?:deg)?\s*,\s*80(?:\.\d+)?%\s*,\s*39(?:\.\d+)?%)(?:\s*,[^)]*)?\))/i;
+  assert.doesNotMatch(css, prohibitedColorFamilies);
+  assert.doesNotMatch(css, legacyColors);
   assert.doesNotMatch(css, /linear-gradient|radial-gradient/i);
+});
+
+test('keeps synthetic-data disclosures inside each public demonstration', () => {
+  assert.match(sectionById('aios-workbench'), /Synthetic demonstration/i);
+  assert.match(sectionById('demo'), /Synthetic demonstration.{0,20}sample data/is);
+  assert.match(sectionById('care-hub-demo'), /No real family records/i);
 });

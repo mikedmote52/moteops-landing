@@ -56,11 +56,14 @@ test('routes synthetic requests through the five AIOS layers', () => {
   assert.match(js, /SYSTEM_ROUTES/);
   assert.match(js, /data-system-layer/);
   assert.match(js, /data-system-evidence/);
+  assert.match(js, /function\s+setSystemRoute\b[\s\S]{0,1800}(?:classList\.(?:add|remove|toggle)|hidden\s*=|setAttribute\()[\s\S]{0,1800}(?:textContent|innerText|replaceChildren)[\s\S]{0,1000}\bannounce\s*\(/i);
 });
 
 test('supports approval and reset without contacting a live service', () => {
   assert.match(js, /data-system-approve/);
   assert.match(js, /data-system-reset/);
   assert.match(js, /Synthetic route approved/i);
-  assert.doesNotMatch(js, /fetch\s*\(|XMLHttpRequest|WebSocket/);
+  assert.match(js, /data-system-approve[\s\S]{0,1200}addEventListener\s*\(\s*['"]click['"][\s\S]{0,1200}(?:textContent|innerText|classList\.|hidden\s*=|setAttribute\()[\s\S]{0,600}\bannounce\s*\(/i);
+  assert.match(js, /data-system-reset[\s\S]{0,1200}addEventListener\s*\(\s*['"]click['"][\s\S]{0,1200}(?:setSystemRoute\s*\(|textContent|innerText|classList\.|hidden\s*=|setAttribute\()[\s\S]{0,600}\bannounce\s*\(/i);
+  assert.doesNotMatch(js, /\b(?:fetch|EventSource|WebSocket)\s*\(|\b(?:navigator\.)?sendBeacon\s*\(|\bnew\s+XMLHttpRequest\b/i);
 });
