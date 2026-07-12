@@ -16,6 +16,160 @@ function announce(message, region = demoStatus) {
   if (region) region.textContent = message;
 }
 
+const DEMO_GALLERY = ['operator', 'documents', 'leads', 'care'];
+const galleryTabButtons = [...document.querySelectorAll('[data-gallery-demo]')];
+const galleryPanels = [...document.querySelectorAll('[data-gallery-panel]')];
+
+function setGalleryDemo(name) {
+  const selectedName = DEMO_GALLERY.includes(name) ? name : DEMO_GALLERY[0];
+  galleryTabButtons.forEach((button) => {
+    const active = button.dataset.galleryDemo === selectedName;
+    button.setAttribute('aria-selected', String(active));
+    button.tabIndex = active ? 0 : -1;
+  });
+  galleryPanels.forEach((panel) => {
+    const active = panel.dataset.galleryPanel === selectedName;
+    panel.hidden = !active;
+    const tab = galleryTabButtons.find((button) => button.dataset.galleryDemo === panel.dataset.galleryPanel);
+    if (tab) panel.setAttribute('aria-labelledby', tab.id);
+  });
+}
+
+galleryTabButtons.forEach((button, index) => {
+  button.addEventListener('click', () => setGalleryDemo(button.dataset.galleryDemo));
+  button.addEventListener('keydown', (event) => {
+    let nextIndex;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % galleryTabButtons.length;
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + galleryTabButtons.length) % galleryTabButtons.length;
+    else if (event.key === 'Home') nextIndex = 0;
+    else if (event.key === 'End') nextIndex = galleryTabButtons.length - 1;
+    else return;
+    event.preventDefault();
+    const nextButton = galleryTabButtons[nextIndex];
+    setGalleryDemo(nextButton.dataset.galleryDemo);
+    nextButton.focus();
+  });
+});
+
+document.querySelectorAll('[data-open-demo]').forEach((link) => link.addEventListener('click', () => {
+  setGalleryDemo(link.dataset.openDemo);
+  galleryTabButtons.find((button) => button.dataset.galleryDemo === link.dataset.openDemo)?.focus();
+}));
+
+const OPERATOR_REQUESTS = {
+  attention: {
+    request: 'What needs my attention today?',
+    context: 'Current project notes, commitments, and open decisions',
+    route: 'Owner status brief',
+    result: 'Two customer follow-ups and one project decision need review today.',
+    approval: 'You approve every customer-facing action.',
+    status: 'Synthetic owner brief ready for review. Nothing was sent or changed.'
+  },
+  projects: {
+    request: 'Which projects are waiting on me?',
+    context: 'Fictional project notes, decision records, and next steps',
+    route: 'Project decision review',
+    result: 'The Northstar estimate and Cedar launch date are waiting for owner decisions.',
+    approval: 'Only you can confirm a price or delivery date.',
+    status: 'Synthetic project review ready. Nothing was sent or changed.'
+  },
+  followups: {
+    request: 'Prepare my afternoon follow-ups',
+    context: 'Fictional customer commitments and today\'s open conversations',
+    route: 'Supervised follow-up drafts',
+    result: 'Three bounded follow-up drafts are prepared for your review.',
+    approval: 'Every draft waits for your approval before sending.',
+    status: 'Synthetic follow-up drafts ready. Nothing was sent or changed.'
+  }
+};
+
+const operatorRequestButtons = [...document.querySelectorAll('[data-operator-request]')];
+const operatorRequestText = document.querySelector('[data-operator-request-text]');
+const operatorContext = document.querySelector('[data-operator-context]');
+const operatorRoute = document.querySelector('[data-operator-route]');
+const operatorResult = document.querySelector('[data-operator-result]');
+const operatorApproval = document.querySelector('[data-operator-approval]');
+const operatorApprove = document.querySelector('[data-operator-approve]');
+const operatorStatus = document.querySelector('[data-operator-status]');
+const operatorApproveLabel = operatorApprove?.textContent ?? 'Approve sample brief';
+
+function renderOperatorRequest(data) {
+  operatorRequestText.textContent = data.request;
+  operatorContext.textContent = data.context;
+  operatorRoute.textContent = data.route;
+  operatorResult.textContent = data.result;
+  operatorApproval.textContent = data.approval;
+  announce(data.status, operatorStatus);
+}
+
+function setOperatorRequest(name) {
+  const data = OPERATOR_REQUESTS[name];
+  if (!data) return setOperatorRequest('attention');
+  operatorRequestButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.operatorRequest === name)));
+  operatorApprove?.setAttribute('aria-pressed', 'false');
+  if (operatorApprove) operatorApprove.textContent = operatorApproveLabel;
+  renderOperatorRequest(data);
+}
+
+operatorRequestButtons.forEach((button) => button.addEventListener('click', () => setOperatorRequest(button.dataset.operatorRequest)));
+operatorApprove?.addEventListener('click', () => {
+  operatorApprove.setAttribute('aria-pressed', 'true');
+  operatorApprove.textContent = 'Sample brief approved';
+  announce('Sample brief approved in this local demonstration. Nothing was sent or changed.', operatorStatus);
+});
+
+const DOCUMENT_TASKS = {
+  commitments: {
+    task: 'Find overdue commitments',
+    finding: 'One customer update is overdue.',
+    source: 'Customer Commitments.csv, row 4 (fictional source)',
+    status: 'Synthetic finding ready for review.'
+  },
+  policy: {
+    task: 'Summarize the service policy',
+    finding: 'Owner review is required before after-hours dispatch.',
+    source: 'Northstar Service Policy.pdf, p. 3 (fictional source)',
+    status: 'Synthetic policy summary ready for review.'
+  },
+  dates: {
+    task: 'Compare project dates',
+    finding: 'The Cedar milestone follows the Northstar review by four business days.',
+    source: 'Q3 Project Notes.docx, fictional schedule table',
+    status: 'Synthetic date comparison ready for review.'
+  }
+};
+
+const documentTaskButtons = [...document.querySelectorAll('[data-document-task]')];
+const documentReset = document.querySelector('[data-document-reset]');
+const documentFindings = document.querySelector('[data-document-findings]');
+const documentSource = document.querySelector('[data-document-source]');
+const documentStatus = document.querySelector('[data-document-status]');
+const documentIntro = {
+  finding: 'Choose a bounded task to inspect the fictional source files.',
+  source: 'Only the three listed fictional sources will be used.',
+  status: 'Document demonstration reset and ready. No files were read and nothing was changed.'
+};
+
+function renderDocumentTask(data) {
+  documentFindings.textContent = data.finding;
+  documentSource.textContent = data.source;
+  documentStatus.textContent = data.status;
+  announce(data.status, documentStatus);
+}
+
+function runDocumentTask(name) {
+  const data = DOCUMENT_TASKS[name];
+  if (!data) return runDocumentTask('commitments');
+  documentTaskButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.documentTask === name)));
+  renderDocumentTask(data);
+}
+
+documentTaskButtons.forEach((button) => button.addEventListener('click', () => runDocumentTask(button.dataset.documentTask)));
+documentReset?.addEventListener('click', () => {
+  documentTaskButtons.forEach((button) => button.setAttribute('aria-pressed', 'false'));
+  renderDocumentTask(documentIntro);
+});
+
 const SYSTEM_ROUTES = {
   brief: {
     input: 'Phone request',
@@ -270,7 +424,7 @@ document.querySelectorAll('[data-care-form]').forEach((button) => button.addEven
 if (careTabButtons.length) setCareTab('pipeline');
 
 const heroBooking = document.querySelector('#hero-booking');
-const stickyGuardSections = ['#aios-workbench', '#demo', '#care-hub-demo']
+const stickyGuardSections = ['#demo-gallery']
   .map((selector) => document.querySelector(selector))
   .filter(Boolean);
 const stickyCta = document.querySelector('[data-sticky-cta]');
@@ -303,6 +457,9 @@ window.addEventListener('scroll', updateStickyCta, { passive: true });
 window.addEventListener('resize', updateStickyCta);
 
 setDemoState(0);
+if (galleryTabButtons.length) setGalleryDemo('operator');
+if (operatorRequestButtons.length) setOperatorRequest('attention');
+if (documentTaskButtons.length) runDocumentTask('commitments');
 if (systemRouteButtons.length) setSystemRoute('brief');
 updateStickyCta();
 requestAnimationFrame(() => requestAnimationFrame(updateStickyCta));
