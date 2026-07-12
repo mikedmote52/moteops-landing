@@ -129,27 +129,21 @@ test('demotes architecture to a collapsed disclosure after the demo gallery', ()
 
 test('marks exactly one in-hero element as the sticky CTA visibility boundary', () => {
   assert.equal((html.match(/\bid=["']hero-booking["']/gi) ?? []).length, 1);
-  assert.match(
-    html,
-    /<section\b[^>]*class=["'][^"']*\bhero\b[^"']*["'][^>]*>[\s\S]*?<a\b[^>]*\bid=["']hero-booking["'][^>]*\bhref=["']#aios-workbench["'][^>]*>\s*Trace a request through the system/i,
-  );
+  const hero = sectionById('top');
+  const booking = [...hero.matchAll(/<a\b[^>]*>[\s\S]*?<\/a>/gi)]
+    .map(([source]) => source).find((source) => attribute(source.match(/<a\b[^>]*>/i)?.[0] ?? '', 'id') === 'hero-booking');
+  assert.ok(booking, '#hero-booking must be inside the hero');
+  assert.equal(attribute(booking.match(/<a\b[^>]*>/i)?.[0] ?? '', 'href'), '#problem-recognition');
+  assert.equal(booking.replace(/<[^>]+>/g, '').replace(/\s*[↓→]\s*$/, '').trim(), 'See what Mote Ops can fix');
 });
 
-test('shows all five layers of the private AI operating system', () => {
-  assert.match(html, /id="aios-workbench"/);
+test('keeps all five concise architecture layers in the collapsed post-gallery disclosure', () => {
+  const architecture = elementById('architecture-details', 'details');
+  assert.doesNotMatch(architecture.openingTag, /\bopen(?:\s*=|\s|>)/i);
   for (const layer of ['Inputs', 'Context', 'Intelligence', 'Control', 'Outputs']) {
-    assert.match(html, new RegExp(`data-system-layer="${layer.toLowerCase()}"`, 'i'));
+    assert.match(architecture.source, new RegExp(`data-system-layer=["']${layer.toLowerCase()}["'][^>]*>[\\s\\S]{0,160}<strong>${layer}<\\/strong>`, 'i'));
   }
-  assert.match(html, /What needs my attention today/i);
-  assert.match(html, /Synthetic demonstration/i);
-  assert.match(html, /human-approved/i);
-});
-
-test('implements complete ARIA tabs for the system route panel', () => {
-  for (const id of ['system-route-brief', 'system-route-private-files', 'system-route-follow-up']) {
-    assert.match(html, new RegExp(`<button\\b[^>]*\\bid="${id}"[^>]*\\baria-controls="system-panel"`, 'i'));
-  }
-  assert.match(html, /<div\b[^>]*role="tabpanel"[^>]*id="system-panel"[^>]*aria-labelledby="system-route-brief"/i);
+  assert.ok(elementById('demo-gallery', 'section').end <= architecture.start);
 });
 
 test('publishes a truthful three-category evidence ledger', () => {
@@ -174,16 +168,20 @@ test('describes the operator day with the correct tasks and times', () => {
   assert.match(day, /4:45 PM[\s\S]*owner approves follow-ups[\s\S]*records decisions/i);
 });
 
-test('starts with morning-brief intelligence copy', () => {
-  assert.match(html, /data-system-model>Current project state is summarized with the configured task model\./i);
-  assert.doesNotMatch(html, /data-system-model>A local model handles the synthetic private-file task\./i);
+test('starts the operator panel with a complete owner-attention request', () => {
+  const operator = galleryPanelRanges(elementById('demo-gallery', 'section')).find(({ panel }) => panel === 'operator')?.source ?? '';
+  assert.match(operator, /<dt>Request<\/dt><dd>What needs my attention today\?<\/dd>/i);
+  assert.match(operator, /<dt>Attached context<\/dt><dd>Current project notes, commitments, and open decisions<\/dd>/i);
+  assert.match(operator, /<dt>Route<\/dt><dd>Owner status brief<\/dd>/i);
+  assert.match(operator, /<dt>Sample result<\/dt><dd>Two customer follow-ups and one project decision need review today\.<\/dd>/i);
+  assert.match(operator, /<dt>Approval requirement<\/dt><dd>You approve every customer-facing action\.<\/dd>/i);
 });
 
-test('shows mobile descriptions only for the current route layer', () => {
+test('keeps gallery navigation scrollable and workspaces single-column on mobile', () => {
   const mobile = css.match(/@media\(max-width:760px\)\{[\s\S]*?\}\s*@media\(prefers-reduced-motion:reduce\)/)?.[0] ?? '';
-  assert.match(mobile, /\[data-system-layer\] p\{display:none\}/);
-  assert.match(css, /\[data-system-layer\]\.is-active:not\(\.is-current\) p\{display:none\}/);
-  assert.match(css, /\[data-system-layer\]\.is-current p\{display:block\}/);
+  assert.match(mobile, /\.gallery-tabs\s*\{[^}]*overflow-x\s*:\s*auto/i);
+  assert.match(mobile, /\[data-gallery-panel\][^{]*\{[^}]*grid-template-columns\s*:\s*1fr/i);
+  assert.match(mobile, /\.(?:operator-workspace|document-workspace)[^{]*\{[^}]*grid-template-columns\s*:\s*1fr/i);
 });
 
 test('states current local-model evidence without making it a universal requirement', () => {
@@ -326,7 +324,10 @@ test('uses the non-blue workbench palette', () => {
 });
 
 test('keeps synthetic-data disclosures inside each public demonstration', () => {
-  assert.match(sectionById('aios-workbench'), /Synthetic demonstration/i);
-  assert.match(sectionById('demo'), /Synthetic demonstration.{0,20}sample data/is);
-  assert.match(sectionById('care-hub-demo'), /No real family records/i);
+  const panels = galleryPanelRanges(elementById('demo-gallery', 'section'));
+  for (const name of ['operator', 'documents', 'leads', 'care']) {
+    const panel = panels.find(({ panel }) => panel === name)?.source ?? '';
+    assert.match(panel, /Synthetic demonstration/i, `${name} panel needs its own synthetic disclosure`);
+    assert.match(panel, /No live (?:business data|connection)/i, `${name} panel needs its own no-live-data disclosure`);
+  }
 });
