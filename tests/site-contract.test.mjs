@@ -170,11 +170,13 @@ test('describes the operator day with the correct tasks and times', () => {
 
 test('starts the operator panel with a complete owner-attention request', () => {
   const operator = galleryPanelRanges(elementById('demo-gallery', 'section')).find(({ panel }) => panel === 'operator')?.source ?? '';
-  assert.match(operator, /<dt>Request<\/dt><dd>What needs my attention today\?<\/dd>/i);
-  assert.match(operator, /<dt>Attached context<\/dt><dd>Current project notes, commitments, and open decisions<\/dd>/i);
-  assert.match(operator, /<dt>Route<\/dt><dd>Owner status brief<\/dd>/i);
-  assert.match(operator, /<dt>Sample result<\/dt><dd>Two customer follow-ups and one project decision need review today\.<\/dd>/i);
-  assert.match(operator, /<dt>Approval requirement<\/dt><dd>You approve every customer-facing action\.<\/dd>/i);
+  assert.match(operator, /<dt>Request<\/dt><dd\s+data-operator-request-text>What needs my attention today\?<\/dd>/i);
+  assert.match(operator, /<dt>Attached context<\/dt><dd\s+data-operator-context>Current project notes, commitments, and open decisions<\/dd>/i);
+  assert.match(operator, /<dt>Route<\/dt><dd\s+data-operator-route>Owner status brief<\/dd>/i);
+  assert.match(operator, /<dt>Sample result<\/dt><dd\s+data-operator-result>Two customer follow-ups and one project decision need review today\.<\/dd>/i);
+  assert.match(operator, /<dt>Approval requirement<\/dt><dd\s+data-operator-approval>You approve every customer-facing action\.<\/dd>/i);
+  assert.match(operator, /data-operator-approve[^>]*aria-pressed="false"/i);
+  assert.match(operator, /aria-live="polite"\s+data-operator-status/i);
 });
 
 test('keeps gallery navigation scrollable and workspaces single-column on mobile', () => {
