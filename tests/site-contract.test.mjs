@@ -23,6 +23,48 @@ test('leads with the private AI system promise in plain language', () => {
   assert.match(html, /human approval/i);
 });
 
+test('leads with customer problems before demos or architecture', () => {
+  assert.match(html, /Your business is running on your memory, your inbox, and too many open tabs/i);
+  assert.match(html, /finds the repetitive work slowing you down/i);
+  for (const phrase of [
+    'drowning in follow-ups',
+    "inbox has become your company's to-do list",
+    'struggle to find the latest customer',
+    'inquiries arrive after hours',
+    'because you remember it',
+    "want to use AI in your business, but you don't know where to begin",
+  ]) assert.match(html, new RegExp(phrase, 'i'));
+
+  const problemsIndex = html.indexOf('Does this sound familiar?');
+  const galleryIndex = html.indexOf('id="demo-gallery"');
+  const architectureIndex = html.indexOf('id="architecture-details"');
+  assert.ok(problemsIndex >= 0, 'missing customer-problem section');
+  assert.ok(galleryIndex >= 0, 'missing demo gallery');
+  assert.ok(architectureIndex >= 0, 'missing architecture disclosure');
+  assert.ok(problemsIndex < galleryIndex, 'customer problems must appear before demos');
+  assert.ok(galleryIndex < architectureIndex, 'demos must appear before architecture');
+});
+
+test('publishes four accessible outcome-led demos with persistent safety disclosures', () => {
+  const gallery = sectionById('demo-gallery');
+  const tabs = [...gallery.matchAll(/<button\b[^>]*\brole=["']tab["'][^>]*\bdata-gallery-demo=["'](operator|documents|leads|care)["'][^>]*>([\s\S]*?)<\/button>/gi)];
+  assert.deepEqual(tabs.map(([, value]) => value), ['operator', 'documents', 'leads', 'care']);
+  assert.equal((gallery.match(/\brole=["']tabpanel["']/gi) ?? []).length, 1);
+  for (const label of ['What needs my attention', 'Review a private document', 'Follow up with a lead', 'Run a care workflow']) {
+    assert.match(gallery, new RegExp(label, 'i'));
+  }
+  for (const demo of ['operator', 'documents', 'leads', 'care']) {
+    const workspace = gallery.match(new RegExp(`<[^>]+\\bdata-gallery-workspace=["']${demo}["'][^>]*>[\\s\\S]*?<\\/[^>]+>`, 'i'))?.[0] ?? '';
+    assert.match(workspace, /Synthetic demonstration/i, `${demo} workspace needs a synthetic-data label`);
+    assert.match(workspace, /No live (?:business data|connection)/i, `${demo} workspace needs a no-live-data label`);
+  }
+});
+
+test('demotes architecture to a collapsed disclosure after the demo gallery', () => {
+  assert.match(html, /<details\b(?![^>]*\bopen\b)[^>]*\bid=["']architecture-details["'][^>]*>/i);
+  assert.ok(html.indexOf('id="demo-gallery"') < html.indexOf('id="architecture-details"'));
+});
+
 test('marks exactly one in-hero element as the sticky CTA visibility boundary', () => {
   assert.equal((html.match(/\bid=["']hero-booking["']/gi) ?? []).length, 1);
   assert.match(

@@ -5,6 +5,41 @@ import { resolve } from 'node:path';
 
 const js = readFileSync(resolve(import.meta.dirname, '..', 'site.js'), 'utf8');
 
+test('implements the four-demo gallery with wrapped keyboard navigation', () => {
+  assert.match(js, /DEMO_GALLERY/);
+  assert.match(js, /setGalleryDemo/);
+  for (const key of ['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End']) {
+    assert.match(js, new RegExp(key));
+  }
+  assert.match(js, /(?:galleryTabButtons|galleryTabs)[\s\S]{0,2500}preventDefault\s*\(\s*\)[\s\S]{0,800}\.focus\s*\(\s*\)/i);
+  assert.match(js, /(?:%\s*(?:galleryTabButtons|galleryTabs)\.length|index\s*===\s*-1|index\s*<\s*0)/i);
+});
+
+test('updates every operator request field from local demo data', () => {
+  assert.match(js, /OPERATOR_REQUESTS/);
+  assert.match(js, /setOperatorRequest/);
+  for (const field of ['request', 'context', 'route', 'result', 'approval']) {
+    assert.match(js, new RegExp(`data-operator-${field}`, 'i'));
+  }
+  assert.match(js, /function\s+setOperatorRequest\b[\s\S]{0,2500}(?:textContent|innerText|replaceChildren)/i);
+});
+
+test('runs document tasks and updates findings, source, and status locally', () => {
+  assert.match(js, /DOCUMENT_TASKS/);
+  assert.match(js, /runDocumentTask/);
+  for (const field of ['findings', 'source', 'status']) {
+    assert.match(js, new RegExp(`data-document-${field}`, 'i'));
+  }
+  assert.match(js, /function\s+runDocumentTask\b[\s\S]{0,2500}(?:textContent|innerText|replaceChildren)/i);
+});
+
+test('retains lead and Care selectors inside the unified gallery', () => {
+  assert.match(js, /\[data-demo-state\]/);
+  assert.match(js, /\[data-demo-next\]/);
+  assert.match(js, /\[data-care-task\]/);
+  assert.match(js, /\[data-care-form\]/);
+});
+
 test('implements explicit three-state demo navigation', () => {
   assert.match(js, /currentDemoState/);
   assert.match(js, /setDemoState/);
@@ -35,7 +70,7 @@ test('maintains accessible sticky CTA and announces interaction status', () => {
 });
 
 test('suppresses the sticky booking action while any interactive demo is in view', () => {
-  for (const selector of ['#aios-workbench', '#demo', '#care-hub-demo']) {
+  for (const selector of ['#aios-workbench', '#demo', '#care-hub-demo', '#demo-gallery']) {
     assert.match(js, new RegExp(`['"]${selector}['"]`));
   }
   assert.match(js, /stickyGuardSections/);
