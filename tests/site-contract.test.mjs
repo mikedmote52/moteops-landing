@@ -152,10 +152,22 @@ test('uses the non-blue workbench palette', () => {
   for (const token of ['--bone', '--soot', '--forest', '--copper', '--signal']) {
     assert.match(css, new RegExp(token));
   }
+  const approvedHexColors = new Set([
+    '#eee5d1', '#f7f0df', '#171713', '#292820', '#173b30', '#285747',
+    '#9b552f', '#d94b24', '#b7ad43', '#6d695d', '#bcb29c', '#fff', '#ffffff',
+  ]);
+  const usedHexColors = [...css.matchAll(/#[\da-f]{3}(?:[\da-f]{3})?\b/gi)]
+    .map(([color]) => color.toLowerCase());
+  const unapprovedHexColors = [...new Set(usedHexColors.filter((color) => !approvedHexColors.has(color)))].sort();
+  assert.deepEqual(unapprovedHexColors, [], `unapproved CSS hex colors: ${unapprovedHexColors.join(', ')}`);
+
+  const colorFunctions = [...css.matchAll(/\b(?:rgba?|hsla?)\([^)]*\)/gi)].map(([color]) => color);
+  const neutralAlphaShadow = /^rgba?\(\s*0(?:\s*,\s*0){2}\s*(?:,|\/)\s*(?:0?\.\d+|0|1(?:\.0+)?)\s*\)$/i;
+  const unapprovedColorFunctions = [...new Set(colorFunctions.filter((color) => !neutralAlphaShadow.test(color)))].sort();
+  assert.deepEqual(unapprovedColorFunctions, [], `unapproved CSS color functions: ${unapprovedColorFunctions.join(', ')}`);
+
   const prohibitedColorFamilies = /\b(?:blue|indigo|purple|violet|cyan|teal|navy|aqua|turquoise)\b/i;
-  const legacyColors = /(?:#(?:5046e5|3328b8|149eb5)\b|rgba?\(\s*(?:80\s*,\s*70\s*,\s*229|51\s*,\s*40\s*,\s*184|20\s*,\s*158\s*,\s*181)(?:\s*,[^)]*)?\)|hsla?\(\s*(?:243(?:\.\d+)?\s*(?:deg)?\s*,\s*76(?:\.\d+)?%\s*,\s*59(?:\.\d+)?%|245(?:\.\d+)?\s*(?:deg)?\s*,\s*66(?:\.\d+)?%\s*,\s*44(?:\.\d+)?%|188(?:\.\d+)?\s*(?:deg)?\s*,\s*80(?:\.\d+)?%\s*,\s*39(?:\.\d+)?%)(?:\s*,[^)]*)?\))/i;
   assert.doesNotMatch(css, prohibitedColorFamilies);
-  assert.doesNotMatch(css, legacyColors);
   assert.doesNotMatch(css, /linear-gradient|radial-gradient/i);
 });
 
