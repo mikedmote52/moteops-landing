@@ -12,9 +12,85 @@ let currentDemoState = 0;
 const stateLabels = ['Lead arrives', 'Intake completes', 'Owner brief'];
 const nextLabels = ['Next: complete intake', 'Next: open owner brief', 'Restart demo'];
 
-function announce(message) {
-  if (demoStatus) demoStatus.textContent = message;
+function announce(message, region = demoStatus) {
+  if (region) region.textContent = message;
 }
+
+const SYSTEM_ROUTES = {
+  brief: {
+    input: 'Phone request',
+    inputCopy: 'The owner asks what needs attention from the secure phone interface.',
+    model: 'Current project state is summarized with the configured task model.',
+    output: 'Owner brief',
+    ready: 'Morning-brief route traced. The sample output is waiting for owner review.'
+  },
+  'private-files': {
+    input: 'Selected private files',
+    inputCopy: 'The owner selects a bounded set of documents for local review.',
+    model: 'The sample task routes to a local model; no file leaves the demonstration.',
+    output: 'Private review notes',
+    ready: 'Private-file route traced. The synthetic notes remain local to this page.'
+  },
+  'follow-up': {
+    input: 'Open customer item',
+    inputCopy: 'A supervised queue surfaces one incomplete customer follow-up.',
+    model: 'A task-appropriate model prepares a draft using the sample policy context.',
+    output: 'Approval-ready draft',
+    ready: 'Follow-up route traced. The sample draft is waiting for owner approval.'
+  }
+};
+
+const systemRouteButtons = [...document.querySelectorAll('[data-system-route]')];
+const systemLayers = [...document.querySelectorAll('[data-system-layer]')];
+const systemEvidence = document.querySelector('[data-system-evidence]');
+const systemStatus = document.querySelector('[data-system-status]');
+const systemInputTitle = document.querySelector('[data-system-layer-title]');
+const systemInputCopy = document.querySelector('[data-system-layer-copy]');
+const systemModel = document.querySelector('[data-system-model]');
+const systemOutput = document.querySelector('[data-system-output]');
+const reduceSystemMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+let systemRouteRun = 0;
+
+function setSystemRoute(routeName) {
+  const route = SYSTEM_ROUTES[routeName] ?? SYSTEM_ROUTES.brief;
+  const selectedRoute = SYSTEM_ROUTES[routeName] ? routeName : 'brief';
+  systemRouteButtons.forEach((button) => {
+    const active = button.dataset.systemRoute === selectedRoute;
+    button.classList.toggle('is-active', active);
+    button.setAttribute('aria-selected', String(active));
+    button.tabIndex = active ? 0 : -1;
+  });
+  const routeRun = ++systemRouteRun;
+  systemLayers.forEach((layer, index) => {
+    layer.classList.remove('is-active');
+    layer.style.transitionDelay = reduceSystemMotion ? '0ms' : `${index * 90}ms`;
+  });
+  const activateLayers = () => {
+    if (routeRun !== systemRouteRun) return;
+    systemLayers.forEach((layer) => layer.classList.add('is-active'));
+  };
+  if (reduceSystemMotion) activateLayers();
+  else requestAnimationFrame(() => requestAnimationFrame(activateLayers));
+  if (systemInputTitle) systemInputTitle.textContent = route.input;
+  if (systemInputCopy) systemInputCopy.textContent = route.inputCopy;
+  if (systemModel) systemModel.textContent = route.model;
+  if (systemOutput) systemOutput.textContent = route.output;
+  systemEvidence?.classList.remove('is-approved');
+  announce(route.ready, systemStatus);
+}
+
+systemRouteButtons.forEach((button) => button.addEventListener('click', () => setSystemRoute(button.dataset.systemRoute)));
+
+document.querySelector('[data-system-approve]')?.addEventListener('click', () => {
+  systemEvidence?.classList.add('is-approved');
+  announce('Synthetic route approved. Nothing was sent and no live system was changed.', systemStatus);
+});
+
+document.querySelector('[data-system-reset]')?.addEventListener('click', () => {
+  setSystemRoute('brief');
+  systemEvidence?.classList.remove('is-approved');
+  announce('Synthetic workbench reset to the morning-brief route. Nothing was sent.', systemStatus);
+});
 
 function setDemoState(nextState) {
   currentDemoState = Math.max(0, Math.min(2, Number(nextState)));
@@ -189,5 +265,6 @@ window.addEventListener('scroll', updateStickyCta, { passive: true });
 window.addEventListener('resize', updateStickyCta);
 
 setDemoState(0);
+if (systemRouteButtons.length) setSystemRoute('brief');
 updateStickyCta();
 requestAnimationFrame(() => requestAnimationFrame(updateStickyCta));
