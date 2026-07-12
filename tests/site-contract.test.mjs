@@ -98,9 +98,20 @@ test('publishes four accessible outcome-led demos with persistent safety disclos
   assert.equal(new Set(panels.map(({ id }) => id)).size, 4, 'gallery panel ids must be unique');
   assert.deepEqual(tabs.map((tag) => attribute(tag, 'aria-controls')), panels.map(({ id }) => id));
   assert.deepEqual(panels.map(({ openingTag }) => attribute(openingTag, 'aria-labelledby')), tabIds);
-  for (const label of ['What needs my attention', 'Review a private document', 'Follow up with a lead', 'Run a care workflow']) {
-    assert.match(gallery.source, new RegExp(label, 'i'));
-  }
+  const approvedLabels = {
+    operator: 'Know What Needs Attention Today',
+    documents: 'Find Answers Inside Your Business Information',
+    leads: 'Stop Losing New Leads',
+    care: 'Keep Every Family Moving Toward Enrollment',
+  };
+  tabs.forEach((openingTag) => {
+    const demo = attribute(openingTag, 'data-gallery-demo');
+    const start = gallery.source.indexOf(openingTag);
+    const end = gallery.source.indexOf('</button>', start);
+    assert.ok(end >= 0, `${demo} gallery tab needs a closing button tag`);
+    const label = gallery.source.slice(start + openingTag.length, end).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+    assert.equal(label, approvedLabels[demo], `${demo} tab needs its exact approved outcome label`);
+  });
   for (const panel of panels) {
     assert.match(panel.source, /Synthetic demonstration/i, `${panel.panel} workspace needs a synthetic-data label`);
     assert.match(panel.source, /No live (?:business data|connection)/i, `${panel.panel} workspace needs a no-live-data label`);

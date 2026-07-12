@@ -5,17 +5,20 @@ import { resolve } from 'node:path';
 
 const js = readFileSync(resolve(import.meta.dirname, '..', 'site.js'), 'utf8');
 
-function assertCachedFieldWrite(functionName, selector, valueExpression) {
+function topLevelFunction(name) {
+  const match = js.match(new RegExp(`function\\s+${name}\\s*\\([^)]*\\)\\s*\\{[\\s\\S]*?\\n\\}(?=\\n(?:\\n|function\\s|(?:const|let|var)\\s|[A-Za-z_$][\\w$]*[?.]*\\.))`, 'i'));
+  assert.ok(match, `missing conventionally bounded top-level ${name} helper`);
+  return match[0];
+}
+
+function assertRenderField(helper, selector, valueExpression) {
   const escape = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const direct = js.match(new RegExp(`(?:const|let)\\s+([A-Za-z_$][\\w$]*)\\s*=\\s*document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)`, 'i'));
   const objectField = js.match(new RegExp(`(?:const|let)\\s+([A-Za-z_$][\\w$]*)\\s*=\\s*\\{[\\s\\S]{0,1200}?([A-Za-z_$][\\w$]*)\\s*:\\s*document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)`, 'i'));
   const reference = direct?.[1] ?? (objectField ? `${objectField[1]}.${objectField[2]}` : null);
-  assert.ok(reference, `${selector} needs a named cached element or field reference`);
-  assert.match(
-    js,
-    new RegExp(`function\\s+${functionName}\\s*\\([^)]*\\)\\s*\\{[\\s\\S]{0,3000}${escape(reference)}\\s*(?:\\?\\.)?\\s*(?:textContent|innerText|replaceChildren)[\\s\\S]{0,120}${escape(valueExpression)}`, 'i'),
-    `${functionName} must write ${selector} from ${valueExpression}`,
-  );
+  const cachedWrite = reference && new RegExp(`${escape(reference)}\\s*(?:\\?\\.)?\\s*(?:textContent|innerText)\\s*=\\s*${escape(valueExpression)}|${escape(reference)}\\s*(?:\\?\\.)?\\s*replaceChildren\\(\\s*${escape(valueExpression)}`, 'i').test(helper);
+  const directWrite = new RegExp(`document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)\\s*(?:\\?\\.)?\\s*(?:textContent|innerText)\\s*=\\s*${escape(valueExpression)}`, 'i').test(helper);
+  assert.ok(cachedWrite || directWrite, `${selector} must be written from ${valueExpression} inside its render helper`);
 }
 
 test('implements the four-demo gallery with wrapped keyboard navigation', () => {
@@ -30,20 +33,22 @@ test('implements the four-demo gallery with wrapped keyboard navigation', () => 
 
 test('updates every operator request field from local demo data', () => {
   assert.match(js, /OPERATOR_REQUESTS/);
-  assert.match(js, /function\s+setOperatorRequest\s*\(([^)]*)\)\s*\{[\s\S]{0,700}(?:const|let)\s+request\s*=\s*OPERATOR_REQUESTS\s*\[[^\]]+\]/i, 'setOperatorRequest must select its request from OPERATOR_REQUESTS');
+  assert.match(js, /function\s+setOperatorRequest\s*\(\s*name\s*\)\s*\{\s*const\s+data\s*=\s*OPERATOR_REQUESTS\s*\[\s*name\s*\][\s\S]{0,300}renderOperatorRequest\(\s*data\s*\)/i);
+  const helper = topLevelFunction('renderOperatorRequest');
   for (const field of ['request', 'context', 'route', 'result', 'approval']) {
-    assertCachedFieldWrite('setOperatorRequest', `data-operator-${field}`, `request.${field}`);
+    assertRenderField(helper, `data-operator-${field}`, `data.${field}`);
   }
-  assert.match(js, /function\s+setOperatorRequest\s*\([^)]*\)\s*\{[\s\S]{0,3000}\bannounce\s*\(/i, 'setOperatorRequest must announce its result');
+  assert.match(helper, /\bannounce\s*\(/i, 'renderOperatorRequest must announce its result');
 });
 
 test('runs document tasks and updates findings, source, and status locally', () => {
   assert.match(js, /DOCUMENT_TASKS/);
-  assert.match(js, /function\s+runDocumentTask\s*\(([^)]*)\)\s*\{[\s\S]{0,700}(?:const|let)\s+task\s*=\s*DOCUMENT_TASKS\s*\[[^\]]+\]/i, 'runDocumentTask must select its task from DOCUMENT_TASKS');
-  assertCachedFieldWrite('runDocumentTask', 'data-document-findings', 'task.finding');
-  assertCachedFieldWrite('runDocumentTask', 'data-document-source', 'task.source');
-  assertCachedFieldWrite('runDocumentTask', 'data-document-status', 'task.status');
-  assert.match(js, /function\s+runDocumentTask\s*\([^)]*\)\s*\{[\s\S]{0,3000}\bannounce\s*\(/i, 'runDocumentTask must announce its result');
+  assert.match(js, /function\s+runDocumentTask\s*\(\s*name\s*\)\s*\{\s*const\s+data\s*=\s*DOCUMENT_TASKS\s*\[\s*name\s*\][\s\S]{0,300}renderDocumentTask\(\s*data\s*\)/i);
+  const helper = topLevelFunction('renderDocumentTask');
+  assertRenderField(helper, 'data-document-findings', 'data.finding');
+  assertRenderField(helper, 'data-document-source', 'data.source');
+  assertRenderField(helper, 'data-document-status', 'data.status');
+  assert.match(helper, /\bannounce\s*\(/i, 'renderDocumentTask must announce its result');
   assert.match(js, /data-document-reset[\s\S]{0,1200}addEventListener\s*\(\s*['"]click['"][\s\S]{0,1200}(?:data-document-findings|data-document-source|data-document-status|runDocumentTask)[\s\S]{0,500}\bannounce\s*\(/i, 'document reset must restore fields and announce');
 });
 
