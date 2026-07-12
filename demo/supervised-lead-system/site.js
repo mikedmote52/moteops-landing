@@ -59,27 +59,27 @@ document.querySelectorAll('[data-open-demo]').forEach((link) => link.addEventLis
 const OPERATOR_REQUESTS = {
   attention: {
     request: 'What needs my attention today?',
-    context: 'Current project notes, commitments, and open decisions',
-    route: 'Owner status brief',
-    result: 'Two customer follow-ups and one project decision need review today.',
-    approval: 'You approve every customer-facing action.',
+    context: 'Synthetic project statuses, commitments, and open decisions',
+    route: 'Project/status routing → owner attention brief',
+    result: 'Two fictional customer follow-ups and one synthetic project decision need review today.',
+    approval: 'You approve every customer-facing action; this sample changes nothing.',
     status: 'Synthetic owner brief ready for review. Nothing was sent or changed.'
   },
-  projects: {
-    request: 'Which projects are waiting on me?',
-    context: 'Fictional project notes, decision records, and next steps',
-    route: 'Project decision review',
-    result: 'The Northstar estimate and Cedar launch date are waiting for owner decisions.',
-    approval: 'Only you can confirm a price or delivery date.',
-    status: 'Synthetic project review ready. Nothing was sent or changed.'
+  care: {
+    request: "Continue the CC's Care Hub project.",
+    context: "Synthetic CC's Care Hub project status, latest completed step, and fictional next task",
+    route: "Project/status routing → CC's Care Hub project",
+    result: 'The synthetic enrollment-workspace review is complete; the fictional next task is to verify the forms view.',
+    approval: 'You choose whether work continues; no project or client record is changed.',
+    status: "Synthetic CC's Care Hub project status ready. Nothing was sent or changed."
   },
-  followups: {
-    request: 'Prepare my afternoon follow-ups',
-    context: 'Fictional customer commitments and today\'s open conversations',
-    route: 'Supervised follow-up drafts',
-    result: 'Three bounded follow-up drafts are prepared for your review.',
-    approval: 'Every draft waits for your approval before sending.',
-    status: 'Synthetic follow-up drafts ready. Nothing was sent or changed.'
+  private: {
+    request: 'Review these files privately.',
+    context: 'Only the three listed fictional source files in the document demonstration',
+    route: 'Bounded private-file review → prerecorded local-model sample',
+    result: 'One fictional commitment is overdue, with its synthetic source attached.',
+    approval: 'The bounded review is read-only; no live files are opened, uploaded, or changed.',
+    status: 'Synthetic bounded private-file review ready. No live connection was made.'
   }
 };
 
@@ -168,120 +168,6 @@ documentTaskButtons.forEach((button) => button.addEventListener('click', () => r
 documentReset?.addEventListener('click', () => {
   documentTaskButtons.forEach((button) => button.setAttribute('aria-pressed', 'false'));
   renderDocumentTask(documentIntro);
-});
-
-const SYSTEM_ROUTES = {
-  brief: {
-    input: 'Phone request',
-    inputCopy: 'The owner asks what needs attention from the secure phone interface.',
-    model: 'Current project state is summarized with the configured task model.',
-    output: 'Owner brief',
-    ready: 'Morning-brief route traced. The sample output is waiting for owner review.'
-  },
-  'private-files': {
-    input: 'Selected private files',
-    inputCopy: 'The owner selects a bounded set of documents for local review.',
-    model: 'The sample task routes to a local model; no file leaves the demonstration.',
-    output: 'Private review notes',
-    ready: 'Private-file route traced. The synthetic notes remain local to this page.'
-  },
-  'follow-up': {
-    input: 'Open customer item',
-    inputCopy: 'A supervised queue surfaces one incomplete customer follow-up.',
-    model: 'A task-appropriate model prepares a draft using the sample policy context.',
-    output: 'Approval-ready draft',
-    ready: 'Follow-up route traced. The sample draft is waiting for owner approval.'
-  }
-};
-
-const systemRouteButtons = [...document.querySelectorAll('[data-system-route]')];
-const systemLayers = [...document.querySelectorAll('[data-system-layer]')];
-const systemPanel = document.querySelector('#system-panel');
-const systemEvidence = document.querySelector('[data-system-evidence]');
-const systemStatus = document.querySelector('[data-system-status]');
-const systemInputTitle = document.querySelector('[data-system-layer-title]');
-const systemInputCopy = document.querySelector('[data-system-layer-copy]');
-const systemModel = document.querySelector('[data-system-model]');
-const systemOutput = document.querySelector('[data-system-output]');
-const systemApprove = document.querySelector('[data-system-approve]');
-const systemApproveLabel = systemApprove?.textContent ?? 'Approve sample output';
-const reduceSystemMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-let systemRouteRun = 0;
-
-function resetSystemApproval() {
-  if (!systemApprove) return;
-  systemApprove.setAttribute('aria-pressed', 'false');
-  systemApprove.textContent = systemApproveLabel;
-}
-
-function setSystemRoute(routeName) {
-  const route = SYSTEM_ROUTES[routeName] ?? SYSTEM_ROUTES.brief;
-  const selectedRoute = SYSTEM_ROUTES[routeName] ? routeName : 'brief';
-  systemRouteButtons.forEach((button) => {
-    const active = button.dataset.systemRoute === selectedRoute;
-    button.classList.toggle('is-active', active);
-    button.setAttribute('aria-selected', String(active));
-    button.tabIndex = active ? 0 : -1;
-  });
-  const activeButton = systemRouteButtons.find((button) => button.dataset.systemRoute === selectedRoute);
-  if (systemPanel && activeButton) systemPanel.setAttribute('aria-labelledby', activeButton.id);
-  const routeRun = ++systemRouteRun;
-  systemLayers.forEach((layer) => {
-    layer.classList.remove('is-active', 'is-current');
-    layer.style.transitionDelay = '0ms';
-  });
-  const activateLayers = () => {
-    if (routeRun !== systemRouteRun) return;
-    systemLayers.forEach((layer) => layer.classList.add('is-active'));
-    systemLayers[systemLayers.length - 1]?.classList.add('is-current');
-  };
-  if (reduceSystemMotion) activateLayers();
-  else requestAnimationFrame(() => requestAnimationFrame(() => {
-    systemLayers.forEach((layer, index) => {
-      window.setTimeout(() => {
-        if (routeRun !== systemRouteRun) return;
-        systemLayers.forEach((currentLayer) => currentLayer.classList.remove('is-current'));
-        layer.classList.add('is-active', 'is-current');
-      }, index * 120);
-    });
-  }));
-  if (systemInputTitle) systemInputTitle.textContent = route.input;
-  if (systemInputCopy) systemInputCopy.textContent = route.inputCopy;
-  if (systemModel) systemModel.textContent = route.model;
-  if (systemOutput) systemOutput.textContent = route.output;
-  resetSystemApproval();
-  announce(route.ready, systemStatus);
-}
-
-systemRouteButtons.forEach((button, index) => {
-  button.addEventListener('click', () => setSystemRoute(button.dataset.systemRoute));
-  button.addEventListener('keydown', (event) => {
-    const lastIndex = systemRouteButtons.length - 1;
-    let nextIndex;
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % systemRouteButtons.length;
-    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + systemRouteButtons.length) % systemRouteButtons.length;
-    else if (event.key === 'Home') nextIndex = 0;
-    else if (event.key === 'End') nextIndex = lastIndex;
-    else return;
-
-    event.preventDefault();
-    const nextButton = systemRouteButtons[nextIndex];
-    setSystemRoute(nextButton.dataset.systemRoute);
-    nextButton.focus();
-  });
-});
-
-systemApprove?.setAttribute('aria-pressed', 'false');
-systemApprove?.addEventListener('click', () => {
-  systemApprove.setAttribute('aria-pressed', 'true');
-  systemApprove.textContent = 'Sample output approved';
-  announce('Synthetic route approved. Nothing was sent and no live system was changed.', systemStatus);
-});
-
-document.querySelector('[data-system-reset]')?.addEventListener('click', () => {
-  setSystemRoute('brief');
-  resetSystemApproval();
-  announce('Synthetic workbench reset to the morning-brief route. Nothing was sent.', systemStatus);
 });
 
 function setDemoState(nextState) {
@@ -460,6 +346,5 @@ setDemoState(0);
 if (galleryTabButtons.length) setGalleryDemo('operator');
 if (operatorRequestButtons.length) setOperatorRequest('attention');
 if (documentTaskButtons.length) runDocumentTask('commitments');
-if (systemRouteButtons.length) setSystemRoute('brief');
 updateStickyCta();
 requestAnimationFrame(() => requestAnimationFrame(updateStickyCta));

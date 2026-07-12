@@ -53,6 +53,20 @@ test('updates every operator request field from local demo data', () => {
   assert.match(js, /operatorApprove\?\.addEventListener\s*\(\s*['"]click['"][\s\S]{0,500}Sample brief approved[\s\S]{0,500}Nothing was sent or changed[\s\S]{0,200}operatorStatus/i);
 });
 
+test('defines exact operator prompts and truthful synthetic routing evidence', () => {
+  for (const key of ['attention', 'care', 'private']) assert.match(js, new RegExp(`\\b${key}\\s*:`));
+  for (const prompt of [
+    'What needs my attention today?',
+    "Continue the CC's Care Hub project.",
+    'Review these files privately.',
+  ]) assert.ok(js.includes(prompt), `missing exact operator prompt: ${prompt}`);
+  assert.match(js, /project\/status routing/i);
+  assert.match(js, /CC's Care Hub project/i);
+  assert.match(js, /only the three listed fictional source files/i);
+  assert.match(js, /bounded private-file review/i);
+  assert.doesNotMatch(js, /\b(?:projects|followups)\s*:/);
+});
+
 test('runs document tasks and updates findings, source, and status locally', () => {
   assert.match(js, /DOCUMENT_TASKS/);
   assert.match(js, /function\s+runDocumentTask\s*\(\s*name\s*\)\s*\{\s*const\s+data\s*=\s*DOCUMENT_TASKS\s*\[\s*name\s*\][\s\S]{0,300}renderDocumentTask\(\s*data\s*\)/i);
@@ -122,47 +136,7 @@ test('implements Care Hub tabs and local-only task and form controls', () => {
   assert.match(js, /Care Hub demo/i);
 });
 
-test('routes synthetic requests through the five AIOS layers', () => {
-  assert.match(js, /systemRouteButtons/);
-  assert.match(js, /setSystemRoute/);
-  assert.match(js, /SYSTEM_ROUTES/);
-  assert.match(js, /data-system-layer/);
-  assert.match(js, /data-system-evidence/);
-  assert.match(js, /function\s+setSystemRoute\b[\s\S]{0,1800}(?:classList\.(?:add|remove|toggle)|hidden\s*=|setAttribute\()[\s\S]{0,1800}(?:textContent|innerText|replaceChildren)[\s\S]{0,1000}\bannounce\s*\(/i);
-});
-
-test('tracks one current layer while completing a sequential route', () => {
-  assert.match(js, /classList\.remove\(['"]is-active['"],\s*['"]is-current['"]\)/);
-  assert.match(js, /systemLayers\.forEach\(\(currentLayer\)\s*=>\s*currentLayer\.classList\.remove\(['"]is-current['"]\)\)/);
-  assert.match(js, /layer\.classList\.add\(['"]is-active['"],\s*['"]is-current['"]\)/);
-  assert.match(js, /systemLayers\[systemLayers\.length\s*-\s*1\][\s\S]{0,100}classList\.add\(['"]is-current['"]\)/);
-});
-
-test('keeps the route tab connected to the changing panel', () => {
-  assert.match(js, /systemPanel/);
-  assert.match(js, /setAttribute\(['"]aria-labelledby['"],\s*activeButton\.id\)/);
-});
-
-test('supports wrapped keyboard navigation between system routes', () => {
-  assert.match(js, /ArrowRight/);
-  assert.match(js, /ArrowDown/);
-  assert.match(js, /ArrowLeft/);
-  assert.match(js, /ArrowUp/);
-  assert.match(js, /Home/);
-  assert.match(js, /End/);
-  assert.match(js, /preventDefault\s*\(\s*\)/);
-  assert.match(js, /\.focus\s*\(\s*\)/);
-});
-
-test('supports approval and reset without contacting a live service', () => {
-  assert.match(js, /data-system-approve/);
-  assert.match(js, /data-system-reset/);
-  assert.match(js, /Synthetic route approved/i);
-  assert.match(js, /setAttribute\(\s*['"]aria-pressed['"]\s*,\s*['"]true['"]\s*\)/);
-  assert.match(js, /setAttribute\(\s*['"]aria-pressed['"]\s*,\s*['"]false['"]\s*\)/);
-  assert.match(js, /Sample output approved/);
-  assert.match(js, /Approve sample output/);
-  assert.match(js, /systemApprove\?\.addEventListener\s*\(\s*['"]click['"][\s\S]{0,1200}(?:textContent|innerText|classList\.|hidden\s*=|setAttribute\()[\s\S]{0,600}\bannounce\s*\(/i);
-  assert.match(js, /data-system-reset[\s\S]{0,1200}addEventListener\s*\(\s*['"]click['"][\s\S]{0,1200}(?:setSystemRoute\s*\(|textContent|innerText|classList\.|hidden\s*=|setAttribute\()[\s\S]{0,600}\bannounce\s*\(/i);
+test('has no obsolete interactive architecture route controller and keeps network safety', () => {
+  assert.doesNotMatch(js, /SYSTEM_ROUTES|systemRouteButtons|setSystemRoute|data-system-(?:route|approve|reset|status|evidence)/);
   assert.doesNotMatch(js, /\b(?:fetch|EventSource|WebSocket)\s*\(|\b(?:navigator\.)?sendBeacon\s*\(|\bnew\s+XMLHttpRequest\b/i);
 });

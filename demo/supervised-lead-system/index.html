@@ -13,8 +13,8 @@
   <meta property="og:image" content="https://moteops.tech/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="site.css?v=demo-first-1">
-  <script src="site.js?v=demo-first-1" defer></script>
+  <link rel="stylesheet" href="site.css?v=demo-first-2">
+  <script src="site.js?v=demo-first-2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -62,21 +62,21 @@
       </div>
 
       <div id="gallery-panel-operator" role="tabpanel" aria-labelledby="gallery-tab-operator" data-gallery-panel="operator" tabindex="0">
-        <div class="section-heading split-heading"><div><p class="kicker">Mote Ops Operator demonstration</p><h3>Ask what needs attention from wherever the day takes you.</h3></div><p>This proves that an owner can ask for current business status from a phone while project context and approval boundaries stay attached.</p></div>
+        <div class="section-heading split-heading"><div><p class="kicker">Mote Ops Operator demonstration</p><h3>Ask what needs attention from wherever the day takes you.</h3></div><p>What this proves: An owner can ask for current business status from a phone while project context and approval boundaries stay attached.</p></div>
         <div class="demo-label"><span>Working pattern</span> · <span>Synthetic public data</span> · <span>Synthetic demonstration</span> · <span>No live connection to Mike’s Mac</span></div>
         <div class="product-window operator-workspace">
-          <div class="system-requests" aria-label="Sample owner requests"><button type="button" data-operator-request="attention" aria-pressed="true">What needs my attention today?</button><button type="button" data-operator-request="projects" aria-pressed="false">Which projects are waiting on me?</button><button type="button" data-operator-request="followups" aria-pressed="false">Prepare my afternoon follow-ups</button></div>
-          <dl><div><dt>Request</dt><dd data-operator-request-text>What needs my attention today?</dd></div><div><dt>Attached context</dt><dd data-operator-context>Current project notes, commitments, and open decisions</dd></div><div><dt>Route</dt><dd data-operator-route>Owner status brief</dd></div><div><dt>Sample result</dt><dd data-operator-result>Two customer follow-ups and one project decision need review today.</dd></div><div><dt>Approval requirement</dt><dd data-operator-approval>You approve every customer-facing action.</dd></div></dl>
+          <div class="system-requests" aria-label="Sample owner requests"><button type="button" data-operator-request="attention" aria-pressed="true">What needs my attention today?</button><button type="button" data-operator-request="care" aria-pressed="false">Continue the CC's Care Hub project.</button><button type="button" data-operator-request="private" aria-pressed="false">Review these files privately.</button></div>
+          <dl><div><dt>Request</dt><dd data-operator-request-text>What needs my attention today?</dd></div><div><dt>Attached context</dt><dd data-operator-context>Synthetic project statuses, commitments, and open decisions</dd></div><div><dt>Route</dt><dd data-operator-route>Project/status routing → owner attention brief</dd></div><div><dt>Sample result</dt><dd data-operator-result>Two fictional customer follow-ups and one synthetic project decision need review today.</dd></div><div><dt>Approval requirement</dt><dd data-operator-approval>You approve every customer-facing action; this sample changes nothing.</dd></div></dl>
           <div class="operator-actions"><button type="button" data-operator-approve aria-pressed="false">Approve sample brief</button><p aria-live="polite" data-operator-status>Sample owner brief ready for review.</p></div>
         </div>
       </div>
 
       <div id="gallery-panel-documents" role="tabpanel" aria-labelledby="gallery-tab-documents" data-gallery-panel="documents" tabindex="0" hidden>
-        <div class="section-heading split-heading"><div><p class="kicker">Private document-review demonstration</p><h3>Find a bounded answer without digging through files.</h3></div><p>Review fictional business information while every finding stays tied to its source.</p></div>
+        <div class="section-heading split-heading"><div><p class="kicker">Private document-review demonstration</p><h3>Find a bounded answer without digging through files.</h3></div><p>What this proves: A bounded review can keep every synthetic finding tied to its fictional source.</p></div>
         <div class="demo-label"><span>Working pattern</span> · <span>Synthetic public data</span> · <span>Synthetic demonstration</span> · <span>No live connection</span></div>
         <div class="product-window document-workspace">
           <aside><h4>Fictional source files</h4><ul><li>Northstar Service Policy.pdf</li><li>Q3 Project Notes.docx</li><li>Customer Commitments.csv</li></ul></aside>
-          <div><div class="system-requests" aria-label="Bounded document tasks"><button type="button" data-document-task="commitments" aria-pressed="true">Find overdue commitments</button><button type="button" data-document-task="policy" aria-pressed="false">Summarize the service policy</button><button type="button" data-document-task="dates" aria-pressed="false">Compare project dates</button></div><section><h4>Synthetic findings</h4><p data-document-findings>One customer update is overdue [Customer Commitments.csv, row 4]. The service policy requires owner review before after-hours dispatch [Northstar Service Policy.pdf, p. 3].</p><p data-document-source><strong>Model and evidence:</strong> Sample review; each finding is limited to the listed fictional sources.</p><p aria-live="polite" data-document-status><strong>Status:</strong> Ready for review</p><button type="button" data-document-reset>Reset</button></section></div>
+          <div><p><strong>Model demonstration:</strong> Mike's current verified Ollama installation includes qwen3-coder:30b and qwen3:14b. The displayed output is prerecorded and synthetic and makes no live connection.</p><p><strong>Scope:</strong> Only the three listed fictional source files are included in this bounded review.</p><div class="system-requests" aria-label="Bounded document tasks"><button type="button" data-document-task="commitments" aria-pressed="true">Find overdue commitments</button><button type="button" data-document-task="policy" aria-pressed="false">Summarize the service policy</button><button type="button" data-document-task="dates" aria-pressed="false">Compare project dates</button></div><section><h4>Synthetic findings</h4><p data-document-findings>One customer update is overdue [Customer Commitments.csv, row 4]. The service policy requires owner review before after-hours dispatch [Northstar Service Policy.pdf, p. 3].</p><p data-document-source><strong>Model and evidence:</strong> Prerecorded sample review; each finding is limited to the listed fictional sources.</p><p aria-live="polite" data-document-status><strong>Status:</strong> Ready for review</p><button type="button" data-document-reset>Reset</button></section></div>
         </div>
       </div>
 
@@ -85,7 +85,7 @@
     <section class="demo-section section-pad" id="demo" aria-labelledby="demo-title">
       <div class="section-heading split-heading">
         <div><p class="kicker">TRY THE WORKFLOW</p><h2 id="demo-title">One lead. Three moments. You stay in control.</h2></div>
-        <p>Move Dana’s sample inquiry from raw voicemail to owner-ready action. Nothing in this demonstration sends or saves outside this page.</p>
+        <p>What this proves: A messy lead can become an owner-ready next step without sending or saving anything outside this page.</p>
       </div>
 
       <div class="demo-shell">
@@ -142,7 +142,7 @@
     <section class="care-demo section-pad" id="care-hub-demo" aria-labelledby="care-demo-title">
       <div class="section-heading split-heading">
         <div><p class="kicker">SECOND WORKING DEMONSTRATION</p><h2 id="care-demo-title">From first family inquiry to first day—without losing the warm touch.</h2></div>
-        <p>The same supervised pattern, applied to a learning center: keep enrollment inquiries, tours, forms, follow-ups, and classroom placement in one director-reviewed workspace.</p>
+        <p>What this proves: A director can keep enrollment inquiries, tours, forms, follow-ups, and classroom placement in one supervised workspace.</p>
       </div>
       <div class="care-app">
         <header class="care-head"><div><span class="care-logo">CC</span><div><strong>CC’s Care Hub</strong><small>Families &amp; Enrollment</small></div></div><a href="https://care.moteops.tech/" target="_blank" rel="noopener noreferrer">Owner access — sign-in required <span aria-hidden="true">↗</span></a></header>
@@ -164,7 +164,7 @@
     <details class="section-pad" id="architecture-details">
       <summary>How Mote Ops builds these systems</summary>
       <ol class="signal-path"><li data-system-layer="inputs"><strong>Inputs</strong><p>The phone, email, files, and software where work begins.</p></li><li data-system-layer="context"><strong>Context</strong><p>Current business information and source material.</p></li><li data-system-layer="intelligence"><strong>Intelligence</strong><p>The task-appropriate model, chosen for the work.</p></li><li data-system-layer="control"><strong>Control</strong><p>Permissions, boundaries, and human approval.</p></li><li data-system-layer="outputs"><strong>Outputs</strong><p>Briefs, drafts, decisions, and visible next steps.</p></li></ol>
-      <div class="evidence-ledger"><section><h4>Verified on Mike’s Mac</h4><p>Mike’s current Mac installation: Ollama qwen3-coder:30b and qwen3:14b; canonical operating context and bridge artifacts; working Voice OS components and phone-access patterns; tested project/status routing; CC’s Care Hub build.</p></section><section><h4>Demonstrated publicly</h4><p>Synthetic routing, sample local-model response, sample approval, and sample control-center records.</p></section><section><h4>Configured per client</h4><p>Integrations, permissions, retention, local-versus-cloud choice, and live business data.</p></section></div>
+      <div class="evidence-ledger"><section><h4>Working on Mike's Mac</h4><p>Mike’s current Mac installation: Ollama qwen3-coder:30b and qwen3:14b; canonical operating context and bridge artifacts; working Voice OS components and phone-access patterns; tested project/status routing; CC’s Care Hub build.</p></section><section><h4>Simulated on this public site</h4><p>Synthetic routing, prerecorded sample local-model response, sample approval, and sample control-center records.</p></section><section><h4>Configured per client</h4><p>Integrations, permissions, retention, local-versus-cloud model choice, hardware, and live business data.</p></section></div>
     </details>
 
     <section class="systems-section section-pad" id="systems" aria-labelledby="systems-title">

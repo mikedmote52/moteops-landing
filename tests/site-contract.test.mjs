@@ -147,17 +147,25 @@ test('keeps all five concise architecture layers in the collapsed post-gallery d
 });
 
 test('publishes a truthful three-category evidence ledger', () => {
-  for (const heading of ['Verified on Mike’s Mac', 'Demonstrated publicly', 'Configured per client']) {
+  for (const heading of ["Working on Mike's Mac", 'Simulated on this public site', 'Configured per client']) {
     assert.match(html, new RegExp(heading, 'i'));
   }
   for (const phrase of [
     'qwen3-coder:30b', 'qwen3:14b', 'canonical operating context', 'Voice OS',
     'project/status routing', 'CC’s Care Hub', 'synthetic routing',
     'sample local-model response', 'sample approval', 'sample control-center records',
-    'integrations', 'permissions', 'retention', 'local-versus-cloud choice', 'live business data',
+    'integrations', 'permissions', 'retention', 'local-versus-cloud model choice', 'hardware', 'live business data',
   ]) assert.match(html, new RegExp(phrase, 'i'));
   assert.match(html, /working Voice OS components and phone-access patterns/i);
   assert.doesNotMatch(html, /working Voice OS(?! components)/i);
+});
+
+test('starts every demonstration panel with a plain-language proof sentence', () => {
+  const panels = galleryPanelRanges(elementById('demo-gallery', 'section'));
+  for (const name of ['operator', 'documents', 'leads', 'care']) {
+    const panel = panels.find(({ panel }) => panel === name)?.source ?? '';
+    assert.match(panel, /<div class="section-heading[^>]*>[\s\S]*?<p>What this proves:/i, `${name} panel needs a header proof sentence`);
+  }
 });
 
 test('describes the operator day with the correct tasks and times', () => {
@@ -171,12 +179,33 @@ test('describes the operator day with the correct tasks and times', () => {
 test('starts the operator panel with a complete owner-attention request', () => {
   const operator = galleryPanelRanges(elementById('demo-gallery', 'section')).find(({ panel }) => panel === 'operator')?.source ?? '';
   assert.match(operator, /<dt>Request<\/dt><dd\s+data-operator-request-text>What needs my attention today\?<\/dd>/i);
-  assert.match(operator, /<dt>Attached context<\/dt><dd\s+data-operator-context>Current project notes, commitments, and open decisions<\/dd>/i);
-  assert.match(operator, /<dt>Route<\/dt><dd\s+data-operator-route>Owner status brief<\/dd>/i);
-  assert.match(operator, /<dt>Sample result<\/dt><dd\s+data-operator-result>Two customer follow-ups and one project decision need review today\.<\/dd>/i);
-  assert.match(operator, /<dt>Approval requirement<\/dt><dd\s+data-operator-approval>You approve every customer-facing action\.<\/dd>/i);
+  assert.match(operator, /<dt>Attached context<\/dt><dd\s+data-operator-context>Synthetic project statuses, commitments, and open decisions<\/dd>/i);
+  assert.match(operator, /<dt>Route<\/dt><dd\s+data-operator-route>Project\/status routing → owner attention brief<\/dd>/i);
+  assert.match(operator, /<dt>Sample result<\/dt><dd\s+data-operator-result>Two fictional customer follow-ups and one synthetic project decision need review today\.<\/dd>/i);
+  assert.match(operator, /<dt>Approval requirement<\/dt><dd\s+data-operator-approval>You approve every customer-facing action; this sample changes nothing\.<\/dd>/i);
   assert.match(operator, /data-operator-approve[^>]*aria-pressed="false"/i);
   assert.match(operator, /aria-live="polite"\s+data-operator-status/i);
+});
+
+test('offers the three exact operator prompts with stable routing keys', () => {
+  const operator = galleryPanelRanges(elementById('demo-gallery', 'section')).find(({ panel }) => panel === 'operator')?.source ?? '';
+  const expected = [
+    ['attention', 'What needs my attention today?'],
+    ['care', "Continue the CC's Care Hub project."],
+    ['private', 'Review these files privately.'],
+  ];
+  for (const [key, prompt] of expected) {
+    const escaped = prompt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    assert.match(operator, new RegExp(`data-operator-request=["']${key}["'][^>]*>${escaped}<\\/button>`, 'i'));
+  }
+});
+
+test('documents the verified local models and the synthetic no-connection scope inside the document panel', () => {
+  const documents = galleryPanelRanges(elementById('demo-gallery', 'section')).find(({ panel }) => panel === 'documents')?.source ?? '';
+  assert.match(documents, /Mike['’]s current verified Ollama installation[^<]*qwen3-coder:30b[^<]*qwen3:14b/i);
+  assert.match(documents, /displayed output is prerecorded and synthetic/i);
+  assert.match(documents, /makes no live connection/i);
+  assert.match(documents, /Scope:<\/strong> Only the three listed fictional source files/i);
 });
 
 test('keeps gallery navigation scrollable and workspaces single-column on mobile', () => {
@@ -288,6 +317,8 @@ test('references local assets that exist and supports reduced motion', () => {
   for (const path of local) assert.ok(existsSync(resolve(root, path)), `missing ${path}`);
   const css = readFileSync(resolve(root, 'site.css'), 'utf8');
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
+  assert.match(html, /site\.css\?v=demo-first-2/);
+  assert.match(html, /site\.js\?v=demo-first-2/);
 });
 
 test('does not expose private local services or production client data', () => {
