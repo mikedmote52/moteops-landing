@@ -48,8 +48,16 @@ const systemInputTitle = document.querySelector('[data-system-layer-title]');
 const systemInputCopy = document.querySelector('[data-system-layer-copy]');
 const systemModel = document.querySelector('[data-system-model]');
 const systemOutput = document.querySelector('[data-system-output]');
+const systemApprove = document.querySelector('[data-system-approve]');
+const systemApproveLabel = systemApprove?.textContent ?? 'Approve sample output';
 const reduceSystemMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 let systemRouteRun = 0;
+
+function resetSystemApproval() {
+  if (!systemApprove) return;
+  systemApprove.setAttribute('aria-pressed', 'false');
+  systemApprove.textContent = systemApproveLabel;
+}
 
 function setSystemRoute(routeName) {
   const route = SYSTEM_ROUTES[routeName] ?? SYSTEM_ROUTES.brief;
@@ -75,20 +83,38 @@ function setSystemRoute(routeName) {
   if (systemInputCopy) systemInputCopy.textContent = route.inputCopy;
   if (systemModel) systemModel.textContent = route.model;
   if (systemOutput) systemOutput.textContent = route.output;
-  systemEvidence?.classList.remove('is-approved');
+  resetSystemApproval();
   announce(route.ready, systemStatus);
 }
 
-systemRouteButtons.forEach((button) => button.addEventListener('click', () => setSystemRoute(button.dataset.systemRoute)));
+systemRouteButtons.forEach((button, index) => {
+  button.addEventListener('click', () => setSystemRoute(button.dataset.systemRoute));
+  button.addEventListener('keydown', (event) => {
+    const lastIndex = systemRouteButtons.length - 1;
+    let nextIndex;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % systemRouteButtons.length;
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + systemRouteButtons.length) % systemRouteButtons.length;
+    else if (event.key === 'Home') nextIndex = 0;
+    else if (event.key === 'End') nextIndex = lastIndex;
+    else return;
 
-document.querySelector('[data-system-approve]')?.addEventListener('click', () => {
-  systemEvidence?.classList.add('is-approved');
+    event.preventDefault();
+    const nextButton = systemRouteButtons[nextIndex];
+    setSystemRoute(nextButton.dataset.systemRoute);
+    nextButton.focus();
+  });
+});
+
+systemApprove?.setAttribute('aria-pressed', 'false');
+systemApprove?.addEventListener('click', () => {
+  systemApprove.setAttribute('aria-pressed', 'true');
+  systemApprove.textContent = 'Sample output approved';
   announce('Synthetic route approved. Nothing was sent and no live system was changed.', systemStatus);
 });
 
 document.querySelector('[data-system-reset]')?.addEventListener('click', () => {
   setSystemRoute('brief');
-  systemEvidence?.classList.remove('is-approved');
+  resetSystemApproval();
   announce('Synthetic workbench reset to the morning-brief route. Nothing was sent.', systemStatus);
 });
 
