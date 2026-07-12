@@ -41,3 +41,11 @@ test('suppresses the sticky booking action while demo controls are in view', () 
   assert.match(js, /updateStickyCta/);
   assert.match(js, /!heroInView\s*&&\s*!demoInView/);
 });
+
+test('implements Care Hub tabs and local-only task and form controls', () => {
+  assert.match(js, /careTabButtons/);
+  assert.match(js, /setCareTab/);
+  assert.match(js, /\[data-care-task\]/);
+  assert.match(js, /\[data-care-form\]/);
+  assert.match(js, /Care Hub demo/i);
+});

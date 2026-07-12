@@ -123,6 +123,38 @@ function updateCalculator() {
 calculator?.addEventListener('input', updateCalculator);
 updateCalculator();
 
+const careTabButtons = [...document.querySelectorAll('[data-care-tab]')];
+const carePanels = [...document.querySelectorAll('[data-care-panel]')];
+const careStatus = document.querySelector('[data-care-status]');
+function setCareTab(tabName) {
+  careTabButtons.forEach((button) => {
+    const active = button.dataset.careTab === tabName;
+    button.classList.toggle('is-active', active);
+    button.setAttribute('aria-selected', String(active));
+    button.tabIndex = active ? 0 : -1;
+  });
+  carePanels.forEach((panel) => { panel.hidden = panel.dataset.carePanel !== tabName; });
+  if (careStatus) careStatus.textContent = `Care Hub demo: ${tabName.replace('-', ' ')} view open. All records are fictional.`;
+}
+careTabButtons.forEach((button) => button.addEventListener('click', () => setCareTab(button.dataset.careTab)));
+document.querySelectorAll('[data-care-task]').forEach((button) => button.addEventListener('click', () => {
+  const complete = button.classList.toggle('is-complete');
+  if (!button.dataset.originalLabel) button.dataset.originalLabel = button.textContent;
+  button.textContent = complete ? 'Marked ready ✓' : button.dataset.originalLabel;
+  if (careStatus) careStatus.textContent = complete ? 'Sample task marked ready in this Care Hub demo. Nothing was sent.' : 'Sample task returned to its open state.';
+}));
+document.querySelectorAll('[data-care-form]').forEach((button) => button.addEventListener('click', () => {
+  const complete = button.getAttribute('aria-pressed') !== 'true';
+  button.setAttribute('aria-pressed', String(complete));
+  button.classList.toggle('is-complete', complete);
+  const mark = button.querySelector('span');
+  const label = button.querySelector('em');
+  if (mark) mark.textContent = complete ? '✓' : '';
+  if (label) label.textContent = complete ? 'Complete' : 'Needs follow-up';
+  if (careStatus) careStatus.textContent = `Sample form marked ${complete ? 'complete' : 'for follow-up'}. No family record was changed.`;
+}));
+if (careTabButtons.length) setCareTab('pipeline');
+
 const heroBooking = document.querySelector('#hero-booking');
 const demoSection = document.querySelector('#demo');
 const stickyCta = document.querySelector('[data-sticky-cta]');

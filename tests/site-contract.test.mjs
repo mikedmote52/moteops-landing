@@ -32,6 +32,19 @@ test('contains one connected synthetic lead demonstration', () => {
   }
 });
 
+test('includes a safe public CC’s Care Hub demonstration', () => {
+  assert.match(html, /id="care-hub-demo"/);
+  assert.match(html, /CC.s Care Hub/i);
+  assert.match(html, /Families &amp; Enrollment/i);
+  assert.match(html, /Enrollment pipeline/i);
+  assert.match(html, /Tour requests/i);
+  assert.match(html, /Required forms/i);
+  assert.match(html, /Classroom placement/i);
+  assert.match(html, /No real family records/i);
+  assert.match(html, /href="https:\/\/care\.moteops\.tech\/"/);
+  assert.match(html, /Owner access.{0,40}sign-in required/is);
+});
+
 test('publishes the full engagement ladder and the leave-it-alone option', () => {
   for (const price of ['$1,000', '$1,500–$2,500', '$4,000–$6,000', '$750']) {
     assert.match(html, new RegExp(price.replace(/[$]/g, '\\$')));
