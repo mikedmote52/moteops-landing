@@ -16,7 +16,6 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{margin:0;background-color:var(--paper);color:var(--ink);font:16px/1.6 Georgia,serif;-webkit-font-smoothing:antialiased}
-body::before{content:"································································································································································································";position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;color:var(--rule);font:12px/9px ui-monospace,SFMono-Regular,monospace;letter-spacing:4px;word-break:break-all;opacity:.13}
 a{color:inherit}button,input,textarea{font:inherit}button,a,summary{-webkit-tap-highlight-color:transparent}
 button,[role="button"],a.button{min-height:44px}
 :focus-visible{outline:3px solid var(--signal);outline-offset:3px}
@@ -65,4 +64,171 @@ footer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;padding:45px max(
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important;animation-iteration-count:1!important}.signal-path [data-system-layer].is-active{transform:none}}
 
-@media print{.site-header,.sticky-cta,.hero-actions,.closing,.demo-footer,.system-requests{display:none!important}body{background:#fff}.section-pad,.workbench-hero{padding:35px 0}.system-section,.about,.loop-section{background:#fff;color:var(--soot)}.demo-shell,.care-app,.calculator-card,.equipment-plate,.product-window{box-shadow:none}.signal-path{display:block}.signal-path [data-system-layer]{color:var(--soot);background:#fff;opacity:1;min-height:0}}
+/* Signal orange is reserved for non-text accents; compact copy uses AA-safe pairs. */
+.button {
+  border-color:var(--signal);
+  background:var(--forest);
+  color:#fff;
+}
+
+.system-requests button[aria-selected="true"] {
+  background:var(--paper);
+  color:var(--soot);
+  box-shadow:inset 0 -5px 0 var(--signal);
+}
+
+.signal-path [data-system-layer] {
+  color:var(--paper);
+  opacity:1;
+  transition:transform .18s;
+}
+
+.signal-path [data-system-layer] small {
+  color:var(--paper);
+}
+
+.signal-path [data-system-layer] p {
+  color:var(--bone);
+}
+
+.signal-path [data-system-layer].is-active small {
+  color:var(--forest);
+}
+
+.signal-path [data-system-layer].is-active p {
+  color:var(--muted);
+}
+
+.evidence-log button:first-of-type,
+.primary-control {
+  border-color:var(--signal);
+  background:var(--forest);
+  color:#fff;
+}
+
+.operator-day time {
+  color:var(--forest);
+}
+
+.demo-steps button.is-active {
+  background:var(--paper);
+  color:var(--soot);
+  box-shadow:inset 0 -4px 0 var(--signal);
+}
+
+.status-urgent {
+  border-color:var(--signal);
+  color:var(--soot);
+  box-shadow:inset 4px 0 0 var(--signal);
+}
+
+.care-tabs button.is-active {
+  border-color:var(--signal);
+  background:var(--paper);
+  color:var(--soot);
+  box-shadow:inset 5px 0 0 var(--signal);
+}
+
+.warning strong,
+.missing strong,
+.no .fit-label {
+  color:var(--forest);
+  text-decoration:underline;
+  text-decoration-color:var(--signal);
+  text-decoration-thickness:3px;
+}
+
+/* Bone surfaces need the darker semantic tokens for normal-size copy. */
+.audience-grid p,
+.symptom-grid p,
+.loop-grid p,
+.family-card span,
+.care-list span,
+.room-grid span,
+.pricing-note,
+.interaction-note {
+  color:var(--forest);
+}
+
+.care-board>article>small,
+.room-grid small {
+  color:var(--forest);
+}
+
+@media(max-width:760px) {
+  .signal-path [data-system-layer] strong {
+    color:var(--paper);
+  }
+
+  .signal-path [data-system-layer].is-active strong {
+    color:var(--soot);
+  }
+}
+
+@media print {
+  .site-header,
+  .sticky-cta,
+  .hero-actions,
+  .closing,
+  .demo-footer,
+  .system-requests {
+    display:none!important;
+  }
+
+  body,
+  .system-section,
+  .about,
+  .loop-section,
+  .demo-toolbar,
+  .window-head,
+  .case-top,
+  .care-head,
+  .care-tabs,
+  .truth-card,
+  footer {
+    background:#fff;
+    color:var(--soot);
+  }
+
+  .section-pad,
+  .workbench-hero {
+    padding:35px 0;
+  }
+
+  .demo-shell,
+  .care-app,
+  .calculator-card,
+  .equipment-plate,
+  .product-window,
+  .truth-card {
+    box-shadow:none;
+  }
+
+  .signal-path {
+    display:block;
+  }
+
+  .signal-path [data-system-layer] {
+    min-height:0;
+    background:#fff;
+    color:var(--soot);
+  }
+
+  .signal-path [data-system-layer] small,
+  .signal-path [data-system-layer] p,
+  .truth-card p,
+  footer,
+  footer a {
+    color:var(--soot);
+  }
+
+  .care-tabs {
+    border:1px solid var(--soot);
+  }
+
+  .care-tabs button,
+  .care-tabs button.is-active {
+    background:#fff;
+    color:var(--soot);
+  }
+}
