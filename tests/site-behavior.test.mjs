@@ -49,3 +49,18 @@ test('implements Care Hub tabs and local-only task and form controls', () => {
   assert.match(js, /\[data-care-form\]/);
   assert.match(js, /Care Hub demo/i);
 });
+
+test('routes synthetic requests through the five AIOS layers', () => {
+  assert.match(js, /systemRouteButtons/);
+  assert.match(js, /setSystemRoute/);
+  assert.match(js, /SYSTEM_ROUTES/);
+  assert.match(js, /data-system-layer/);
+  assert.match(js, /data-system-evidence/);
+});
+
+test('supports approval and reset without contacting a live service', () => {
+  assert.match(js, /data-system-approve/);
+  assert.match(js, /data-system-reset/);
+  assert.match(js, /Synthetic route approved/i);
+  assert.doesNotMatch(js, /fetch\s*\(|XMLHttpRequest|WebSocket/);
+});

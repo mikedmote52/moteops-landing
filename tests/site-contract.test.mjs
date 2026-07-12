@@ -6,16 +6,41 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const html = readFileSync(resolve(root, 'index.html'), 'utf8');
 
-test('leads with a concrete local-service promise that includes CC-like businesses', () => {
+test('leads with the private AI system promise in plain language', () => {
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
-  assert.match(html, /After-hours leads shouldn.t wait until Monday/i);
-  assert.match(html, /HVAC/);
-  assert.match(html, /plumbing/i);
-  assert.match(html, /electrical/i);
-  assert.match(html, /learning centers/i);
-  assert.match(html, /childcare/i);
-  assert.match(html, /appointment-based/i);
-  assert.match(html, /nothing goes out without you/i);
+  assert.match(html, /build private AI systems around the way your business already works/i);
+  assert.match(html, /phone/i);
+  assert.match(html, /email/i);
+  assert.match(html, /files/i);
+  assert.match(html, /human approval/i);
+});
+
+test('shows all five layers of the private AI operating system', () => {
+  assert.match(html, /id="aios-workbench"/);
+  for (const layer of ['Inputs', 'Context', 'Intelligence', 'Control', 'Outputs']) {
+    assert.match(html, new RegExp(`data-system-layer="${layer.toLowerCase()}"`, 'i'));
+  }
+  assert.match(html, /What needs my attention today/i);
+  assert.match(html, /Synthetic demonstration/i);
+  assert.match(html, /human-approved/i);
+});
+
+test('states current local-model evidence without making it a universal requirement', () => {
+  assert.match(html, /qwen3-coder:30b/);
+  assert.match(html, /qwen3:14b/);
+  assert.match(html, /Mike.s current Mac installation/i);
+  assert.match(html, /configured per client/i);
+  assert.doesNotMatch(html, /every client (?:gets|requires|needs) (?:a )?local (?:LLM|model)/i);
+});
+
+test('publishes installable systems as equipment plates', () => {
+  assert.match(html, /id="systems"/);
+  for (const system of ['Private AI Control Center', 'Local LLM Workstation', 'Phone and Voice Operator', 'Operational Memory', 'Supervised Customer Workflow', 'Client Workspace']) {
+    assert.match(html, new RegExp(system, 'i'));
+  }
+  assert.match(html, /id="operator-day"/);
+  assert.match(html, /7:00 AM/);
+  assert.match(html, /4:45 PM/);
 });
 
 test('contains one connected synthetic lead demonstration', () => {
@@ -102,4 +127,19 @@ test('references local assets that exist and supports reduced motion', () => {
   for (const path of local) assert.ok(existsSync(resolve(root, path)), `missing ${path}`);
   const css = readFileSync(resolve(root, 'site.css'), 'utf8');
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
+});
+
+test('does not expose private local services or production client data', () => {
+  assert.doesNotMatch(html, /(?:localhost|127\.0\.0\.1|0\.0\.0\.0):(?:11434|8787)/i);
+  assert.doesNotMatch(html, /api\/tags|token=/i);
+  assert.match(html, /No live connection to Mike.s Mac/i);
+});
+
+test('uses the non-blue workbench palette', () => {
+  const css = readFileSync(resolve(root, 'site.css'), 'utf8');
+  for (const token of ['--bone', '--soot', '--forest', '--copper', '--signal']) {
+    assert.match(css, new RegExp(token));
+  }
+  assert.doesNotMatch(css, /#5046e5|#3328b8|#149eb5/i);
+  assert.doesNotMatch(css, /linear-gradient|radial-gradient/i);
 });
