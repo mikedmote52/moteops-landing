@@ -6,15 +6,34 @@ Make the Mote Ops offer understandable by letting visitors use concrete examples
 
 ## Primary Message
 
-Headline: **Try the systems we build.**
+Headline: **Your business is running on your memory, your inbox, and too many open tabs.**
 
-Supporting copy: Mote Ops builds private, supervised AI systems for the repetitive work between a small business's phone, email, files, policies, and existing software. Choose a real example below and operate it yourself.
+Supporting copy: Mote Ops finds the repetitive work slowing you down and builds a simple, supervised AI system around the tools you already use.
+
+The first screen must not use `AIOS`, `local LLM`, `operating layer`, `model routing`, or other implementation language. A nontechnical owner should understand the problem and the offer without knowing how AI systems work.
+
+Primary action: `See what Mote Ops can fix` links to the problem list and demo chooser. Secondary action: `Book a fit call`.
+
+## Immediate Problem Recognition
+
+Directly beneath the hero, show the heading **Does this sound familiar?** followed by six common problems:
+
+- You're drowning in follow-ups and small tasks.
+- Your inbox has become your company's to-do list.
+- You struggle to find the latest customer, project, or policy information.
+- New inquiries arrive after hours and wait too long for a response.
+- Important work only happens because you remember it.
+- You want to use AI in your business, but you don't know where to begin—or what is actually worth paying for.
+
+This section must be scannable in under ten seconds. Each problem links or visually maps to one relevant demo outcome. Do not present the problems as generic SaaS feature cards.
 
 ## Demo Gallery
 
-The first major section is a four-demo selector. Each selection opens one complete interactive workspace in the same position rather than scrolling to disconnected cards.
+The first major interactive section is a four-demo selector. Each selection opens one complete interactive workspace in the same position rather than scrolling to disconnected cards. Public labels describe the customer outcome; technical system names appear only as secondary evidence.
 
-### Demo 1 — Mote Ops Operator
+### Demo 1 — Know What Needs Attention Today
+
+Secondary label: `Mote Ops Operator demonstration`.
 
 Show a phone-shaped operator interface based on Mike's actual phone surface. Visitors can choose one of three synthetic prompts:
 
@@ -24,15 +43,21 @@ Show a phone-shaped operator interface based on Mike's actual phone surface. Vis
 
 The demo displays the request, attached operating context, chosen route, bounded result, and whether approval is required. It proves phone access, project/status routing, operating context, and human control. It does not connect to Mike's phone, Mac, or a live voice service.
 
-### Demo 2 — Private Local-Model Review
+### Demo 2 — Find Answers Inside Your Business Information
+
+Secondary label: `Private document-review demonstration`.
 
 Show a preloaded fictional document set for a small business. Visitors select one bounded review task, run the sample, and receive source-cited findings. The interface names Mike's current Ollama models as verified evidence, but labels the response as prerecorded synthetic output. No visitor upload and no call to Mike's local runtime.
 
-### Demo 3 — Supervised Lead System
+### Demo 3 — Stop Losing New Leads
+
+Secondary label: `Supervised lead-system demonstration`.
 
 Reuse the complete Dana HVAC demonstration: original voicemail, missing details, draft editing, owner approval, skip, reasoning, and reset. Preserve all current working controls.
 
-### Demo 4 — CC's Care Hub
+### Demo 4 — Keep Every Family Moving Toward Enrollment
+
+Secondary label: `CC's Care Hub demonstration`.
 
 Reuse the complete public enrollment workspace: pipeline, tours, required forms, placement, local task toggles, and fictional family records. Keep the protected real Control Center link labeled `Owner access — sign-in required`.
 
@@ -60,14 +85,15 @@ The architecture section must not contain action buttons or compete visually wit
 
 ## Page Order
 
-1. Demo-first hero.
-2. Interactive demo gallery.
-3. Compact architecture and evidence disclosure.
-4. Six installable-system equipment plates.
-5. Operator-day timeline.
-6. Friction calculator and problem patterns.
-7. Engagement pricing.
-8. Proof, fit, Mike, FAQ, and closing call to action.
+1. Customer-problem-first hero.
+2. Immediate `Does this sound familiar?` problem recognition.
+3. Outcome-named interactive demo gallery.
+4. Compact architecture and evidence disclosure.
+5. Six installable-system equipment plates, translated into business outcomes.
+6. Operator-day timeline.
+7. Friction calculator.
+8. Engagement pricing.
+9. Proof, fit, Mike, FAQ, and closing call to action.
 
 ## Visual Direction
 
@@ -101,7 +127,9 @@ Retain the approved Operator's Workbench system:
 
 Automated tests must cover:
 
-- Demo-first headline and gallery order.
+- Exact customer-problem-first headline and supporting promise.
+- All six plain-language problem statements before any technical architecture language.
+- Outcome-based demo labels and gallery order.
 - Four accessible gallery tabs connected to one changing panel.
 - Real local state changes for phone prompts, local-model tasks, lead controls, and Care Hub controls.
 - Persistent synthetic/no-live labels within each demo.
@@ -114,8 +142,9 @@ Manual verification must cover desktop and mobile layout, all four demo paths, k
 
 Within 20 seconds, a first-time visitor can:
 
-1. Say what Mote Ops builds.
-2. Choose and operate a relevant example.
-3. See the human-approval boundary.
-4. Distinguish a working pattern from live customer data.
-5. Understand that the audit selects the right system rather than selling every component to everyone.
+1. Recognize at least one problem they already have.
+2. Explain Mote Ops without using technical AI terminology.
+3. Choose and operate a relevant example.
+4. See the human-approval boundary.
+5. Distinguish a working pattern from live customer data.
+6. Understand that the audit selects the right system rather than selling every component to everyone.
