@@ -58,6 +58,8 @@ test('publishes a truthful three-category evidence ledger', () => {
     'sample local-model response', 'sample approval', 'sample control-center records',
     'integrations', 'permissions', 'retention', 'local-versus-cloud choice', 'live business data',
   ]) assert.match(html, new RegExp(phrase, 'i'));
+  assert.match(html, /working Voice OS components and phone-access patterns/i);
+  assert.doesNotMatch(html, /working Voice OS(?! components)/i);
 });
 
 test('describes the operator day with the correct tasks and times', () => {
