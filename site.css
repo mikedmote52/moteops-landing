@@ -141,7 +141,6 @@ footer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;padding:45px max(
 /* Bone surfaces need the darker semantic tokens for normal-size copy. */
 .audience-grid p,
 .symptom-grid p,
-.loop-grid p,
 .family-card span,
 .care-list span,
 .room-grid span,
@@ -152,6 +151,16 @@ footer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;padding:45px max(
 
 .care-board>article>small,
 .room-grid small {
+  color:var(--forest);
+}
+
+.hero-system-plate .plate-stamp,
+.audience-grid span,
+.symptom-grid span,
+.route-rule small,
+.status,
+.missing small,
+.form-list em {
   color:var(--forest);
 }
 
