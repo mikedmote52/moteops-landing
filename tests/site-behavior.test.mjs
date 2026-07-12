@@ -25,8 +25,8 @@ function assertRenderField(helper, selector, valueExpression) {
   const direct = js.match(new RegExp(`(?:const|let)\\s+([A-Za-z_$][\\w$]*)\\s*=\\s*document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)`, 'i'));
   const objectField = js.match(new RegExp(`(?:const|let)\\s+([A-Za-z_$][\\w$]*)\\s*=\\s*\\{[\\s\\S]{0,1200}?([A-Za-z_$][\\w$]*)\\s*:\\s*document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)`, 'i'));
   const reference = direct?.[1] ?? (objectField ? `${objectField[1]}.${objectField[2]}` : null);
-  const cachedWrite = reference && new RegExp(`${escape(reference)}\\s*(?:\\?\\.)?\\s*(?:textContent|innerText)\\s*=\\s*${escape(valueExpression)}|${escape(reference)}\\s*(?:\\?\\.)?\\s*replaceChildren\\(\\s*${escape(valueExpression)}`, 'i').test(helper);
-  const directWrite = new RegExp(`document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)\\s*(?:\\?\\.)?\\s*(?:(?:textContent|innerText)\\s*=\\s*${escape(valueExpression)}|replaceChildren\\(\\s*${escape(valueExpression)}\\s*\\))`, 'i').test(helper);
+  const cachedWrite = reference && new RegExp(`${escape(reference)}\\s*(?:\\?\\.|\\.)\\s*(?:textContent|innerText)\\s*=\\s*${escape(valueExpression)}|${escape(reference)}\\s*(?:\\?\\.|\\.)\\s*replaceChildren\\(\\s*${escape(valueExpression)}`, 'i').test(helper);
+  const directWrite = new RegExp(`document\\.querySelector\\(\\s*['"]\\[${escape(selector)}\\]['"]\\s*\\)\\s*(?:\\?\\.|\\.)\\s*(?:(?:textContent|innerText)\\s*=\\s*${escape(valueExpression)}|replaceChildren\\(\\s*${escape(valueExpression)}\\s*\\))`, 'i').test(helper);
   assert.ok(cachedWrite || directWrite, `${selector} must be written from ${valueExpression} inside its render helper`);
 }
 
@@ -42,13 +42,15 @@ test('implements the four-demo gallery with wrapped keyboard navigation', () => 
 
 test('updates every operator request field from local demo data', () => {
   assert.match(js, /OPERATOR_REQUESTS/);
-  assert.match(js, /function\s+setOperatorRequest\s*\(\s*name\s*\)\s*\{\s*const\s+data\s*=\s*OPERATOR_REQUESTS\s*\[\s*name\s*\][\s\S]{0,300}renderOperatorRequest\(\s*data\s*\)/i);
+  assert.match(js, /function\s+setOperatorRequest\s*\(\s*name\s*\)\s*\{\s*const\s+data\s*=\s*OPERATOR_REQUESTS\s*\[\s*name\s*\][\s\S]{0,600}renderOperatorRequest\(\s*data\s*\)/i);
   const helper = straightLineRenderFunction('renderOperatorRequest');
-  for (const field of ['request', 'context', 'route', 'result', 'approval']) {
-    assertRenderField(helper, `data-operator-${field}`, `data.${field}`);
+  for (const field of ['request-text', 'context', 'route', 'result', 'approval']) {
+    assertRenderField(helper, `data-operator-${field}`, `data.${field === 'request-text' ? 'request' : field}`);
   }
   assert.match(helper, /\bannounce\s*\(/i, 'renderOperatorRequest must announce its result');
+  assert.match(helper, /announce\s*\(\s*data\.status\s*,\s*operatorStatus\s*\)/i);
   assertRenderPurity('renderOperatorRequest', helper);
+  assert.match(js, /operatorApprove\?\.addEventListener\s*\(\s*['"]click['"][\s\S]{0,500}Sample brief approved[\s\S]{0,500}Nothing was sent or changed[\s\S]{0,200}operatorStatus/i);
 });
 
 test('runs document tasks and updates findings, source, and status locally', () => {
@@ -59,6 +61,7 @@ test('runs document tasks and updates findings, source, and status locally', () 
   assertRenderField(helper, 'data-document-source', 'data.source');
   assertRenderField(helper, 'data-document-status', 'data.status');
   assert.match(helper, /\bannounce\s*\(/i, 'renderDocumentTask must announce its result');
+  assert.match(helper, /announce\s*\(\s*data\.status\s*,\s*documentStatus\s*\)/i);
   assertRenderPurity('renderDocumentTask', helper);
   assert.match(js, /data-document-reset[\s\S]{0,1200}addEventListener\s*\(\s*['"]click['"][\s\S]{0,1200}(?:data-document-findings|data-document-source|data-document-status|runDocumentTask)[\s\S]{0,500}\bannounce\s*\(/i, 'document reset must restore fields and announce');
 });
@@ -100,9 +103,7 @@ test('maintains accessible sticky CTA and announces interaction status', () => {
 });
 
 test('suppresses the sticky booking action while any interactive demo is in view', () => {
-  for (const selector of ['#aios-workbench', '#demo', '#care-hub-demo', '#demo-gallery']) {
-    assert.match(js, new RegExp(`['"]${selector}['"]`));
-  }
+  assert.match(js, /stickyGuardSections\s*=\s*\[\s*['"]#demo-gallery['"]\s*\]/);
   assert.match(js, /stickyGuardSections/);
   assert.match(js, /guardSectionsInView/);
   assert.match(js, /heroInView/);
