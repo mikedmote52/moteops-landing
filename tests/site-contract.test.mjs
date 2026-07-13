@@ -295,8 +295,17 @@ test('describes current proof precisely', () => {
 test('uses one booking destination and a functional email alternative', () => {
   const calendly = [...html.matchAll(/href="(https:\/\/calendly\.com\/mikedmote\/30min)"/g)];
   assert.ok(calendly.length >= 3);
-  assert.match(html, /mailto:hello@moteops\.tech\?subject=/i);
+  assert.match(html, /href="email\.html"/i);
+  assert.doesNotMatch(html, /href="mailto:hello@moteops\.tech/i);
   assert.match(html, /diagnostic process/i);
+
+  const emailPagePath = resolve(root, 'email.html');
+  assert.ok(existsSync(emailPagePath), 'missing email choice page');
+  const emailPage = readFileSync(emailPagePath, 'utf8');
+  assert.match(emailPage, /hello@moteops\.tech/i);
+  assert.match(emailPage, /mail\.google\.com\/mail\/\?view=cm/i);
+  assert.match(emailPage, /outlook\.office\.com\/mail\/deeplink\/compose/i);
+  assert.match(emailPage, /compose\.mail\.yahoo\.com/i);
 });
 
 test('contains the required navigable sections and accessible primitives', () => {
