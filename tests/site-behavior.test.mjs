@@ -105,11 +105,8 @@ test('implements real synthetic approve edit skip and reset behavior', () => {
   assert.match(js, /savedDraft/);
 });
 
-test('calculates annual friction from visitor inputs', () => {
-  assert.match(js, /followUps\s*\*\s*minutes\s*\/\s*60\s*\*\s*hourlyValue\s*\*\s*50/);
-  assert.match(js, /missedLeads\s*\*\s*jobValue\s*\*\s*12/);
-  assert.match(js, /auditPercent/);
-  assert.match(js, /Intl\.NumberFormat/);
+test('contains no obsolete calculator behavior', () => {
+  assert.doesNotMatch(js, /followUps\s*\*\s*minutes|missedLeads\s*\*\s*jobValue|auditPercent|Intl\.NumberFormat/);
 });
 
 test('maintains accessible sticky CTA and announces interaction status', () => {
