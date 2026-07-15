@@ -77,6 +77,15 @@ test('shows a truthful photographic transformation instead of an abstract hero d
   assert.ok(existsSync(resolve(root, 'assets/moteops-transformation-hero-mobile-v1.png')));
 });
 
+test('pairs every phone transformation scene with its caption', () => {
+  const hero = elementById('top', 'section').source;
+  assert.match(hero, /class="hero-transformation-mobile"/i);
+  assert.equal((hero.match(/class="hero-transformation-mobile-stage/g) || []).length, 3);
+  assert.match(hero, /hero-transformation-mobile-crop is-before[\s\S]*?<span>Before<\/span>/i);
+  assert.match(hero, /hero-transformation-mobile-crop is-working[\s\S]*?<span>Mote Ops working<\/span>/i);
+  assert.match(hero, /hero-transformation-mobile-crop is-result[\s\S]*?<span>Three decisions need you<\/span>/i);
+});
+
 test('uses the approved concise section order', () => {
   const orderedIds = ['problems', 'capabilities', 'process', 'demo-gallery', 'evidence', 'services', 'questions'];
   let cursor = -1;
