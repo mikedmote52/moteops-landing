@@ -180,8 +180,17 @@ test('publishes a flexible commercial path with discovery as one phase', () => {
 test('uses one booking destination and a functional workflow email', () => {
   const calendly = [...html.matchAll(/href="(https:\/\/calendly\.com\/mikedmote\/30min)"/g)];
   assert.ok(calendly.length >= 3);
-  assert.match(html, /mailto:hello@moteops\.tech\?subject=A%20workflow%20I%20want%20help%20with/i);
+  assert.match(html, /href="email\.html"/i);
   assert.match(html, /Email Mike about a workflow/i);
+  assert.doesNotMatch(html, /href="mailto:hello@moteops\.tech/i);
+
+  const emailPagePath = resolve(root, 'email.html');
+  assert.ok(existsSync(emailPagePath), 'missing email choice page');
+  const emailPage = readFileSync(emailPagePath, 'utf8');
+  assert.match(emailPage, /hello@moteops\.tech/i);
+  assert.match(emailPage, /mail\.google\.com\/mail\/\?view=cm/i);
+  assert.match(emailPage, /outlook\.office\.com\/mail\/deeplink\/compose/i);
+  assert.match(emailPage, /compose\.mail\.yahoo\.com/i);
 });
 
 test('keeps accessible questions, assets, motion, and sticky action', () => {
