@@ -60,6 +60,23 @@ test('leads with Mike as a practical AI integration partner', () => {
   assert.doesNotMatch(hero, /\b(?:AIOS|local LLM|control plane|model routing|agent runtime|operational memory)\b/i);
 });
 
+test('shows a truthful photographic transformation instead of an abstract hero diagram', () => {
+  const hero = elementById('top', 'section').source;
+  assert.doesNotMatch(hero, /hero-system-plate|hero-inputs|hero-core|hero-outputs/i);
+  assert.match(hero, /class="hero-transformation"/i);
+  assert.match(hero, /<picture\b/i);
+  assert.match(hero, /media="\(max-width: 760px\)"/i);
+  assert.match(hero, /assets\/moteops-transformation-hero-mobile-v1\.png/i);
+  assert.match(hero, /assets\/moteops-transformation-hero-v1\.png/i);
+  assert.match(hero, /A small business owner moves from an overflowing inbox, missed calls, paperwork, and calendar conflicts to a Mote Ops agent organizing the work and a simple screen showing three decisions and a drafted email ready for approval\./i);
+  for (const label of ['Before', 'Mote Ops working', 'Three decisions need you']) {
+    assert.match(hero, new RegExp(`>${label}<`, 'i'));
+  }
+  assert.match(hero, /Illustrative demonstration using fictional business information\./i);
+  assert.ok(existsSync(resolve(root, 'assets/moteops-transformation-hero-v1.png')));
+  assert.ok(existsSync(resolve(root, 'assets/moteops-transformation-hero-mobile-v1.png')));
+});
+
 test('uses the approved concise section order', () => {
   const orderedIds = ['problems', 'capabilities', 'process', 'demo-gallery', 'evidence', 'services', 'questions'];
   let cursor = -1;
