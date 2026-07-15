@@ -282,9 +282,8 @@ Verify at desktop width and at 390 by 844 pixels:
 
 ```bash
 git push origin feat/private-ai-workbench
-git switch main
-git merge --no-ff feat/private-ai-workbench
-git push origin main
+git -C /Users/michaelmote/Desktop/hobby/active/moteops-landing merge --no-ff feat/private-ai-workbench
+git -C /Users/michaelmote/Desktop/hobby/active/moteops-landing push origin main
 ```
 
 Expected: the main branch contains the toolbox commits and GitHub Pages begins publishing the new revision.
@@ -292,4 +291,3 @@ Expected: the main branch contains the toolbox commits and GitHub Pages begins p
 - [ ] **Step 4: Verify the live site**
 
 Open `https://moteops.tech/?toolbox=20260714` and repeat the desktop and mobile checks from Step 2. Confirm that the delivered HTML contains `id="toolbox"` and that the section names n8n without claiming it is part of the verified Mac installation.
-
