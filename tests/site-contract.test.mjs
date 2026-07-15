@@ -165,6 +165,30 @@ test('centers evidence on the real Care Hub build without inflating results', ()
   assert.doesNotMatch(html, /verified ROI|guaranteed (?:savings|revenue|results)/i);
 });
 
+test('shows a modern toolbox as supporting proof rather than the product', () => {
+  const evidence = elementById('evidence', 'section');
+  const toolbox = elementById('toolbox', 'section');
+  assert.ok(toolbox.start >= evidence.start && toolbox.end <= evidence.end);
+
+  const caseStudyIndex = evidence.source.indexOf('class="case-study"');
+  const toolboxIndex = evidence.source.indexOf('id="toolbox"');
+  const technicalProofIndex = evidence.source.indexOf('class="technical-proof"');
+  assert.ok(caseStudyIndex < toolboxIndex, 'toolbox should follow the real case story');
+  assert.ok(toolboxIndex < technicalProofIndex, 'toolbox should precede the technical proof');
+
+  assert.match(toolbox.source, /THE MOTE OPS TOOLBOX/i);
+  assert.match(toolbox.source, /Built with the right tools\. Never trapped in one\./i);
+  for (const purpose of ['Automate', 'Think', 'Connect', 'Deliver']) {
+    assert.match(toolbox.source, new RegExp(`>${purpose}<`, 'i'));
+  }
+  for (const tool of ['n8n', 'OpenAI', 'Claude', 'Codex', 'Ollama', 'Gmail', 'Microsoft 365']) {
+    assert.match(toolbox.source, new RegExp(tool, 'i'));
+  }
+  assert.match(toolbox.source, /You do not need to learn the platforms or decide which model to use/i);
+  assert.match(toolbox.source, /Technology changes quickly\. Your system should keep working\./i);
+  assert.doesNotMatch(toolbox.source, /every (?:client|project|installation) uses/i);
+});
+
 test('publishes a flexible commercial path with discovery as one phase', () => {
   const services = elementById('services', 'section').source;
   for (const phrase of ['Fit conversation', 'Workflow discovery', 'Implementation', 'Continuing support']) {
