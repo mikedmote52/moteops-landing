@@ -132,7 +132,7 @@ test('keeps four accessible outcome led demonstrations', () => {
   });
   const panels = galleryPanelRanges(gallery);
   assert.equal(panels.length, 4);
-  assert.equal(panels.filter(({ openingTag }) => attribute(openingTag, 'hidden') === null).length, 1);
+  assert.equal(panels.filter(({ openingTag }) => !/\bhidden(?:\s|>)/i.test(openingTag)).length, 1);
   for (const panel of panels) {
     assert.match(panel.source, /Customer problem:/i);
     assert.match(panel.source, /What this proves:/i);

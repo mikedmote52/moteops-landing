@@ -241,42 +241,6 @@ document.querySelectorAll('[data-action="skip"]').forEach((button) => {
   });
 });
 
-const calculator = document.querySelector('[data-calculator]');
-const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-
-function boundedNumber(id) {
-  const input = document.querySelector(`#${id}`);
-  if (!input) return 0;
-  const value = Number(input.value);
-  const min = Number(input.min || 0);
-  const max = Number(input.max || Number.MAX_SAFE_INTEGER);
-  return Number.isFinite(value) ? Math.min(max, Math.max(min, value)) : 0;
-}
-
-function updateCalculator() {
-  const followUps = boundedNumber('follow-ups');
-  const minutes = boundedNumber('minutes');
-  const hourlyValue = boundedNumber('hourly-value');
-  const missedLeads = boundedNumber('missed-leads');
-  const jobValue = boundedNumber('job-value');
-  const annualLabor = followUps * minutes / 60 * hourlyValue * 50;
-  const annualLeadRisk = missedLeads * jobValue * 12;
-  const annualTotal = annualLabor + annualLeadRisk;
-  const auditPercent = annualTotal > 0 ? Math.round(1000 / annualTotal * 100) : 0;
-  const laborResult = document.querySelector('[data-labor-result]');
-  const leadResult = document.querySelector('[data-lead-result]');
-  const totalResult = document.querySelector('[data-total-result]');
-  const auditResult = document.querySelector('[data-audit-result]');
-  if (laborResult) laborResult.textContent = money.format(annualLabor);
-  if (leadResult) leadResult.textContent = money.format(annualLeadRisk);
-  if (totalResult) totalResult.textContent = money.format(annualTotal);
-  if (auditResult) auditResult.textContent = annualTotal > 0
-    ? `A $1,000 audit equals about ${auditPercent}% of this estimate.`
-    : 'Add your estimates to compare the $1,000 audit.';
-}
-calculator?.addEventListener('input', updateCalculator);
-updateCalculator();
-
 const careTabButtons = [...document.querySelectorAll('[data-care-tab]')];
 const carePanels = [...document.querySelectorAll('[data-care-panel]')];
 const careStatus = document.querySelector('[data-care-status]');
