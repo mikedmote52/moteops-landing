@@ -14,7 +14,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="site.css?v=integration-partner-1">
+  <link rel="stylesheet" href="care-hub-showcase.css?v=20260718">
   <script src="site.js?v=integration-partner-1" defer></script>
+  <script src="care-hub-showcase.js?v=20260718" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -85,12 +87,124 @@
     </section>
 
     <section class="section-pad" id="demo-gallery" aria-labelledby="gallery-title" data-page-section>
-      <div class="section-heading split-heading"><div><p class="kicker">WORKING DEMONSTRATIONS</p><h2 id="gallery-title">See the kinds of systems I can build.</h2></div><p>Choose one real interaction. Every example runs only in this page with fictional information.</p></div>
+      <section class="care-showcase" id="care-hub-showcase" aria-labelledby="gallery-title" data-care-root>
+        <div class="care-showcase-intro">
+          <div><p class="kicker">A WORKING SMALL-BUSINESS ENVIRONMENT</p><h2 id="gallery-title">Step inside something we built.</h2></div>
+          <p>CC's Care Hub turns scattered enrollment work into one clear place for families, tours, forms, follow-up, and director decisions. Explore the demonstration below.</p>
+        </div>
+        <p class="care-showcase-truth"><span>DEMO</span> Interactive demonstration using fictional family records. The Care Hub workflow and interface are real; client results are still being measured.</p>
+
+        <div class="care-shell">
+          <aside class="care-sidebar">
+            <div class="care-brand"><span>cc</span><div><strong>CC's</strong><small>Care Hub</small></div></div>
+            <p class="care-demo-pill"><i></i> Interactive demonstration</p>
+            <nav aria-label="Care Hub primary navigation">
+              <button class="is-active" type="button" aria-pressed="true" data-care-view="today"><span>⌂</span>Today</button>
+              <button type="button" aria-pressed="false" data-care-view="families"><span>♧</span>Families</button>
+              <button type="button" aria-pressed="false" data-care-view="modules"><span>▦</span>Modules</button>
+              <button type="button" aria-pressed="false" data-care-view="integrations"><span>⌘</span>Integrations</button>
+              <button type="button" aria-pressed="false" data-care-view="discovery"><span>?</span>Discovery</button>
+            </nav>
+            <div class="care-side-note"><b>Built around the director's day</b><p>Important actions stay visible. Messages and consequential changes remain behind approval.</p></div>
+          </aside>
+
+          <div class="care-workspace">
+            <header class="care-workspace-head">
+              <div><p class="care-eyebrow">CC'S CARE HUB · DEMO WORKSPACE</p><h3 data-care-title>Good morning, CC's</h3><p data-care-subtitle>A calm, clear view of what needs attention today.</p></div>
+              <button type="button" data-care-guide>How this demo works</button>
+            </header>
+            <div class="care-demo-banner"><strong>DEMO INFORMATION ONLY</strong><span>No real family records. No external systems connected.</span></div>
+
+            <section data-care-panel="today">
+              <div class="care-metrics">
+                <button type="button" data-care-metric="pipeline"><i class="is-sage">♧</i><span>Enrollment pipeline</span><strong>6 families</strong><small>View the path</small></button>
+                <button type="button" data-care-metric="tours"><i class="is-peach">□</i><span>Tour requests</span><strong class="is-coral">2 open</strong><small>One needs times today</small></button>
+                <button type="button" data-care-metric="required-forms"><i class="is-blue">✓</i><span>Required forms</span><strong class="is-blue-text" data-care-form-count>3 / 5</strong><small>For Taylor's family</small></button>
+                <button type="button" data-care-metric="classroom-placement"><i class="is-yellow">⌂</i><span>Classroom placement</span><strong class="is-gold">1 review</strong><small>Capacity needs a decision</small></button>
+              </div>
+              <div class="care-today-grid">
+                <section class="care-card care-queue">
+                  <div class="care-card-head"><div><p class="care-eyebrow">FOLLOW-UP QUEUE</p><h4>Keep every family moving</h4></div><span><b data-care-open-count>3</b> open</span></div>
+                  <button type="button" aria-pressed="false" data-care-task><i class="is-high"></i><span><strong>Send Avery three tour options</strong><small>Due today · Director review</small></span><em>Mark done</em></button>
+                  <button type="button" aria-pressed="false" data-care-task><i class="is-medium"></i><span><strong>Prepare Jordan's tour notes</strong><small>Friday tour · Demo</small></span><em>Mark done</em></button>
+                  <button type="button" aria-pressed="false" data-care-task><i class="is-low"></i><span><strong>Request Taylor's remaining forms</strong><small>Application · Demo</small></span><em>Mark done</em></button>
+                </section>
+                <section class="care-card care-focus"><p class="care-eyebrow">DIRECTOR FOCUS</p><h4>A personal path to enrollment</h4><p>See each family's next step, prepare follow-up, and protect classroom capacity without losing the warm touch CC's is known for.</p><button type="button" data-care-open-family="overview">Open Families &amp; Enrollment →</button></section>
+              </div>
+              <section class="care-card care-next-tour"><span class="care-date">12</span><div><p class="care-eyebrow">NEXT SCHEDULED DEMO TOUR</p><h4>Jordan Rivera · Sofia</h4><p>Friday at 10:00 AM · Preschool interest · Referred by a current family</p></div><button type="button" data-care-open-family="tours">View tour plan →</button></section>
+            </section>
+
+            <section data-care-panel="families" hidden>
+              <nav class="care-family-tabs" aria-label="Families and enrollment views">
+                <button class="is-active" type="button" aria-pressed="true" data-care-family-tab="overview">Overview</button>
+                <button type="button" aria-pressed="false" data-care-family-tab="pipeline">Pipeline</button>
+                <button type="button" aria-pressed="false" data-care-family-tab="tours">Tours</button>
+                <button type="button" aria-pressed="false" data-care-family-tab="family-profiles">Family profiles</button>
+                <button type="button" aria-pressed="false" data-care-family-tab="required-forms">Required forms</button>
+                <button type="button" aria-pressed="false" data-care-family-tab="classroom-placement">Classroom placement</button>
+              </nav>
+              <section class="care-family-overview" data-care-family-panel="overview">
+                <div><p class="care-eyebrow">ENROLLMENT AT A GLANCE</p><h4>One warm, organized journey from hello to first day.</h4><p>Each family has a visible stage, next action, and human owner.</p><button type="button" data-care-open-family="pipeline">View enrollment pipeline →</button></div>
+                <div class="care-orbit"><strong>6</strong><span>demo families</span><b>2 tours</b></div>
+              </section>
+              <section data-care-family-panel="pipeline" hidden>
+                <div class="care-view-heading"><div><p class="care-eyebrow">ENROLLMENT PIPELINE</p><h4>Every family has a visible next step.</h4></div><span>6 fictional families</span></div>
+                <div class="care-pipeline">
+                  <article><header>NEW LEAD <span>1</span></header><button type="button" data-care-profile="morgan"><i class="is-coral"></i><strong>Leela</strong><small>Morgan Patel</small><b>First response</b></button></article>
+                  <article><header>TOUR REQUESTED <span>1</span></header><button type="button" data-care-profile="avery"><i class="is-coral"></i><strong>Milo</strong><small>Avery Chen</small><b>Offer tour times</b></button></article>
+                  <article><header>TOUR SCHEDULED <span>1</span></header><button type="button" data-care-profile="jordan"><i class="is-blue"></i><strong>Sofia</strong><small>Jordan Rivera</small><b>Fri · 10:00 AM</b></button></article>
+                  <article><header>APPLICATION <span>1</span></header><button type="button" data-care-profile="taylor"><i class="is-gold"></i><strong>Noah</strong><small>Taylor Brooks</small><b>2 forms remaining</b></button></article>
+                  <article><header>ENROLLED <span>1</span></header><button type="button" data-care-profile="casey"><i class="is-sage"></i><strong>Eli</strong><small>Casey Nguyen</small><b>Placement confirmed</b></button></article>
+                  <article><header>WAITLIST <span>1</span></header><button type="button" data-care-profile="riley"><i class="is-gold"></i><strong>Emma</strong><small>Riley Thompson</small><b>Capacity check</b></button></article>
+                </div>
+              </section>
+              <section data-care-family-panel="tours" hidden>
+                <div class="care-view-heading"><div><p class="care-eyebrow">TOUR REQUESTS</p><h4>Turn interest into a clear appointment.</h4></div><span>2 active</span></div>
+                <div class="care-two-column"><div class="care-card care-calendar"><div class="care-week"><span>MON<br>8</span><span>TUE<br>9</span><span>WED<br>10</span><span>THU<br>11</span><span class="has-tour">FRI<br>12<b>10:00<br>Sofia</b></span></div></div><div class="care-card care-tour-list"><article><i class="is-blue">JR</i><span><strong>Jordan &amp; Sofia</strong><small>Friday · 10:00 AM · Confirmed</small></span><button type="button" data-care-task aria-pressed="false">Prep note</button></article><article><i class="is-coral">AC</i><span><strong>Avery &amp; Milo</strong><small>Weekday morning · Needs options</small></span><button type="button" data-care-task aria-pressed="false">Prepare times</button></article></div></div>
+              </section>
+              <section data-care-family-panel="family-profiles" hidden>
+                <div class="care-view-heading"><div><p class="care-eyebrow">FAMILY PROFILES</p><h4>Context follows the family.</h4></div><span>Fictional record</span></div>
+                <div class="care-profile"><div class="care-profile-list"><button class="is-active" type="button" data-care-profile="avery">Avery Chen <small>Milo · Toddler</small></button><button type="button" data-care-profile="jordan">Jordan Rivera <small>Sofia · Preschool</small></button><button type="button" data-care-profile="taylor">Taylor Brooks <small>Noah · Infant</small></button></div><article class="care-card"><p class="care-eyebrow">SELECTED FAMILY</p><h4 data-care-profile-name>Avery Chen · Milo</h4><p data-care-profile-detail>Tour requested · Toddler program · Website inquiry</p><dl><div><dt>Next action</dt><dd data-care-profile-next>Offer three weekday tour times</dd></div><div><dt>Owner</dt><dd>Director review</dd></div><div><dt>Privacy</dt><dd>Demo information only</dd></div></dl></article></div>
+              </section>
+              <section data-care-family-panel="required-forms" hidden>
+                <div class="care-two-column"><div class="care-card care-form-summary"><p class="care-eyebrow">TAYLOR · NOAH</p><h4>Required forms</h4><strong data-care-form-count>3 / 5</strong><p>Toggle the checklist to see how a director can track follow-up without searching email.</p></div><div class="care-card care-forms">
+                  <button type="button" aria-pressed="true" data-care-form><i>✓</i><span><strong>Enrollment application</strong><small>Complete</small></span></button>
+                  <button type="button" aria-pressed="true" data-care-form><i>✓</i><span><strong>Emergency contacts</strong><small>Complete</small></span></button>
+                  <button type="button" aria-pressed="true" data-care-form><i>✓</i><span><strong>Authorized pickup</strong><small>Complete</small></span></button>
+                  <button type="button" aria-pressed="false" data-care-form><i></i><span><strong>Health statement</strong><small>Needs follow-up</small></span></button>
+                  <button type="button" aria-pressed="false" data-care-form><i></i><span><strong>Photo permission</strong><small>Needs follow-up</small></span></button>
+                </div></div>
+              </section>
+              <section data-care-family-panel="classroom-placement" hidden>
+                <div class="care-view-heading"><div><p class="care-eyebrow">CLASSROOM PLACEMENT</p><h4>Capacity and judgment stay together.</h4></div><span>1 review due</span></div>
+                <div class="care-rooms"><article class="care-card"><span class="is-peach">⌂</span><h4>Infant Nest</h4><strong>7 / 8</strong><div><i style="width:87.5%"></i></div><button type="button" data-care-task aria-pressed="false">Review opening</button></article><article class="care-card"><span class="is-sage">♧</span><h4>Little Explorers</h4><strong>10 / 10</strong><div><i style="width:100%"></i></div><button type="button" disabled>Waitlist active</button></article><article class="care-card"><span class="is-yellow">✦</span><h4>Sunshine Preschool</h4><strong>13 / 16</strong><div><i style="width:81%"></i></div><button type="button" data-care-task aria-pressed="false">Review openings</button></article></div>
+              </section>
+            </section>
+
+            <section data-care-panel="modules" hidden><div class="care-view-heading"><div><p class="care-eyebrow">CARE HUB MODULES</p><h4>One environment, built in useful pieces.</h4></div><span>Discovery-led</span></div><div class="care-module-grid"><button type="button" data-care-open-family="overview"><i class="is-sage">♧</i><span><strong>Families &amp; Enrollment</strong><small>Live demo module</small></span></button><article><i class="is-peach">♙</i><span><strong>Team &amp; Classrooms</strong><small>Discovery needed</small></span></article><article><i class="is-blue">✉</i><span><strong>Communications</strong><small>Discovery needed</small></span></article><article><i class="is-yellow">$</i><span><strong>Revenue &amp; Finance</strong><small>Discovery needed</small></span></article></div></section>
+            <section data-care-panel="integrations" hidden><div class="care-view-heading"><div><p class="care-eyebrow">INTEGRATION REGISTRY</p><h4>Connect only what the directors approve.</h4></div><span>Inactive in demo</span></div><div class="care-integration-grid"><article><i>✉</i><h4>Business email</h4><p>Inbox summaries, issue detection, and reviewed response drafts.</p><b>Awaiting approved access</b></article><article><i>□</i><h4>Calendar</h4><p>Tour availability, bookings, reminders, and school events.</p><b>Awaiting approved access</b></article><article><i>$</i><h4>Accounting</h4><p>Income, expenses, reconciliation, and accountant exports.</p><b>Awaiting discovery</b></article></div></section>
+            <section data-care-panel="discovery" hidden><div class="care-view-heading"><div><p class="care-eyebrow">DIRECTOR DISCOVERY</p><h4>Replace assumptions with the real workflow.</h4></div><span>Interview guide</span></div><div class="care-discovery"><article><b>01</b><div><h4>Business systems</h4><p>Which email, calendar, childcare, payment, and accounting systems are actually used?</p></div></article><article><b>02</b><div><h4>People and ownership</h4><p>Who owns each workflow and who approves consequential actions?</p></div></article><article><b>03</b><div><h4>Exceptions</h4><p>Which problems consume the most director time or fall through the cracks?</p></div></article><article><b>04</b><div><h4>Success measures</h4><p>Which numbers define a healthy week for this business?</p></div></article></div></section>
+            <p class="care-status" aria-live="polite" data-care-status>Care Hub demonstration ready. Explore the workspace using fictional records.</p>
+          </div>
+        </div>
+
+        <section class="care-adaptation" aria-labelledby="care-adaptation-title">
+          <div><p class="kicker">THE PATTERN TRAVELS</p><h3 id="care-adaptation-title">We build around the way your business actually works.</h3><p>The same approach can organize an insurance office, a home-service company, a clinic, or a professional office without forcing each business into the same software.</p></div>
+          <div class="care-adaptation-grid"><article><span>01</span><h4>Insurance</h4><p>Client profiles, underwriter requests, and reviewed email drafts.</p></article><article><span>02</span><h4>Home services</h4><p>Missed calls, job intake, scheduling, and owner approval.</p></article><article><span>03</span><h4>Clinic</h4><p>Intake, follow-up, records, and supervised next steps.</p></article><article><span>04</span><h4>Professional office</h4><p>Inboxes, documents, deadlines, and daily priorities.</p></article></div>
+          <a class="button" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Show Mike the part of your business that feels scattered. <span aria-hidden="true">↗</span></a>
+        </section>
+
+        <div class="care-guide-backdrop" data-care-guide-dialog aria-hidden="true" hidden>
+          <section class="care-guide" role="dialog" aria-modal="true" aria-labelledby="care-guide-title"><button type="button" aria-label="Close guide" data-care-modal-close>×</button><p class="care-eyebrow">HOW TO EXPLORE</p><h3 id="care-guide-title">This is a working product demonstration.</h3><p>Use the navigation, open the family workflow, mark follow-ups complete, and update the forms checklist. Every name and number is fictional, and nothing connects to a client system.</p><ol><li><span>1</span>Explore the director's day.</li><li><span>2</span>Follow a family through enrollment.</li><li><span>3</span>See where approval and discovery protect the work.</li></ol><button type="button" data-care-modal-close>Start exploring</button></section>
+        </div>
+      </section>
+
+      <details class="more-examples" id="more-examples">
+        <summary>More working examples <span>Phone briefs, document review, and lead intake</span></summary>
       <div class="gallery-tabs" role="tablist" aria-label="Mote Ops demonstrations">
         <button id="gallery-tab-operator" type="button" role="tab" aria-controls="gallery-panel-operator" aria-selected="true" tabindex="0" data-gallery-demo="operator">Ask what needs attention from a phone</button>
         <button id="gallery-tab-documents" type="button" role="tab" aria-controls="gallery-panel-documents" aria-selected="false" tabindex="-1" data-gallery-demo="documents">Find a cited answer inside business information</button>
         <button id="gallery-tab-leads" type="button" role="tab" aria-controls="gallery-panel-leads" aria-selected="false" tabindex="-1" data-gallery-demo="leads">Move a new lead from message to approved response</button>
-        <button id="gallery-tab-care" type="button" role="tab" aria-controls="gallery-panel-care" aria-selected="false" tabindex="-1" data-gallery-demo="care">Keep a family moving through enrollment</button>
       </div>
 
       <div id="gallery-panel-operator" role="tabpanel" aria-labelledby="gallery-tab-operator" data-gallery-panel="operator" tabindex="0">
@@ -169,34 +283,13 @@
       </div>
     </section>
       </div>
-      <div id="gallery-panel-care" role="tabpanel" aria-labelledby="gallery-tab-care" data-gallery-panel="care" tabindex="0" hidden>
-        <div class="demo-label"><span>Working pattern</span> · <span>Synthetic public data</span> · <span>No live connection</span></div>
-    <section class="care-demo section-pad" id="care-hub-demo" aria-labelledby="care-demo-title">
-      <div class="section-heading split-heading">
-        <div><p class="kicker">CARE HUB DEMONSTRATION</p><h2 id="care-demo-title">From first family inquiry to first day without losing the warm touch.</h2></div>
-        <p><strong>Customer problem:</strong> Enrollment steps are scattered across tools and memory. <strong>What this proves:</strong> A director can keep inquiries, tours, forms, follow ups, and placement in one supervised workspace.</p>
-      </div>
-      <div class="care-app">
-        <header class="care-head"><div><span class="care-logo">CC</span><div><strong>CC’s Care Hub</strong><small>Families &amp; Enrollment</small></div></div><a href="https://care.moteops.tech/" target="_blank" rel="noopener noreferrer">Owner access · sign in required <span aria-hidden="true">↗</span></a></header>
-        <div class="care-safety"><span class="live-dot"></span><strong>Synthetic demonstration</strong> · No real family records · No external systems connected</div>
-        <div class="care-metrics"><article><small>ENROLLMENT PIPELINE</small><strong>6 families</strong><span>Across 4 stages</span></article><article><small>TOUR REQUESTS</small><strong>2 open</strong><span>One needs times</span></article><article><small>REQUIRED FORMS</small><strong>3 / 5</strong><span>Two follow-ups due</span></article><article><small>CLASSROOM PLACEMENT</small><strong>1 review</strong><span>Director decision</span></article></div>
-        <div class="care-workspace">
-          <nav class="care-tabs" aria-label="Care Hub demonstration"><button class="is-active" type="button" aria-pressed="true" data-care-tab="pipeline">Pipeline</button><button type="button" aria-pressed="false" data-care-tab="tours">Tours</button><button type="button" aria-pressed="false" data-care-tab="forms">Required forms</button><button type="button" aria-pressed="false" data-care-tab="placement">Classroom placement</button></nav>
-          <section class="care-panel" data-care-panel="pipeline"><div class="care-panel-title"><div><p class="kicker">ENROLLMENT PIPELINE</p><h3>Every family has a visible next step.</h3></div><span>6 fictional families</span></div><div class="care-board"><article><small>NEW INQUIRY · 2</small><div class="family-card"><strong>Avery · Milo, age 2</strong><span>Needs tour options</span><button type="button" data-care-task>Prepare times</button></div></article><article><small>TOUR SCHEDULED · 1</small><div class="family-card"><strong>Jordan · Sofia, age 4</strong><span>Friday · 10:00 AM</span><button type="button" data-care-task>Confirm tour</button></div></article><article><small>FORMS IN PROGRESS · 2</small><div class="family-card"><strong>Taylor · Noah, age 3</strong><span>2 required items missing</span><button type="button" data-care-task>Draft reminder</button></div></article><article><small>PLACEMENT REVIEW · 1</small><div class="family-card"><strong>Morgan · Eli, age 1</strong><span>Infant room review</span><button type="button" data-care-task>Open review</button></div></article></div></section>
-          <section class="care-panel" data-care-panel="tours" hidden><div class="care-panel-title"><div><p class="kicker">TOUR REQUESTS</p><h3>Turn interest into a clear appointment.</h3></div><span>Director-reviewed</span></div><div class="care-list"><article><div><strong>Jordan &amp; Sofia</strong><span>Friday · 10:00 AM · Confirmed</span></div><button type="button" data-care-task>Send prep note</button></article><article><div><strong>Avery &amp; Milo</strong><span>Weekday morning requested · Times needed</span></div><button type="button" data-care-task>Prepare times</button></article></div></section>
-          <section class="care-panel" data-care-panel="forms" hidden><div class="care-panel-title"><div><p class="kicker">REQUIRED FORMS</p><h3>See what is complete without searching email.</h3></div><span>Sample checklist</span></div><div class="form-list"><button type="button" aria-pressed="true" data-care-form><span>✓</span> Enrollment application <em>Complete</em></button><button type="button" aria-pressed="true" data-care-form><span>✓</span> Emergency contacts <em>Complete</em></button><button type="button" aria-pressed="false" data-care-form><span></span> Health statement <em>Needs follow-up</em></button><button type="button" aria-pressed="false" data-care-form><span></span> Photo permission <em>Needs follow-up</em></button></div></section>
-          <section class="care-panel" data-care-panel="placement" hidden><div class="care-panel-title"><div><p class="kicker">CLASSROOM PLACEMENT</p><h3>Capacity and judgment stay together.</h3></div><span>One review due</span></div><div class="room-grid"><article><small>INFANT NEST</small><strong>7 / 8</strong><span>One possible opening</span></article><article><small>LITTLE EXPLORERS</small><strong>10 / 10</strong><span>Waitlist active</span></article><article><small>SUNSHINE PRESCHOOL</small><strong>13 / 16</strong><span>Three openings</span></article></div></section>
-        </div>
-        <p class="care-status" aria-live="polite" data-care-status>Care Hub demo ready. Explore the fictional enrollment pipeline.</p>
-      </div>
-    </section>
-      </div>
+      </details>
     </section>
 
     <section class="evidence-section section-pad" id="evidence" aria-labelledby="evidence-title" data-page-section>
       <div class="section-heading split-heading"><div><p class="kicker">REAL BUILD · HONEST EVIDENCE</p><h2 id="evidence-title">Built from real operating problems.</h2></div><p>The proof is the work itself, clearly separated from results that are still being measured.</p></div>
       <div class="case-study">
-        <div class="case-story"><span>CC’S CARE HUB · REAL CLIENT BUILD</span><h3>One visible path from family inquiry to classroom placement.</h3><dl><div><dt>Problem</dt><dd>Enrollment details, tours, forms, and placement steps were spread across separate tools and memory.</dd></div><div><dt>Build</dt><dd>One director reviewed workspace that keeps each family and next action visible.</dd></div><div><dt>Current evidence</dt><dd>The system is built. The public demonstration uses fictional records while measured client results are still being established.</dd></div></dl><a class="text-link" href="#demo-gallery" data-open-demo="care">Try the public Care Hub demonstration <span aria-hidden="true">↑</span></a></div>
+        <div class="case-story"><span>CC’S CARE HUB · REAL CLIENT BUILD</span><h3>One visible path from family inquiry to classroom placement.</h3><dl><div><dt>Problem</dt><dd>Enrollment details, tours, forms, and placement steps were spread across separate tools and memory.</dd></div><div><dt>Build</dt><dd>One director reviewed workspace that keeps each family and next action visible.</dd></div><div><dt>Current evidence</dt><dd>The system is built. The public demonstration uses fictional records while measured client results are still being established.</dd></div></dl><a class="text-link" href="#care-hub-showcase">Try the public Care Hub demonstration <span aria-hidden="true">↑</span></a></div>
         <div class="case-route" aria-label="Care Hub workflow"><span>Inquiry</span><i>01</i><span>Tour</span><i>02</i><span>Forms</span><i>03</i><span>Placement</span></div>
       </div>
       <section class="toolbox" id="toolbox" aria-labelledby="toolbox-title">

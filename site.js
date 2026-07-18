@@ -16,7 +16,7 @@ function announce(message, region = demoStatus) {
   if (region) region.textContent = message;
 }
 
-const DEMO_GALLERY = ['operator', 'documents', 'leads', 'care'];
+const DEMO_GALLERY = ['operator', 'documents', 'leads'];
 const galleryTabButtons = [...document.querySelectorAll('[data-gallery-demo]')];
 const galleryPanels = [...document.querySelectorAll('[data-gallery-panel]')];
 
@@ -240,38 +240,6 @@ document.querySelectorAll('[data-action="skip"]').forEach((button) => {
     announce('Sample item skipped in the demonstration.');
   });
 });
-
-const careTabButtons = [...document.querySelectorAll('[data-care-tab]')];
-const carePanels = [...document.querySelectorAll('[data-care-panel]')];
-const careStatus = document.querySelector('[data-care-status]');
-function setCareTab(tabName) {
-  careTabButtons.forEach((button) => {
-    const active = button.dataset.careTab === tabName;
-    button.classList.toggle('is-active', active);
-    button.setAttribute('aria-selected', String(active));
-    button.tabIndex = active ? 0 : -1;
-  });
-  carePanels.forEach((panel) => { panel.hidden = panel.dataset.carePanel !== tabName; });
-  if (careStatus) careStatus.textContent = `Care Hub demo: ${tabName.replace('-', ' ')} view open. All records are fictional.`;
-}
-careTabButtons.forEach((button) => button.addEventListener('click', () => setCareTab(button.dataset.careTab)));
-document.querySelectorAll('[data-care-task]').forEach((button) => button.addEventListener('click', () => {
-  const complete = button.classList.toggle('is-complete');
-  if (!button.dataset.originalLabel) button.dataset.originalLabel = button.textContent;
-  button.textContent = complete ? 'Marked ready ✓' : button.dataset.originalLabel;
-  if (careStatus) careStatus.textContent = complete ? 'Sample task marked ready in this Care Hub demo. Nothing was sent.' : 'Sample task returned to its open state.';
-}));
-document.querySelectorAll('[data-care-form]').forEach((button) => button.addEventListener('click', () => {
-  const complete = button.getAttribute('aria-pressed') !== 'true';
-  button.setAttribute('aria-pressed', String(complete));
-  button.classList.toggle('is-complete', complete);
-  const mark = button.querySelector('span');
-  const label = button.querySelector('em');
-  if (mark) mark.textContent = complete ? '✓' : '';
-  if (label) label.textContent = complete ? 'Complete' : 'Needs follow-up';
-  if (careStatus) careStatus.textContent = `Sample form marked ${complete ? 'complete' : 'for follow-up'}. No family record was changed.`;
-}));
-if (careTabButtons.length) setCareTab('pipeline');
 
 const heroBooking = document.querySelector('#hero-booking');
 const stickyGuardSections = ['#demo-gallery']
