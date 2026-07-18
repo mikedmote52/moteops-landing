@@ -43,6 +43,8 @@ test('implements the three-demo secondary gallery with wrapped keyboard navigati
   }
   assert.match(js, /(?:galleryTabButtons|galleryTabs)[\s\S]{0,2500}preventDefault\s*\(\s*\)[\s\S]{0,800}\.focus\s*\(\s*\)/i);
   assert.match(js, /(?:%\s*(?:galleryTabButtons|galleryTabs)\.length|index\s*===\s*-1|index\s*<\s*0)/i);
+  assert.match(js, /moreExamples\.open\s*=\s*true/i, 'deep links must open the collapsed secondary gallery');
+  assert.match(js, /data-open-demo[\s\S]{0,500}preventDefault\s*\(\s*\)[\s\S]{0,500}selectedTab\?\.focus\s*\(\s*\)/i);
 });
 
 test('updates every operator request field from local demo data', () => {
@@ -144,6 +146,12 @@ test('implements the Care Hub environment in a dedicated local-only controller',
   assert.match(careJs, /aria-pressed/i);
   assert.match(careJs, /aria-hidden/i);
   assert.match(careJs, /Escape/i);
+  assert.match(careJs, /dataset\.openLabel/i, 'task controls must retain a visible open-state label');
+  assert.match(careJs, /dataset\.completeLabel/i, 'task controls must expose a visible completed-state label');
+  assert.match(careJs, /\.focus\s*\(\s*\)/i, 'view routing must place focus in the newly visible view');
+  assert.match(careJs, /\binert\b/i, 'the guide must make background content inert');
+  assert.match(careJs, /document\.body\.style\.overflow/i, 'the guide must prevent background scrolling');
+  assert.match(careJs, /Tab/i, 'the guide must trap keyboard focus');
   assert.doesNotMatch(careJs, /\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB/i);
 });
 

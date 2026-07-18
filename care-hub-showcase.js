@@ -33,7 +33,7 @@ if (careRoot) {
     if (careStatus) careStatus.textContent = message;
   }
 
-  function setFamilyTab(tab) {
+  function setFamilyTab(tab, moveFocus = false) {
     const selected = familyButtons.some((button) => button.dataset.careFamilyTab === tab) ? tab : 'overview';
     familyButtons.forEach((button) => {
       const active = button.dataset.careFamilyTab === selected;
@@ -41,10 +41,15 @@ if (careRoot) {
       button.setAttribute('aria-pressed', String(active));
     });
     familyPanels.forEach((panel) => { panel.hidden = panel.dataset.careFamilyPanel !== selected; });
+    if (moveFocus) {
+      const panel = familyPanels.find((item) => item.dataset.careFamilyPanel === selected);
+      panel?.setAttribute('tabindex', '-1');
+      panel?.focus();
+    }
     announceCare(`${selected.replaceAll('-', ' ')} open. All records in this demonstration are fictional.`);
   }
 
-  function setCareView(view, familyTab) {
+  function setCareView(view, familyTab, moveFocus = false) {
     const selected = viewCopy[view] ? view : 'today';
     viewButtons.forEach((button) => {
       const active = button.dataset.careView === selected;
@@ -54,7 +59,7 @@ if (careRoot) {
     viewPanels.forEach((panel) => { panel.hidden = panel.dataset.carePanel !== selected; });
     if (careTitle) careTitle.textContent = viewCopy[selected][0];
     if (careSubtitle) careSubtitle.textContent = viewCopy[selected][1];
-    if (selected === 'families') setFamilyTab(familyTab || 'overview');
+    if (selected === 'families') setFamilyTab(familyTab || 'overview', moveFocus);
     else announceCare(`${viewCopy[selected][0]} open. All records in this demonstration are fictional.`);
   }
 
@@ -62,11 +67,11 @@ if (careRoot) {
   familyButtons.forEach((button) => button.addEventListener('click', () => setFamilyTab(button.dataset.careFamilyTab)));
 
   careRoot.querySelectorAll('[data-care-metric]').forEach((button) => {
-    button.addEventListener('click', () => setCareView('families', button.dataset.careMetric));
+    button.addEventListener('click', () => setCareView('families', button.dataset.careMetric, true));
   });
 
   careRoot.querySelectorAll('[data-care-open-family]').forEach((button) => {
-    button.addEventListener('click', () => setCareView('families', button.dataset.careOpenFamily));
+    button.addEventListener('click', () => setCareView('families', button.dataset.careOpenFamily, true));
   });
 
   const taskButtons = [...careRoot.querySelectorAll('[data-care-task]')];
@@ -75,7 +80,9 @@ if (careRoot) {
       const complete = button.getAttribute('aria-pressed') !== 'true';
       button.setAttribute('aria-pressed', String(complete));
       const label = button.querySelector('em');
-      if (label) label.textContent = complete ? 'Complete' : 'Mark done';
+      const visibleLabel = complete ? button.dataset.completeLabel : button.dataset.openLabel;
+      if (label) label.textContent = visibleLabel;
+      else button.textContent = visibleLabel;
       const queueTasks = [...careRoot.querySelectorAll('.care-queue [data-care-task]')];
       const openCount = queueTasks.filter((task) => task.getAttribute('aria-pressed') !== 'true').length;
       const counter = careRoot.querySelector('[data-care-open-count]');
@@ -106,7 +113,7 @@ if (careRoot) {
     button.addEventListener('click', () => {
       const profile = profileCopy[button.dataset.careProfile];
       if (!profile) return;
-      setCareView('families', 'family-profiles');
+      setCareView('families', 'family-profiles', true);
       careRoot.querySelectorAll('.care-profile-list [data-care-profile]').forEach((item) => item.classList.toggle('is-active', item.dataset.careProfile === button.dataset.careProfile));
       const name = careRoot.querySelector('[data-care-profile-name]');
       const detail = careRoot.querySelector('[data-care-profile-detail]');
@@ -122,6 +129,8 @@ if (careRoot) {
     if (!guide) return;
     guide.hidden = true;
     guide.setAttribute('aria-hidden', 'true');
+    [...careRoot.children].forEach((child) => { if (child !== guide) child.removeAttribute('inert'); });
+    document.body.style.overflow = '';
     guideOpener?.focus();
   }
 
@@ -129,11 +138,28 @@ if (careRoot) {
     guideOpener = guideButton;
     guide.hidden = false;
     guide.setAttribute('aria-hidden', 'false');
+    [...careRoot.children].forEach((child) => { if (child !== guide) child.setAttribute('inert', ''); });
+    document.body.style.overflow = 'hidden';
     guide.querySelector('[data-care-modal-close]')?.focus();
   });
   guide?.querySelectorAll('[data-care-modal-close]').forEach((button) => button.addEventListener('click', closeGuide));
   guide?.addEventListener('click', (event) => { if (event.target === guide) closeGuide(); });
-  document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && guide && !guide.hidden) closeGuide(); });
+  document.addEventListener('keydown', (event) => {
+    if (!guide || guide.hidden) return;
+    if (event.key === 'Escape') closeGuide();
+    if (event.key === 'Tab') {
+      const focusable = [...guide.querySelectorAll('button:not([disabled]), a[href]')];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    }
+  });
 
   updateFormCount();
   setCareView('today');

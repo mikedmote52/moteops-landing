@@ -15,7 +15,7 @@
 
 .care-showcase button,
 .care-showcase a { -webkit-tap-highlight-color: transparent; }
-.care-showcase button { color: inherit; font: inherit; }
+.care-showcase button { color: inherit; font: inherit; min-height: 44px; }
 .care-showcase-intro { align-items: end; display: grid; gap: 40px; grid-template-columns: 1.25fr .75fr; margin-bottom: 24px; }
 .care-showcase-intro h2 { font-size: clamp(42px, 6vw, 82px); letter-spacing: -.065em; line-height: .94; margin: 8px 0 0; max-width: 850px; }
 .care-showcase-intro > p { color: #5f625d; font-family: Georgia, serif; font-size: 20px; line-height: 1.55; margin: 0; }
@@ -126,6 +126,7 @@
 .care-tour-list strong,.care-tour-list small { display: block; font-size: 8px; }
 .care-tour-list small { color: var(--care-muted); margin-top: 4px; }
 .care-tour-list button,.care-rooms button { background: #f3eee5; border: 0; border-radius: 7px; cursor: pointer; font-size: 7px; font-weight: 800; min-height: 36px; padding: 7px; }
+.care-tour-list button[aria-pressed="true"],.care-rooms button[aria-pressed="true"] { background: var(--care-sage); color: #45683f; }
 .care-profile { display: grid; gap: 14px; grid-template-columns: .65fr 1.35fr; }
 .care-profile-list { background: var(--care-paper); border: 1px solid var(--care-line); border-radius: 15px; padding: 10px; }
 .care-profile-list button { background: none; border: 0; border-radius: 9px; cursor: pointer; display: block; font-size: 9px; font-weight: 800; min-height: 48px; padding: 9px; text-align: left; width: 100%; }
@@ -231,8 +232,9 @@
 }
 
 @media (max-width: 520px) {
+  .care-showcase small,.care-showcase p,.care-showcase button,.care-showcase span,.care-showcase b,.care-showcase dt,.care-showcase dd { font-size: 10px; }
   .care-showcase-truth { align-items: flex-start; font-size: 11px; }
-  .care-shell { margin-left: -20px; margin-right: -20px; }
+  .care-shell { width: 100%; }
   .care-sidebar { padding: 14px; }
   .care-brand > span { height: 36px; width: 36px; }
   .care-brand strong { font-size: 19px; }
@@ -245,6 +247,8 @@
   .care-metrics { gap: 8px; }
   .care-metrics button { min-height: 132px; padding: 12px; }
   .care-metrics strong { font-size: 20px; }
+  .care-eyebrow,.care-metrics span,.care-metrics small,.care-queue button strong,.care-queue button small,.care-tour-list strong,.care-tour-list small,.care-profile-list button,.care-profile-list small,.care-forms strong,.care-forms small,.care-integration-grid p,.care-discovery p,.care-adaptation-grid p { font-size: 10px; }
+  .care-tour-list button,.care-rooms button,.care-focus button,.care-next-tour button,.care-family-overview button { font-size: 10px; min-height: 44px; }
   .care-card { padding: 15px; }
   .care-card-head { align-items: flex-start; }
   .care-queue > button { min-height: 64px; }

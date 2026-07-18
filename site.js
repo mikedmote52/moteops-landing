@@ -19,6 +19,7 @@ function announce(message, region = demoStatus) {
 const DEMO_GALLERY = ['operator', 'documents', 'leads'];
 const galleryTabButtons = [...document.querySelectorAll('[data-gallery-demo]')];
 const galleryPanels = [...document.querySelectorAll('[data-gallery-panel]')];
+const moreExamples = document.querySelector('#more-examples');
 
 function setGalleryDemo(name) {
   const selectedName = DEMO_GALLERY.includes(name) ? name : DEMO_GALLERY[0];
@@ -51,9 +52,13 @@ galleryTabButtons.forEach((button, index) => {
   });
 });
 
-document.querySelectorAll('[data-open-demo]').forEach((link) => link.addEventListener('click', () => {
+document.querySelectorAll('[data-open-demo]').forEach((link) => link.addEventListener('click', (event) => {
+  event.preventDefault();
+  if (moreExamples) moreExamples.open = true;
   setGalleryDemo(link.dataset.openDemo);
-  galleryTabButtons.find((button) => button.dataset.galleryDemo === link.dataset.openDemo)?.focus();
+  const selectedTab = galleryTabButtons.find((button) => button.dataset.galleryDemo === link.dataset.openDemo);
+  moreExamples?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  selectedTab?.focus();
 }));
 
 const OPERATOR_REQUESTS = {

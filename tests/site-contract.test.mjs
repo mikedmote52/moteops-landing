@@ -6,6 +6,9 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const html = readFileSync(resolve(root, 'index.html'), 'utf8');
 const css = readFileSync(resolve(root, 'site.css'), 'utf8');
+const careCss = existsSync(resolve(root, 'care-hub-showcase.css'))
+  ? readFileSync(resolve(root, 'care-hub-showcase.css'), 'utf8')
+  : '';
 const js = readFileSync(resolve(root, 'site.js'), 'utf8');
 
 function attribute(tag, name) {
@@ -209,6 +212,12 @@ test('preserves real local controls across the Care Hub and secondary demonstrat
     'data-care-metric', 'data-care-task', 'data-care-form', 'data-care-guide',
   ]) assert.match(gallery, new RegExp(hook, 'i'));
   assert.doesNotMatch(gallery, /href="https:\/\/care\.moteops\.tech\/"/i);
+  for (const button of gallery.matchAll(/<button\b[^>]*data-care-task[^>]*>/gi)) {
+    assert.match(button[0], /data-open-label=/i);
+    assert.match(button[0], /data-complete-label=/i);
+  }
+  assert.match(careCss, /min-height:\s*44px/i);
+  assert.doesNotMatch(careCss, /\.care-shell\s*\{[^}]*margin-(?:left|right):\s*-\d/si);
 });
 
 test('centers evidence on the real Care Hub build without inflating results', () => {
