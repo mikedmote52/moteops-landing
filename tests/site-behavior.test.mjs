@@ -1,9 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-const js = readFileSync(resolve(import.meta.dirname, '..', 'site.js'), 'utf8');
+const root = resolve(import.meta.dirname, '..');
+const js = readFileSync(resolve(root, 'site.js'), 'utf8');
+const careJsPath = resolve(root, 'care-hub-showcase.js');
+const careJs = existsSync(careJsPath) ? readFileSync(careJsPath, 'utf8') : '';
 
 function straightLineRenderFunction(name) {
   const match = js.match(new RegExp(`function\\s+${name}\\s*\\(\\s*data\\s*\\)\\s*\\{\\n([\\s\\S]*?)\\n\\}`, 'i'));
@@ -30,8 +33,10 @@ function assertRenderField(helper, selector, valueExpression) {
   assert.ok(cachedWrite || directWrite, `${selector} must be written from ${valueExpression} inside its render helper`);
 }
 
-test('implements the four-demo gallery with wrapped keyboard navigation', () => {
+test('implements the three-demo secondary gallery with wrapped keyboard navigation', () => {
   assert.match(js, /DEMO_GALLERY/);
+  assert.match(js, /const\s+DEMO_GALLERY\s*=\s*\[\s*['"]operator['"]\s*,\s*['"]documents['"]\s*,\s*['"]leads['"]\s*\]/i);
+  assert.doesNotMatch(js, /DEMO_GALLERY\s*=\s*\[[^\]]*['"]care['"]/i);
   assert.match(js, /setGalleryDemo/);
   for (const key of ['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End']) {
     assert.match(js, new RegExp(key));
@@ -82,11 +87,9 @@ test('runs document tasks and updates findings, source, and status locally', () 
   assert.match(js, /if\s*\(\s*documentTaskButtons\.length\s*\)\s*runDocumentTask\(\s*['"]commitments['"]\s*\)/i, 'document demo must initialize its selected task and visible result together');
 });
 
-test('retains lead and Care selectors inside the unified gallery', () => {
+test('retains lead selectors inside the secondary gallery', () => {
   assert.match(js, /\[data-demo-state\]/);
   assert.match(js, /\[data-demo-next\]/);
-  assert.match(js, /\[data-care-task\]/);
-  assert.match(js, /\[data-care-form\]/);
 });
 
 test('implements explicit three-state demo navigation', () => {
@@ -125,15 +128,27 @@ test('suppresses the sticky booking action while any interactive demo is in view
   assert.match(js, /IntersectionObserver/);
 });
 
-test('implements Care Hub tabs and local-only task and form controls', () => {
-  assert.match(js, /careTabButtons/);
-  assert.match(js, /setCareTab/);
-  assert.match(js, /\[data-care-task\]/);
-  assert.match(js, /\[data-care-form\]/);
-  assert.match(js, /Care Hub demo/i);
+test('implements the Care Hub environment in a dedicated local-only controller', () => {
+  assert.ok(careJs, 'missing care-hub-showcase.js');
+  for (const hook of [
+    'data-care-view',
+    'data-care-family-tab',
+    'data-care-metric',
+    'data-care-task',
+    'data-care-form',
+    'data-care-guide',
+    'data-care-modal-close',
+  ]) assert.match(careJs, new RegExp(hook, 'i'));
+  assert.match(careJs, /function\s+setCareView/i);
+  assert.match(careJs, /function\s+setFamilyTab/i);
+  assert.match(careJs, /aria-pressed/i);
+  assert.match(careJs, /aria-hidden/i);
+  assert.match(careJs, /Escape/i);
+  assert.doesNotMatch(careJs, /\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB/i);
 });
 
 test('has no obsolete interactive architecture route controller and keeps network safety', () => {
   assert.doesNotMatch(js, /SYSTEM_ROUTES|systemRouteButtons|setSystemRoute|data-system-(?:route|approve|reset|status|evidence)/);
+  assert.doesNotMatch(js, /careTabButtons|setCareTab|\[data-care-task\]|\[data-care-form\]/);
   assert.doesNotMatch(js, /\b(?:fetch|EventSource|WebSocket)\s*\(|\b(?:navigator\.)?sendBeacon\s*\(|\bnew\s+XMLHttpRequest\b/i);
 });

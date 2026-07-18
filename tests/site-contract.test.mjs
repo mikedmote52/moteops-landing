@@ -138,26 +138,59 @@ test('introduces Mike and the four step method before demonstrations', () => {
   assert.match(process.source, /discovery, design, implementation, and review/i);
 });
 
-test('keeps four accessible outcome led demonstrations', () => {
+test('makes the real Care Hub workflow the primary working demonstration', () => {
   const gallery = elementById('demo-gallery', 'section');
-  assert.equal(tagsWithRole(gallery.source, null, 'tablist').length, 1);
-  const tabs = tagsWithRole(gallery.source, 'button', 'tab');
-  assert.equal(tabs.length, 4);
-  assert.deepEqual(tabs.map((tag) => attribute(tag, 'data-gallery-demo')), ['operator', 'documents', 'leads', 'care']);
+  const careShowcase = elementById('care-hub-showcase', 'section');
+  assert.ok(careShowcase.start >= gallery.start && careShowcase.end <= gallery.end);
+  assert.match(careShowcase.source, /A WORKING SMALL-BUSINESS ENVIRONMENT/i);
+  assert.match(careShowcase.source, /Step inside something we built\./i);
+  assert.match(careShowcase.source, /CC['’]s Care Hub turns scattered enrollment work into one clear place/i);
+  assert.match(careShowcase.source, /Interactive demonstration using fictional family records/i);
+  assert.match(careShowcase.source, /workflow and interface are real; client results are still being measured/i);
+  for (const label of ['Today', 'Families', 'Modules', 'Integrations', 'Discovery']) {
+    assert.match(careShowcase.source, new RegExp(`>${label}<`, 'i'));
+  }
+  for (const metric of ['6 families', '2 open', '3 / 5', '1 review']) {
+    assert.match(careShowcase.source, new RegExp(metric.replace('/', '\\/'), 'i'));
+  }
+  for (const familyView of ['Overview', 'Pipeline', 'Tours', 'Family profiles', 'Required forms', 'Classroom placement']) {
+    assert.match(careShowcase.source, new RegExp(`>${familyView}<`, 'i'));
+  }
+});
+
+test('shows how the Care Hub implementation pattern adapts to other small businesses', () => {
+  const careShowcase = elementById('care-hub-showcase', 'section').source;
+  for (const phrase of [
+    'THE PATTERN TRAVELS',
+    'We build around the way your business actually works.',
+    'Insurance',
+    'Home services',
+    'Clinic',
+    'Professional office',
+    'Show Mike the part of your business that feels scattered.',
+  ]) assert.match(careShowcase, new RegExp(phrase, 'i'));
+});
+
+test('keeps three secondary demonstrations accessible but collapsed by default', () => {
+  const moreExamples = elementById('more-examples', 'details');
+  assert.doesNotMatch(moreExamples.openingTag, /\bopen\b/i);
+  assert.equal(tagsWithRole(moreExamples.source, null, 'tablist').length, 1);
+  const tabs = tagsWithRole(moreExamples.source, 'button', 'tab');
+  assert.equal(tabs.length, 3);
+  assert.deepEqual(tabs.map((tag) => attribute(tag, 'data-gallery-demo')), ['operator', 'documents', 'leads']);
   const labels = [
     'Ask what needs attention from a phone',
     'Find a cited answer inside business information',
     'Move a new lead from message to approved response',
-    'Keep a family moving through enrollment',
   ];
   tabs.forEach((tab, index) => {
-    const start = gallery.source.indexOf(tab);
-    const end = gallery.source.indexOf('</button>', start);
-    const text = gallery.source.slice(start + tab.length, end).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+    const start = moreExamples.source.indexOf(tab);
+    const end = moreExamples.source.indexOf('</button>', start);
+    const text = moreExamples.source.slice(start + tab.length, end).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
     assert.equal(text, labels[index]);
   });
-  const panels = galleryPanelRanges(gallery);
-  assert.equal(panels.length, 4);
+  const panels = galleryPanelRanges(moreExamples);
+  assert.equal(panels.length, 3);
   assert.equal(panels.filter(({ openingTag }) => !/\bhidden(?:\s|>)/i.test(openingTag)).length, 1);
   for (const panel of panels) {
     assert.match(panel.source, /Customer problem:/i);
@@ -167,15 +200,15 @@ test('keeps four accessible outcome led demonstrations', () => {
   }
 });
 
-test('preserves real local controls in every demonstration', () => {
+test('preserves real local controls across the Care Hub and secondary demonstrations', () => {
   const gallery = elementById('demo-gallery', 'section').source;
   for (const hook of [
     'data-operator-request', 'data-operator-approve', 'data-document-task', 'data-document-reset',
     'data-demo-state', 'data-demo-next', 'data-demo-reset', 'data-action="approve"',
-    'data-action="edit"', 'data-action="skip"', 'data-care-tab', 'data-care-task', 'data-care-form',
+    'data-action="edit"', 'data-action="skip"', 'data-care-view', 'data-care-family-tab',
+    'data-care-metric', 'data-care-task', 'data-care-form', 'data-care-guide',
   ]) assert.match(gallery, new RegExp(hook, 'i'));
-  assert.match(gallery, /href="https:\/\/care\.moteops\.tech\/"/i);
-  assert.match(gallery, /Owner access.{0,50}sign in required/is);
+  assert.doesNotMatch(gallery, /href="https:\/\/care\.moteops\.tech\/"/i);
 });
 
 test('centers evidence on the real Care Hub build without inflating results', () => {
