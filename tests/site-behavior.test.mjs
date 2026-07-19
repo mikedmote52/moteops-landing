@@ -7,6 +7,8 @@ const root = resolve(import.meta.dirname, '..');
 const js = readFileSync(resolve(root, 'site.js'), 'utf8');
 const careJsPath = resolve(root, 'care-hub-showcase.js');
 const careJs = existsSync(careJsPath) ? readFileSync(careJsPath, 'utf8') : '';
+const ownerJsPath = resolve(root, 'owner-story.js');
+const ownerJs = existsSync(ownerJsPath) ? readFileSync(ownerJsPath, 'utf8') : '';
 
 function straightLineRenderFunction(name) {
   const match = js.match(new RegExp(`function\\s+${name}\\s*\\(\\s*data\\s*\\)\\s*\\{\\n([\\s\\S]*?)\\n\\}`, 'i'));
@@ -153,6 +155,22 @@ test('implements the Care Hub environment in a dedicated local-only controller',
   assert.match(careJs, /document\.body\.style\.overflow/i, 'the guide must prevent background scrolling');
   assert.match(careJs, /Tab/i, 'the guide must trap keyboard focus');
   assert.doesNotMatch(careJs, /\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB/i);
+});
+
+test('progresses the owner story locally and respects reduced motion', () => {
+  assert.ok(ownerJs, 'missing owner-story.js');
+  assert.match(ownerJs, /function\s+setOwnerStoryState\s*\(\s*name\s*\)/i);
+  assert.match(ownerJs, /IntersectionObserver/i);
+  assert.match(ownerJs, /matchMedia\s*\(\s*['"]\(prefers-reduced-motion:\s*reduce\)['"]\s*\)/i);
+  assert.match(ownerJs, /classList\.toggle\s*\(\s*['"]is-active['"]/i);
+  assert.doesNotMatch(ownerJs, /\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB/i);
+});
+
+test('hands focus from the story into the Care Hub', () => {
+  assert.match(ownerJs, /data-owner-story-handoff/i);
+  assert.match(ownerJs, /care-hub-showcase/i);
+  assert.match(ownerJs, /gallery-title/i);
+  assert.match(ownerJs, /\.focus\s*\(\s*\)/i);
 });
 
 test('has no obsolete interactive architecture route controller and keeps network safety', () => {
