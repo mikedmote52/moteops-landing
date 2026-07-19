@@ -9,6 +9,9 @@ const css = readFileSync(resolve(root, 'site.css'), 'utf8');
 const careCss = existsSync(resolve(root, 'care-hub-showcase.css'))
   ? readFileSync(resolve(root, 'care-hub-showcase.css'), 'utf8')
   : '';
+const ownerCss = existsSync(resolve(root, 'owner-story.css'))
+  ? readFileSync(resolve(root, 'owner-story.css'), 'utf8')
+  : '';
 const js = readFileSync(resolve(root, 'site.js'), 'utf8');
 
 function attribute(tag, name) {
@@ -63,30 +66,33 @@ test('leads with Mike as a practical AI integration partner', () => {
   assert.doesNotMatch(hero, /\b(?:AIOS|local LLM|control plane|model routing|agent runtime|operational memory)\b/i);
 });
 
-test('shows a truthful photographic transformation instead of an abstract hero diagram', () => {
+test('shows a truthful small-business chaos-to-control story', () => {
   const hero = elementById('top', 'section').source;
   assert.doesNotMatch(hero, /hero-system-plate|hero-inputs|hero-core|hero-outputs/i);
-  assert.match(hero, /class="hero-transformation"/i);
-  assert.match(hero, /<picture\b/i);
-  assert.match(hero, /media="\(max-width: 760px\)"/i);
-  assert.match(hero, /assets\/moteops-transformation-hero-mobile-v1\.png/i);
-  assert.match(hero, /assets\/moteops-transformation-hero-v1\.png/i);
-  assert.match(hero, /A small business owner moves from an overflowing inbox, missed calls, paperwork, and calendar conflicts to a Mote Ops agent organizing the work and a simple screen showing three decisions and a drafted email ready for approval\./i);
-  for (const label of ['Before', 'Mote Ops working', 'Three decisions need you']) {
-    assert.match(hero, new RegExp(`>${label}<`, 'i'));
+  assert.match(hero, /data-owner-story/i);
+  assert.match(hero, /assets\/small-business-owner-overwhelmed-v1\.webp/i);
+  for (const pressure of ['4 missed calls', '37 unread emails', '6 unanswered texts', '2 calendar conflicts', '1 overdue invoice', 'Spreadsheet needs review']) {
+    assert.match(hero, new RegExp(pressure, 'i'));
   }
-  assert.match(hero, /Illustrative demonstration using fictional business information\./i);
-  assert.ok(existsSync(resolve(root, 'assets/moteops-transformation-hero-v1.png')));
-  assert.ok(existsSync(resolve(root, 'assets/moteops-transformation-hero-mobile-v1.png')));
+  for (const source of ['Calls \\+ texts', 'Email', 'Calendar', 'Files \\+ spreadsheets', 'Finance']) {
+    assert.match(hero, new RegExp(source, 'i'));
+  }
+  assert.match(hero, /organize incoming work/i);
+  assert.match(hero, /prepare useful next steps/i);
+  assert.match(hero, /hold consequential actions for approval/i);
+  assert.match(hero, /This is what “one calm place” looks like for CC's Learning Center\./i);
+  assert.match(hero, /href="#care-hub-showcase"/i);
+  assert.match(hero, /Illustrative scenario using fictional business information\./i);
+  assert.doesNotMatch(hero, /moteops-transformation-hero-(?:mobile-)?v1\.png/i);
 });
 
-test('pairs every phone transformation scene with its caption', () => {
-  const hero = elementById('top', 'section').source;
-  assert.match(hero, /class="hero-transformation-mobile"/i);
-  assert.equal((hero.match(/class="hero-transformation-mobile-stage/g) || []).length, 3);
-  assert.match(hero, /hero-transformation-mobile-crop is-before[\s\S]*?<span>Before<\/span>/i);
-  assert.match(hero, /hero-transformation-mobile-crop is-working[\s\S]*?<span>Mote Ops working<\/span>/i);
-  assert.match(hero, /hero-transformation-mobile-crop is-result[\s\S]*?<span>Three decisions need you<\/span>/i);
+test('isolates and preserves the owner story presentation', () => {
+  assert.ok(existsSync(resolve(root, 'assets/small-business-owner-overwhelmed-v1.webp')));
+  assert.ok(existsSync(resolve(root, 'assets/moteops-transformation-hero-v1.png')));
+  assert.match(html, /owner-story\.css\?v=20260719/i);
+  assert.match(html, /owner-story\.js\?v=20260719/i);
+  assert.match(ownerCss, /prefers-reduced-motion:\s*reduce/i);
+  assert.match(ownerCss, /@media\s*\(max-width:\s*760px\)/i);
 });
 
 test('uses the approved concise section order', () => {
