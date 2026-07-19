@@ -247,7 +247,7 @@ document.querySelectorAll('[data-action="skip"]').forEach((button) => {
 });
 
 const heroBooking = document.querySelector('#hero-booking');
-const stickyGuardSections = ['#demo-gallery']
+const stickyGuardSections = ['[data-owner-story]', '#demo-gallery']
   .map((selector) => document.querySelector(selector))
   .filter(Boolean);
 const stickyCta = document.querySelector('[data-sticky-cta]');

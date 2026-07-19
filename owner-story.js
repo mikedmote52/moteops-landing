@@ -12,11 +12,14 @@ if (ownerStory) {
   }
 
   if (!reducedMotion && 'IntersectionObserver' in window) {
+    const sceneRatios = new Map(scenes.map((scene) => [scene, 0]));
     const observer = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setOwnerStoryState(visible.target.dataset.ownerScene);
+      entries.forEach((entry) => {
+        sceneRatios.set(entry.target, entry.intersectionRatio);
+      });
+      const visible = [...sceneRatios.entries()]
+        .sort((a, b) => b[1] - a[1])[0];
+      if (visible?.[1] > 0) setOwnerStoryState(visible[0].dataset.ownerScene);
     }, { threshold: [0.35, 0.6, 0.85] });
 
     scenes.forEach((scene) => observer.observe(scene));

@@ -123,7 +123,7 @@ test('maintains accessible sticky CTA and announces interaction status', () => {
 });
 
 test('suppresses the sticky booking action while any interactive demo is in view', () => {
-  assert.match(js, /stickyGuardSections\s*=\s*\[\s*['"]#demo-gallery['"]\s*\]/);
+  assert.match(js, /stickyGuardSections\s*=\s*\[\s*['"]\[data-owner-story\]['"]\s*,\s*['"]#demo-gallery['"]\s*\]/);
   assert.match(js, /stickyGuardSections/);
   assert.match(js, /guardSectionsInView/);
   assert.match(js, /heroInView/);
@@ -163,6 +163,8 @@ test('progresses the owner story locally and respects reduced motion', () => {
   assert.match(ownerJs, /IntersectionObserver/i);
   assert.match(ownerJs, /matchMedia\s*\(\s*['"]\(prefers-reduced-motion:\s*reduce\)['"]\s*\)/i);
   assert.match(ownerJs, /classList\.toggle\s*\(\s*['"]is-active['"]/i);
+  assert.match(ownerJs, /sceneRatios\.set\s*\(\s*entry\.target\s*,\s*entry\.intersectionRatio\s*\)/i);
+  assert.match(ownerJs, /\[\.\.\.sceneRatios\.entries\s*\(\s*\)\s*\]/i);
   assert.doesNotMatch(ownerJs, /\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB/i);
 });
 

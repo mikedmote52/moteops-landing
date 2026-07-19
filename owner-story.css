@@ -290,18 +290,18 @@
   .owner-story { gap: 20px; }
   .owner-scene { box-shadow: 6px 7px 0 var(--owner-copper); opacity: 1; transform: none; }
   .owner-photo { aspect-ratio: 4 / 5; }
-  .owner-photo img { object-position: 52% center; }
+  .owner-photo img { object-position: 29% center; }
   .owner-signals li {
     font-size: .68rem;
     max-width: 145px;
     padding: 8px 9px;
   }
-  .owner-signals [data-owner-signal="calls"] { bottom: 6%; left: 4%; }
+  .owner-signals [data-owner-signal="calls"] { bottom: 28%; left: 4%; }
   .owner-signals [data-owner-signal="email"] { left: 4%; top: 4%; }
   .owner-signals [data-owner-signal="texts"] { right: 4%; top: 16%; }
   .owner-signals [data-owner-signal="calendar"] { right: 4%; top: 31%; }
   .owner-signals [data-owner-signal="invoice"] { bottom: 5%; right: 4%; }
-  .owner-signals [data-owner-signal="sheet"] { bottom: 19%; left: 4%; }
+  .owner-signals [data-owner-signal="sheet"] { bottom: 43%; left: 4%; }
   .owner-scene-copy { padding: 21px 19px 24px; }
   .owner-scene-copy h2 { font-size: 2rem; }
   .owner-sources { grid-template-columns: repeat(2, minmax(0, 1fr)); }
