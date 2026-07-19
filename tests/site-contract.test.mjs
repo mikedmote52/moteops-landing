@@ -68,11 +68,12 @@ test('leads with Mike as a practical AI integration partner', () => {
 
 test('shows a truthful small-business chaos-to-control story', () => {
   const hero = elementById('top', 'section').source;
+  const heroText = hero.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   assert.doesNotMatch(hero, /hero-system-plate|hero-inputs|hero-core|hero-outputs/i);
   assert.match(hero, /data-owner-story/i);
   assert.match(hero, /assets\/small-business-owner-overwhelmed-v1\.webp/i);
   for (const pressure of ['4 missed calls', '37 unread emails', '6 unanswered texts', '2 calendar conflicts', '1 overdue invoice', 'Spreadsheet needs review']) {
-    assert.match(hero, new RegExp(pressure, 'i'));
+    assert.match(heroText, new RegExp(pressure, 'i'));
   }
   for (const source of ['Calls \\+ texts', 'Email', 'Calendar', 'Files \\+ spreadsheets', 'Finance']) {
     assert.match(hero, new RegExp(source, 'i'));

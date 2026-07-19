@@ -14,8 +14,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="site.css?v=integration-partner-1">
+  <link rel="stylesheet" href="owner-story.css?v=20260719">
   <link rel="stylesheet" href="care-hub-showcase.css?v=20260718">
   <script src="site.js?v=integration-partner-1" defer></script>
+  <script src="owner-story.js?v=20260719" defer></script>
   <script src="care-hub-showcase.js?v=20260718" defer></script>
 </head>
 <body>
@@ -40,21 +42,61 @@
         </div>
         <div class="hero-trust"><span>Built around your existing tools</span><span>Human approval where it matters</span><span>One accountable implementation partner</span></div>
       </div>
-      <figure class="hero-transformation">
-        <picture class="hero-transformation-media hero-transformation-desktop">
-          <source media="(max-width: 760px)" srcset="assets/moteops-transformation-hero-mobile-v1.png">
-          <img src="assets/moteops-transformation-hero-v1.png" alt="A small business owner moves from an overflowing inbox, missed calls, paperwork, and calendar conflicts to a Mote Ops agent organizing the work and a simple screen showing three decisions and a drafted email ready for approval.">
-        </picture>
-        <figcaption>
-          <ol class="hero-transformation-stages hero-transformation-desktop"><li>Before</li><li>Mote Ops working</li><li>Three decisions need you</li></ol>
-          <ol class="hero-transformation-mobile" aria-label="From overwhelmed work to three clear decisions">
-            <li class="hero-transformation-mobile-stage"><span class="hero-transformation-mobile-crop is-before" aria-hidden="true"></span><span>Before</span></li>
-            <li class="hero-transformation-mobile-stage"><span class="hero-transformation-mobile-crop is-working" aria-hidden="true"></span><span>Mote Ops working</span></li>
-            <li class="hero-transformation-mobile-stage"><span class="hero-transformation-mobile-crop is-result" aria-hidden="true"></span><span>Three decisions need you</span></li>
-          </ol>
-          <p class="hero-transformation-note">Illustrative demonstration using fictional business information.</p>
-        </figcaption>
-      </figure>
+      <section class="owner-story" data-owner-story data-owner-story-state="pressure" aria-label="From scattered work to one calm operating view">
+        <article class="owner-scene owner-pressure is-active" data-owner-scene="pressure">
+          <div class="owner-photo">
+            <img src="assets/small-business-owner-overwhelmed-v1.webp" alt="An overwhelmed small-business owner seen from behind at a desk with a ringing phone, computer, laptop, paperwork, and unfinished work.">
+            <ul class="owner-signals" aria-label="Common pressures competing for the owner's attention">
+              <li data-owner-signal="calls"><strong>4</strong> missed calls</li>
+              <li data-owner-signal="email"><strong>37</strong> unread emails</li>
+              <li data-owner-signal="texts"><strong>6</strong> unanswered texts</li>
+              <li data-owner-signal="calendar"><strong>2</strong> calendar conflicts</li>
+              <li data-owner-signal="invoice"><strong>1</strong> overdue invoice</li>
+              <li data-owner-signal="sheet">Spreadsheet needs review</li>
+            </ul>
+          </div>
+          <div class="owner-scene-copy">
+            <span>01 · THE BUSINESS IS EVERYWHERE</span>
+            <h2>Every tool is asking for your attention.</h2>
+            <p>The work is not broken. It is scattered across places that cannot see the whole day.</p>
+          </div>
+        </article>
+
+        <article class="owner-scene owner-connect" data-owner-scene="connect">
+          <div class="owner-scene-copy">
+            <span>02 · CONNECT WHAT ALREADY WORKS</span>
+            <h2>We organize the work around you.</h2>
+            <p>Mote Ops adapts reusable systems to the tools, people, and approval boundaries your business already has.</p>
+          </div>
+          <div class="owner-flow" aria-label="Existing business tools connected through a supervised Mote Ops system">
+            <ul class="owner-sources">
+              <li data-owner-source="calls"><i aria-hidden="true">☎</i><span>Calls + texts</span></li>
+              <li data-owner-source="email"><i aria-hidden="true">✉</i><span>Email</span></li>
+              <li data-owner-source="calendar"><i aria-hidden="true">□</i><span>Calendar</span></li>
+              <li data-owner-source="files"><i aria-hidden="true">▦</i><span>Files + spreadsheets</span></li>
+              <li data-owner-source="finance"><i aria-hidden="true">$</i><span>Finance</span></li>
+            </ul>
+            <div class="owner-rail" aria-hidden="true"><span></span><b>MOTE OPS</b><span></span></div>
+            <ol class="owner-functions">
+              <li><span>01</span><strong>Organize incoming work</strong><small>Put each signal in context.</small></li>
+              <li><span>02</span><strong>Prepare useful next steps</strong><small>Draft, summarize, and route.</small></li>
+              <li><span>03</span><strong>Hold consequential actions for approval</strong><small>You keep control of what leaves the system.</small></li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="owner-scene owner-control" data-owner-scene="control">
+          <div class="owner-control-mark" aria-hidden="true"><span>37</span><i>→</i><strong>3</strong></div>
+          <div class="owner-scene-copy">
+            <span>03 · ONE CALM PLACE</span>
+            <h2>This is what “one calm place” looks like for CC's Learning Center.</h2>
+            <p>The Care Hub turns family inquiries, tours, forms, follow-up, and director decisions into one clear operating view.</p>
+            <a class="button" href="#care-hub-showcase" data-owner-story-handoff>Explore the Care Hub <span aria-hidden="true">↓</span></a>
+          </div>
+        </article>
+
+        <p class="owner-story-truth">Illustrative scenario using fictional business information. Connections are configured around each client's approved systems and boundaries.</p>
+      </section>
     </section>
 
     <section class="symptoms section-pad" id="problems" aria-labelledby="problems-title" data-page-section>
