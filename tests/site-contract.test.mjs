@@ -81,6 +81,9 @@ test('shows a truthful small-business chaos-to-control story', () => {
   assert.match(hero, /organize incoming work/i);
   assert.match(hero, /prepare useful next steps/i);
   assert.match(hero, /hold consequential actions for approval/i);
+  assert.match(hero, /class="owner-organize"/i);
+  assert.match(hero, /class="owner-outcome"/i);
+  assert.doesNotMatch(hero, /class="owner-functions"/i);
   assert.match(hero, /This is what “one calm place” looks like for CC's Learning Center\./i);
   assert.match(hero, /href="#care-hub-showcase"/i);
   assert.match(hero, /Illustrative scenario using fictional business information\./i);
@@ -94,6 +97,7 @@ test('isolates and preserves the owner story presentation', () => {
   assert.match(html, /owner-story\.js\?v=20260719/i);
   assert.match(ownerCss, /prefers-reduced-motion:\s*reduce/i);
   assert.match(ownerCss, /@media\s*\(max-width:\s*760px\)/i);
+  assert.doesNotMatch(ownerCss, /\.owner-connect\s*\{[^}]*linear-gradient/si);
 });
 
 test('uses the approved concise section order', () => {
