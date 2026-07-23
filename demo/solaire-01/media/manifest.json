@@ -7,7 +7,7 @@
       "poster": "media/so-01.webp",
       "width": 1920,
       "height": 1080,
-      "duration": 8
+      "duration": 8.041667
     },
     {
       "id": "so-02",
@@ -16,7 +16,7 @@
       "poster": "media/so-02.webp",
       "width": 1920,
       "height": 1080,
-      "duration": 8
+      "duration": 8.041667
     },
     {
       "id": "so-03",
@@ -25,7 +25,8 @@
       "poster": "media/so-03.webp",
       "width": 1920,
       "height": 1080,
-      "duration": 8
+      "duration": 8.041667,
+      "note": "Reverse close-down edit from the approved SO-02 Seedance source"
     }
   ]
 }
