@@ -1,0 +1,47 @@
+{
+  "title": "Mote Ops operating transition film",
+  "fictionalScenarioDisclosure": "Illustrative Mote Ops scenario using fictional business information.",
+  "generation": {
+    "acceptedSourceJob": "fbf4f283-de62-45a2-bfb1-9bc426dd7d98",
+    "rejectedReplacementJob": "8c30a591-0f17-4b62-8c05-986beb3d5f82",
+    "rejectedReplacementReason": "The replacement showed more obvious generated interface and calendar text artifacts than the accepted composition.",
+    "creditsSpent": 72,
+    "creditsApproved": 75
+  },
+  "source": {
+    "path": "/tmp/moteops-seedance-review/source.mp4",
+    "codec": "H.264 video with AAC audio",
+    "width": 1280,
+    "height": 720,
+    "frameRate": 24,
+    "durationSeconds": 8.057007,
+    "sizeBytes": 3015923
+  },
+  "output": {
+    "video": {
+      "path": "assets/cinematic/mote-ops-01.mp4",
+      "codec": "H.264",
+      "width": 1920,
+      "height": 1080,
+      "frameRate": 24,
+      "durationSeconds": 8.041667,
+      "audio": false,
+      "faststart": true,
+      "sizeBytes": 3292539,
+      "sha256": "beaa87368474c5961c0c8363413a05e959f9763313ac5bff06ccb3e45e43528a"
+    },
+    "poster": {
+      "path": "assets/cinematic/mote-ops-01.webp",
+      "codec": "WebP",
+      "width": 1600,
+      "height": 900,
+      "sizeBytes": 43524,
+      "sha256": "5eff45a5944e6b22529dbc457931be9c4d69a15dcd58e76aaebb460cc29074a4"
+    }
+  },
+  "processing": "The accepted clip was scaled from 1280 by 720 to 1920 by 1080 and re-encoded as silent H.264 with faststart. A feathered selective defocus was composited over the monitor and calendar area (source coordinates x=360..1040, y=90..480): luma boxblur radius 8, mask Gaussian feather sigma 28. The mask intentionally leaves the owner, face, hands, phone, and most of the desk unblurred while making generated screen, calendar, and manufacturer-mark detail unreadable.",
+  "frameReview": {
+    "timesSeconds": [0, 2, 4, 6, 8],
+    "result": "Passed. At every reviewed time, monitor and calendar text, numbers, interface detail, and manufacturer mark are unreadable. The owner, hands, face profile, desk geometry, lighting shift, and lateral-move continuity remain acceptable."
+  }
+}

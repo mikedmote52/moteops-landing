@@ -1,6 +1,9 @@
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 const motionToggle = document.querySelector('[data-motion-toggle]');
-const studioFilms = [...document.querySelectorAll('[data-studio-film]')];
+const studioFilms = [
+  ...document.querySelectorAll('[data-studio-film]'),
+  ...document.querySelectorAll('[data-cinematic-film]'),
+];
 const playRequests = new WeakMap();
 let motionEnabled = !motionPreference.matches;
 
