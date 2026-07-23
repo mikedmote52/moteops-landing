@@ -17,7 +17,7 @@ test('declares the exact seven-shot silent V3 generation contract', () => {
   assert.equal(manifest.generation.firstPassCredits, 450);
   assert.equal(manifest.generation.provisionalCap, 675);
   assert.equal(manifest.generation.approvedCreditCap, 675);
-  assert.equal(manifest.generation.creditsSpent, 108);
+  assert.equal(manifest.generation.creditsSpent, 110);
   assert.deepEqual(
     manifest.generation.shots.map(({ id, durationSeconds, preflightCredits }) => ({
       id, durationSeconds, preflightCredits,
@@ -56,7 +56,7 @@ test('does not allow V3 generation without exact approved authority', () => {
   assert.equal(manifest.generation.firstPassCredits, 450);
   assert.equal(manifest.generation.approvedCreditCap, 675);
   assert.ok(manifest.generation.approvedCreditCap >= manifest.generation.firstPassCredits);
-  assert.equal(manifest.generation.creditsSpent, 108);
+  assert.equal(manifest.generation.creditsSpent, 110);
 });
 
 test('records two rejected chaos attempts and stops after the controlled retry', () => {
@@ -93,21 +93,61 @@ test('records two rejected chaos attempts and stops after the controlled retry',
     shot.attempts[1].source.sha256,
     '906f0b1dc255584fadbc120cda9e9ed03013fb1cfb585da26e2b14ce43e9dec7'
   );
-  assert.equal(shot.futureProposal.status, 'not-authorized');
+  assert.equal(shot.futureProposal.status, 'clean-start-image-accepted');
   assert.equal(shot.futureProposal.type, 'replace-video-reference-with-clean-start-image');
   assert.equal(
     shot.futureProposal.removeVideoReferenceJobId,
     '879db0a2-91d0-4276-ad5d-169a5606b303'
   );
   assert.equal(shot.futureProposal.replacementMedia.role, 'start_image');
-  assert.equal(shot.futureProposal.replacementMedia.status, 'not-created');
+  assert.equal(shot.futureProposal.replacementMedia.status, 'accepted');
+  assert.equal(
+    shot.futureProposal.replacementMedia.jobId,
+    'd1161b13-e5cc-461b-ad33-65baff65977f'
+  );
+  assert.equal(
+    shot.futureProposal.replacementMedia.review,
+    '.superpowers/sdd/opening-v3-clean-start-image-review.md'
+  );
   assert.match(shot.futureProposal.replacementMedia.requirements, /pre-reach.*bare desk edge/i);
   assert.equal(
     shot.futureProposal.actionLanguage,
     'Mike keeps the corded handset at his left ear for the entire six-second shot. His right forearm remains planted on the bare desk edge and his empty right hand stays still. He never reaches toward, touches, lifts, moves, or handles any desk object. Pressure is conveyed only through his expression and the two waiting employees.'
   );
   assert.ok(shot.review.endsWith('opening-v3-shot-01-review.md'));
-  assert.equal(manifest.generation.creditsSpent, 108);
+  assert.equal(manifest.generation.creditsSpent, 110);
+  assert.ok(manifest.generation.creditsSpent <= manifest.generation.approvedCreditCap);
+});
+
+test('records the single accepted clean-start prep image and exact credit spend', () => {
+  const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-v3-manifest.json'));
+  assert.equal(manifest.generation.prepAssets.length, 1);
+  const [asset] = manifest.generation.prepAssets;
+  assert.equal(asset.id, 'shot-01-clean-start');
+  assert.equal(asset.type, 'image');
+  assert.equal(asset.role, 'start_image');
+  assert.equal(asset.model, 'Nano Banana 2');
+  assert.equal(asset.status, 'accepted');
+  assert.equal(asset.jobId, 'd1161b13-e5cc-461b-ad33-65baff65977f');
+  assert.equal(asset.preflightCredits, 2);
+  assert.equal(asset.credits, 2);
+  assert.equal(asset.source.frameNumber, 0);
+  assert.equal(asset.source.mediaId, '241d62d0-a218-456e-8d1d-b6bedf1a6c5a');
+  assert.equal(
+    asset.source.sha256,
+    '67ffdce42b69112b7b395170ca4c0cae77656db4fa899a452ff0ff4290a89c06'
+  );
+  assert.equal(asset.output.path, 'production/opening-film-v3/raw/shot-01-clean-start.png');
+  assert.equal(asset.output.codec, 'PNG');
+  assert.equal(asset.output.width, 2752);
+  assert.equal(asset.output.height, 1536);
+  assert.equal(asset.output.sizeBytes, 4773911);
+  assert.equal(
+    asset.output.sha256,
+    '9ca41cb4ccf8c38923ec36611f3a9752861828b67642a5bb70ed01a68637da55'
+  );
+  assert.equal(asset.review, '.superpowers/sdd/opening-v3-clean-start-image-review.md');
+  assert.equal(manifest.generation.creditsSpent, 108 + asset.credits);
   assert.ok(manifest.generation.creditsSpent <= manifest.generation.approvedCreditCap);
 });
 

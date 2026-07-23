@@ -13,7 +13,36 @@
     "firstPassCredits": 450,
     "provisionalCap": 675,
     "approvedCreditCap": 675,
-    "creditsSpent": 108,
+    "creditsSpent": 110,
+    "prepAssets": [
+      {
+        "id": "shot-01-clean-start",
+        "type": "image",
+        "role": "start_image",
+        "model": "Nano Banana 2",
+        "status": "accepted",
+        "jobId": "d1161b13-e5cc-461b-ad33-65baff65977f",
+        "preflightCredits": 2,
+        "credits": 2,
+        "source": {
+          "videoPath": "/tmp/moteops-repo-recovery.muBXxV/opening-v3-raw/shot-01-chaos.mp4",
+          "frameNumber": 0,
+          "width": 1920,
+          "height": 1080,
+          "mediaId": "241d62d0-a218-456e-8d1d-b6bedf1a6c5a",
+          "sha256": "67ffdce42b69112b7b395170ca4c0cae77656db4fa899a452ff0ff4290a89c06"
+        },
+        "output": {
+          "path": "production/opening-film-v3/raw/shot-01-clean-start.png",
+          "codec": "PNG",
+          "width": 2752,
+          "height": 1536,
+          "sizeBytes": 4773911,
+          "sha256": "9ca41cb4ccf8c38923ec36611f3a9752861828b67642a5bb70ed01a68637da55"
+        },
+        "review": ".superpowers/sdd/opening-v3-clean-start-image-review.md"
+      }
+    ],
     "shots": [
       {
         "id": "chaos",
@@ -62,12 +91,15 @@
           }
         ],
         "futureProposal": {
-          "status": "not-authorized",
+          "status": "clean-start-image-accepted",
           "type": "replace-video-reference-with-clean-start-image",
           "removeVideoReferenceJobId": "879db0a2-91d0-4276-ad5d-169a5606b303",
           "replacementMedia": {
             "role": "start_image",
-            "status": "not-created",
+            "status": "accepted",
+            "jobId": "d1161b13-e5cc-461b-ad33-65baff65977f",
+            "path": "production/opening-film-v3/raw/shot-01-clean-start.png",
+            "review": ".superpowers/sdd/opening-v3-clean-start-image-review.md",
             "requirements": "One reviewed clean pre-reach start image with the right forearm and empty hand resting on a bare desk edge, no smartphone, book, folder, pen, or loose paper in the visible interaction path."
           },
           "actionLanguage": "Mike keeps the corded handset at his left ear for the entire six-second shot. His right forearm remains planted on the bare desk edge and his empty right hand stays still. He never reaches toward, touches, lifts, moves, or handles any desk object. Pressure is conveyed only through his expression and the two waiting employees."
