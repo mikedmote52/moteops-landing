@@ -43,7 +43,7 @@ test('defines truthful local inserts for the complete cleanup story', () => {
   assert.doesNotMatch(plates, /\b(?:sent|paid|signed|booked automatically)\b/i);
 });
 
-test('captures four cleanup interfaces inside one physical monitor treatment', () => {
+test('captures discovery and cleanup interfaces inside one physical monitor treatment', () => {
   const html = read('production/opening-film/monitor-plates.html');
   const css = read('production/opening-film/monitor-plates.css');
   const capture = read('production/opening-film/capture-monitor-plates.sh');
@@ -56,6 +56,7 @@ test('captures four cleanup interfaces inside one physical monitor treatment', (
   assert.match(html, /new URL\('plates\.html'/);
   assert.match(html, /source\.searchParams\.set\('plate', plate\)/);
   assert.match(html, /source\.searchParams\.set\('embed', 'monitor'\)/);
+  assert.match(html, /'discovery-email'/);
   assert.match(css, /\.monitor-shell[\s\S]*width:\s*1344px/);
   assert.match(css, /\.monitor-screen[\s\S]*width:\s*1280px[\s\S]*height:\s*720px/);
   assert.match(css, /background-image:\s*url\("rendered\/monitor-office\.png"\)/);
@@ -64,6 +65,7 @@ test('captures four cleanup interfaces inside one physical monitor treatment', (
   assert.match(css, /\.monitor-reflection[\s\S]*linear-gradient/);
 
   for (const name of [
+    'discovery-email',
     'organized-inbox',
     'calendar-resolution',
     'review-packet',
@@ -123,7 +125,9 @@ test('maintains an auditable opening-film generation ledger', () => {
     outerMonitorWidth: 1344,
     interfaceScreen: '1280x720',
     transitionFrames: 7,
-    stableHoldSeconds: 1.8,
+    actorAttentionSeconds: 2.6,
+    discoveryStableHoldSeconds: 2.2,
+    cleanupStableHoldSeconds: 1.8,
   });
 });
 
@@ -141,37 +145,49 @@ test('clears every pressure label before the discovery email cut', () => {
   assert.match(buildScript, /between\(t,4\.1,5\.75\)/);
 });
 
-test('holds four computer interface cuts for 1.8 seconds in a 26.8 second film', () => {
+test('assembles an actor-first discovery sequence in an approximately 28 second film', () => {
   const buildScript = read('production/opening-film/build-opening-film.sh');
-  assert.match(buildScript, /interface_hold="1\.8"/);
-  assert.equal((buildScript.match(/trim=duration=\$\{interface_hold\}/g) || []).length, 2);
-  assert.match(buildScript, /transition_plate="2\.091667"/);
-  assert.equal((buildScript.match(/-r 24 -t 26\.8 -movflags/g) || []).length, 2);
-  assert.match(buildScript, /between\(t,23\.0,26\.8\)/);
-  assert.match(buildScript, /between\(t,24\.8,26\.8\)/);
-});
 
-test('assembles monitor composites with seven-frame transitions and full reading plateaus', () => {
-  const buildScript = read('production/opening-film/build-opening-film.sh');
-  for (const name of [
-    'monitor-organized-inbox.png',
-    'monitor-calendar-resolution.png',
-    'monitor-review-packet.png',
-    'monitor-approval-queue.png',
-  ]) {
-    assert.match(buildScript, new RegExp(name.replace('.', '\\.')));
-  }
-
+  assert.match(buildScript, /actor_attention="2\.6"/);
+  assert.match(buildScript, /discovery_hold="2\.2"/);
   assert.match(buildScript, /interface_hold="1\.8"/);
   assert.match(buildScript, /transition="0\.291667"/);
+  assert.match(buildScript, /discovery_transition_plate="2\.491667"/);
   assert.match(buildScript, /transition_plate="2\.091667"/);
+  assert.match(buildScript, /master_duration="28\.0"/);
+  assert.match(buildScript, /monitor-discovery-email\.png/);
+  assert.doesNotMatch(buildScript, /-i "\$rendered\/discovery-email\.png"/);
+  assert.match(buildScript, /trim=start=0:end=\$\{actor_attention\}/);
+  assert.match(buildScript, /offset=2\.308333/);
+  assert.match(buildScript, /offset=12\.000000/);
+  assert.match(buildScript, /concat=n=5:v=1:a=0,settb=1\/24\[monitor_sequence\]/);
   assert.equal((buildScript.match(/duration=\$\{transition\}/g) || []).length, 2);
-  assert.match(buildScript, /offset=1\.108333/);
-  assert.match(buildScript, /offset=8\.600000/);
-  assert.match(buildScript, /scale=w='trunc\(1920\*\(1\+0\.012\*min\(n\\,7\)\/7\)\/2\)\*2'/);
-  assert.match(buildScript, /scale=w='trunc\(1920\*\(1\.012-0\.012\*min\(n\\,7\)\/7\)\/2\)\*2'/);
-  assert.equal((buildScript.match(/crop=1920:1080,setsar=1\[v[36]\]/g) || []).length, 2);
-  assert.match(buildScript, /concat=n=4:v=1:a=0,settb=1\/24\[monitor_sequence\]/);
+  assert.match(buildScript, /between\(t,24\.2,28\.0\)/);
+  assert.match(buildScript, /between\(t,26\.0,28\.0\)/);
+  assert.equal((buildScript.match(/-r 24 -t "\$master_duration" -movflags/g) || []).length, 2);
+});
+
+test('records discovery continuity timing in the media ledger', () => {
+  const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-manifest.json'));
+  assert.equal(manifest.durationSeconds, 28);
+  assert.deepEqual(manifest.postProduction.monitorComposite, {
+    generatedCredits: 0,
+    backgroundSource: 'accepted cleanup-control footage at 0.8 seconds',
+    outerMonitorWidth: 1344,
+    interfaceScreen: '1280x720',
+    transitionFrames: 7,
+    actorAttentionSeconds: 2.6,
+    discoveryStableHoldSeconds: 2.2,
+    cleanupStableHoldSeconds: 1.8,
+  });
+  assert.deepEqual(manifest.frameReview.timesSeconds, [
+    0, 0.5, 1, 2, 3, 4, 5, 5.79, 5.81,
+    7, 8.1, 8.39, 8.41, 9.5, 10.59, 10.61,
+    11.5, 12.39, 12.41, 13.3, 14.19, 14.21,
+    15.1, 15.99, 16.01, 16.9, 17.79, 17.81,
+    18.09, 19, 19.99, 20.01, 21, 22, 23, 24.2,
+    25, 26, 27, 27.99,
+  ]);
 });
 
 test('centers a constrained opening film on desktop without shrinking phone layout', () => {
@@ -229,7 +245,7 @@ test('publishes exact silent fast-start opening masters and poster', {
     assert.equal(video.width, width);
     assert.equal(video.height, height);
     assert.equal(video.r_frame_rate, '24/1');
-    assert.ok(Number(metadata.format.duration) >= 26.79 && Number(metadata.format.duration) <= 26.81);
+    assert.ok(Number(metadata.format.duration) >= 27.98 && Number(metadata.format.duration) <= 28.01);
     const atoms = mp4Atoms(path);
     assert.ok(atoms.find(({ type }) => type === 'moov').offset < atoms.find(({ type }) => type === 'mdat').offset);
     assert.equal(Number(metadata.format.size), output.sizeBytes);
