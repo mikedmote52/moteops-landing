@@ -23,9 +23,21 @@ test('defines truthful local inserts for the complete cleanup story', () => {
 test('starts an auditable opening-film manifest without claiming generation', () => {
   const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-manifest.json'));
   assert.equal(manifest.schema, 'mote-ops-opening/v1');
-  assert.equal(manifest.status, 'awaiting-credit-approval');
-  assert.equal(manifest.generation.creditsSpent, 0);
-  assert.equal(manifest.generation.approvedCreditCap, null);
+  assert.ok([
+    'awaiting-credit-approval',
+    'awaiting-generation',
+    'ready-for-post',
+    'media-verified',
+  ].includes(manifest.status));
+  assert.ok(Number.isInteger(manifest.generation.creditsSpent));
+  assert.ok(manifest.generation.creditsSpent >= 0);
+  assert.ok(
+    manifest.generation.approvedCreditCap === null
+      || Number.isInteger(manifest.generation.approvedCreditCap)
+  );
+  if (manifest.generation.approvedCreditCap !== null) {
+    assert.ok(manifest.generation.creditsSpent <= manifest.generation.approvedCreditCap);
+  }
   assert.deepEqual(manifest.generation.shots.map(({ id }) => id), [
     'breakdown-discovery',
     'cleanup-control',

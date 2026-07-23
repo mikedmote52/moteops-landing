@@ -1,12 +1,14 @@
 {
   "schema": "mote-ops-opening/v1",
-  "status": "awaiting-credit-approval",
+  "status": "awaiting-generation",
   "title": "Mote Ops email-to-beach opening",
   "durationSeconds": 24,
   "disclosure": "AI-generated film · fictional business scenario featuring Mike Mote.",
   "referenceElement": {
     "kind": "one-off",
-    "id": null,
+    "id": "089862a9-bb77-4b46-88dd-14629f777d5c",
+    "name": "Mike Mote Opening",
+    "status": "completed",
     "sourcePhotoCount": 3,
     "sourcePhotos": ["Photo 2", "Photo 4", "Photo 5"],
     "reusableSoulCreated": false
@@ -14,8 +16,36 @@
   "generation": {
     "model": "Seedance 2.0",
     "creditsSpent": 0,
-    "approvedCreditCap": null,
-    "preflight": [],
+    "approvedCreditCap": 216,
+    "preflight": [
+      {
+        "shotId": "breakdown-discovery",
+        "credits": 72,
+        "durationSeconds": 8,
+        "resolution": "1080p",
+        "mode": "std",
+        "audio": false,
+        "presetDecision": "The user explicitly declined the unrelated IN THE DARK preset and approved the literal planned scene."
+      },
+      {
+        "shotId": "cleanup-control",
+        "credits": 72,
+        "durationSeconds": 8,
+        "resolution": "1080p",
+        "mode": "std",
+        "audio": false,
+        "presetDecision": "The user explicitly declined the unrelated IN THE DARK preset and approved the literal planned scene."
+      },
+      {
+        "shotId": "beach-payoff",
+        "credits": 72,
+        "durationSeconds": 8,
+        "resolution": "1080p",
+        "mode": "std",
+        "audio": false,
+        "presetDecision": null
+      }
+    ],
     "shots": [
       {
         "id": "breakdown-discovery",
