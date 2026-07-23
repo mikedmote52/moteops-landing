@@ -10,10 +10,14 @@ const releasedFiles = [];
 
 function walk(directory) {
   for (const entry of readdirSync(directory)) {
-    if (['.git', '.vercel', '.superpowers', 'docs', 'node_modules'].includes(entry)) continue;
+    if (['.git', '.vercel', '.superpowers', '.worktrees', 'docs', 'node_modules'].includes(entry)) continue;
     const path = resolve(directory, entry);
     if (statSync(path).isDirectory()) walk(path);
-    else if (/\.(?:html|css)$/i.test(entry) && !/\.(?:bak|pre|codex|v04)-/i.test(entry)) releasedFiles.push(path);
+    else if (
+      /\.(?:html|css)$/i.test(entry)
+      && !/\.(?:bak|pre|codex|v04)-/i.test(entry)
+      && spawnSync('git', ['-C', root, 'check-ignore', '-q', '--', path]).status !== 0
+    ) releasedFiles.push(path);
   }
 }
 
@@ -33,6 +37,14 @@ function mp4Atoms(path) {
 }
 
 walk(root);
+
+test('keeps linked development worktrees outside the release scan', () => {
+  assert.match(walk.toString(), /'\.worktrees'/);
+});
+
+test('keeps ignored local prototypes outside the release scan', () => {
+  assert.equal(releasedFiles.some((path) => path.endsWith('/_bgproto-real.html')), false);
+});
 
 test('uses a root-only deployment package contract that excludes raw study inputs and local review metadata', () => {
   const ignore = readFileSync(resolve(root, '.vercelignore'), 'utf8');
