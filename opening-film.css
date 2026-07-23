@@ -59,34 +59,6 @@
   z-index: 3;
 }
 
-.opening-story figcaption {
-  align-items: start;
-  background: #f5f1e8;
-  border-bottom: 1px solid #bcb29c;
-  display: grid;
-  gap: 8px 42px;
-  grid-template-columns: minmax(0, 1fr) auto;
-  margin: 0;
-  padding: 16px max(28px, calc((100vw - 1320px) / 2));
-}
-
-.opening-story figcaption p {
-  color: #45463f;
-  font-size: .86rem;
-  line-height: 1.45;
-  margin: 0;
-  max-width: 760px;
-}
-
-.opening-story figcaption small {
-  color: #77736a;
-  font: 800 .62rem/1.45 ui-monospace, SFMono-Regular, monospace;
-  letter-spacing: .055em;
-  max-width: 380px;
-  text-align: right;
-  text-transform: uppercase;
-}
-
 .workbench-hero > .hero-copy {
   align-self: start;
   background: #f7f0df;
@@ -152,17 +124,6 @@ html[data-motion="off"] .opening-story video {
   .opening-story [data-replay-story] {
     bottom: 14px;
     right: 14px;
-  }
-
-  .opening-story figcaption {
-    border: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 16px 2px 0;
-  }
-
-  .opening-story figcaption small {
-    text-align: left;
   }
 
   .workbench-hero > .hero-copy {

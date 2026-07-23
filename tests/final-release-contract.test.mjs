@@ -78,10 +78,11 @@ test('keeps the approved operating line consistent in document and share metadat
   assert.match(html, /<meta property="og:description" content="Your people and tools already do the work\. Mote Ops helps them work as one\./);
 });
 
-test('visibly labels every cinematic study as AI-generated fictional work', () => {
-  for (const path of ['index.html', 'demo/vessel-zero/index.html', 'demo/solaire-01/index.html']) {
+test('visibly labels the cinematic portfolio studies as AI-generated fictional work', () => {
+  for (const path of ['demo/vessel-zero/index.html', 'demo/solaire-01/index.html']) {
     assert.match(readFileSync(resolve(root, path), 'utf8'), /AI-generated film\s*[·&middot;]\s*fictional (?:business )?scenario(?:\/study)?/i, path);
   }
+  assert.doesNotMatch(readFileSync(resolve(root, 'index.html'), 'utf8'), /AI-generated film\s*[·&middot;]\s*fictional business scenario/i);
 });
 
 test('records audit-grade checked metadata for every optimized study media pair', () => {

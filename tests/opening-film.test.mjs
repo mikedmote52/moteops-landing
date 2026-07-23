@@ -250,7 +250,12 @@ test('opens the homepage with one play-once email-to-beach story', () => {
   assert.match(html, /autoplay muted playsinline/);
   assert.doesNotMatch(openingFigure, /\sloop(?:\s|>)/);
   assert.match(html, /data-replay-story[^>]*hidden/);
-  assert.match(html, /AI-generated film · fictional business scenario featuring Mike Mote\./);
+  assert.match(openingFigure, /aria-label="Mote Ops opening film"/);
+  assert.doesNotMatch(openingFigure, /<figcaption/);
+  assert.doesNotMatch(openingFigure, /opening-story-(?:summary|disclosure)/);
+  assert.doesNotMatch(openingFigure, /aria-describedby/);
+  assert.doesNotMatch(html, /A fictional overwhelmed business owner finds Mote Ops/);
+  assert.doesNotMatch(html, /AI-generated film · fictional business scenario featuring Mike Mote\./);
   assert.doesNotMatch(html, /owner-pressure/);
   assert.doesNotMatch(html, /operating-transition/);
   assert.doesNotMatch(html, /mote-ops-01\.(?:mp4|webp)/);

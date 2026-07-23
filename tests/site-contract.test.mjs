@@ -71,9 +71,10 @@ test('shows a truthful small-business chaos-to-control story', () => {
   const hero = elementById('top', 'section').source;
   assert.doesNotMatch(hero, /hero-system-plate|hero-inputs|hero-core|hero-outputs/i);
   assert.match(hero, /data-opening-story/i);
-  assert.match(hero, /fictional overwhelmed business owner finds Mote Ops/i);
-  assert.match(hero, /reviews three prepared decisions/i);
-  assert.match(hero, /gets his afternoon back at the beach/i);
+  assert.match(hero, /mote-ops-opening-1080\.mp4/i);
+  assert.match(hero, /mote-ops-opening-720\.mp4/i);
+  assert.doesNotMatch(hero, /<figcaption/i);
+  assert.doesNotMatch(hero, /fictional overwhelmed business owner finds Mote Ops/i);
   assert.match(hero, /data-owner-story/i);
   assert.doesNotMatch(hero, /assets\/small-business-owner-overwhelmed-v1\.webp/i);
   for (const source of ['Calls \\+ texts', 'Email', 'Calendar', 'Files \\+ spreadsheets', 'Finance']) {
