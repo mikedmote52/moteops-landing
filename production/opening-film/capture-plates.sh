@@ -8,7 +8,24 @@ profile="$(mktemp -d "${TMPDIR:-/tmp}/mote-opening-chrome.XXXXXX")"
 trap 'rm -rf "$profile"' EXIT
 mkdir -p "$output"
 
-for plate in discovery-email organized-inbox calendar-resolution review-packet approval-queue beach-end-card; do
+plates=(
+  discovery-email
+  organized-inbox
+  calendar-resolution
+  review-packet
+  approval-queue
+  beach-end-card
+  overlay-pressure-missed
+  overlay-pressure-email
+  overlay-pressure-texts
+  overlay-pressure-calendar
+  overlay-pressure-spreadsheet
+  overlay-pressure-invoice
+  overlay-beach-headline
+  overlay-beach-tagline
+)
+
+for plate in "${plates[@]}"; do
   screenshot="$output/$plate.png"
   rm -f "$screenshot"
   "$chrome" \
@@ -16,6 +33,7 @@ for plate in discovery-email organized-inbox calendar-resolution review-packet a
     --disable-background-networking \
     --disable-component-update \
     --disable-gpu \
+    --default-background-color=00000000 \
     --hide-scrollbars \
     --no-first-run \
     --force-device-scale-factor=1 \

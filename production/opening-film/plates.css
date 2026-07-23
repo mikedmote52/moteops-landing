@@ -12,6 +12,7 @@
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; overflow: hidden; width: 100%; }
 body { background: var(--ink); }
+body.overlay-mode { background: transparent; }
 [hidden] { display: none !important; }
 
 .plate {
@@ -227,4 +228,52 @@ body { background: var(--ink); }
   color: #c5d5cf;
   font: 700 20px/1.3 Arial, sans-serif;
   margin-top: 34px;
+}
+
+.overlay {
+  background: transparent;
+  height: 1080px;
+  position: relative;
+  width: 1920px;
+}
+
+.overlay p {
+  margin: 0;
+  position: absolute;
+}
+
+.overlay-pressure p {
+  background: var(--paper);
+  border: 3px solid var(--copper);
+  color: var(--ink);
+  font: 900 34px/1 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .08em;
+  padding: 18px 22px;
+}
+
+.pressure-missed p { left: 130px; top: 155px; }
+.pressure-email p { left: 1320px; top: 180px; }
+.pressure-texts p { left: 1380px; top: 430px; }
+.pressure-calendar p { left: 120px; top: 660px; }
+.pressure-spreadsheet p { left: 1180px; top: 760px; }
+.pressure-invoice p { left: 700px; top: 120px; }
+
+.overlay-beach p {
+  background: rgba(24, 26, 22, .86);
+  color: var(--paper);
+  left: 110px;
+  padding: 24px 28px;
+}
+
+.beach-headline p {
+  bottom: 300px;
+  font: 700 62px/1.08 Georgia, serif;
+  letter-spacing: -.025em;
+}
+
+.beach-tagline p {
+  bottom: 180px;
+  font: 900 27px/1.2 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .05em;
+  max-width: 920px;
 }

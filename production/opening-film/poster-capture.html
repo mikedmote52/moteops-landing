@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mote Ops opening poster capture</title>
+</head>
+<body>
+  <video muted playsinline></video>
+  <canvas width="1600" height="900"></canvas>
+  <script>
+    window.posterData = null;
+    window.posterError = null;
+    const video = document.querySelector('video');
+    const canvas = document.querySelector('canvas');
+    const params = new URLSearchParams(location.search);
+    video.src = params.get('video');
+    video.addEventListener('error', () => {
+      window.posterError = video.error?.message || 'Video failed to load';
+    });
+    video.addEventListener('loadeddata', () => {
+      video.currentTime = Number(params.get('time') || 4.2);
+    }, { once: true });
+    video.addEventListener('seeked', () => {
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      window.posterData = canvas.toDataURL('image/webp', 0.82);
+    }, { once: true });
+  </script>
+</body>
+</html>

@@ -66,8 +66,34 @@
     <small>AI-generated film · fictional business scenario featuring Mike Mote.</small>
   </section>
 
+  <section class="overlay overlay-pressure pressure-missed" data-plate="overlay-pressure-missed" hidden>
+    <p>MISSED CALLS</p>
+  </section>
+  <section class="overlay overlay-pressure pressure-email" data-plate="overlay-pressure-email" hidden>
+    <p>UNREAD EMAIL</p>
+  </section>
+  <section class="overlay overlay-pressure pressure-texts" data-plate="overlay-pressure-texts" hidden>
+    <p>UNANSWERED TEXTS</p>
+  </section>
+  <section class="overlay overlay-pressure pressure-calendar" data-plate="overlay-pressure-calendar" hidden>
+    <p>CALENDAR CONFLICT</p>
+  </section>
+  <section class="overlay overlay-pressure pressure-spreadsheet" data-plate="overlay-pressure-spreadsheet" hidden>
+    <p>SPREADSHEET REVIEW</p>
+  </section>
+  <section class="overlay overlay-pressure pressure-invoice" data-plate="overlay-pressure-invoice" hidden>
+    <p>INVOICE REVIEW</p>
+  </section>
+  <section class="overlay overlay-beach beach-headline" data-plate="overlay-beach-headline" hidden>
+    <p>Mote Ops cleaned up the work.<br>Mike found the beach.</p>
+  </section>
+  <section class="overlay overlay-beach beach-tagline" data-plate="overlay-beach-tagline" hidden>
+    <p>Your people and tools already do the work. We help them work as one.</p>
+  </section>
+
   <script>
     const selectedPlate = new URLSearchParams(location.search).get('plate');
+    document.body.classList.toggle('overlay-mode', selectedPlate?.startsWith('overlay-'));
     document.querySelectorAll('[data-plate]').forEach((node) => {
       node.hidden = node.dataset.plate !== selectedPlate;
     });

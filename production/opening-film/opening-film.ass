@@ -1,0 +1,23 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+ScaledBorderAndShadow: yes
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Pressure,Arial Narrow,34,&H00181A16,&H00181A16,&H00A45530,&H00F5F1E8,-1,0,0,0,100,100,1.5,0,3,2,0,7,28,28,18,1
+Style: Beach,Georgia,62,&H00F5F1E8,&H00F5F1E8,&H00181A16,&HCC181A16,-1,0,0,0,100,100,-1.5,0,3,2,0,7,34,34,24,1
+Style: BeachSmall,Arial Narrow,27,&H00F5F1E8,&H00F5F1E8,&H00181A16,&HCC181A16,-1,0,0,0,100,100,1.2,0,3,2,0,7,28,28,18,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.40,0:00:02.20,Pressure,,0,0,0,,{\pos(130,155)}MISSED CALLS
+Dialogue: 0,0:00:01.15,0:00:03.10,Pressure,,0,0,0,,{\pos(1320,180)}UNREAD EMAIL
+Dialogue: 0,0:00:02.00,0:00:04.10,Pressure,,0,0,0,,{\pos(1380,430)}UNANSWERED TEXTS
+Dialogue: 0,0:00:02.80,0:00:05.30,Pressure,,0,0,0,,{\pos(120,660)}CALENDAR CONFLICT
+Dialogue: 0,0:00:03.50,0:00:05.80,Pressure,,0,0,0,,{\pos(1180,760)}SPREADSHEET REVIEW
+Dialogue: 0,0:00:04.10,0:00:05.80,Pressure,,0,0,0,,{\pos(700,120)}INVOICE REVIEW
+Dialogue: 0,0:00:20.20,0:00:24.00,Beach,,0,0,0,,{\pos(110,590)}Mote Ops cleaned up the work.\NMike found the beach.
+Dialogue: 0,0:00:22.00,0:00:24.00,BeachSmall,,0,0,0,,{\pos(112,800)}Your people and tools already do the work. We help them work as one.
