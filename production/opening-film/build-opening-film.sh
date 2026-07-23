@@ -36,28 +36,28 @@ ffmpeg -hide_banner -loglevel warning -y \
   -i "$raw/shot-01-breakdown.mp4" \
   -framerate 24 -loop 1 -t 2.2 -i "$rendered/discovery-email.png" \
   -i "$raw/shot-02-cleanup.mp4" \
-  -framerate 24 -loop 1 -t 1.0 -i "$rendered/organized-inbox.png" \
-  -framerate 24 -loop 1 -t 1.0 -i "$rendered/calendar-resolution.png" \
-  -framerate 24 -loop 1 -t 1.0 -i "$rendered/review-packet.png" \
-  -framerate 24 -loop 1 -t 1.4 -i "$rendered/approval-queue.png" \
+  -framerate 24 -loop 1 -t 1.8 -i "$rendered/organized-inbox.png" \
+  -framerate 24 -loop 1 -t 1.8 -i "$rendered/calendar-resolution.png" \
+  -framerate 24 -loop 1 -t 1.8 -i "$rendered/review-packet.png" \
+  -framerate 24 -loop 1 -t 1.8 -i "$rendered/approval-queue.png" \
   -i "$raw/shot-03-beach.mp4" \
-  -framerate 24 -loop 1 -t 24 -i "$rendered/overlay-pressure-missed.png" \
-  -framerate 24 -loop 1 -t 24 -i "$rendered/overlay-pressure-email.png" \
-  -framerate 24 -loop 1 -t 24 -i "$rendered/overlay-pressure-texts.png" \
-  -framerate 24 -loop 1 -t 24 -i "$rendered/overlay-pressure-calendar.png" \
-  -framerate 24 -loop 1 -t 24 -i "$rendered/overlay-pressure-spreadsheet.png" \
-  -framerate 24 -loop 1 -t 24 -i "$rendered/overlay-pressure-invoice.png" \
-  -framerate 24 -loop 1 -t 24 -i "$rendered/overlay-beach-headline.png" \
-  -framerate 24 -loop 1 -t 24 -i "$rendered/overlay-beach-tagline.png" \
+  -framerate 24 -loop 1 -t 26.8 -i "$rendered/overlay-pressure-missed.png" \
+  -framerate 24 -loop 1 -t 26.8 -i "$rendered/overlay-pressure-email.png" \
+  -framerate 24 -loop 1 -t 26.8 -i "$rendered/overlay-pressure-texts.png" \
+  -framerate 24 -loop 1 -t 26.8 -i "$rendered/overlay-pressure-calendar.png" \
+  -framerate 24 -loop 1 -t 26.8 -i "$rendered/overlay-pressure-spreadsheet.png" \
+  -framerate 24 -loop 1 -t 26.8 -i "$rendered/overlay-pressure-invoice.png" \
+  -framerate 24 -loop 1 -t 26.8 -i "$rendered/overlay-beach-headline.png" \
+  -framerate 24 -loop 1 -t 26.8 -i "$rendered/overlay-beach-tagline.png" \
   -filter_complex "
     [0:v]${normalize},trim=start=0:end=5.8,setpts=PTS-STARTPTS[v0];
     [1:v]${normalize},trim=duration=2.2,setpts=PTS-STARTPTS[v1];
     [2:v]${normalize},split=2[s2a][s2b];
     [s2a]trim=start=0:end=1.4,setpts=PTS-STARTPTS[v2];
-    [3:v]${normalize},trim=duration=1.0,setpts=PTS-STARTPTS[v3];
-    [4:v]${normalize},trim=duration=1.0,setpts=PTS-STARTPTS[v4];
-    [5:v]${normalize},trim=duration=1.0,setpts=PTS-STARTPTS[v5];
-    [6:v]${normalize},trim=duration=1.4,setpts=PTS-STARTPTS[v6];
+    [3:v]${normalize},trim=duration=1.8,setpts=PTS-STARTPTS[v3];
+    [4:v]${normalize},trim=duration=1.8,setpts=PTS-STARTPTS[v4];
+    [5:v]${normalize},trim=duration=1.8,setpts=PTS-STARTPTS[v5];
+    [6:v]${normalize},trim=duration=1.8,setpts=PTS-STARTPTS[v6];
     [s2b]trim=start=5.8:end=8.0,setpts=PTS-STARTPTS[v7];
     [7:v]${normalize},trim=start=0:end=8.0,setpts=PTS-STARTPTS[v8];
     [v0][v1][v2][v3][v4][v5][v6][v7][v8]concat=n=9:v=1:a=0[story];
@@ -75,15 +75,15 @@ ffmpeg -hide_banner -loglevel warning -y \
     [o2][pressure3]overlay=enable='between(t,2.8,5.3)'[o3];
     [o3][pressure4]overlay=enable='between(t,3.5,5.75)'[o4];
     [o4][pressure5]overlay=enable='between(t,4.1,5.75)'[o5];
-    [o5][beach0]overlay=enable='between(t,20.2,24.0)'[o6];
-    [o6][beach1]overlay=enable='between(t,22.0,24.0)'[master]
+    [o5][beach0]overlay=enable='between(t,23.0,26.8)'[o6];
+    [o6][beach1]overlay=enable='between(t,24.8,26.8)'[master]
   " \
   -map "[master]" -an -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p \
-  -r 24 -t 24 -movflags +faststart "$output/mote-ops-opening-1080.mp4"
+  -r 24 -t 26.8 -movflags +faststart "$output/mote-ops-opening-1080.mp4"
 
 ffmpeg -hide_banner -loglevel warning -y -i "$output/mote-ops-opening-1080.mp4" \
   -vf "scale=1280:720:flags=lanczos" -an -c:v libx264 -preset slow -crf 20 \
-  -pix_fmt yuv420p -r 24 -t 24 -movflags +faststart \
+  -pix_fmt yuv420p -r 24 -t 26.8 -movflags +faststart \
   "$output/mote-ops-opening-720.mp4"
 
 node "$production/build-poster.mjs" \

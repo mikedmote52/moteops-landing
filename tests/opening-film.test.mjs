@@ -92,6 +92,22 @@ test('clears every pressure label before the discovery email cut', () => {
   assert.match(buildScript, /between\(t,4\.1,5\.75\)/);
 });
 
+test('holds four computer interface cuts for 1.8 seconds in a 26.8 second film', () => {
+  const buildScript = read('production/opening-film/build-opening-film.sh');
+  assert.equal((buildScript.match(/trim=duration=1\.8/g) || []).length, 4);
+  assert.equal((buildScript.match(/-r 24 -t 26\.8 -movflags/g) || []).length, 2);
+  assert.match(buildScript, /between\(t,23\.0,26\.8\)/);
+  assert.match(buildScript, /between\(t,24\.8,26\.8\)/);
+});
+
+test('centers a constrained opening film on desktop without shrinking phone layout', () => {
+  const css = read('opening-film.css');
+  assert.match(css, /@media \(min-width: 1021px\)[\s\S]*?\.opening-story\s*\{[\s\S]*?max-width:\s*1180px/);
+  assert.match(css, /width:\s*calc\(100vw - 64px\)/);
+  assert.match(css, /justify-self:\s*center/);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.opening-story\s*\{[\s\S]*?width:\s*100%/);
+});
+
 test('opens the homepage with one play-once email-to-beach story', () => {
   const html = read('index.html');
   const opening = html.indexOf('data-opening-story');
