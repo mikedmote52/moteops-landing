@@ -16,8 +16,18 @@ if (ownerStory) {
     });
   }
 
+  function showStaticScenes() {
+    ownerStory.classList.add('is-owner-story-static');
+    scenes.forEach((scene) => scene.classList.add('is-active'));
+  }
+
   function observeScenes() {
-    if (observer || !motionEnabled || !('IntersectionObserver' in window)) return;
+    if (observer || !motionEnabled) return;
+    if (!('IntersectionObserver' in window)) {
+      showStaticScenes();
+      return;
+    }
+    ownerStory.classList.remove('is-owner-story-static');
     observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         sceneRatios.set(entry.target, entry.intersectionRatio);
@@ -35,6 +45,7 @@ if (ownerStory) {
     else {
       observer?.disconnect();
       observer = undefined;
+      ownerStory.classList.remove('is-owner-story-static');
       setOwnerStoryState('pressure');
     }
   }

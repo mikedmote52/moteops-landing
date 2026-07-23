@@ -28,6 +28,12 @@
   transform: none;
 }
 
+.owner-story.is-owner-story-static .owner-scene {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 .owner-photo {
   aspect-ratio: 16 / 10;
   background: var(--owner-ink);
