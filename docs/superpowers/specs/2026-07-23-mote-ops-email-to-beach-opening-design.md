@@ -1,6 +1,6 @@
 # Mote Ops Email-to-Beach Opening Film Design
 
-**Status:** Approved concept, awaiting written-spec review  
+**Status:** Approved for implementation planning
 **Date:** 2026-07-23  
 **Owner:** Mike Mote  
 **Surface:** `moteops.tech` homepage cinematic candidate  
