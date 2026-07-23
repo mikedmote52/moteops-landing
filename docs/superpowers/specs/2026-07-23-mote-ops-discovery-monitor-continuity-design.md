@@ -1,6 +1,6 @@
 # Mote Ops Discovery-Monitor Continuity Design
 
-**Status:** Awaiting written-spec approval
+**Status:** Approved for implementation planning
 **Date:** 2026-07-23
 **Owner:** Mike Mote
 **Surface:** `moteops.tech` homepage opening-film revision
