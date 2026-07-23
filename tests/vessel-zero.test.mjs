@@ -16,7 +16,15 @@ test('ships the approved six-chapter expedition story', () => {
 });
 
 test('keeps motion progressive and planner rules deterministic', () => {
+  const html = read('index.html');
   const js = read('site.js');
+  const videoTags = html.match(/<video\b[^>]*>/g) || [];
+
+  assert.equal(videoTags.length, 3);
+  for (const tag of videoTags) assert.match(tag, /\sautoplay(?:\s|>)/);
+  assert.match(html, /data-motion-toggle/);
+  assert.match(js, /function setMotionEnabled/);
+  assert.match(js, /aria-pressed/);
   assert.match(js, /function calculateMission/);
   assert.match(js, /requestAnimationFrame/);
   assert.match(js, /IntersectionObserver/);
@@ -24,4 +32,3 @@ test('keeps motion progressive and planner rules deterministic', () => {
   assert.match(js, /aria-live/);
   assert.doesNotMatch(js, /fetch\s*\(|XMLHttpRequest|sendBeacon/);
 });
-

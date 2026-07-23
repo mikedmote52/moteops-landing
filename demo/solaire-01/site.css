@@ -33,6 +33,37 @@ a {
 .skip-link:focus {
   top: 1rem;
 }
+.motion-toggle {
+  position: fixed;
+  z-index: 15;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(236, 231, 220, 0.55);
+  border-radius: 999px;
+  background: var(--night);
+  color: var(--chalk);
+  font: 600 0.62rem "Source Sans 3", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.motion-toggle span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--oxide);
+  box-shadow: 0 0 0 0.2rem rgba(166, 83, 50, 0.2);
+}
+.motion-toggle b {
+  font: inherit;
+}
+.motion-toggle[aria-pressed="false"] span {
+  background: var(--sand);
+  box-shadow: none;
+}
 .site-header {
   position: fixed;
   z-index: 10;
@@ -552,5 +583,8 @@ a {
   }
   .alignment {
     background: var(--night) url("media/so-03.webp") center/cover no-repeat;
+  }
+  html[data-motion="on"] .chapter-film {
+    display: block;
   }
 }

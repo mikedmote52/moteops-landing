@@ -1,7 +1,39 @@
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 const root = document.documentElement;
 const films = [...document.querySelectorAll('[data-autoplay]')];
+const motionToggle = document.querySelector('[data-motion-toggle]');
 const statusRegion = document.querySelector('[aria-live]');
+let motionEnabled = !motionPreference.matches;
+
+function filmIsVisible(film) {
+  const rect = film.getBoundingClientRect();
+  return rect.bottom > 0 && rect.top < innerHeight;
+}
+
+function updateMotionToggle() {
+  root.dataset.motion = motionEnabled ? 'on' : 'off';
+  motionToggle.setAttribute('aria-pressed', String(motionEnabled));
+  motionToggle.querySelector('[data-motion-label]').textContent = motionEnabled ? 'Motion on' : 'Motion off';
+}
+
+function stopMotionAfterPlaybackFailure(film) {
+  film.closest('.chapter').classList.add('video-paused');
+  motionEnabled = false;
+  films.forEach((item) => item.pause());
+  updateMotionToggle();
+}
+
+function setMotionEnabled(enabled) {
+  motionEnabled = enabled;
+  updateMotionToggle();
+  for (const film of films) {
+    if (!motionEnabled || !filmIsVisible(film)) film.pause();
+    else film.play().then(() => film.closest('.chapter').classList.remove('video-paused')).catch(() => stopMotionAfterPlaybackFailure(film));
+  }
+}
+
+motionToggle.addEventListener('click', () => setMotionEnabled(!motionEnabled));
+motionPreference.addEventListener('change', (event) => setMotionEnabled(!event.matches));
 
 const ROUTES = {
   shelf: { hours: 3.5, energy: 38, packageName: 'Optical survey package' },
@@ -52,8 +84,8 @@ for (const film of films) {
 const mediaObserver = new IntersectionObserver((entries) => {
   for (const entry of entries) {
     const film = entry.target;
-    if (reducedMotion || !entry.isIntersecting) film.pause();
-    else film.play().catch(() => film.closest('.chapter').classList.add('video-paused'));
+    if (!motionEnabled || !entry.isIntersecting) film.pause();
+    else film.play().catch(() => stopMotionAfterPlaybackFailure(film));
   }
 }, { threshold: 0.25 });
 films.forEach((film) => mediaObserver.observe(film));
@@ -94,11 +126,12 @@ function drawParticles() {
     if (p.y < -2) p.y = innerHeight + 2;
     context.beginPath(); context.arc(p.x, p.y, p.r, 0, Math.PI * 2); context.fill();
   }
-  if (!reducedMotion) requestAnimationFrame(drawParticles);
+  if (!motionPreference.matches) requestAnimationFrame(drawParticles);
 }
 addEventListener('resize', sizeCanvas, { passive: true });
 sizeCanvas();
 drawParticles();
+setMotionEnabled(motionEnabled);
 
 window.calculateMission = calculateMission;
 window.resetMission = resetMission;

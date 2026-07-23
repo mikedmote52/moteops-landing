@@ -1,7 +1,40 @@
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+const root = document.documentElement;
 const films = [...document.querySelectorAll('[data-autoplay]')];
+const motionToggle = document.querySelector('[data-motion-toggle]');
 const form = document.querySelector('#schedule-form');
 const scheduleRegion = document.querySelector('[aria-live]');
+let motionEnabled = !motionPreference.matches;
+
+function filmIsVisible(film) {
+  const rect = film.getBoundingClientRect();
+  return rect.bottom > 0 && rect.top < innerHeight;
+}
+
+function updateMotionToggle() {
+  root.dataset.motion = motionEnabled ? 'on' : 'off';
+  motionToggle.setAttribute('aria-pressed', String(motionEnabled));
+  motionToggle.querySelector('[data-motion-label]').textContent = motionEnabled ? 'Motion on' : 'Motion off';
+}
+
+function stopMotionAfterPlaybackFailure(film) {
+  film.closest('.chapter').classList.add('video-paused');
+  motionEnabled = false;
+  films.forEach((item) => item.pause());
+  updateMotionToggle();
+}
+
+function setMotionEnabled(enabled) {
+  motionEnabled = enabled;
+  updateMotionToggle();
+  for (const film of films) {
+    if (!motionEnabled || !filmIsVisible(film)) film.pause();
+    else film.play().then(() => film.closest('.chapter').classList.remove('video-paused')).catch(() => stopMotionAfterPlaybackFailure(film));
+  }
+}
+
+motionToggle.addEventListener('click', () => setMotionEnabled(!motionEnabled));
+motionPreference.addEventListener('change', (event) => setMotionEnabled(!event.matches));
 
 function buildSchedule({ program, sessionMinutes }) {
   const total = Math.max(60, Math.min(360, Number(sessionMinutes) || 120));
@@ -36,11 +69,12 @@ renderSchedule();
 for (const film of films) film.addEventListener('error', () => film.closest('.chapter').classList.add('video-error'));
 const observer = new IntersectionObserver((entries) => {
   for (const entry of entries) {
-    if (reducedMotion || !entry.isIntersecting) entry.target.pause();
-    else entry.target.play().catch(() => entry.target.closest('.chapter').classList.add('video-paused'));
+    if (!motionEnabled || !entry.isIntersecting) entry.target.pause();
+    else entry.target.play().catch(() => stopMotionAfterPlaybackFailure(entry.target));
   }
 }, { threshold: 0.3 });
 films.forEach((film) => observer.observe(film));
+setMotionEnabled(motionEnabled);
 
 let framePending = false;
 function setLightPosition() {

@@ -14,6 +14,7 @@
 <body>
   <a class="skip-link" href="#descent">Skip expedition film</a>
   <canvas id="particle-field" aria-hidden="true"></canvas>
+  <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="true"><span aria-hidden="true"></span><b data-motion-label>Motion on</b></button>
   <header class="site-header">
     <a class="mark" href="#deployment" aria-label="VESSEL ZERO home">V<span>/</span>0</a>
     <p>Expedition file <strong>06.19</strong></p>
@@ -22,7 +23,7 @@
 
   <main>
     <section id="deployment" class="chapter hero" aria-labelledby="deployment-title">
-      <video class="chapter-film" muted loop playsinline preload="metadata" poster="media/vz-01.webp" data-autoplay>
+      <video class="chapter-film" autoplay muted loop playsinline preload="metadata" poster="media/vz-01.webp" data-autoplay>
         <source src="media/vz-01.mp4" type="video/mp4">
       </video>
       <div class="shade" aria-hidden="true"></div>
@@ -52,7 +53,7 @@
     </section>
 
     <section id="sensing" class="chapter sensing" aria-labelledby="sensing-title">
-      <video class="chapter-film" muted loop playsinline preload="metadata" poster="media/vz-02.webp" data-autoplay>
+      <video class="chapter-film" autoplay muted loop playsinline preload="metadata" poster="media/vz-02.webp" data-autoplay>
         <source src="media/vz-02.mp4" type="video/mp4">
       </video>
       <div class="film-caption"><span>02 / Sensing</span><span>Sample arm sequence</span></div>
@@ -77,7 +78,7 @@
     </section>
 
     <section id="encounter" class="chapter encounter" aria-labelledby="encounter-title">
-      <video class="chapter-film" muted loop playsinline preload="metadata" poster="media/vz-03.webp" data-autoplay>
+      <video class="chapter-film" autoplay muted loop playsinline preload="metadata" poster="media/vz-03.webp" data-autoplay>
         <source src="media/vz-03.mp4" type="video/mp4">
       </video>
       <div class="shade" aria-hidden="true"></div>

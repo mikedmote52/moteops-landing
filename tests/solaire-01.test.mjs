@@ -16,8 +16,16 @@ test('ships the approved six-chapter architectural monograph', () => {
 });
 
 test('uses an independent architectural system and deterministic schedule', () => {
+  const html = read('index.html');
   const css = read('site.css');
   const js = read('site.js');
+  const videoTags = html.match(/<video\b[^>]*>/g) || [];
+
+  assert.equal(videoTags.length, 3);
+  for (const tag of videoTags) assert.match(tag, /\sautoplay(?:\s|>)/);
+  assert.match(html, /data-motion-toggle/);
+  assert.match(js, /function setMotionEnabled/);
+  assert.match(js, /aria-pressed/);
   assert.match(css, /#D8C8A8/i);
   assert.match(css, /#25221E/i);
   assert.match(js, /function buildSchedule/);
