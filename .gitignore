@@ -6,3 +6,5 @@ production/opening-film/raw/*.mp4
 production/opening-film/rendered/*.png
 production/opening-film/rendered/*.mp4
 assets/cinematic/source/
+production/opening-film-v3/raw/
+production/opening-film-v3/rendered/

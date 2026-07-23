@@ -8,6 +8,7 @@
     "capture:opening-plates": "bash production/opening-film/capture-plates.sh",
     "capture:opening-laptop": "bash production/opening-film/capture-laptop-plates.sh",
     "capture:opening-monitor": "bash production/opening-film/capture-monitor-plates.sh",
+    "capture:opening-v3-interfaces": "bash production/opening-film-v3/capture-interfaces.sh",
     "build": "echo 'Static site — no build step required'",
     "deploy": "npx vercel --prod"
   },

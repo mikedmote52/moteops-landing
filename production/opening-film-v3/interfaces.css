@@ -1,0 +1,61 @@
+:root {
+  --mote-cream: #f5f1e8;
+  --mote-green: #0d4b3d;
+  --mote-ink: #171813;
+  --mote-rust: #b95c36;
+  --mote-rule: #bcb29c;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; min-height: 100%; background: var(--mote-cream); color: var(--mote-ink); }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+#app { width: 1600px; height: 900px; overflow: hidden; }
+.app-shell { display: grid; grid-template-columns: 236px 1fr; width: 100%; height: 100%; }
+.app-nav { padding: 54px 34px; border-right: 1px solid var(--mote-rule); background: #eee8dc; }
+.app-main { padding: 76px 84px; }
+.eyebrow { color: var(--mote-green); font: 800 18px/1.2 ui-monospace, monospace; letter-spacing: .11em; }
+h1 { max-width: 980px; margin: 20px 0 22px; font: 700 64px/.96 Georgia, serif; letter-spacing: -.035em; }
+.metric { color: var(--mote-rust); font-size: 26px; font-weight: 800; }
+.review-row { display: grid; grid-template-columns: 1fr 1.4fr auto; gap: 24px; padding: 24px 0; border-top: 1px solid var(--mote-rule); }
+.action { display: inline-flex; min-height: 58px; align-items: center; margin-top: 28px; padding: 0 28px; background: var(--mote-green); color: white; font-size: 23px; font-weight: 800; }
+.action[data-state="approved"] { background: #466c54; }
+.phone { width: 1080px; height: 1920px; padding: 290px 92px; background: #111; color: white; }
+.phone-card { padding: 78px 66px; border-radius: 42px; background: var(--mote-cream); color: var(--mote-ink); }
+.overlay, .closing { width: 1920px; height: 1080px; background: transparent; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+.app-nav { display: flex; flex-direction: column; gap: 18px; }
+.app-nav strong { margin-bottom: 34px; font: 900 24px/1 ui-monospace, monospace; letter-spacing: .14em; }
+.app-nav span { padding: 14px 16px; color: #625f56; font-weight: 700; }
+.app-nav span.is-active { background: var(--mote-green); color: white; }
+.mail-meta, .lede { max-width: 980px; color: #55564f; font: 400 25px/1.45 Georgia, serif; }
+.option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 1040px; }
+.option { display: flex; min-height: 86px; align-items: center; gap: 18px; border: 1px solid var(--mote-rule); background: #fbf8f1; padding: 0 24px; text-align: left; font: 750 24px/1.2 inherit; }
+.option span { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid var(--mote-rule); }
+.option.is-selected { border-color: var(--mote-green); box-shadow: inset 6px 0 var(--mote-green); }
+.option.is-selected span { background: var(--mote-green); color: white; }
+.boundary-note { margin-top: 28px; color: var(--mote-green); font-weight: 800; }
+.review-list { margin-top: 34px; border-bottom: 1px solid var(--mote-rule); }
+.review-row strong, .review-row span { font-style: normal; font-size: 21px; }
+.review-row em { color: var(--mote-green); font-style: normal; font-weight: 800; }
+.zero-mark { display: grid; width: 96px; height: 96px; place-items: center; border-radius: 50%; background: var(--mote-green); color: white; font-size: 48px; }
+.overlay { display: flex; flex-direction: column; justify-content: center; gap: 8px; padding-left: 112px; }
+.overlay strong { width: max-content; background: rgba(245, 241, 232, .94); border: 2px solid var(--mote-ink); padding: 13px 18px; font: 900 34px/1.05 "Arial Narrow", sans-serif; letter-spacing: .02em; }
+.closing { display: flex; align-items: center; padding-left: 96px; }
+.closing-block { width: 850px; background: rgba(13, 75, 61, .96); border: 2px solid var(--mote-cream); box-shadow: 12px 12px 0 rgba(185, 92, 54, .9); color: white; padding: 38px 42px; }
+.closing-block h1 { margin: 0 0 18px; color: white; font-size: 52px; }
+.closing-block h1 span, .closing-block strong, .closing-block small { display: block; }
+.closing-block p { margin: 0 0 24px; color: #e5ded0; font: 400 23px/1.4 Georgia, serif; }
+.closing-block strong { font-size: 24px; }
+.closing-block small { margin-top: 7px; color: #e5ded0; font-size: 18px; }
+button { border-radius: 0; cursor: default; }
+
+html[data-plate="phone-zero"],
+body[data-plate="phone-zero"] { background: #111; }
+body[data-plate="phone-zero"] #app { width: 1080px; height: 1920px; }
+
+html[data-plate="opening-copy"],
+html[data-plate="closing-copy"],
+body[data-plate="opening-copy"],
+body[data-plate="closing-copy"] { background: transparent; }
+body[data-plate="opening-copy"] #app,
+body[data-plate="closing-copy"] #app { width: 1920px; height: 1080px; }

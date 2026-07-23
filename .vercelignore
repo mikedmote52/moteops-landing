@@ -5,6 +5,7 @@ docs/**
 demo/vessel-zero/media/source/**
 demo/solaire-01/media/source/**
 production/opening-film/
+production/opening-film-v3/
 assets/cinematic/source/
 **/.DS_Store
 **/*.bak*

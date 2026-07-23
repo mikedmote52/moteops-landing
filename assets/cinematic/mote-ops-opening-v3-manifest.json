@@ -1,0 +1,101 @@
+{
+  "schema": "mote-ops-opening/v3",
+  "status": "shot-01-rejected",
+  "title": "Mote Ops continuity-controlled opening",
+  "durationSeconds": 50,
+  "audio": false,
+  "disclosure": "AI-generated film · fictional business scenario featuring Mike Mote.",
+  "generation": {
+    "model": "Seedance 2.0",
+    "mode": "std",
+    "resolution": "1080p",
+    "bitrateMode": "standard",
+    "firstPassCredits": 450,
+    "provisionalCap": 675,
+    "approvedCreditCap": 675,
+    "creditsSpent": 108,
+    "shots": [
+      {
+        "id": "chaos",
+        "durationSeconds": 6,
+        "preflightCredits": 54,
+        "status": "rejected",
+        "jobId": "bc199863-0494-4bca-a76a-32781d65f637",
+        "credits": 54,
+        "review": ".superpowers/sdd/opening-v3-shot-01-review.md",
+        "attempts": [
+          {
+            "jobId": "910e5f0f-5f73-4b2d-97f9-7bf6eefae091",
+            "credits": 54,
+            "outcome": "rejected during frame review",
+            "reason": "From about 1.3 to 1.7 seconds, the black smartphone under Mike's reaching hand visibly becomes a loose white paper as he lifts it. Mike then repeatedly handles loose papers through about 3.2 seconds, despite the locked-prop and no-paper-handling constraints. Only one background employee is present instead of the required two, and no distinct mouse movement occurs.",
+            "changedPromptVariable": "Mike’s left hand remains on the corded handset. His right hand moves only between one visible mouse and one keyboard. Every smartphone, book, folder, and loose paper remains fixed outside his hand path.",
+            "source": {
+              "path": "production/opening-film-v3/raw/shot-01-chaos-attempt-01-rejected.mp4",
+              "codec": "H.264",
+              "width": 1920,
+              "height": 1080,
+              "frameRate": 24,
+              "frameCount": 145,
+              "durationSeconds": 6.041667,
+              "sizeBytes": 7855696,
+              "sha256": "15fc8565dd11792d0b99e2c6152bbd52be4f533bd9b2e5327e88bc233fce59f7"
+            }
+          },
+          {
+            "jobId": "bc199863-0494-4bca-a76a-32781d65f637",
+            "credits": 54,
+            "outcome": "rejected during frame review",
+            "reason": "From about 1.1 to 1.6 seconds, Mike reaches across the desk for the black smartphone. Across consecutive frames around 1.5 seconds, the smartphone visibly becomes a loose white paper in his hand. He then handles the transformed paper, the book stack, a folder, and additional loose papers through about 3.3 seconds, despite the explicit hand-path constraint. Only one background employee is present instead of the required two, and no distinct visible mouse action occurs.",
+            "changedPromptVariable": "Mike’s left hand remains on the corded handset. His right hand moves only between one visible mouse and one keyboard. Every smartphone, book, folder, and loose paper remains fixed outside his hand path.",
+            "source": {
+              "path": "production/opening-film-v3/raw/shot-01-chaos.mp4",
+              "codec": "H.264",
+              "width": 1920,
+              "height": 1080,
+              "frameRate": 24,
+              "frameCount": 145,
+              "durationSeconds": 6.041667,
+              "sizeBytes": 6042874,
+              "sha256": "906f0b1dc255584fadbc120cda9e9ed03013fb1cfb585da26e2b14ce43e9dec7"
+            }
+          }
+        ],
+        "futureProposal": {
+          "status": "not-authorized",
+          "type": "replace-video-reference-with-clean-start-image",
+          "removeVideoReferenceJobId": "879db0a2-91d0-4276-ad5d-169a5606b303",
+          "replacementMedia": {
+            "role": "start_image",
+            "status": "not-created",
+            "requirements": "One reviewed clean pre-reach start image with the right forearm and empty hand resting on a bare desk edge, no smartphone, book, folder, pen, or loose paper in the visible interaction path."
+          },
+          "actionLanguage": "Mike keeps the corded handset at his left ear for the entire six-second shot. His right forearm remains planted on the bare desk edge and his empty right hand stays still. He never reaches toward, touches, lifts, moves, or handles any desk object. Pressure is conveyed only through his expression and the two waiting employees."
+        }
+      },
+      { "id": "discovery", "durationSeconds": 8, "preflightCredits": 72, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] },
+      { "id": "onboarding", "durationSeconds": 5, "preflightCredits": 45, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] },
+      { "id": "inbox-calendar", "durationSeconds": 8, "preflightCredits": 72, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] },
+      { "id": "calls-finance", "durationSeconds": 8, "preflightCredits": 72, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] },
+      { "id": "control-restored", "durationSeconds": 7, "preflightCredits": 63, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] },
+      { "id": "beach-payoff", "durationSeconds": 8, "preflightCredits": 72, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] }
+    ]
+  },
+  "postProduction": {
+    "interfaces": [],
+    "deviceTracks": [],
+    "openingCaption": "Meetings stack up. Your inbox keeps growing. Calls get missed.",
+    "closingHeadline": "Mote Ops cleaned up the work. Mike found the beach.",
+    "closingTagline": "Your people and tools already do the work. We help them work as one.",
+    "closingCta": "Book your consultation today. Free 30-minute consultation to see what Mote Ops can do for you."
+  },
+  "outputs": {
+    "master1080": null,
+    "master720": null,
+    "poster": null
+  },
+  "frameReview": {
+    "intervalSeconds": 0.5,
+    "additionalTimesSeconds": []
+  }
+}
