@@ -12,6 +12,9 @@ const careCss = existsSync(resolve(root, 'care-hub-showcase.css'))
 const ownerCss = existsSync(resolve(root, 'owner-story.css'))
   ? readFileSync(resolve(root, 'owner-story.css'), 'utf8')
   : '';
+const studioCss = existsSync(resolve(root, 'studio.css'))
+  ? readFileSync(resolve(root, 'studio.css'), 'utf8')
+  : '';
 const js = readFileSync(resolve(root, 'site.js'), 'utf8');
 
 function attribute(tag, name) {
@@ -105,14 +108,14 @@ test('isolates and preserves the owner story presentation', () => {
 });
 
 test('uses the approved cinematic section order', () => {
-  const orderedIds = ['top', 'owner-story', 'demo-gallery', 'care-hub-showcase', 'method', 'capabilities', 'evidence', 'boundaries', 'start', 'questions'];
+  const orderedIds = ['top', 'owner-story', 'demo-gallery', 'care-hub-showcase', 'evidence', 'boundaries', 'mote-ops-studio', 'method', 'capabilities', 'start', 'questions'];
   let cursor = -1;
   for (const id of orderedIds) {
     const next = html.indexOf(`id="${id}"`);
     assert.ok(next > cursor, `${id} should appear in the approved order`);
     cursor = next;
   }
-  assert.equal((html.match(/<section\b[^>]*data-page-section\b/gi) ?? []).length, 7);
+  assert.equal((html.match(/<section\b[^>]*data-page-section\b/gi) ?? []).length, 8);
   for (const obsolete of ['id="calculator"', 'id="operator-day"', 'Annual follow-up labor burden', 'equipment-plate']) {
     assert.doesNotMatch(html, new RegExp(obsolete, 'i'));
   }
@@ -223,17 +226,23 @@ test('keeps three secondary demonstrations accessible but collapsed by default',
   }
 });
 
-test('separates the fictional ONDE design concept from client proof', () => {
-  const gallery = elementById('demo-gallery', 'section');
-  const concept = elementById('onde-concept', 'aside');
-  const moreExamples = elementById('more-examples', 'details');
-  assert.ok(concept.start >= gallery.start && concept.end <= gallery.end);
-  assert.ok(concept.start > moreExamples.end, 'the concept should follow the operational demos');
-  assert.match(concept.source, /DESIGN CONCEPT/i);
-  assert.match(concept.source, /FICTIONAL PRODUCT/i);
-  assert.match(concept.source, /Real interface, motion, and sound design/i);
-  assert.match(concept.source, /href="demo\/onde-halo\/index\.html"/i);
-  assert.doesNotMatch(concept.source, /client result|production install|proven outcome/i);
+test('places three fictional Studio studies after operational evidence', () => {
+  const evidence = elementById('evidence', 'section');
+  const studio = elementById('mote-ops-studio', 'section');
+  const method = elementById('method', 'section');
+  assert.ok(studio.start > evidence.end, 'Studio must follow operational evidence');
+  assert.ok(studio.end < method.start, 'Studio must precede the method');
+  assert.match(studio.source, /Mote Ops Studio/i);
+  assert.match(studio.source, /Systems can work well and still feel exceptional/i);
+  assert.equal((studio.source.match(/data-studio-study/gi) ?? []).length, 3);
+  for (const route of [
+    'demo/onde-halo/index.html',
+    'demo/vessel-zero/index.html',
+    'demo/solaire-01/index.html',
+  ]) assert.match(studio.source, new RegExp(`href=["']${route.replaceAll('/', '\\/')}["']`, 'i'));
+  assert.equal((studio.source.match(/FICTIONAL (?:PRODUCT|DESIGN) (?:CONCEPT|STUDY)/gi) ?? []).length, 3);
+  assert.doesNotMatch(studio.source, /client result|measured outcome|production install/i);
+  assert.match(studioCss, /\.studio-heading \.kicker\{color:#d37b4c\}/i);
 });
 
 test('preserves real local controls across the Care Hub and secondary demonstrations', () => {
