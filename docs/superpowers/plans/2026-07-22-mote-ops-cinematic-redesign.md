@@ -68,7 +68,19 @@ git commit -m "feat: checkpoint cinematic Mote Ops homepage candidate"
 
 Expected: the commit contains only the listed homepage, proof, legal, and contract files. Unrelated images, local metadata, and package artifacts remain untouched.
 
-- [ ] **Step 3: Import the verified study commits without touching homepage files**
+- [ ] **Step 3: Create the isolated redesign worktree**
+
+Run from the main repository root:
+
+```bash
+git check-ignore -q .worktrees
+git worktree add .worktrees/moteops-cinematic-redesign -b feat/moteops-cinematic-redesign
+cd .worktrees/moteops-cinematic-redesign
+```
+
+Expected: `.worktrees` is ignored, the new worktree is on `feat/moteops-cinematic-redesign`, and it begins from the checkpoint commit created in Step 2.
+
+- [ ] **Step 4: Import the verified study commits without touching homepage files**
 
 Run:
 
@@ -78,7 +90,7 @@ git cherry-pick 95a6571 0537e2c 1401a15 dfb55ff 8a8ca70 43ade06
 
 Expected: the two demo directories and their tests are present; `index.html`, `site.css`, `owner-story.css`, and `site.js` show no new cherry-pick diff.
 
-- [ ] **Step 4: Verify the imported study routes**
+- [ ] **Step 5: Verify the imported study routes**
 
 Run:
 
@@ -143,7 +155,7 @@ Add to `<head>` in `index.html`:
 <link rel="stylesheet" href="studio.css?v=cinematic-20260722">
 ```
 
-Replace the current `#onde-concept` aside with a standalone section after `#evidence` and before `#method`:
+Move the complete existing `#evidence` section so it follows `#demo-gallery`. Remove the current `#onde-concept` aside from inside `#demo-gallery`, then replace it with this standalone section after `#evidence` and before `#method`. Preserve every existing node inside `#evidence`; only its document position changes.
 
 ```html
 <section class="studio-section section-pad" id="mote-ops-studio" aria-labelledby="studio-title" data-page-section>
