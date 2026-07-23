@@ -53,7 +53,9 @@ test('captures four cleanup interfaces inside one physical monitor treatment', (
   assert.match(html, /class="monitor-shell"/);
   assert.match(html, /class="monitor-screen"/);
   assert.match(html, /class="monitor-reflection"/);
-  assert.match(html, /plates\.html\?plate=/);
+  assert.match(html, /new URL\('plates\.html'/);
+  assert.match(html, /source\.searchParams\.set\('plate', plate\)/);
+  assert.match(html, /source\.searchParams\.set\('embed', 'monitor'\)/);
   assert.match(css, /\.monitor-shell[\s\S]*width:\s*1344px/);
   assert.match(css, /\.monitor-screen[\s\S]*width:\s*1280px[\s\S]*height:\s*720px/);
   assert.match(css, /background-image:\s*url\("rendered\/monitor-office\.png"\)/);
