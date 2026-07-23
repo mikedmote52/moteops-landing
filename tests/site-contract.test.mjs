@@ -53,16 +53,15 @@ function galleryPanelRanges(gallery) {
   }));
 }
 
-test('leads with Mike as a practical AI integration partner', () => {
+test('opens with the outcome promise before any mechanism talk', () => {
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
   const hero = elementById('top', 'section').source;
-  assert.match(hero, /You know AI could help your business\./i);
-  assert.match(hero, /I help you figure out where, build the right solution, and make it work\./i);
-  assert.match(hero, /simplify repetitive work/i);
-  assert.match(hero, /connect the tools (?:you|they) already use/i);
-  assert.match(hero, /train the people who use them/i);
-  assert.match(hero, /Tell me what is slowing you down/i);
-  assert.match(hero, /See what I can build/i);
+  assert.match(hero, /Your business is already telling you/i);
+  assert.match(hero, /where AI should help\./i);
+  assert.match(hero, /finds the work creating drag/i);
+  assert.match(hero, /teaches your team to run it without losing control/i);
+  assert.match(hero, /Book a fit conversation/i);
+  assert.match(hero, /Watch pressure become clarity/i);
   assert.doesNotMatch(hero, /\b(?:AIOS|local LLM|control plane|model routing|agent runtime|operational memory)\b/i);
 });
 
@@ -84,7 +83,12 @@ test('shows a truthful small-business chaos-to-control story', () => {
   assert.match(hero, /class="owner-organize"/i);
   assert.match(hero, /class="owner-outcome"/i);
   assert.doesNotMatch(hero, /class="owner-functions"/i);
-  assert.match(hero, /This is what “one calm place” looks like for CC's Learning Center\./i);
+  assert.match(hero, /A noisy day becomes three calm decisions\./i);
+  assert.match(hero, /class="owner-decisions"/i);
+  for (const decision of ['Follow up', 'Review payment', 'Confirm schedule']) {
+    assert.match(hero, new RegExp(`<strong>${decision}</strong>`, 'i'));
+  }
+  assert.match(hero, /one calm place looks like for CC's Learning Center/i);
   assert.match(hero, /href="#care-hub-showcase"/i);
   assert.match(hero, /Illustrative scenario using fictional business information\./i);
   assert.doesNotMatch(hero, /moteops-transformation-hero-(?:mobile-)?v1\.png/i);
@@ -93,31 +97,30 @@ test('shows a truthful small-business chaos-to-control story', () => {
 test('isolates and preserves the owner story presentation', () => {
   assert.ok(existsSync(resolve(root, 'assets/small-business-owner-overwhelmed-v1.webp')));
   assert.ok(existsSync(resolve(root, 'assets/moteops-transformation-hero-v1.png')));
-  assert.match(html, /owner-story\.css\?v=20260719/i);
-  assert.match(html, /owner-story\.js\?v=20260719/i);
+  assert.match(html, /owner-story\.css\?v=cinematic-20260722/i);
+  assert.match(html, /owner-story\.js\?v=cinematic-20260722/i);
   assert.match(ownerCss, /prefers-reduced-motion:\s*reduce/i);
   assert.match(ownerCss, /@media\s*\(max-width:\s*760px\)/i);
   assert.doesNotMatch(ownerCss, /\.owner-connect\s*\{[^}]*linear-gradient/si);
 });
 
-test('uses the approved concise section order', () => {
-  const orderedIds = ['problems', 'capabilities', 'process', 'demo-gallery', 'evidence', 'services', 'questions'];
+test('uses the approved cinematic section order', () => {
+  const orderedIds = ['top', 'owner-story', 'demo-gallery', 'care-hub-showcase', 'method', 'capabilities', 'evidence', 'boundaries', 'start', 'questions'];
   let cursor = -1;
   for (const id of orderedIds) {
     const next = html.indexOf(`id="${id}"`);
     assert.ok(next > cursor, `${id} should appear in the approved order`);
     cursor = next;
   }
-  assert.equal((html.match(/<section\b[^>]*data-page-section\b/gi) ?? []).length, 8);
+  assert.equal((html.match(/<section\b[^>]*data-page-section\b/gi) ?? []).length, 7);
   for (const obsolete of ['id="calculator"', 'id="operator-day"', 'Annual follow-up labor burden', 'equipment-plate']) {
     assert.doesNotMatch(html, new RegExp(obsolete, 'i'));
   }
 });
 
-test('names six familiar problems before technical implementation language', () => {
-  const problems = elementById('problems', 'section');
-  const capabilities = elementById('capabilities', 'section');
-  assert.ok(problems.end <= capabilities.start);
+test('keeps six recognizable frictions inside the commercial close', () => {
+  const start = elementById('start', 'section');
+  assert.match(start.source, /class="start-frictions"/i);
   for (const phrase of [
     'Your inbox has become the company task list.',
     'Leads and follow ups disappear between people and tools.',
@@ -125,8 +128,8 @@ test('names six familiar problems before technical implementation language', () 
     'Important work depends on what the owner remembers.',
     'Repetitive updates, reports, and data entry consume the day.',
     'You want to use AI but do not know what is worth building.',
-  ]) assert.ok(problems.source.includes(phrase), `missing problem: ${phrase}`);
-  assert.doesNotMatch(problems.source, /\b(?:LLM|RAG|API|webhook|vector|inference|orchestration|agent runtime)\b/i);
+  ]) assert.ok(start.source.includes(phrase), `missing friction: ${phrase}`);
+  assert.doesNotMatch(start.source, /\b(?:LLM|RAG|API|webhook|vector|inference|orchestration|agent runtime)\b/i);
 });
 
 test('presents six outcomes instead of a technical product catalog', () => {
@@ -143,13 +146,19 @@ test('presents six outcomes instead of a technical product catalog', () => {
   assert.match(capabilities, /simplest dependable approach/i);
 });
 
-test('introduces Mike and the four step method before demonstrations', () => {
-  const process = elementById('process', 'section');
+test('shows the six stage method with a deliverable per stage after the working proof', () => {
+  const method = elementById('method', 'section');
   const gallery = elementById('demo-gallery', 'section');
-  assert.ok(process.end <= gallery.start);
-  for (const step of ['Understand', 'Simplify', 'Build', 'Support']) assert.match(process.source, new RegExp(`>${step}<`, 'i'));
-  assert.match(process.source, /Mike Mote/i);
-  assert.match(process.source, /discovery, design, implementation, and review/i);
+  assert.ok(gallery.end <= method.start, 'the method should follow the working proof');
+  for (const stage of ['Diagnose', 'Map', 'Adapt', 'Install', 'Teach', 'Expand']) {
+    assert.match(method.source, new RegExp(`>${stage}<`, 'i'));
+  }
+  for (const deliverable of ['Written diagnosis', 'Workflow map', 'Build plan', 'Working install', 'Owner walkthrough', 'Evidence review']) {
+    assert.match(method.source, new RegExp(deliverable, 'i'));
+  }
+  assert.match(method.source, /Mike Mote/i);
+  assert.match(method.source, /not a dashboard vendor/i);
+  assert.match(method.source, /one accountable person/i);
 });
 
 test('makes the real Care Hub workflow the primary working demonstration', () => {
@@ -214,6 +223,19 @@ test('keeps three secondary demonstrations accessible but collapsed by default',
   }
 });
 
+test('separates the fictional ONDE design concept from client proof', () => {
+  const gallery = elementById('demo-gallery', 'section');
+  const concept = elementById('onde-concept', 'aside');
+  const moreExamples = elementById('more-examples', 'details');
+  assert.ok(concept.start >= gallery.start && concept.end <= gallery.end);
+  assert.ok(concept.start > moreExamples.end, 'the concept should follow the operational demos');
+  assert.match(concept.source, /DESIGN CONCEPT/i);
+  assert.match(concept.source, /FICTIONAL PRODUCT/i);
+  assert.match(concept.source, /Real interface, motion, and sound design/i);
+  assert.match(concept.source, /href="demo\/onde-halo\/index\.html"/i);
+  assert.doesNotMatch(concept.source, /client result|production install|proven outcome/i);
+});
+
 test('preserves real local controls across the Care Hub and secondary demonstrations', () => {
   const gallery = elementById('demo-gallery', 'section').source;
   for (const hook of [
@@ -233,6 +255,14 @@ test('preserves real local controls across the Care Hub and secondary demonstrat
 
 test('centers evidence on the real Care Hub build without inflating results', () => {
   const evidence = elementById('evidence', 'section').source;
+  assert.match(evidence, /Clear boundaries are part of the product\./i);
+  assert.match(evidence, /class="boundary-ledger"/i);
+  for (const boundary of ['Minimum access', 'Synthetic testing first', 'Visible approval rules', 'No invented results', 'Documented model and data choices']) {
+    assert.match(evidence, new RegExp(boundary, 'i'));
+  }
+  assert.match(evidence, /href="ai-practices\.html"/i);
+  assert.match(evidence, /href="privacy\.html"/i);
+  assert.match(evidence, /href="terms\.html"/i);
   assert.match(evidence, /CC['’]s Care Hub/i);
   assert.match(evidence, /real client build/i);
   assert.match(evidence, /public demonstration uses fictional records/i);
@@ -242,6 +272,17 @@ test('centers evidence on the real Care Hub build without inflating results', ()
   assert.match(evidence, /qwen3-coder:30b/i);
   assert.match(evidence, /phone access patterns/i);
   assert.doesNotMatch(html, /verified ROI|guaranteed (?:savings|revenue|results)/i);
+});
+
+test('presents the Email Organizer as honest beta evidence only', () => {
+  const evidence = elementById('evidence', 'section').source;
+  assert.match(evidence, /class="beta-evidence"/i);
+  assert.match(evidence, /invite-only beta/i);
+  assert.match(evidence, /no send path exists in the code/i);
+  assert.match(evidence, /351 automated tests passing as of July 19, 2026/i);
+  assert.match(evidence, /still being measured/i);
+  assert.doesNotMatch(html, /not copied elsewhere/i);
+  assert.doesNotMatch(html, /Billion-Dollar Solo Operator/i);
 });
 
 test('shows a modern toolbox as supporting proof rather than the product', () => {
@@ -268,16 +309,34 @@ test('shows a modern toolbox as supporting proof rather than the product', () =>
   assert.doesNotMatch(toolbox.source, /every (?:client|project|installation) uses/i);
 });
 
-test('publishes a flexible commercial path with discovery as one phase', () => {
-  const services = elementById('services', 'section').source;
-  for (const phrase of ['Fit conversation', 'Workflow discovery', 'Implementation', 'Continuing support']) {
-    assert.match(services, new RegExp(phrase, 'i'));
+test('publishes one commercial path with the price fixed in writing and no public dollar figures', () => {
+  const start = elementById('start', 'section').source;
+  for (const phrase of ['Fit conversation', 'Diagnosis', 'Fixed scope, then the build', 'Teaching, then optional support']) {
+    assert.match(start, new RegExp(phrase, 'i'));
   }
-  for (const price of ['$1,000', '$1,500 to $2,500', '$4,000 to $6,000', '$750']) {
-    assert.match(services, new RegExp(price.replace(/[$]/g, '\\$'), 'i'));
+  assert.match(start, /agreed in writing before implementation starts/i);
+  assert.match(start, /leave it alone/i);
+  assert.match(start, /If I am not the right person, I say so\./i);
+  assert.doesNotMatch(start, /\$\s?\d/, 'the commercial path must not show dollar figures');
+  const evidence = elementById('evidence', 'section').source;
+  assert.doesNotMatch(evidence, /\$\s?\d/, 'evidence must not show dollar figures');
+});
+
+test('states the legal identity and links every legal page from the footer', () => {
+  const footer = html.slice(html.lastIndexOf('<footer'));
+  assert.match(footer, /West Coast Medical Legal Consult LLC/i);
+  assert.match(footer, /California limited liability company/i);
+  assert.match(footer, /dba Mote Ops/i);
+  for (const page of ['privacy.html', 'terms.html', 'ai-practices.html']) {
+    assert.match(footer, new RegExp(`href="${page.replace('.', '\\.')}"`, 'i'));
+    assert.ok(existsSync(resolve(root, page)), `missing ${page}`);
+    const legal = readFileSync(resolve(root, page), 'utf8');
+    assert.match(legal, /West Coast Medical Legal Consult LLC/i);
+    assert.match(legal, /site\.css\?v=cinematic-20260722/i);
   }
-  assert.match(services, /leave it alone/i);
-  assert.match(services, /larger agent or integration systems are scoped separately/i);
+  const aiPractices = readFileSync(resolve(root, 'ai-practices.html'), 'utf8');
+  assert.match(aiPractices, /no send path exists in the code/i);
+  assert.doesNotMatch(aiPractices, /not copied elsewhere/i);
 });
 
 test('uses one booking destination and a functional workflow email', () => {

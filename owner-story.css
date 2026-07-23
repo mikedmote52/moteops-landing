@@ -328,10 +328,55 @@
   .owner-story-truth { font-size: .78rem; }
 }
 
+.owner-decisions {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 18px 0 6px;
+  padding: 0;
+}
+
+.owner-decisions li {
+  background: var(--owner-cream);
+  border: 1px solid #ffffff4d;
+  border-left: 5px solid #ef9c68;
+  color: var(--owner-ink);
+  display: grid;
+  gap: 3px;
+  padding: 12px 16px;
+}
+
+@keyframes ownerDecisionRise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.owner-control.is-active .owner-decisions li { animation: ownerDecisionRise .5s ease both; }
+.owner-control.is-active .owner-decisions li:nth-child(1) { animation-delay: .15s; }
+.owner-control.is-active .owner-decisions li:nth-child(2) { animation-delay: .32s; }
+.owner-control.is-active .owner-decisions li:nth-child(3) { animation-delay: .49s; }
+
+.owner-decisions strong {
+  color: var(--owner-forest);
+  font: 800 .74rem/1.2 ui-monospace, SFMono-Regular, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.owner-decisions small {
+  color: #5d594e;
+  font-size: .8rem;
+  line-height: 1.45;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .owner-scene {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .owner-control.is-active .owner-decisions li {
+    animation: none;
   }
 }
