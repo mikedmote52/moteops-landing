@@ -1,0 +1,10 @@
+# Source-time screen track. The green matte remains the final edge mask.
+# 5.50 screen begins off the right edge
+# 5.75 TL 1647,535 TR 1838,585 BR 1685,945 BL 1517,843
+# 6.00 TL 1610,560 TR 1880,630 BR 1740,1030 BL 1490,900
+# 6.25 TL 1655,590 TR 2020,670 BR 1900,1100 BL 1510,970
+# 6.50 TL 1710,650 TR 2160,730 BR 2050,1200 BL 1580,1050
+# 6.75 screen exits right before the source camera cuts to the frontal view
+[2:v]scale=w='760*(1+0.28*n/29)':h='428*(1+0.28*n/29)':eval=frame,
+rotate=9*PI/180:ow=rotw(iw):oh=roth(ih):c=black@0,
+format=rgba[tracked_inbox]

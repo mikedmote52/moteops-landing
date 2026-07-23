@@ -181,7 +181,7 @@ test('composites the invitation and clickthrough into the actor laptop', () => {
   for (const timestamp of ['5.50', '5.75', '6.00', '6.25', '6.50', '6.75']) {
     assert.match(track, new RegExp(`# ${timestamp}`));
   }
-  assert.match(discovery, /chromakey=0x009b57:0\.18:0\.08/);
+  assert.match(discovery, /chromakey=0x008a50:0\.12:0\.03/);
   assert.match(discovery, /laptop-inbox\.png/);
   assert.match(discovery, /laptop-email\.png/);
   assert.match(discovery, /laptop-email-click\.png/);
