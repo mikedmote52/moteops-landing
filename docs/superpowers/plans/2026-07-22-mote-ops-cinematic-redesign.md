@@ -239,7 +239,7 @@ git commit -m "feat: add Mote Ops Studio portfolio"
 - Consumes: `[data-studio-film]`, `[data-owner-story]`, and `prefers-reduced-motion`.
 - Produces: `window.moteMotion`, `setMotionEnabled(boolean)`, root `data-motion="on|off"`, and a `[data-motion-toggle]` control.
 
-- [ ] **Step 1: Write the failing motion contract test**
+- [x] **Step 1: Write the failing motion contract test**
 
 Create `tests/motion-system.test.mjs`:
 
@@ -265,7 +265,7 @@ test('provides one accessible motion control and lazy cinematic playback', () =>
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run:
 
@@ -275,7 +275,7 @@ node --test tests/motion-system.test.mjs
 
 Expected: FAIL because `motion-system.js` does not exist.
 
-- [ ] **Step 3: Add the motion control and controller**
+- [x] **Step 3: Add the motion control and controller**
 
 Add immediately after the skip link in `index.html`:
 
@@ -348,7 +348,7 @@ window.moteMotion = { setMotionEnabled, isEnabled: () => motionEnabled };
 
 Add the button styles to `studio.css` using a solid soot background, visible focus state, 44-pixel minimum height, and a signal-orange state dot. Add `html[data-motion="off"] .studio-film{visibility:hidden}` only when posters remain visible as article backgrounds.
 
-- [ ] **Step 4: Run the test and full suite**
+- [x] **Step 4: Run the test and full suite**
 
 Run:
 
@@ -359,7 +359,7 @@ npm test
 
 Expected: the motion test and full suite pass.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add index.html studio.css motion-system.js tests/motion-system.test.mjs
