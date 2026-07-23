@@ -31,9 +31,6 @@ function mp4Atoms(path) {
 
 test('defines truthful local inserts for the complete cleanup story', () => {
   const plates = read('production/opening-film/plates.html');
-  assert.match(plates, /data-plate="discovery-email"/);
-  assert.match(plates, /You should not have to be the operating system\./);
-  assert.match(plates, /Show me how/);
   assert.match(plates, /data-plate="organized-inbox"/);
   assert.match(plates, /data-plate="calendar-resolution"/);
   assert.match(plates, /data-plate="review-packet"/);
@@ -43,7 +40,39 @@ test('defines truthful local inserts for the complete cleanup story', () => {
   assert.doesNotMatch(plates, /\b(?:sent|paid|signed|booked automatically)\b/i);
 });
 
-test('captures discovery and cleanup interfaces inside one physical monitor treatment', () => {
+test('defines a readable inbox-to-moteops laptop story', () => {
+  const html = read('production/opening-film/laptop-plates.html');
+  const css = read('production/opening-film/laptop-plates.css');
+  const capture = read('production/opening-film/capture-laptop-plates.sh');
+  const packageJson = JSON.parse(read('package.json'));
+
+  for (const plate of [
+    'laptop-inbox',
+    'laptop-email',
+    'laptop-email-click',
+    'laptop-site',
+  ]) {
+    assert.match(html, new RegExp(`data-plate="${plate}"`));
+    assert.match(capture, new RegExp(`\\n  ${plate}\\n`));
+  }
+
+  assert.match(html, /AI could help your business\. Where do you start\?/);
+  assert.match(html, /Mote Ops finds the work AI can take off your plate\./);
+  assert.match(html, /See how Mote Ops can help/);
+  assert.match(html, /moteops\.tech/);
+  assert.match(html, /aria-label="Inbox"/);
+  assert.match(html, /aria-label="Message from Mote Ops"/);
+  assert.match(css, /width:\s*1600px/);
+  assert.match(css, /height:\s*900px/);
+  assert.match(css, /\.email-cta\.is-clicked/);
+  assert.match(css, /\.cursor-click/);
+  assert.equal(
+    packageJson.scripts['capture:opening-laptop'],
+    'bash production/opening-film/capture-laptop-plates.sh'
+  );
+});
+
+test('captures cleanup interfaces inside one physical monitor treatment', () => {
   const html = read('production/opening-film/monitor-plates.html');
   const css = read('production/opening-film/monitor-plates.css');
   const capture = read('production/opening-film/capture-monitor-plates.sh');
@@ -56,7 +85,6 @@ test('captures discovery and cleanup interfaces inside one physical monitor trea
   assert.match(html, /new URL\('plates\.html'/);
   assert.match(html, /source\.searchParams\.set\('plate', plate\)/);
   assert.match(html, /source\.searchParams\.set\('embed', 'monitor'\)/);
-  assert.match(html, /'discovery-email'/);
   assert.match(css, /\.monitor-shell[\s\S]*width:\s*1344px/);
   assert.match(css, /\.monitor-screen[\s\S]*width:\s*1280px[\s\S]*height:\s*720px/);
   assert.match(css, /background-image:\s*url\("rendered\/monitor-office\.png"\)/);
@@ -65,7 +93,6 @@ test('captures discovery and cleanup interfaces inside one physical monitor trea
   assert.match(css, /\.monitor-reflection[\s\S]*linear-gradient/);
 
   for (const name of [
-    'discovery-email',
     'organized-inbox',
     'calendar-resolution',
     'review-packet',
@@ -119,15 +146,16 @@ test('maintains an auditable opening-film generation ledger', () => {
     }
   }
   assert.equal(manifest.disclosure, 'AI-generated film · fictional business scenario featuring Mike Mote.');
-  assert.deepEqual(manifest.postProduction.monitorComposite, {
+  assert.deepEqual(manifest.postProduction.laptopComposite, {
     generatedCredits: 0,
-    backgroundSource: 'accepted cleanup-control footage at 0.8 seconds',
-    outerMonitorWidth: 1344,
-    interfaceScreen: '1280x720',
-    transitionFrames: 7,
-    actorAttentionSeconds: 2.6,
-    discoveryStableHoldSeconds: 2.2,
+    source: 'accepted breakdown-discovery footage from 5.5 through 8.0 seconds',
+    trackFramesPerSecond: 24,
+    movingInboxSeconds: 1.25,
+    emailStableHoldSeconds: 2.2,
+    clickResponseSeconds: 0.35,
+    siteStableHoldSeconds: 1.2,
     cleanupStableHoldSeconds: 1.8,
+    destination: 'moteops.tech',
   });
 });
 
@@ -139,54 +167,58 @@ test('keeps production sources out of release uploads', () => {
 
 test('clears every pressure label before the discovery email cut', () => {
   const buildScript = read('production/opening-film/build-opening-film.sh');
-  assert.doesNotMatch(buildScript, /between\(t,3\.5,5\.8\)/);
-  assert.doesNotMatch(buildScript, /between\(t,4\.1,5\.8\)/);
-  assert.match(buildScript, /between\(t,3\.5,5\.75\)/);
-  assert.match(buildScript, /between\(t,4\.1,5\.75\)/);
+  assert.doesNotMatch(buildScript, /between\(t,3\.5,5\.75\)/);
+  assert.doesNotMatch(buildScript, /between\(t,4\.1,5\.75\)/);
+  assert.match(buildScript, /between\(t,3\.5,5\.45\)/);
+  assert.match(buildScript, /between\(t,4\.1,5\.45\)/);
 });
 
-test('assembles an actor-first discovery sequence in an approximately 28 second film', () => {
-  const buildScript = read('production/opening-film/build-opening-film.sh');
+test('composites the invitation and clickthrough into the actor laptop', () => {
+  const track = read('production/opening-film/laptop-track.ffscript');
+  const discovery = read('production/opening-film/build-laptop-discovery.sh');
+  const build = read('production/opening-film/build-opening-film.sh');
 
-  assert.match(buildScript, /actor_attention="2\.6"/);
-  assert.match(buildScript, /discovery_hold="2\.2"/);
-  assert.match(buildScript, /interface_hold="1\.8"/);
-  assert.match(buildScript, /transition="0\.291667"/);
-  assert.match(buildScript, /discovery_transition_plate="2\.491667"/);
-  assert.match(buildScript, /transition_plate="2\.091667"/);
-  assert.match(buildScript, /master_duration="28\.0"/);
-  assert.match(buildScript, /monitor-discovery-email\.png/);
-  assert.doesNotMatch(buildScript, /-i "\$rendered\/discovery-email\.png"/);
-  assert.match(buildScript, /trim=start=0:end=\$\{actor_attention\}/);
-  assert.match(buildScript, /offset=2\.308333/);
-  assert.match(buildScript, /offset=12\.000000/);
-  assert.match(buildScript, /concat=n=5:v=1:a=0,settb=1\/24\[monitor_sequence\]/);
-  assert.equal((buildScript.match(/duration=\$\{transition\}/g) || []).length, 2);
-  assert.match(buildScript, /between\(t,24\.2,28\.0\)/);
-  assert.match(buildScript, /between\(t,26\.0,28\.0\)/);
-  assert.equal((buildScript.match(/-r 24 -t "\$master_duration" -movflags/g) || []).length, 2);
+  for (const timestamp of ['5.50', '5.75', '6.00', '6.25', '6.50', '6.75']) {
+    assert.match(track, new RegExp(`# ${timestamp}`));
+  }
+  assert.match(discovery, /chromakey=0x009b57:0\.18:0\.08/);
+  assert.match(discovery, /laptop-inbox\.png/);
+  assert.match(discovery, /laptop-email\.png/);
+  assert.match(discovery, /laptop-email-click\.png/);
+  assert.match(discovery, /laptop-site\.png/);
+  assert.match(discovery, /email_hold="2\.2"/);
+  assert.match(discovery, /click_hold="0\.35"/);
+  assert.match(discovery, /site_hold="1\.20"/);
+  assert.match(discovery, /-t 5\.0/);
+  assert.match(build, /chaos_end="5\.5"/);
+  assert.match(build, /interface_hold="1\.8"/);
+  assert.match(build, /master_duration="28\.0"/);
+  assert.match(build, /laptop-discovery\.mp4/);
+  assert.doesNotMatch(build, /monitor-discovery-email\.png/);
+  assert.doesNotMatch(build, /actor_attention=/);
 });
 
-test('records discovery continuity timing in the media ledger', () => {
+test('records laptop clickthrough timing in the media ledger', () => {
   const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-manifest.json'));
   assert.equal(manifest.durationSeconds, 28);
-  assert.deepEqual(manifest.postProduction.monitorComposite, {
+  assert.deepEqual(manifest.postProduction.laptopComposite, {
     generatedCredits: 0,
-    backgroundSource: 'accepted cleanup-control footage at 0.8 seconds',
-    outerMonitorWidth: 1344,
-    interfaceScreen: '1280x720',
-    transitionFrames: 7,
-    actorAttentionSeconds: 2.6,
-    discoveryStableHoldSeconds: 2.2,
+    source: 'accepted breakdown-discovery footage from 5.5 through 8.0 seconds',
+    trackFramesPerSecond: 24,
+    movingInboxSeconds: 1.25,
+    emailStableHoldSeconds: 2.2,
+    clickResponseSeconds: 0.35,
+    siteStableHoldSeconds: 1.2,
     cleanupStableHoldSeconds: 1.8,
+    destination: 'moteops.tech',
   });
   assert.deepEqual(manifest.frameReview.timesSeconds, [
-    0, 0.5, 1, 2, 3, 4, 5, 5.79, 5.81,
-    7, 8.1, 8.39, 8.41, 9.5, 10.59, 10.61,
-    11.5, 12.39, 12.41, 13.3, 14.19, 14.21,
-    15.1, 15.99, 16.01, 16.9, 17.79, 17.81,
-    18.09, 19, 19.99, 20.01, 21, 22, 23, 24.2,
-    25, 26, 27, 27.99,
+    0, 0.5, 1, 2, 3, 4, 5, 5.49, 5.51, 5.75,
+    6.25, 6.74, 6.76, 7.5, 8.94, 8.96, 9.29, 9.31,
+    10.0, 10.49, 10.51, 11.4, 12.29, 12.31, 13.2,
+    14.09, 14.11, 15.0, 15.89, 15.91, 16.8, 17.69,
+    17.71, 18.8, 19.89, 19.91, 21, 22, 23, 24, 25,
+    26, 27, 27.99,
   ]);
 });
 
