@@ -155,7 +155,7 @@ test('publishes exact silent fast-start opening masters and poster', {
     assert.equal(video.width, width);
     assert.equal(video.height, height);
     assert.equal(video.r_frame_rate, '24/1');
-    assert.ok(Number(metadata.format.duration) >= 24 && Number(metadata.format.duration) <= 24.05);
+    assert.ok(Number(metadata.format.duration) >= 26.79 && Number(metadata.format.duration) <= 26.81);
     const atoms = mp4Atoms(path);
     assert.ok(atoms.find(({ type }) => type === 'moov').offset < atoms.find(({ type }) => type === 'mdat').offset);
     assert.equal(Number(metadata.format.size), output.sizeBytes);
