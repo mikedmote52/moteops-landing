@@ -1,0 +1,60 @@
+{
+  "schema": "mote-ops-opening/v1",
+  "status": "awaiting-credit-approval",
+  "title": "Mote Ops email-to-beach opening",
+  "durationSeconds": 24,
+  "disclosure": "AI-generated film · fictional business scenario featuring Mike Mote.",
+  "referenceElement": {
+    "kind": "one-off",
+    "id": null,
+    "sourcePhotoCount": 3,
+    "sourcePhotos": ["Photo 2", "Photo 4", "Photo 5"],
+    "reusableSoulCreated": false
+  },
+  "generation": {
+    "model": "Seedance 2.0",
+    "creditsSpent": 0,
+    "approvedCreditCap": null,
+    "preflight": [],
+    "shots": [
+      {
+        "id": "breakdown-discovery",
+        "seconds": 8,
+        "jobId": null,
+        "credits": null,
+        "status": "not-generated",
+        "review": null
+      },
+      {
+        "id": "cleanup-control",
+        "seconds": 8,
+        "jobId": null,
+        "credits": null,
+        "status": "not-generated",
+        "review": null
+      },
+      {
+        "id": "beach-payoff",
+        "seconds": 8,
+        "jobId": null,
+        "credits": null,
+        "status": "not-generated",
+        "review": null
+      }
+    ]
+  },
+  "capturePlates": [
+    "discovery-email",
+    "organized-inbox",
+    "calendar-resolution",
+    "review-packet",
+    "approval-queue",
+    "beach-end-card"
+  ],
+  "outputs": {
+    "master1080": null,
+    "master720": null,
+    "poster": null
+  },
+  "frameReview": null
+}

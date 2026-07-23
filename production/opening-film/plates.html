@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mote Ops opening film capture plates</title>
+  <link rel="stylesheet" href="plates.css">
+</head>
+<body>
+  <section class="plate plate-email" data-plate="discovery-email" hidden>
+    <p class="truth">FICTIONAL BUSINESS SCENARIO</p>
+    <header><span>MOTE OPS</span><small>Today, 9:42 AM</small></header>
+    <main>
+      <p>FROM: MOTE OPS</p>
+      <h1>You should not have to be the operating system.</h1>
+      <p>You know AI could help. You do not need another disconnected tool to manage.</p>
+      <p>Mote Ops organizes the people, tools, and decisions your business already depends on.</p>
+      <strong>Show me how →</strong>
+    </main>
+  </section>
+
+  <section class="plate" data-plate="organized-inbox" hidden>
+    <p class="truth">FICTIONAL BUSINESS SCENARIO</p>
+    <header><span>MOTE OPS · INCOMING WORK</span><small>Organized for review</small></header>
+    <main class="work-list">
+      <article><b>CALLS + TEXTS</b><strong>Follow-up prepared</strong><span>Waiting for Mike</span></article>
+      <article><b>EMAIL</b><strong>Priority messages grouped</strong><span>Drafts prepared</span></article>
+      <article><b>FILES</b><strong>Spreadsheet summarized</strong><span>Exceptions surfaced</span></article>
+    </main>
+  </section>
+
+  <section class="plate" data-plate="calendar-resolution" hidden>
+    <p class="truth">FICTIONAL BUSINESS SCENARIO</p>
+    <header><span>SCHEDULE REVIEW</span><small>One conflict found</small></header>
+    <main class="decision-card">
+      <p>CALENDAR CONFLICT</p>
+      <h1>Two meetings need the same hour.</h1>
+      <div><span>Move internal review to 2:30 PM</span><strong>Ready for approval</strong></div>
+    </main>
+  </section>
+
+  <section class="plate" data-plate="review-packet" hidden>
+    <p class="truth">FICTIONAL BUSINESS SCENARIO</p>
+    <header><span>REVIEW PACKET</span><small>Prepared, not executed</small></header>
+    <main class="work-list">
+      <article><b>SPREADSHEET</b><strong>Three exceptions summarized</strong><span>Source rows attached</span></article>
+      <article><b>INVOICE</b><strong>One item needs review</strong><span>No payment initiated</span></article>
+      <article><b>FOLLOW-UP</b><strong>Reply drafted</strong><span>Awaiting approval</span></article>
+    </main>
+  </section>
+
+  <section class="plate" data-plate="approval-queue" hidden>
+    <p class="truth">FICTIONAL BUSINESS SCENARIO</p>
+    <header><span>MOTE OPS · APPROVAL QUEUE</span><small>Mike remains in control</small></header>
+    <main class="approval-list">
+      <article><span>01</span><div><b>Follow up</b><small>Reply drafted</small></div><strong>REVIEW</strong></article>
+      <article><span>02</span><div><b>Review payment</b><small>Invoice flagged</small></div><strong>REVIEW</strong></article>
+      <article><span>03</span><div><b>Confirm schedule</b><small>Conflict resolved</small></div><strong>REVIEW</strong></article>
+    </main>
+  </section>
+
+  <section class="plate plate-end" data-plate="beach-end-card" hidden>
+    <p>MOTE OPS</p>
+    <h1>Mote Ops cleaned up the work.<br>Mike found the beach.</h1>
+    <strong>Your people and tools already do the work. We help them work as one.</strong>
+    <small>AI-generated film · fictional business scenario featuring Mike Mote.</small>
+  </section>
+
+  <script>
+    const selectedPlate = new URLSearchParams(location.search).get('plate');
+    document.querySelectorAll('[data-plate]').forEach((node) => {
+      node.hidden = node.dataset.plate !== selectedPlate;
+    });
+  </script>
+</body>
+</html>

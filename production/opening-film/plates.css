@@ -1,0 +1,230 @@
+:root {
+  --paper: #f5f1e8;
+  --cream: #fffaf0;
+  --ink: #181a16;
+  --forest: #153f35;
+  --copper: #a45530;
+  --signal: #ef5a37;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; overflow: hidden; width: 100%; }
+body { background: var(--ink); }
+[hidden] { display: none !important; }
+
+.plate {
+  background: var(--paper);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 1080px;
+  overflow: hidden;
+  padding: 96px;
+  position: relative;
+  width: 1920px;
+}
+
+.plate::after {
+  border: 3px solid var(--ink);
+  content: "";
+  inset: 50px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.plate > header {
+  align-items: center;
+  border-bottom: 3px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 28px 24px;
+}
+
+.plate > header span,
+.truth {
+  font: 900 22px/1 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .15em;
+}
+
+.plate > header small {
+  color: #69675f;
+  font: 700 21px/1.2 Georgia, serif;
+}
+
+.truth {
+  background: var(--forest);
+  color: var(--cream);
+  left: 96px;
+  margin: 0;
+  padding: 14px 24px;
+  position: absolute;
+  top: 48px;
+  z-index: 2;
+}
+
+.plate main {
+  align-content: center;
+  display: grid;
+  min-height: 0;
+  padding: 70px 110px 40px;
+}
+
+.plate-email main {
+  align-content: center;
+  max-width: 1420px;
+}
+
+.plate-email main > p:first-child,
+.decision-card > p {
+  color: var(--copper);
+  font: 900 24px/1 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .14em;
+  margin: 0 0 28px;
+}
+
+.plate h1 {
+  font: 700 86px/.96 Georgia, serif;
+  letter-spacing: -.045em;
+  margin: 0;
+  max-width: 1450px;
+}
+
+.plate-email main > p:not(:first-child) {
+  color: #5f6059;
+  font: 400 31px/1.45 Georgia, serif;
+  margin: 28px 0 0;
+  max-width: 1250px;
+}
+
+.plate-email main > strong {
+  background: var(--forest);
+  color: var(--cream);
+  font: 900 28px/1 "Arial Narrow", Arial, sans-serif;
+  justify-self: start;
+  letter-spacing: .08em;
+  margin-top: 38px;
+  padding: 24px 34px;
+  text-transform: uppercase;
+}
+
+.work-list,
+.approval-list {
+  gap: 22px;
+}
+
+.work-list article,
+.approval-list article {
+  align-items: center;
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  border-left: 14px solid var(--copper);
+  display: grid;
+  min-height: 170px;
+  padding: 28px 38px;
+}
+
+.work-list article {
+  grid-template-columns: 290px 1fr 360px;
+}
+
+.work-list b,
+.approval-list b {
+  color: var(--forest);
+  font: 900 25px/1.1 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .12em;
+}
+
+.work-list strong {
+  font: 700 42px/1.1 Georgia, serif;
+}
+
+.work-list span,
+.approval-list small {
+  color: #66675f;
+  font: 400 27px/1.25 Georgia, serif;
+}
+
+.decision-card {
+  align-content: center;
+}
+
+.decision-card h1 {
+  max-width: 1200px;
+}
+
+.decision-card div {
+  align-items: center;
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  display: flex;
+  font: 700 34px/1.2 Georgia, serif;
+  justify-content: space-between;
+  margin-top: 58px;
+  padding: 34px 40px;
+}
+
+.decision-card strong {
+  background: var(--copper);
+  color: var(--cream);
+  font: 900 22px/1 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .12em;
+  padding: 20px 24px;
+  text-transform: uppercase;
+}
+
+.approval-list article {
+  grid-template-columns: 110px 1fr 190px;
+}
+
+.approval-list article > span {
+  color: var(--signal);
+  font: 900 44px/1 ui-monospace, SFMono-Regular, monospace;
+}
+
+.approval-list div {
+  display: grid;
+  gap: 10px;
+}
+
+.approval-list b {
+  color: var(--ink);
+  font-size: 36px;
+}
+
+.approval-list article > strong {
+  border: 2px solid var(--forest);
+  color: var(--forest);
+  font: 900 23px/1 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .12em;
+  padding: 20px;
+  text-align: center;
+}
+
+.plate-end {
+  align-content: end;
+  background: var(--forest);
+  color: var(--cream);
+  display: grid;
+  grid-template-rows: auto;
+  padding-bottom: 130px;
+}
+
+.plate-end::after { border-color: var(--cream); }
+.plate-end > p {
+  color: #ef9c68;
+  font: 900 24px/1 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .15em;
+  margin: 0 0 30px;
+}
+.plate-end h1 { font-size: 92px; max-width: 1400px; }
+.plate-end > strong {
+  font: 400 32px/1.35 Georgia, serif;
+  margin-top: 34px;
+  max-width: 1150px;
+}
+.plate-end > small {
+  color: #c5d5cf;
+  font: 700 20px/1.3 Arial, sans-serif;
+  margin-top: 34px;
+}

@@ -1,0 +1,42 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import test from 'node:test';
+
+const root = resolve(new URL('..', import.meta.url).pathname);
+const read = (path) => readFileSync(resolve(root, path), 'utf8');
+
+test('defines truthful local inserts for the complete cleanup story', () => {
+  const plates = read('production/opening-film/plates.html');
+  assert.match(plates, /data-plate="discovery-email"/);
+  assert.match(plates, /You should not have to be the operating system\./);
+  assert.match(plates, /Show me how/);
+  assert.match(plates, /data-plate="organized-inbox"/);
+  assert.match(plates, /data-plate="calendar-resolution"/);
+  assert.match(plates, /data-plate="review-packet"/);
+  assert.match(plates, /data-plate="approval-queue"/);
+  assert.match(plates, /data-plate="beach-end-card"/);
+  assert.match(plates, /Fictional business scenario/i);
+  assert.doesNotMatch(plates, /\b(?:sent|paid|signed|booked automatically)\b/i);
+});
+
+test('starts an auditable opening-film manifest without claiming generation', () => {
+  const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-manifest.json'));
+  assert.equal(manifest.schema, 'mote-ops-opening/v1');
+  assert.equal(manifest.status, 'awaiting-credit-approval');
+  assert.equal(manifest.generation.creditsSpent, 0);
+  assert.equal(manifest.generation.approvedCreditCap, null);
+  assert.deepEqual(manifest.generation.shots.map(({ id }) => id), [
+    'breakdown-discovery',
+    'cleanup-control',
+    'beach-payoff',
+  ]);
+  assert.ok(manifest.generation.shots.every(({ jobId }) => jobId === null));
+  assert.equal(manifest.disclosure, 'AI-generated film · fictional business scenario featuring Mike Mote.');
+});
+
+test('keeps production sources out of release uploads', () => {
+  const vercelIgnore = read('.vercelignore');
+  assert.match(vercelIgnore, /^production\/opening-film\/$/m);
+  assert.match(vercelIgnore, /^assets\/cinematic\/source\/$/m);
+});

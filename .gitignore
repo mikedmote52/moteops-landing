@@ -2,3 +2,6 @@
 .worktrees/
 _bgproto.html
 _bgproto-real.html
+production/opening-film/raw/*.mp4
+production/opening-film/rendered/*.png
+assets/cinematic/source/
