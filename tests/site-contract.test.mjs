@@ -56,16 +56,15 @@ function galleryPanelRanges(gallery) {
   }));
 }
 
-test('opens with the outcome promise before any mechanism talk', () => {
+test('positions Mote Ops as the operating layer for existing people and tools', () => {
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
   const hero = elementById('top', 'section').source;
-  assert.match(hero, /Your business is already telling you/i);
-  assert.match(hero, /where AI should help\./i);
-  assert.match(hero, /finds the work creating drag/i);
-  assert.match(hero, /teaches your team to run it without losing control/i);
+  assert.match(hero, /Your people and tools already do the work\./i);
+  assert.match(hero, /Mote Ops helps them work as one\./i);
+  assert.match(hero, /finds the operational drag/i);
+  assert.match(hero, /keeps consequential actions behind approval/i);
   assert.match(hero, /Book a fit conversation/i);
-  assert.match(hero, /Watch pressure become clarity/i);
-  assert.doesNotMatch(hero, /\b(?:AIOS|local LLM|control plane|model routing|agent runtime|operational memory)\b/i);
+  assert.doesNotMatch(hero, /MCP|agent runtime|control plane|model routing/i);
 });
 
 test('shows a truthful small-business chaos-to-control story', () => {

@@ -1,0 +1,79 @@
+:root { --page-progress: 0; --section-progress: 0; }
+
+[data-chapter] { position: relative; }
+
+[data-chapter]::before {
+  color: currentColor;
+  content: attr(data-chapter);
+  font: 800 .62rem ui-monospace, monospace;
+  letter-spacing: .16em;
+  opacity: .52;
+  position: absolute;
+  right: clamp(18px, 3vw, 44px);
+  top: 22px;
+  z-index: 3;
+}
+
+.workbench-hero {
+  align-items: start;
+  min-height: 100svh;
+  padding-top: clamp(96px, 12vh, 150px);
+}
+
+.workbench-hero h1 {
+  font-size: clamp(4rem, 9vw, 9.5rem);
+  letter-spacing: -.075em;
+  line-height: .84;
+  max-width: 1280px;
+}
+
+.workbench-hero h1 em {
+  color: var(--forest);
+  display: block;
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.owner-story { margin-top: clamp(46px, 8vh, 100px); }
+
+.owner-scene { transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1); }
+
+html[data-motion="on"] .owner-scene:not(.is-active) {
+  transform: translateY(36px) scale(.985);
+}
+
+.section-heading h2,
+.studio-heading h2 {
+  opacity: .72;
+  transform: translateY(24px);
+  transition: transform .7s cubic-bezier(.2, .8, .2, 1), opacity .7s ease;
+}
+
+.is-chapter-visible > .section-heading h2,
+.is-chapter-visible > .studio-heading h2 {
+  opacity: 1;
+  transform: none;
+}
+
+html[data-motion="off"] .section-heading h2,
+html[data-motion="off"] .studio-heading h2,
+html[data-motion="off"] .owner-scene {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+@media (max-width: 760px) {
+  .workbench-hero h1 { font-size: clamp(3.3rem, 16vw, 5.5rem); }
+  [data-chapter]::before { top: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-heading h2,
+  .studio-heading h2,
+  .owner-scene {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

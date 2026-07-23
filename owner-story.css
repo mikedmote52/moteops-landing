@@ -35,14 +35,6 @@
   position: relative;
 }
 
-.owner-photo::after {
-  background: linear-gradient(180deg, transparent 46%, #1318129c 100%);
-  content: "";
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-}
-
 .owner-photo img {
   display: block;
   height: 100%;
@@ -62,9 +54,8 @@
 
 .owner-signals li {
   align-items: center;
-  backdrop-filter: blur(12px);
-  background: #fffaf0e8;
-  border: 1px solid #ffffff80;
+  background: var(--owner-cream);
+  border: 1px solid var(--owner-ink);
   box-shadow: 0 8px 24px #11150f38;
   color: var(--owner-ink);
   display: flex;
@@ -379,4 +370,14 @@
   .owner-control.is-active .owner-decisions li {
     animation: none;
   }
+}
+
+html[data-motion="off"] .owner-scene {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+html[data-motion="off"] .owner-control.is-active .owner-decisions li {
+  animation: none;
 }
