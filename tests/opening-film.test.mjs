@@ -231,9 +231,10 @@ test('records laptop clickthrough timing in the media ledger', () => {
 
 test('centers a constrained opening film on desktop without shrinking phone layout', () => {
   const css = read('opening-film.css');
-  assert.match(css, /@media \(min-width: 1021px\)[\s\S]*?\.opening-story\s*\{[\s\S]*?max-width:\s*1180px/);
-  assert.match(css, /width:\s*calc\(100vw - 64px\)/);
+  assert.match(css, /@media \(min-width: 1021px\)[\s\S]*?\.opening-story\s*\{[\s\S]*?max-width:\s*1040px/);
+  assert.match(css, /width:\s*calc\(100vw - 96px\)/);
   assert.match(css, /justify-self:\s*center/);
+  assert.match(css, /\.opening-story video\s*\{[^}]*object-fit:\s*contain/s);
   assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.opening-story\s*\{[\s\S]*?width:\s*100%/);
 });
 
@@ -244,9 +245,9 @@ test('opens the homepage with one play-once email-to-beach story', () => {
   const careHub = html.indexOf('id="care-hub-showcase"');
   const openingFigure = html.slice(opening, html.indexOf('</figure>', opening));
   assert.ok(opening > 0 && opening < ownerConnect && ownerConnect < careHub);
-  assert.match(html, /mote-ops-opening-1080\.mp4/);
-  assert.match(html, /mote-ops-opening-720\.mp4/);
-  assert.match(html, /mote-ops-opening-poster\.webp/);
+  assert.match(html, /mote-ops-opening-v3-1080\.mp4/);
+  assert.match(html, /mote-ops-opening-v3-720\.mp4/);
+  assert.match(html, /mote-ops-opening-v3-poster\.jpg/);
   assert.match(html, /autoplay muted playsinline/);
   assert.doesNotMatch(openingFigure, /\sloop(?:\s|>)/);
   assert.match(html, /data-replay-story[^>]*hidden/);

@@ -1,6 +1,6 @@
 {
   "schema": "mote-ops-opening/v3",
-  "status": "shot-01-accepted",
+  "status": "masters-assembled-awaiting-site-integration",
   "title": "Mote Ops continuity-controlled opening",
   "durationSeconds": 50,
   "audio": false,
@@ -13,7 +13,7 @@
     "firstPassCredits": 450,
     "provisionalCap": 675,
     "approvedCreditCap": 675,
-    "creditsSpent": 164,
+    "creditsSpent": 566,
     "prepAssets": [
       {
         "id": "shot-01-clean-start",
@@ -41,6 +41,84 @@
           "sha256": "9ca41cb4ccf8c38923ec36611f3a9752861828b67642a5bb70ed01a68637da55"
         },
         "review": ".superpowers/sdd/opening-v3-clean-start-image-review.md"
+      },
+      {
+        "id": "shot-02-discovery-start",
+        "type": "image",
+        "role": "start_image",
+        "model": "Nano Banana 2",
+        "status": "accepted",
+        "jobId": "10ebc55c-6b2f-4374-8210-12692a787cb6",
+        "preflightCredits": 2,
+        "credits": 2,
+        "source": {
+          "videoPath": "production/opening-film-v3/raw/shot-01-chaos-attempt-03.mp4",
+          "timeSeconds": 5.75,
+          "mediaId": "ddfb686b-c7e1-49f9-9f6f-14ae4d77aae6",
+          "path": "production/opening-film-v3/raw/shot-02-discovery-source.png",
+          "sizeBytes": 1653356,
+          "sha256": "0f43d2c5e035bca96b8c1bf13f17b3c7c958a52fc4e1947cfa20ceca2ebd0010"
+        },
+        "output": {
+          "path": "production/opening-film-v3/raw/shot-02-discovery-start.png",
+          "codec": "PNG",
+          "width": 2752,
+          "height": 1536,
+          "sizeBytes": 7730880,
+          "sha256": "27943578118770a9f2c9ea99f66522792385213cd8ef3fe78c4f879b44989447"
+        },
+        "failedAttempts": [
+          {
+            "jobId": "1250ff70-a84a-4e92-ac1e-ebd9cfa63b21",
+            "status": "nsfw",
+            "credits": 0,
+            "reason": "False-positive safety filter. The wording was simplified and the same safe office composition was retried."
+          }
+        ]
+      },
+      {
+        "id": "shot-06-control-start",
+        "type": "image",
+        "role": "start_image",
+        "model": "Nano Banana 2",
+        "status": "accepted",
+        "jobId": "55ea3e74-43a6-465c-82ce-e4a2492c71eb",
+        "preflightCredits": 2,
+        "credits": 2,
+        "output": {
+          "path": "production/opening-film-v3/raw/shot-06-control-start.png",
+          "codec": "PNG",
+          "width": 2752,
+          "height": 1536,
+          "sizeBytes": 4973558,
+          "sha256": "9d00215ebdd53933be7ab2c54c310d8200cf59effdfc547435e11b73b294a299"
+        }
+      },
+      {
+        "id": "shot-07-beach-start",
+        "type": "image",
+        "role": "start_image",
+        "model": "Nano Banana 2",
+        "status": "accepted",
+        "jobId": "0294ae32-95e5-4d7c-920a-938b9a429ac6",
+        "preflightCredits": 2,
+        "credits": 2,
+        "source": {
+          "videoPath": "production/opening-film-v3/raw/shot-07-beach-reference.mp4",
+          "timeSeconds": 4,
+          "mediaId": "bec718be-ea9e-4309-8e90-a42deb885119",
+          "path": "production/opening-film-v3/raw/shot-07-beach-source.png",
+          "sizeBytes": 1016051,
+          "sha256": "c8b366e49a126bad0043cb86e565346131124b7c5d2ccc5aae32ad832b96a3ad"
+        },
+        "output": {
+          "path": "production/opening-film-v3/raw/shot-07-beach-start.png",
+          "codec": "PNG",
+          "width": 2752,
+          "height": 1536,
+          "sizeBytes": 6090591,
+          "sha256": "18ef3fa3dd17bee749afc489a72ede339e1407dc3cbc911c1d38e8751a6f2efe"
+        }
       }
     ],
     "shots": [
@@ -124,26 +202,230 @@
           "actionLanguage": "Mike keeps the corded handset at his left ear for the entire six-second shot. His right forearm remains planted on the bare desk edge and his empty right hand stays still. He never reaches toward, touches, lifts, moves, or handles any desk object. Pressure is conveyed only through his expression and the two waiting employees."
         }
       },
-      { "id": "discovery", "durationSeconds": 8, "preflightCredits": 72, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] },
-      { "id": "onboarding", "durationSeconds": 5, "preflightCredits": 45, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] },
-      { "id": "inbox-calendar", "durationSeconds": 8, "preflightCredits": 72, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] },
-      { "id": "calls-finance", "durationSeconds": 8, "preflightCredits": 72, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] },
-      { "id": "control-restored", "durationSeconds": 7, "preflightCredits": 63, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] },
-      { "id": "beach-payoff", "durationSeconds": 8, "preflightCredits": 72, "status": "not-generated", "jobId": null, "credits": null, "attempts": [] }
+      {
+        "id": "discovery",
+        "durationSeconds": 8,
+        "preflightCredits": 72,
+        "status": "accepted",
+        "jobId": "6253590f-e39e-4da1-8414-e6716a674ceb",
+        "credits": 72,
+        "attempts": [
+          {
+            "jobId": "6253590f-e39e-4da1-8414-e6716a674ceb",
+            "credits": 72,
+            "outcome": "accepted during frame review",
+            "startImageJobId": "10ebc55c-6b2f-4374-8210-12692a787cb6",
+            "reason": "Mike, the two employees, office geometry, opaque wardrobe, laptop bezel, chroma display, phone cradle, desk props, and restrained timing remain stable. The final deterministic screen plate will provide the visible cursor and Mote Ops click.",
+            "source": {
+              "path": "production/opening-film-v3/raw/shot-02-discovery.mp4",
+              "codec": "H.264",
+              "width": 1920,
+              "height": 1080,
+              "frameRate": 24,
+              "frameCount": 193,
+              "durationSeconds": 8.041667,
+              "sizeBytes": 5390465,
+              "sha256": "b4a90f0c4c67fcb44881e1604ce0d6d0bbfcf90aad62cb980ff7f1cfbacc11e6"
+            }
+          }
+        ]
+      },
+      {
+        "id": "onboarding",
+        "durationSeconds": 5,
+        "preflightCredits": 45,
+        "status": "accepted",
+        "jobId": "1577b651-79df-48ca-a20e-04b0813c94e9",
+        "credits": 45,
+        "attempts": [{
+          "jobId": "1577b651-79df-48ca-a20e-04b0813c94e9",
+          "credits": 45,
+          "outcome": "accepted during frame review",
+          "reason": "The laptop, chroma display, office, employees, wardrobe, hands, and measured mouse action remain stable across the five-second shot.",
+          "source": {
+            "path": "production/opening-film-v3/raw/shot-03-onboarding.mp4",
+            "codec": "H.264",
+            "width": 1920,
+            "height": 1080,
+            "frameRate": 24,
+            "frameCount": 121,
+            "durationSeconds": 5.041667,
+            "sizeBytes": 2983243,
+            "sha256": "1ccefc8cb034ce0830f07e9c87455de8826e56508ae28c7efd501f09c1d7d128"
+          }
+        }]
+      },
+      {
+        "id": "inbox-calendar",
+        "durationSeconds": 8,
+        "preflightCredits": 72,
+        "status": "accepted",
+        "jobId": "02e09570-6277-44cc-bbb7-5bca5be79e62",
+        "credits": 72,
+        "attempts": [{
+          "jobId": "02e09570-6277-44cc-bbb7-5bca5be79e62",
+          "credits": 72,
+          "outcome": "accepted during frame review",
+          "reason": "Mike reviews the stable laptop at a readable pace, then looks toward the same two employees as his posture relaxes. Office and wardrobe continuity hold.",
+          "source": {
+            "path": "production/opening-film-v3/raw/shot-04-inbox-calendar.mp4",
+            "codec": "H.264",
+            "width": 1920,
+            "height": 1080,
+            "frameRate": 24,
+            "frameCount": 193,
+            "durationSeconds": 8.041667,
+            "sizeBytes": 6999076,
+            "sha256": "5bf5b9f728d6682fc74cd8d76ab5a0ca26ad3aac321bb8d956b99dea69d6e959"
+          }
+        }]
+      },
+      {
+        "id": "calls-finance",
+        "durationSeconds": 8,
+        "preflightCredits": 72,
+        "status": "accepted",
+        "jobId": "e12bfae4-63d8-41de-94b9-83635f159f43",
+        "credits": 72,
+        "attempts": [{
+          "jobId": "e12bfae4-63d8-41de-94b9-83635f159f43",
+          "credits": 72,
+          "outcome": "accepted during frame review",
+          "reason": "The restrained review action, laptop, chroma display, employees, office geometry, opaque shirt, and covered tattoos remain stable.",
+          "source": {
+            "path": "production/opening-film-v3/raw/shot-05-calls-finance.mp4",
+            "codec": "H.264",
+            "width": 1920,
+            "height": 1080,
+            "frameRate": 24,
+            "frameCount": 193,
+            "durationSeconds": 8.041667,
+            "sizeBytes": 4733078,
+            "sha256": "fdb79a45ba061aeaed7608eb43d335eff085dcb922f3b3de8813258813064b21"
+          }
+        }]
+      },
+      {
+        "id": "control-restored",
+        "durationSeconds": 7,
+        "preflightCredits": 63,
+        "status": "accepted",
+        "jobId": "b72e02dd-7af1-4624-9cba-9a87dca1dbcb",
+        "credits": 63,
+        "attempts": [{
+          "jobId": "b72e02dd-7af1-4624-9cba-9a87dca1dbcb",
+          "credits": 63,
+          "outcome": "accepted during frame review",
+          "startImageJobId": "55ea3e74-43a6-465c-82ce-e4a2492c71eb",
+          "reason": "Mike reads, closes the laptop naturally, stands, and leaves the same orderly office while the same employees continue working. Wardrobe and props remain stable.",
+          "source": {
+            "path": "production/opening-film-v3/raw/shot-06-control-restored.mp4",
+            "codec": "H.264",
+            "width": 1920,
+            "height": 1080,
+            "frameRate": 24,
+            "frameCount": 169,
+            "durationSeconds": 7.041667,
+            "sizeBytes": 5702777,
+            "sha256": "0448abd7e5ac3324db6a4d6bfd407132873031f8197fcab78733f55837fcda23"
+          }
+        }]
+      },
+      {
+        "id": "beach-payoff",
+        "durationSeconds": 8,
+        "preflightCredits": 72,
+        "status": "accepted",
+        "jobId": "69fd8499-f035-46fc-9edd-795cbf3393be",
+        "credits": 72,
+        "attempts": [{
+          "jobId": "69fd8499-f035-46fc-9edd-795cbf3393be",
+          "credits": 72,
+          "outcome": "accepted during frame review",
+          "startImageJobId": "0294ae32-95e5-4d7c-920a-938b9a429ac6",
+          "reason": "Mike reads the phone for roughly three seconds, lowers it, smiles, and looks toward the water. Face, shirt, phone, hands, and naturally exposed tattoos remain stable.",
+          "source": {
+            "path": "production/opening-film-v3/raw/shot-07-beach-payoff.mp4",
+            "codec": "H.264",
+            "width": 1920,
+            "height": 1080,
+            "frameRate": 24,
+            "frameCount": 193,
+            "durationSeconds": 8.041667,
+            "sizeBytes": 7166958,
+            "sha256": "b512b46efd7bb0f818b20d111bb33d0de210379af275b5d6a32ac02113a85c24"
+          }
+        }]
+      }
     ]
   },
   "postProduction": {
-    "interfaces": [],
-    "deviceTracks": [],
+    "interfaces": [
+      "invitation",
+      "invitation-clicked",
+      "onboarding-tools",
+      "onboarding-work",
+      "onboarding-approval",
+      "inbox",
+      "inbox-approved",
+      "calendar",
+      "calendar-approved",
+      "calls",
+      "calls-approved",
+      "finance",
+      "finance-approved",
+      "dashboard-zero",
+      "phone-zero",
+      "opening-copy",
+      "closing-copy"
+    ],
+    "deviceTracks": [
+      {
+        "device": "office-laptop",
+        "shots": ["discovery", "onboarding", "inbox-calendar", "calls-finance", "control-restored"],
+        "method": "perspective-warped plate behind chroma-keyed physical bezel",
+        "keyColor": "0x008a50"
+      },
+      {
+        "device": "beach-phone",
+        "shots": ["beach-payoff"],
+        "method": "perspective-warped plate inside a device-only keyed crop",
+        "keyColor": "0x008a50"
+      }
+    ],
     "openingCaption": "Meetings stack up. Your inbox keeps growing. Calls get missed.",
     "closingHeadline": "Mote Ops cleaned up the work. Mike found the beach.",
     "closingTagline": "Your people and tools already do the work. We help them work as one.",
     "closingCta": "Book your consultation today. Free 30-minute consultation to see what Mote Ops can do for you."
   },
   "outputs": {
-    "master1080": null,
-    "master720": null,
-    "poster": null
+    "master1080": {
+      "path": "assets/cinematic/mote-ops-opening-v3-1080.mp4",
+      "width": 1920,
+      "height": 1080,
+      "frameRate": 24,
+      "frameCount": 1200,
+      "durationSeconds": 50,
+      "sizeBytes": 21877931,
+      "sha256": "f6e6073a2ae7d2e627921f42b5954816465807e282b8d21851f367ad4268cb05"
+    },
+    "master720": {
+      "path": "assets/cinematic/mote-ops-opening-v3-720.mp4",
+      "width": 1280,
+      "height": 720,
+      "frameRate": 24,
+      "frameCount": 1200,
+      "durationSeconds": 50,
+      "sizeBytes": 6720682,
+      "sha256": "a7c88ca7372002726260ff78c595d0bf2157dbc3118414153462fd2139989cbf"
+    },
+    "poster": {
+      "path": "assets/cinematic/mote-ops-opening-v3-poster.jpg",
+      "width": 1920,
+      "height": 1080,
+      "sizeBytes": 135241,
+      "sha256": "36fe2a8a38941aa5215f50d1d5f959048a7ed2c8863e2a55bea8f55e7a86abaa"
+    }
   },
   "frameReview": {
     "intervalSeconds": 0.5,

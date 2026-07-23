@@ -32,9 +32,9 @@ function mp4Atoms(path) {
 test('declares one local responsive Mote Ops opening film', () => {
   const html = readFileSync(resolve(root, 'index.html'), 'utf8');
   const opening = html.slice(html.indexOf('data-opening-story'), html.indexOf('</figure>', html.indexOf('data-opening-story')));
-  assert.match(html, /assets\/cinematic\/mote-ops-opening-1080\.mp4/i);
-  assert.match(html, /assets\/cinematic\/mote-ops-opening-720\.mp4/i);
-  assert.match(html, /assets\/cinematic\/mote-ops-opening-poster\.webp/i);
+  assert.match(html, /assets\/cinematic\/mote-ops-opening-v3-1080\.mp4/i);
+  assert.match(html, /assets\/cinematic\/mote-ops-opening-v3-720\.mp4/i);
+  assert.match(html, /assets\/cinematic\/mote-ops-opening-v3-poster\.jpg/i);
   assert.match(html, /autoplay muted playsinline/i);
   assert.doesNotMatch(opening, /\sloop(?:\s|>)/i);
 });
@@ -42,8 +42,8 @@ test('declares one local responsive Mote Ops opening film', () => {
 test('defers the Mote Ops film source and registers it with motion controls', () => {
   const html = readFileSync(resolve(root, 'index.html'), 'utf8');
   const motion = readFileSync(resolve(root, 'motion-system.js'), 'utf8');
-  assert.match(html, /<figure class="opening-story"[\s\S]*data-cinematic-film[\s\S]*<source data-src="assets\/cinematic\/mote-ops-opening-1080\.mp4"/i);
-  assert.match(html, /<source data-src="assets\/cinematic\/mote-ops-opening-720\.mp4"/i);
+  assert.match(html, /<figure class="opening-story"[\s\S]*data-cinematic-film[\s\S]*<source data-src="assets\/cinematic\/mote-ops-opening-v3-1080\.mp4"/i);
+  assert.match(html, /<source data-src="assets\/cinematic\/mote-ops-opening-v3-720\.mp4"/i);
   assert.match(motion, /querySelectorAll\('\[data-studio-film\]'\)/);
   assert.match(motion, /querySelectorAll\('\[data-cinematic-film\]'\)/);
 });

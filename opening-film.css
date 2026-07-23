@@ -38,7 +38,7 @@
 .opening-story video {
   display: block;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
 }
 
@@ -84,8 +84,8 @@ html[data-motion="off"] .opening-story video {
 
 @media (min-width: 1021px) {
   .opening-story {
-    max-width: 1180px;
-    width: calc(100vw - 64px);
+    max-width: 1040px;
+    width: calc(100vw - 96px);
   }
 }
 
