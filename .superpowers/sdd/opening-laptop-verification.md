@@ -1,4 +1,4 @@
-# Opening laptop clickthrough verification
+# Corrected opening laptop clickthrough verification
 
 ## User story
 
@@ -12,6 +12,9 @@ An overwhelmed business owner sees a Mote Ops invitation on his real laptop, ope
 - 1080 master: H.264, 1920 × 1080, 24 fps, silent, fast-start, 28.000 seconds.
 - 720 master: H.264, 1280 × 720, 24 fps, silent, fast-start, 28.000 seconds.
 - Full frame review at every manifest boundary: passed.
+- Rejected flat rotate-and-scale moving insert: removed.
+- Replacement moving insert: four-corner perspective track across all 30 frames.
+- Inbox and opened email: conventional system-mail layout with contained typography.
 - Additional Higgsfield or Seedance credits spent: 0.
 
 ## Browser checks
@@ -22,7 +25,7 @@ An overwhelmed business owner sees a Mote Ops invitation on his real laptop, ope
 - Film width: 1180 pixels.
 - Selected source: `mote-ops-opening-1080.mp4`.
 - Duration reported by browser: 28 seconds.
-- Autoplay: playing.
+- Screenshot captured at 6.00 seconds, the exact moving-laptop moment rejected in the prior preview.
 - Horizontal overflow: none.
 - Framework error overlay: none.
 - Browser console errors: none.
@@ -36,7 +39,8 @@ An overwhelmed business owner sees a Mote Ops invitation on his real laptop, ope
 - Duration reported by browser: 28 seconds.
 - Horizontal overflow: none.
 - Browser console errors: none.
-- Screenshot captured at the readable opened-email hold: `.superpowers/sdd/opening-laptop-mobile.png`.
+- Screenshot captured at 6.00 seconds, the exact moving-laptop moment rejected in the prior preview: `.superpowers/sdd/opening-laptop-mobile.png`.
+- The complete visible email interface remains inside the physical black laptop bezel.
 
 ### Motion and replay
 
@@ -48,21 +52,21 @@ An overwhelmed business owner sees a Mote Ops invitation on his real laptop, ope
 ## Protected preview
 
 - Project: `moteops-cinematic-review`.
-- Deployment: `dpl_CJWRRzUL3eHKc45C5rGBGUjDnTPB`.
+- Deployment: `dpl_FzkPmr224d1pz4sRJM27mcDcx38o`.
 - Target: preview.
 - Status: ready.
-- Canonical URL: `https://moteops-cinematic-review-bvk3blhaz-mikedmote52-projects.vercel.app`.
+- Canonical URL: `https://moteops-cinematic-review-2dz1y8659-mikedmote52-projects.vercel.app`.
 - Unauthenticated request: redirected to Vercel SSO, confirming deployment protection.
-- Temporary review access expires July 24, 2026 at 8:48 AM.
+- Temporary review access expires July 24, 2026 at 9:06 AM.
 - Root document: HTTP 200 through authenticated deployment access.
-- 1080 media: HTTP 200 for HEAD, HTTP 206 in the browser, 11,521,981 bytes.
-- 720 media: HTTP 200 for HEAD, HTTP 206 in the browser, 4,183,078 bytes.
-- Remote 1080 SHA-256: `c6131f579239b855dc7097bf2ff579b10af2565bf1e3f1e5e4293a345736e780`.
-- Remote 720 SHA-256: `4423fa41f8fd14914c21997c3d3ad177ece58ebdfe059c8a56f77fc7025ee8b1`.
+- 1080 media: HTTP 206 in the browser, 11,538,889 bytes.
+- 720 media: HTTP 206 in the browser, 4,174,510 bytes.
+- Remote 1080 SHA-256: `002597f562f266e7cb78f0e6a2c3661c304f376a7692138b81f3b9801a714365`.
+- Remote 720 SHA-256: `70b2c87093aa278419b91bcdd2b080ed0a994986f7c739696b95f84151141b6e`.
 - Remote hashes match the audited local masters.
-- `/production/opening-film/build-opening-film.sh`: HTTP 404.
+- `/production/opening-film/build-laptop-discovery.sh`: HTTP 404.
 - `/.vercel/project.json`: HTTP 404.
 
 ## Result
 
-Passed. The complete film story and homepage controls work on the protected deployment at desktop and phone sizes. No production deployment was created.
+Passed. The previously rejected moving-laptop shot is perspective-matched and contained on the protected deployment at desktop and phone sizes. No production deployment was created.
