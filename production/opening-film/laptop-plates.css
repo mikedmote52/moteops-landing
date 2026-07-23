@@ -1,0 +1,389 @@
+:root {
+  --paper: #f3efe5;
+  --panel: #e6e2d8;
+  --white: #fffdf7;
+  --ink: #171915;
+  --muted: #686b63;
+  --forest: #133f35;
+  --copper: #ad5834;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  height: 900px;
+  margin: 0;
+  overflow: hidden;
+  width: 1600px;
+}
+
+body {
+  background: var(--paper);
+}
+
+[hidden] { display: none !important; }
+
+.screen {
+  height: 900px;
+  overflow: hidden;
+  position: relative;
+  width: 1600px;
+}
+
+.mail-app {
+  background: var(--paper);
+  display: grid;
+  grid-template-columns: 250px 1fr;
+}
+
+.mail-sidebar {
+  background: #d7d4cc;
+  border-right: 2px solid #b6b4ac;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 28px 32px;
+}
+
+.app-name {
+  font: 900 22px/1 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .18em;
+  margin: 0 0 32px;
+}
+
+.mail-sidebar button {
+  background: var(--forest);
+  border: 0;
+  color: var(--white);
+  font: 800 22px/1 Arial, sans-serif;
+  padding: 18px 16px;
+  text-align: left;
+}
+
+.mail-sidebar nav {
+  display: grid;
+  gap: 8px;
+  margin-top: 34px;
+}
+
+.mail-sidebar nav span {
+  align-items: center;
+  display: flex;
+  font-size: 21px;
+  justify-content: space-between;
+  padding: 15px 16px;
+}
+
+.mail-sidebar nav .is-active {
+  background: rgba(255, 255, 255, .68);
+  color: var(--forest);
+  font-weight: 800;
+}
+
+.mail-sidebar nav b {
+  color: var(--copper);
+}
+
+.account {
+  color: var(--muted);
+  font-size: 17px;
+  margin: auto 0 0;
+}
+
+.mail-main {
+  min-width: 0;
+}
+
+.mail-toolbar,
+.message-toolbar {
+  align-items: center;
+  border-bottom: 2px solid #c3c0b7;
+  display: flex;
+  height: 112px;
+  justify-content: space-between;
+  padding: 0 46px;
+}
+
+.mail-toolbar h1 {
+  font: 700 44px/1 Georgia, serif;
+  margin: 0;
+}
+
+.mail-toolbar label {
+  position: relative;
+}
+
+.mail-toolbar label span {
+  color: var(--muted);
+  font-size: 18px;
+  left: 22px;
+  position: absolute;
+  top: 17px;
+}
+
+.mail-toolbar input {
+  background: var(--white);
+  border: 1px solid #aaa89f;
+  height: 54px;
+  width: 360px;
+}
+
+.mail-list {
+  background: #ece8de;
+  min-height: 788px;
+  padding-top: 12px;
+}
+
+.mail-row {
+  align-items: center;
+  border-bottom: 1px solid #c9c6bd;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 18px 180px 450px 1fr 110px;
+  min-height: 118px;
+  padding: 18px 38px;
+}
+
+.mail-row.is-selected {
+  background: #faf7ef;
+  border-left: 8px solid var(--copper);
+  padding-left: 30px;
+}
+
+.mail-row .unread-dot {
+  background: var(--copper);
+  border-radius: 50%;
+  height: 13px;
+  width: 13px;
+}
+
+.mail-row strong {
+  color: var(--forest);
+  font-size: 23px;
+}
+
+.mail-row b {
+  font: 700 25px/1.18 Georgia, serif;
+}
+
+.mail-row > span:nth-last-child(2) {
+  color: var(--muted);
+  font-size: 21px;
+}
+
+.mail-row time {
+  color: var(--muted);
+  font-size: 19px;
+  text-align: right;
+}
+
+.message-toolbar {
+  color: var(--muted);
+  font-size: 21px;
+  height: 90px;
+}
+
+.opened-email {
+  background: var(--white);
+  height: 810px;
+  padding: 58px 82px;
+  position: relative;
+}
+
+.sender {
+  color: var(--forest);
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.sent-time {
+  color: var(--muted);
+  font-size: 18px;
+  margin: 10px 0 0;
+}
+
+.opened-email h1 {
+  font: 700 64px/.98 Georgia, serif;
+  letter-spacing: -.035em;
+  margin: 46px 0 28px;
+  max-width: 970px;
+}
+
+.message-copy {
+  color: #4d5049;
+  font: 400 30px/1.42 Georgia, serif;
+  margin: 0;
+  max-width: 900px;
+}
+
+.email-cta {
+  background: var(--forest);
+  color: var(--white);
+  display: inline-block;
+  font: 800 25px/1 Arial, sans-serif;
+  margin-top: 48px;
+  padding: 22px 28px;
+}
+
+.email-cta.is-clicked {
+  box-shadow: inset 0 0 0 4px var(--paper);
+  transform: translateY(2px);
+}
+
+.cursor-arrow {
+  border-bottom: 15px solid transparent;
+  border-left: 24px solid var(--ink);
+  border-top: 15px solid transparent;
+  height: 0;
+  left: 360px;
+  position: absolute;
+  top: 430px;
+  transform: rotate(38deg);
+  width: 0;
+  z-index: 3;
+}
+
+.cursor-click {
+  border: 5px solid var(--copper);
+  border-radius: 50%;
+  height: 58px;
+  left: 348px;
+  position: absolute;
+  top: 417px;
+  width: 58px;
+}
+
+.browser {
+  background: var(--paper);
+}
+
+.browser-bar {
+  align-items: center;
+  background: #292b27;
+  color: var(--white);
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  height: 66px;
+  padding: 0 28px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 11px;
+}
+
+.window-controls i {
+  background: #777970;
+  border-radius: 50%;
+  display: block;
+  height: 13px;
+  width: 13px;
+}
+
+.window-controls i:first-child { background: var(--copper); }
+
+.browser-address {
+  background: #f6f3eb;
+  border-radius: 5px;
+  color: var(--ink);
+  font-size: 19px;
+  justify-self: center;
+  padding: 11px 22px;
+  text-align: center;
+  width: 610px;
+}
+
+.browser-menu {
+  justify-self: end;
+  letter-spacing: .15em;
+}
+
+.site-nav {
+  align-items: center;
+  border-bottom: 3px solid var(--ink);
+  display: flex;
+  gap: 34px;
+  height: 105px;
+  padding: 0 62px;
+}
+
+.site-nav strong {
+  font: 900 22px/1 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .16em;
+  margin-right: auto;
+}
+
+.site-nav > span:not(.site-mark) {
+  color: #5d6058;
+  font-size: 18px;
+}
+
+.site-nav b {
+  background: var(--forest);
+  color: var(--white);
+  font-size: 18px;
+  padding: 16px 20px;
+}
+
+.site-mark {
+  align-items: end;
+  display: flex;
+  gap: 5px;
+  height: 34px;
+}
+
+.site-mark i {
+  background: var(--forest);
+  display: block;
+  width: 8px;
+}
+
+.site-mark i:first-child { height: 20px; }
+.site-mark i:nth-child(2) { background: var(--copper); height: 34px; }
+.site-mark i:last-child { height: 27px; }
+
+.site-view {
+  background: var(--paper);
+  height: 729px;
+  padding: 82px 98px;
+  position: relative;
+}
+
+.site-view::after {
+  border: 3px solid var(--ink);
+  content: "";
+  inset: 32px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.site-kicker {
+  color: var(--forest);
+  font: 900 23px/1 "Arial Narrow", Arial, sans-serif;
+  letter-spacing: .15em;
+  margin: 0 0 34px;
+}
+
+.site-view h1 {
+  font: 700 78px/.95 Georgia, serif;
+  letter-spacing: -.05em;
+  margin: 0;
+}
+
+.site-view > p:not(.site-kicker) {
+  color: #555850;
+  font: 400 34px/1.3 Georgia, serif;
+  margin: 28px 0 0;
+}
+
+.site-view > span {
+  border-bottom: 4px solid var(--copper);
+  display: inline-block;
+  font-size: 23px;
+  font-weight: 800;
+  margin-top: 48px;
+  padding-bottom: 10px;
+}

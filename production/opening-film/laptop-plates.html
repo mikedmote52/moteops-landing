@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mote Ops laptop screen plates</title>
+  <link rel="stylesheet" href="laptop-plates.css">
+</head>
+<body>
+  <section class="screen mail-app" data-plate="laptop-inbox" hidden>
+    <aside class="mail-sidebar">
+      <p class="app-name">MAIL</p>
+      <button type="button">＋ New message</button>
+      <nav aria-label="Inbox">
+        <span class="is-active">Inbox <b>37</b></span>
+        <span>Flagged</span>
+        <span>Drafts <b>4</b></span>
+        <span>Sent</span>
+        <span>Archive</span>
+      </nav>
+      <p class="account">owner@company.com</p>
+    </aside>
+    <main class="mail-main">
+      <header class="mail-toolbar">
+        <h1>Inbox</h1>
+        <label><span>Search mail</span><input type="text" aria-label="Search mail"></label>
+      </header>
+      <div class="mail-list">
+        <article class="mail-row is-selected" aria-label="Message from Mote Ops">
+          <span class="unread-dot" aria-hidden="true"></span>
+          <strong>Mote Ops</strong>
+          <b>AI could help your business. Where do you start?</b>
+          <span>Mote Ops finds the work AI can take off your plate.</span>
+          <time>9:42 AM</time>
+        </article>
+        <article class="mail-row">
+          <span></span><strong>Accounts</strong><b>Invoice review</b>
+          <span>One item still needs your attention.</span><time>9:31 AM</time>
+        </article>
+        <article class="mail-row">
+          <span></span><strong>Operations</strong><b>Schedule conflict</b>
+          <span>Two meetings need the same hour.</span><time>8:58 AM</time>
+        </article>
+        <article class="mail-row">
+          <span></span><strong>Office</strong><b>Follow-up list</b>
+          <span>Six replies are waiting.</span><time>8:12 AM</time>
+        </article>
+      </div>
+    </main>
+  </section>
+
+  <section class="screen mail-app" data-plate="laptop-email" hidden>
+    <aside class="mail-sidebar">
+      <p class="app-name">MAIL</p>
+      <button type="button">＋ New message</button>
+      <nav aria-label="Inbox">
+        <span class="is-active">Inbox <b>36</b></span>
+        <span>Flagged</span>
+        <span>Drafts <b>4</b></span>
+        <span>Sent</span>
+        <span>Archive</span>
+      </nav>
+      <p class="account">owner@company.com</p>
+    </aside>
+    <main class="mail-main">
+      <header class="message-toolbar"><span>‹ Inbox</span><span>Archive · Reply · More</span></header>
+      <article class="opened-email" aria-label="Message from Mote Ops">
+        <p class="sender">Mote Ops &lt;hello@moteops.tech&gt;</p>
+        <p class="sent-time">Today, 9:42 AM</p>
+        <h1>AI could help your business.<br>Where do you start?</h1>
+        <p class="message-copy">Mote Ops finds the work AI can take off your plate.</p>
+        <span class="email-cta">See how Mote Ops can help</span>
+      </article>
+    </main>
+  </section>
+
+  <section class="screen mail-app" data-plate="laptop-email-click" hidden>
+    <aside class="mail-sidebar">
+      <p class="app-name">MAIL</p>
+      <button type="button">＋ New message</button>
+      <nav aria-label="Inbox">
+        <span class="is-active">Inbox <b>36</b></span>
+        <span>Flagged</span>
+        <span>Drafts <b>4</b></span>
+        <span>Sent</span>
+        <span>Archive</span>
+      </nav>
+      <p class="account">owner@company.com</p>
+    </aside>
+    <main class="mail-main">
+      <header class="message-toolbar"><span>‹ Inbox</span><span>Archive · Reply · More</span></header>
+      <article class="opened-email" aria-label="Message from Mote Ops">
+        <p class="sender">Mote Ops &lt;hello@moteops.tech&gt;</p>
+        <p class="sent-time">Today, 9:42 AM</p>
+        <h1>AI could help your business.<br>Where do you start?</h1>
+        <p class="message-copy">Mote Ops finds the work AI can take off your plate.</p>
+        <span class="email-cta is-clicked">See how Mote Ops can help</span>
+        <span class="cursor-arrow" aria-hidden="true"></span>
+        <span class="cursor-click" aria-hidden="true"></span>
+      </article>
+    </main>
+  </section>
+
+  <section class="screen browser" data-plate="laptop-site" hidden>
+    <header class="browser-bar">
+      <div class="window-controls" aria-hidden="true"><i></i><i></i><i></i></div>
+      <span class="browser-address">moteops.tech</span>
+      <span class="browser-menu">•••</span>
+    </header>
+    <nav class="site-nav">
+      <span class="site-mark"><i></i><i></i><i></i></span>
+      <strong>MOTE OPS</strong>
+      <span>How it works</span>
+      <span>Working proof</span>
+      <b>See what fits</b>
+    </nav>
+    <main class="site-view">
+      <p class="site-kicker">SMALL-BUSINESS AI OPERATING SYSTEMS</p>
+      <h1>Your people and tools<br>already do the work.</h1>
+      <p>We help them work as one.</p>
+      <span>See what Mote Ops can take off your plate</span>
+    </main>
+  </section>
+
+  <script>
+    const selected = new URLSearchParams(location.search).get('plate');
+    document.querySelectorAll('[data-plate]').forEach((plate) => {
+      plate.hidden = plate.dataset.plate !== selected;
+    });
+  </script>
+</body>
+</html>
