@@ -69,8 +69,9 @@ test('captures four cleanup interfaces inside one physical monitor treatment', (
     'review-packet',
     'approval-queue',
   ]) {
-    assert.match(capture, new RegExp(`monitor-${name}\\.png`));
+    assert.match(capture, new RegExp(`\\n  ${name}\\n`));
   }
+  assert.match(capture, /screenshot="\$output\/monitor-\$plate\.png"/);
 
   assert.match(capture, /shot-02-cleanup\.mp4/);
   assert.match(capture, /-ss 0\.8/);

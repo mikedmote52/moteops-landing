@@ -1,0 +1,74 @@
+:root {
+  background: #171814;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  height: 1080px;
+  margin: 0;
+  overflow: hidden;
+  width: 1920px;
+}
+
+body::before {
+  background-image: url("rendered/monitor-office.png");
+  background-position: center;
+  background-size: cover;
+  content: "";
+  filter: blur(8px) brightness(.58);
+  inset: -18px;
+  position: absolute;
+}
+
+.monitor-stage {
+  height: 1080px;
+  position: relative;
+  width: 1920px;
+}
+
+.monitor-shell {
+  background: linear-gradient(145deg, #252722, #0e100d 72%);
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 18px;
+  box-shadow: 0 42px 90px rgba(0, 0, 0, .52);
+  height: 792px;
+  left: 448px;
+  padding: 28px 32px 44px;
+  position: absolute;
+  top: 138px;
+  transform: perspective(2400px) rotateY(-1.5deg) rotateX(.4deg);
+  transform-origin: center;
+  width: 1344px;
+}
+
+.monitor-screen {
+  background: #11130f;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  position: relative;
+}
+
+.monitor-screen iframe {
+  border: 0;
+  height: 1080px;
+  transform: scale(.6666667);
+  transform-origin: 0 0;
+  width: 1920px;
+}
+
+.monitor-reflection {
+  background: linear-gradient(
+    118deg,
+    rgba(255, 255, 255, .10),
+    rgba(255, 255, 255, 0) 27%,
+    rgba(255, 255, 255, .035) 72%,
+    rgba(255, 255, 255, 0)
+  );
+  inset: 28px 32px 44px;
+  pointer-events: none;
+  position: absolute;
+}

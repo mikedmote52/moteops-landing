@@ -43,6 +43,47 @@ test('defines truthful local inserts for the complete cleanup story', () => {
   assert.doesNotMatch(plates, /\b(?:sent|paid|signed|booked automatically)\b/i);
 });
 
+test('captures four cleanup interfaces inside one physical monitor treatment', () => {
+  const html = read('production/opening-film/monitor-plates.html');
+  const css = read('production/opening-film/monitor-plates.css');
+  const capture = read('production/opening-film/capture-monitor-plates.sh');
+  const plates = read('production/opening-film/plates.html');
+  const packageJson = JSON.parse(read('package.json'));
+
+  assert.match(html, /class="monitor-shell"/);
+  assert.match(html, /class="monitor-screen"/);
+  assert.match(html, /class="monitor-reflection"/);
+  assert.match(html, /new URL\('plates\.html'/);
+  assert.match(html, /source\.searchParams\.set\('plate', plate\)/);
+  assert.match(html, /source\.searchParams\.set\('embed', 'monitor'\)/);
+  assert.match(css, /\.monitor-shell[\s\S]*width:\s*1344px/);
+  assert.match(css, /\.monitor-screen[\s\S]*width:\s*1280px[\s\S]*height:\s*720px/);
+  assert.match(css, /background-image:\s*url\("rendered\/monitor-office\.png"\)/);
+  assert.match(css, /filter:\s*blur\(8px\) brightness\(\.58\)/);
+  assert.match(css, /perspective\(2400px\) rotateY\(-1\.5deg\) rotateX\(\.4deg\)/);
+  assert.match(css, /\.monitor-reflection[\s\S]*linear-gradient/);
+
+  for (const name of [
+    'organized-inbox',
+    'calendar-resolution',
+    'review-packet',
+    'approval-queue',
+  ]) {
+    assert.match(capture, new RegExp(`\\n  ${name}\\n`));
+  }
+  assert.match(capture, /screenshot="\$output\/monitor-\$plate\.png"/);
+
+  assert.match(capture, /shot-02-cleanup\.mp4/);
+  assert.match(capture, /-ss 0\.8/);
+  assert.match(capture, /--window-size=1920,1080/);
+  assert.match(plates, /embedMode === 'monitor'/);
+  assert.match(plates, /monitor-embed/);
+  assert.equal(
+    packageJson.scripts['capture:opening-monitor'],
+    'bash production/opening-film/capture-monitor-plates.sh'
+  );
+});
+
 test('maintains an auditable opening-film generation ledger', () => {
   const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-manifest.json'));
   assert.equal(manifest.schema, 'mote-ops-opening/v1');

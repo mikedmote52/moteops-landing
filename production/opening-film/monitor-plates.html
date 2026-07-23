@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mote Ops monitor composite</title>
+  <link rel="stylesheet" href="monitor-plates.css">
+</head>
+<body>
+  <main class="monitor-stage">
+    <div class="monitor-shell">
+      <div class="monitor-screen">
+        <iframe id="monitor-interface" title="Mote Ops interface"></iframe>
+      </div>
+      <div class="monitor-reflection" aria-hidden="true"></div>
+    </div>
+  </main>
+  <script>
+    const allowed = new Set([
+      'organized-inbox',
+      'calendar-resolution',
+      'review-packet',
+      'approval-queue',
+    ]);
+    const plate = new URLSearchParams(location.search).get('plate');
+    if (!allowed.has(plate)) throw new Error(`Unsupported monitor plate: ${plate}`);
+    const source = new URL('plates.html', location.href);
+    source.searchParams.set('plate', plate);
+    source.searchParams.set('embed', 'monitor');
+    document.querySelector('#monitor-interface').src = source.href;
+  </script>
+</body>
+</html>

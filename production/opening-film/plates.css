@@ -202,6 +202,32 @@ body.overlay-mode { background: transparent; }
   text-align: center;
 }
 
+.monitor-embed .plate {
+  padding: 72px;
+}
+
+.monitor-embed .plate::after {
+  inset: 34px;
+}
+
+.monitor-embed .truth {
+  left: 72px;
+  top: 34px;
+}
+
+.monitor-embed .plate main {
+  padding: 44px 70px 30px;
+}
+
+.monitor-embed .plate h1 {
+  font-size: 104px;
+}
+
+.monitor-embed .work-list article,
+.monitor-embed .approval-list article {
+  min-height: 184px;
+}
+
 .plate-end {
   align-content: end;
   background: var(--forest);

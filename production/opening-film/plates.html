@@ -92,8 +92,11 @@
   </section>
 
   <script>
-    const selectedPlate = new URLSearchParams(location.search).get('plate');
+    const params = new URLSearchParams(location.search);
+    const selectedPlate = params.get('plate');
+    const embedMode = params.get('embed');
     document.body.classList.toggle('overlay-mode', selectedPlate?.startsWith('overlay-'));
+    document.body.classList.toggle('monitor-embed', embedMode === 'monitor');
     document.querySelectorAll('[data-plate]').forEach((node) => {
       node.hidden = node.dataset.plate !== selectedPlate;
     });
