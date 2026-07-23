@@ -1,13 +1,13 @@
 :root {
-  --paper: #f3efe5;
-  --panel: #e6e2d8;
-  --white: #fffdf7;
-  --ink: #171915;
-  --muted: #686b63;
+  --paper: #f4f5f6;
+  --panel: #e9ebed;
+  --white: #ffffff;
+  --ink: #202124;
+  --muted: #687078;
   --forest: #133f35;
   --copper: #ad5834;
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -40,24 +40,26 @@ body {
 }
 
 .mail-sidebar {
-  background: #d7d4cc;
-  border-right: 2px solid #b6b4ac;
+  background: #eef0f2;
+  border-right: 1px solid #d3d7da;
   display: flex;
   flex-direction: column;
   padding: 40px 28px 32px;
 }
 
 .app-name {
-  font: 900 22px/1 "Arial Narrow", Arial, sans-serif;
-  letter-spacing: .18em;
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: .02em;
   margin: 0 0 32px;
 }
 
 .mail-sidebar button {
   background: var(--forest);
-  border: 0;
+  border: 1px solid #0d332b;
+  border-radius: 5px;
   color: var(--white);
-  font: 800 22px/1 Arial, sans-serif;
+  font: 650 21px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   padding: 18px 16px;
   text-align: left;
 }
@@ -77,7 +79,8 @@ body {
 }
 
 .mail-sidebar nav .is-active {
-  background: rgba(255, 255, 255, .68);
+  background: #ffffff;
+  border-radius: 5px;
   color: var(--forest);
   font-weight: 800;
 }
@@ -99,7 +102,8 @@ body {
 .mail-toolbar,
 .message-toolbar {
   align-items: center;
-  border-bottom: 2px solid #c3c0b7;
+  background: #ffffff;
+  border-bottom: 1px solid #d8dcdf;
   display: flex;
   height: 112px;
   justify-content: space-between;
@@ -107,7 +111,8 @@ body {
 }
 
 .mail-toolbar h1 {
-  font: 700 44px/1 Georgia, serif;
+  font-size: 36px;
+  font-weight: 650;
   margin: 0;
 }
 
@@ -125,20 +130,21 @@ body {
 
 .mail-toolbar input {
   background: var(--white);
-  border: 1px solid #aaa89f;
+  border: 1px solid #c8cdd1;
+  border-radius: 6px;
   height: 54px;
   width: 360px;
 }
 
 .mail-list {
-  background: #ece8de;
+  background: #f4f5f6;
   min-height: 788px;
   padding-top: 12px;
 }
 
 .mail-row {
   align-items: center;
-  border-bottom: 1px solid #c9c6bd;
+  border-bottom: 1px solid #d9dde0;
   display: grid;
   gap: 18px;
   grid-template-columns: 18px 180px 450px 1fr 110px;
@@ -147,8 +153,8 @@ body {
 }
 
 .mail-row.is-selected {
-  background: #faf7ef;
-  border-left: 8px solid var(--copper);
+  background: #ffffff;
+  border-left: 6px solid var(--forest);
   padding-left: 30px;
 }
 
@@ -165,7 +171,9 @@ body {
 }
 
 .mail-row b {
-  font: 700 25px/1.18 Georgia, serif;
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1.18;
 }
 
 .mail-row > span:nth-last-child(2) {
@@ -188,14 +196,14 @@ body {
 .opened-email {
   background: var(--white);
   height: 810px;
-  padding: 58px 82px;
+  padding: 54px 72px;
   position: relative;
 }
 
 .sender {
   color: var(--forest);
-  font-size: 22px;
-  font-weight: 800;
+  font-size: 20px;
+  font-weight: 650;
   margin: 0;
 }
 
@@ -206,26 +214,32 @@ body {
 }
 
 .opened-email h1 {
-  font: 700 64px/.98 Georgia, serif;
-  letter-spacing: -.035em;
-  margin: 46px 0 28px;
-  max-width: 970px;
+  font-size: 46px;
+  font-weight: 650;
+  letter-spacing: -.025em;
+  line-height: 1.08;
+  margin: 42px 0 26px;
+  max-width: 860px;
 }
 
 .message-copy {
-  color: #4d5049;
-  font: 400 30px/1.42 Georgia, serif;
+  color: #4c5359;
+  font-size: 27px;
+  line-height: 1.45;
   margin: 0;
   max-width: 900px;
 }
 
 .email-cta {
   background: var(--forest);
+  border-radius: 4px;
   color: var(--white);
   display: inline-block;
-  font: 800 25px/1 Arial, sans-serif;
-  margin-top: 48px;
-  padding: 22px 28px;
+  font-size: 23px;
+  font-weight: 650;
+  line-height: 1;
+  margin-top: 42px;
+  padding: 19px 24px;
 }
 
 .email-cta.is-clicked {

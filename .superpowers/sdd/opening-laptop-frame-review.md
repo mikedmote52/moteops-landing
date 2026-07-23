@@ -1,6 +1,8 @@
-# Opening laptop clickthrough frame review
+# Corrected opening laptop clickthrough frame review
 
 Reviewed the 1920 × 1080, 24 fps, 28-second master at the story and edit boundaries recorded in the media manifest.
+
+The prior protected preview was rejected because the moving inbox was rotated and enlarged as a flat rectangle. It visibly escaped the laptop bezel and did not follow the physical display perspective. This review covers the replacement four-corner composite.
 
 ## Story timing
 
@@ -16,8 +18,12 @@ Reviewed the 1920 × 1080, 24 fps, 28-second master at the story and edit bounda
 ## Findings
 
 - The opening reads as chaotic and overloaded before Mote Ops appears: passed.
-- The laptop content remains inside the actor's physical display during the moving shot: passed.
+- The moving inbox uses the measured top-left, top-right, bottom-left, and bottom-right screen corners: passed.
+- The laptop content remains inside the actor's physical display at 5.50, 5.75, 6.00, 6.25, 6.50, and 6.74 seconds: passed.
+- The insert narrows, tilts, and exits with the physical laptop rather than sliding independently: passed.
 - Green binders, papers, and the surrounding office are preserved outside the laptop replacement: passed.
+- The inbox and opened message use conventional mail-client geometry, hierarchy, and system typography: passed.
+- No oversized headline, full-frame brand panel, or flat rectangular overlay appears in the moving shot: passed.
 - The email subject, body, and CTA are readable during the stable hold: passed.
 - The click indicator lands on `See how Mote Ops can help`: passed.
 - The next state visibly loads `moteops.tech` on the same laptop: passed.

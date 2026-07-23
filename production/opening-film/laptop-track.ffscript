@@ -1,10 +1,14 @@
-# Source-time screen track. The green matte remains the final edge mask.
-# 5.50 screen begins off the right edge
-# 5.75 TL 1647,535 TR 1838,585 BR 1685,945 BL 1517,843
-# 6.00 TL 1610,560 TR 1880,630 BR 1740,1030 BL 1490,900
-# 6.25 TL 1655,590 TR 2020,670 BR 1900,1100 BL 1510,970
-# 6.50 TL 1710,650 TR 2160,730 BR 2050,1200 BL 1580,1050
+# Source-time four-corner track for the physical green laptop display.
+# Columns: frame TLx TLy TRx TRy BLx BLy BRx BRy
+# 5.50 screen is nearly edge-on
+0 1774 425 1784 442 1764 441 1775 456
+# 5.75 TL 1664,561 TR 1816,627 BR 1683,940 BL 1565,806
+6 1664 561 1816 627 1565 806 1683 940
+# 6.00 TL 1638,564 TR 1858,651 BR 1703,1019 BL 1524,844
+12 1638 564 1858 651 1524 844 1703 1019
+# 6.25 TL 1667,615; right and bottom corners continue beyond frame
+18 1667 615 2050 790 1537 935 2030 1400
+# 6.50 TL 1734,705; most of the display is leaving frame
+24 1734 705 2240 940 1596 1051 2140 1510
 # 6.75 screen exits right before the source camera cuts to the frontal view
-[2:v]scale=w='760*(1+0.28*n/29)':h='428*(1+0.28*n/29)':eval=frame,
-rotate=9*PI/180:ow=rotw(iw):oh=roth(ih):c=black@0,
-format=rgba[tracked_inbox]
+29 1794 735 2350 1000 1658 1077 2260 1600

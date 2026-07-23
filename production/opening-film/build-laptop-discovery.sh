@@ -22,29 +22,69 @@ for path in "${required[@]}"; do
   test -f "$path" || { echo "Missing required input: $path" >&2; exit 1; }
 done
 
-track_filter="$(grep -v '^#' "$track")"
 normalize="fps=24,scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,setsar=1"
+track_dir="$(mktemp -d "${TMPDIR:-/tmp}/mote-laptop-track.XXXXXX")"
+trap 'rm -rf "$track_dir"' EXIT
+
+for frame in $(seq 0 29); do
+  coords="$(awk -v target="$frame" '
+    /^#/ || NF == 0 { next }
+    $1 == target {
+      for (field = 2; field <= 9; field++) {
+        printf "%d%s", $field, (field == 9 ? ORS : OFS)
+      }
+      printed = 1
+      exit
+    }
+    $1 > target && have_previous {
+      progress = (target - previous[1]) / ($1 - previous[1])
+      for (field = 2; field <= 9; field++) {
+        value = previous[field] + progress * ($field - previous[field])
+        printf "%d%s", int(value + 0.5), (field == 9 ? ORS : OFS)
+      }
+      printed = 1
+      exit
+    }
+    {
+      for (field = 1; field <= 9; field++) previous[field] = $field
+      have_previous = 1
+    }
+    END {
+      if (!printed && have_previous) {
+        for (field = 2; field <= 9; field++) {
+          printf "%d%s", previous[field], (field == 9 ? ORS : OFS)
+        }
+      }
+    }
+  ' "$track")"
+  read -r tlx tly trx try blx bly brx bry <<< "$coords"
+
+  ffmpeg -hide_banner -loglevel error -y \
+    -loop 1 -i "$rendered/laptop-inbox.png" -frames:v 1 \
+    -vf "scale=1920:1080,format=rgba,perspective=
+      x0=${tlx}:y0=${tly}:
+      x1=${trx}:y1=${try}:
+      x2=${blx}:y2=${bly}:
+      x3=${brx}:y3=${bry}:
+      sense=destination:eval=init" \
+    "$track_dir/inbox-$(printf '%02d' "$frame").png"
+done
 
 ffmpeg -hide_banner -loglevel warning -y \
   -i "$raw/shot-01-breakdown.mp4" \
   -ss 7.0 -i "$raw/shot-01-breakdown.mp4" \
-  -framerate 24 -loop 1 -t "$moving_inbox" -i "$rendered/laptop-inbox.png" \
+  -framerate 24 -i "$track_dir/inbox-%02d.png" \
   -framerate 24 -loop 1 -t "$email_hold" -i "$rendered/laptop-email.png" \
   -framerate 24 -loop 1 -t "$click_hold" -i "$rendered/laptop-email-click.png" \
   -framerate 24 -loop 1 -t "$site_hold" -i "$rendered/laptop-site.png" \
   -filter_complex "
-    $track_filter;
     [0:v]${normalize},trim=start=5.5:end=6.75,setpts=PTS-STARTPTS,
     split=3[move_key_source][move_restore_top_source][move_restore_left_source];
     [move_key_source]format=rgba,chromakey=0x008a50:0.12:0.03[move_fg];
     [move_restore_top_source]crop=1920:500:0:0[move_restore_top];
     [move_restore_left_source]crop=1450:580:0:500[move_restore_left];
-    color=c=0xf3efe5:s=1920x1080:r=24:d=${moving_inbox}[move_bg];
-    [move_bg][tracked_inbox]overlay=
-      x='if(lt(t,0.25),lerp(1630,1450,t/0.25),if(lt(t,0.50),lerp(1450,1440,(t-0.25)/0.25),if(lt(t,0.75),lerp(1440,1460,(t-0.50)/0.25),if(lt(t,1.00),lerp(1460,1500,(t-0.75)/0.25),lerp(1500,1600,min(1,(t-1.00)/0.25))))))':
-      y='if(lt(t,0.25),lerp(420,400,t/0.25),if(lt(t,0.50),lerp(400,430,(t-0.25)/0.25),if(lt(t,0.75),lerp(430,460,(t-0.50)/0.25),if(lt(t,1.00),lerp(460,520,(t-0.75)/0.25),lerp(520,580,min(1,(t-1.00)/0.25))))))':
-      shortest=1[move_screen];
-    [move_screen][move_fg]overlay=shortest=1[move_keyed];
+    [2:v]format=rgba[tracked_inbox];
+    [tracked_inbox][move_fg]overlay=shortest=1[move_keyed];
     [move_keyed][move_restore_top]overlay=x=0:y=0:shortest=1[move_top_restored];
     [move_top_restored][move_restore_left]overlay=x=0:y=500:shortest=1,
     format=yuv420p[moving];

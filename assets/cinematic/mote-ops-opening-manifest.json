@@ -178,8 +178,8 @@
       "height": 1080,
       "frameRate": 24,
       "durationSeconds": 28,
-      "sizeBytes": 11521981,
-      "sha256": "c6131f579239b855dc7097bf2ff579b10af2565bf1e3f1e5e4293a345736e780",
+      "sizeBytes": 11538889,
+      "sha256": "002597f562f266e7cb78f0e6a2c3661c304f376a7692138b81f3b9801a714365",
       "audio": false,
       "faststart": true
     },
@@ -190,8 +190,8 @@
       "height": 720,
       "frameRate": 24,
       "durationSeconds": 28,
-      "sizeBytes": 4183078,
-      "sha256": "4423fa41f8fd14914c21997c3d3ad177ece58ebdfe059c8a56f77fc7025ee8b1",
+      "sizeBytes": 4174510,
+      "sha256": "70b2c87093aa278419b91bcdd2b080ed0a994986f7c739696b95f84151141b6e",
       "audio": false,
       "faststart": true
     },
@@ -199,8 +199,8 @@
       "path": "assets/cinematic/mote-ops-opening-poster.webp",
       "width": 1600,
       "height": 900,
-      "sizeBytes": 67802,
-      "sha256": "4d6870be01f07b84d14a8113e29bd3f99d31c01e843fd26e85a6722d7a0def6f"
+      "sizeBytes": 67796,
+      "sha256": "ec71b131253f90db820299f89e003ae2883ec84a7f9bc22f1abcbd3f84427b24"
     }
   },
   "frameReview": {
