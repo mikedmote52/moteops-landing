@@ -20,3 +20,12 @@
 - Remaining beach plate: 72 credits
 - Revised approved cap: 288 credits
 - Changed variable: hardware and screen staging only
+
+## Final spend
+
+- Accepted corrected breakdown plate: 72 credits
+- Accepted cleanup plate: 72 credits
+- Accepted beach plate: 72 credits
+- Rejected original breakdown plate: 72 credits
+- Total spent: 288 credits
+- Remaining authorization: 0 credits

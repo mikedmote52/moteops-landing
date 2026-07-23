@@ -1,6 +1,6 @@
 {
   "schema": "mote-ops-opening/v1",
-  "status": "awaiting-generation",
+  "status": "ready-for-post",
   "title": "Mote Ops email-to-beach opening",
   "durationSeconds": 24,
   "disclosure": "AI-generated film · fictional business scenario featuring Mike Mote.",
@@ -15,7 +15,7 @@
   },
   "generation": {
     "model": "Seedance 2.0",
-    "creditsSpent": 216,
+    "creditsSpent": 288,
     "approvedCreditCap": 288,
     "preflight": [
       {
@@ -67,10 +67,10 @@
       {
         "id": "beach-payoff",
         "seconds": 8,
-        "jobId": null,
-        "credits": null,
-        "status": "not-generated",
-        "review": null
+        "jobId": "edb3bca7-2cb7-4cae-b1dc-1bcc71ecea1d",
+        "credits": 72,
+        "status": "accepted",
+        "review": ".superpowers/sdd/opening-shot-03-review.md"
       }
     ],
     "attempts": [
@@ -112,6 +112,22 @@
           "durationSeconds": 8.041667,
           "sizeBytes": 6003328,
           "sha256": "1cd69024821e70a3fa6d6d6e918dec99e2bcf0aee03a45171268dd4554d8c144"
+        }
+      },
+      {
+        "shotId": "beach-payoff",
+        "jobId": "edb3bca7-2cb7-4cae-b1dc-1bcc71ecea1d",
+        "credits": 72,
+        "outcome": "accepted during frame review",
+        "source": {
+          "path": "production/opening-film/raw/shot-03-beach.mp4",
+          "codec": "H.264",
+          "width": 1920,
+          "height": 1080,
+          "frameRate": 24,
+          "durationSeconds": 8.041667,
+          "sizeBytes": 6697395,
+          "sha256": "c7a660096e3b3d5992891934335e6298db7ec26b1dba1272812fbcfcbe817198"
         }
       }
     ],
