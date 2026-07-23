@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#061018">
+  <meta name="description" content="VESSEL ZERO, a cinematic deep-ocean expedition interface and fictional Mote Ops design concept.">
+  <title>VESSEL ZERO | Below the visible world</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <a class="skip-link" href="#descent">Skip expedition film</a>
+  <canvas id="particle-field" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <a class="mark" href="#deployment" aria-label="VESSEL ZERO home">V<span>/</span>0</a>
+    <p>Expedition file <strong>06.19</strong></p>
+    <a href="#planner">Plan a mission</a>
+  </header>
+
+  <main>
+    <section id="deployment" class="chapter hero" aria-labelledby="deployment-title">
+      <video class="chapter-film" muted loop playsinline preload="metadata" poster="media/vz-01.webp" data-autoplay>
+        <source src="media/vz-01.mp4" type="video/mp4">
+      </video>
+      <div class="shade" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">Autonomous ocean research / Concept vessel</p>
+        <h1 id="deployment-title">VESSEL<br><span>ZERO</span></h1>
+        <p class="lede">Built for the part of Earth<br>we still cannot see.</p>
+      </div>
+      <div class="hero-readout" aria-label="Illustrative mission parameters">
+        <span>DEPTH <b>6,400 M</b></span><span>ENDURANCE <b>18 H</b></span><span>CREW <b>0</b></span>
+      </div>
+      <a class="scroll-cue" href="#descent">Begin descent <i aria-hidden="true"></i></a>
+    </section>
+
+    <section id="descent" class="chapter descent" aria-labelledby="descent-title">
+      <div class="depth-scale" aria-hidden="true"><span>0000</span><span>1000</span><span>2500</span><span>4000</span><span>6400</span></div>
+      <div class="section-copy">
+        <p class="eyebrow">01 / Descent</p>
+        <h2 id="descent-title">Pressure rises.<br>Noise falls away.</h2>
+        <p>Past the shelf, daylight gives up. VESSEL ZERO keeps descending, trimmed by mass, corrected by millimeters.</p>
+      </div>
+      <div class="telemetry" aria-label="Concept descent telemetry">
+        <p><span>Hull differential</span><strong>642 BAR</strong></p>
+        <p><span>Vertical velocity</span><strong>0.7 M/S</strong></p>
+        <p><span>Trim variance</span><strong>0.03°</strong></p>
+      </div>
+    </section>
+
+    <section id="sensing" class="chapter sensing" aria-labelledby="sensing-title">
+      <video class="chapter-film" muted loop playsinline preload="metadata" poster="media/vz-02.webp" data-autoplay>
+        <source src="media/vz-02.mp4" type="video/mp4">
+      </video>
+      <div class="film-caption"><span>02 / Sensing</span><span>Sample arm sequence</span></div>
+      <div class="section-copy on-film">
+        <h2 id="sensing-title">Read the water<br>without disturbing it.</h2>
+        <p>Optics, sonar, chemistry, and current data converge in one slow pass.</p>
+      </div>
+    </section>
+
+    <section id="array" class="chapter array" aria-labelledby="array-title">
+      <div class="section-copy">
+        <p class="eyebrow">03 / Sensor array</p>
+        <h2 id="array-title">One hull.<br>Four ways of knowing.</h2>
+      </div>
+      <ol class="instrument-list">
+        <li><span>01</span><strong>Optical dome</strong><small>Low-light stereoscopic imaging</small></li>
+        <li><span>02</span><strong>Multibeam sonar</strong><small>Terrain resolution to 2.5 cm</small></li>
+        <li><span>03</span><strong>Water sampler</strong><small>Twelve isolated collection cells</small></li>
+        <li><span>04</span><strong>Current profiler</strong><small>Three-axis velocity field</small></li>
+      </ol>
+      <div class="array-diagram" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div>
+    </section>
+
+    <section id="encounter" class="chapter encounter" aria-labelledby="encounter-title">
+      <video class="chapter-film" muted loop playsinline preload="metadata" poster="media/vz-03.webp" data-autoplay>
+        <source src="media/vz-03.mp4" type="video/mp4">
+      </video>
+      <div class="shade" aria-hidden="true"></div>
+      <div class="section-copy on-film">
+        <p class="eyebrow">04 / Encounter</p>
+        <h2 id="encounter-title">Light, where none<br>should remain.</h2>
+        <p>At 5,860 meters, the field answers in pulses. The vessel holds position. The record begins.</p>
+      </div>
+      <p class="fallback-caption">Deep-ocean survey sequence unavailable. Poster frame shown.</p>
+    </section>
+
+    <section id="planner" class="chapter planner" aria-labelledby="planner-title">
+      <div class="planner-head">
+        <p class="eyebrow">05 / Mission planner</p>
+        <h2 id="planner-title">Set the objective.</h2>
+        <p>Concept mission simulation. Results are illustrative and not live operational data.</p>
+      </div>
+      <form id="mission-form">
+        <label>Route<select name="route"><option value="shelf">Continental shelf</option><option value="slope">Abyssal slope</option><option value="trench">Trench margin</option></select></label>
+        <label>Maximum depth<input name="depth" type="range" min="1000" max="6000" step="250" value="3000"><output data-depth>3,000 M</output></label>
+        <fieldset><legend>Priority</legend><label><input type="radio" name="priority" value="optics" checked> Optical record</label><label><input type="radio" name="priority" value="mapping"> Mapping</label><label><input type="radio" name="priority" value="samples"> Samples</label></fieldset>
+        <div class="form-actions"><button type="submit">Calculate mission</button><button type="reset">Reset</button></div>
+      </form>
+      <div class="mission-result" aria-live="polite">
+        <p>Concept mission package</p><strong data-package>Optical survey package</strong>
+        <dl><div><dt>Duration</dt><dd data-duration>4.0 H</dd></div><div><dt>Energy</dt><dd data-energy>45%</dd></div></dl>
+      </div>
+      <footer><p>A fictional Mote Ops design concept. Vehicle, mission, and data are invented.</p><a href="../../index.html#demo-gallery">Return to Mote Ops <span aria-hidden="true">↗</span></a></footer>
+    </section>
+  </main>
+  <script src="site.js" defer></script>
+</body>
+</html>
