@@ -595,7 +595,7 @@ git commit -m "feat: stage Mote Ops as a cinematic operating story"
 - Consumes: approved Higgsfield generation access and the Mote Ops anti-slop standard.
 - Produces: one silent 8-second 16:9 transition film and poster, used between the owner story and working proof.
 
-- [ ] **Step 1: Add the failing media contract**
+- [x] **Step 1: Add the failing media contract**
 
 Add to `tests/showcase-media.test.mjs`:
 
@@ -608,7 +608,7 @@ test('declares one local Mote Ops operating transition film', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run:
 
@@ -618,7 +618,7 @@ node --test tests/showcase-media.test.mjs
 
 Expected: FAIL because the Mote Ops film is absent.
 
-- [ ] **Step 3: Preflight exactly one Seedance generation**
+- [x] **Step 3: Preflight exactly one Seedance generation**
 
 Use the approved prompt:
 
@@ -628,11 +628,11 @@ Documentary-grade over-the-shoulder view of a small-business owner at a real wor
 
 Run a Seedance 2.0 cost preflight for one 8-second 16:9 result. Do not submit generation until the cost is shown and approved in the current session.
 
-- [ ] **Step 4: Generate and review one clip**
+- [x] **Step 4: Generate and review one clip**
 
 After approval, submit one result. Review frames at 0, 2, 4, 6, and 8 seconds for face/hand integrity, geometry, readable generated text, temporal continuity, and Mote Ops palette. If rejected, change one prompt variable and preflight one replacement. Do not batch variants.
 
-- [ ] **Step 5: Optimize and integrate the approved film**
+- [x] **Step 5: Optimize and integrate the approved film**
 
 Normalize to H.264, 1920 by 1080, no audio, fast start, and produce a 1600 by 900 WebP poster. Record source job, duration, codec, dimensions, file size, and review note in `manifest.json`.
 
@@ -649,7 +649,7 @@ Add a semantic transition figure before `#demo-gallery`:
 
 Register `[data-cinematic-film]` with the page motion system.
 
-- [ ] **Step 6: Run media and full tests**
+- [x] **Step 6: Run media and full tests**
 
 Run:
 
@@ -660,7 +660,7 @@ npm test
 
 Expected: all tests pass.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add assets/cinematic index.html studio.css motion-system.js tests/showcase-media.test.mjs
