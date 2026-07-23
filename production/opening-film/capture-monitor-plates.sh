@@ -15,6 +15,7 @@ ffmpeg -hide_banner -loglevel warning -y \
   "$output/monitor-office.png"
 
 plates=(
+  discovery-email
   organized-inbox
   calendar-resolution
   review-packet
