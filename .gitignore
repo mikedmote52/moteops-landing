@@ -4,4 +4,5 @@ _bgproto.html
 _bgproto-real.html
 production/opening-film/raw/*.mp4
 production/opening-film/rendered/*.png
+production/opening-film/rendered/*.mp4
 assets/cinematic/source/

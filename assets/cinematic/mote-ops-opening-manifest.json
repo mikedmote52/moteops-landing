@@ -10,7 +10,11 @@
     "name": "Mike Mote Opening",
     "status": "completed",
     "sourcePhotoCount": 3,
-    "sourcePhotos": ["Photo 2", "Photo 4", "Photo 5"],
+    "sourcePhotos": [
+      "Photo 2",
+      "Photo 4",
+      "Photo 5"
+    ],
     "reusableSoulCreated": false
   },
   "generation": {
@@ -143,7 +147,10 @@
     ]
   },
   "capturePlates": [
-    "discovery-email",
+    "laptop-inbox",
+    "laptop-email",
+    "laptop-email-click",
+    "laptop-site",
     "organized-inbox",
     "calendar-resolution",
     "review-packet",
@@ -151,15 +158,16 @@
     "beach-end-card"
   ],
   "postProduction": {
-    "monitorComposite": {
+    "laptopComposite": {
       "generatedCredits": 0,
-      "backgroundSource": "accepted cleanup-control footage at 0.8 seconds",
-      "outerMonitorWidth": 1344,
-      "interfaceScreen": "1280x720",
-      "transitionFrames": 7,
-      "actorAttentionSeconds": 2.6,
-      "discoveryStableHoldSeconds": 2.2,
-      "cleanupStableHoldSeconds": 1.8
+      "source": "accepted breakdown-discovery footage from 5.5 through 8.0 seconds",
+      "trackFramesPerSecond": 24,
+      "movingInboxSeconds": 1.25,
+      "emailStableHoldSeconds": 2.2,
+      "clickResponseSeconds": 0.35,
+      "siteStableHoldSeconds": 1.2,
+      "cleanupStableHoldSeconds": 1.8,
+      "destination": "moteops.tech"
     }
   },
   "outputs": {
@@ -170,8 +178,8 @@
       "height": 1080,
       "frameRate": 24,
       "durationSeconds": 28,
-      "sizeBytes": 12061493,
-      "sha256": "ee5622e9f07befd80fbc7592aa0b5eda731d97fe8f4b1a1a4a598fbaa80cfa21",
+      "sizeBytes": 11521981,
+      "sha256": "c6131f579239b855dc7097bf2ff579b10af2565bf1e3f1e5e4293a345736e780",
       "audio": false,
       "faststart": true
     },
@@ -182,8 +190,8 @@
       "height": 720,
       "frameRate": 24,
       "durationSeconds": 28,
-      "sizeBytes": 4283396,
-      "sha256": "d8d36fa2b7834cd5bc4107327eab5211e45abb2931f28c43edfd2aed656018f4",
+      "sizeBytes": 4183078,
+      "sha256": "4423fa41f8fd14914c21997c3d3ad177ece58ebdfe059c8a56f77fc7025ee8b1",
       "audio": false,
       "faststart": true
     },
@@ -191,8 +199,8 @@
       "path": "assets/cinematic/mote-ops-opening-poster.webp",
       "width": 1600,
       "height": 900,
-      "sizeBytes": 68112,
-      "sha256": "e67d51381dbe870939c4eaa733c59f288035a0dd439fa1cd117a874bee44e465"
+      "sizeBytes": 67802,
+      "sha256": "4d6870be01f07b84d14a8113e29bd3f99d31c01e843fd26e85a6722d7a0def6f"
     }
   },
   "frameReview": {
@@ -204,41 +212,45 @@
       3,
       4,
       5,
-      5.79,
-      5.81,
-      7,
-      8.1,
-      8.39,
-      8.41,
-      9.5,
-      10.59,
-      10.61,
-      11.5,
-      12.39,
-      12.41,
-      13.3,
-      14.19,
-      14.21,
-      15.1,
+      5.49,
+      5.51,
+      5.75,
+      6.25,
+      6.74,
+      6.76,
+      7.5,
+      8.94,
+      8.96,
+      9.29,
+      9.31,
+      10,
+      10.49,
+      10.51,
+      11.4,
+      12.32,
+      12.34,
+      13.2,
+      14.15,
+      14.18,
+      15,
       15.99,
       16.01,
       16.9,
-      17.79,
-      17.81,
-      18.09,
-      19,
+      17.82,
+      17.84,
+      18.8,
       19.99,
       20.01,
       21,
       22,
       23,
-      24.2,
+      24,
       25,
       26,
       27,
       27.99
     ],
     "result": "passed",
-    "reviewFile": ".superpowers/sdd/opening-discovery-monitor-frame-review.md"
+    "reviewFile": ".superpowers/sdd/opening-laptop-frame-review.md"
   }
 }
