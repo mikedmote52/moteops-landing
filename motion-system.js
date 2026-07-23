@@ -1,6 +1,7 @@
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 const motionToggle = document.querySelector('[data-motion-toggle]');
 const studioFilms = [...document.querySelectorAll('[data-studio-film]')];
+const playRequests = new WeakMap();
 let motionEnabled = !motionPreference.matches;
 
 function updateMotionControl() {
@@ -23,13 +24,21 @@ function filmIsVisible(film) {
   return rect.bottom > 0 && rect.top < innerHeight;
 }
 
+function pauseFilm(film) {
+  playRequests.set(film, (playRequests.get(film) ?? 0) + 1);
+  film.pause();
+}
+
 function syncFilm(film) {
-  if (!motionEnabled || !filmIsVisible(film)) return film.pause();
+  if (!motionEnabled || !filmIsVisible(film)) return pauseFilm(film);
   loadFilm(film);
+  const request = (playRequests.get(film) ?? 0) + 1;
+  playRequests.set(film, request);
   film.play().catch(() => {
+    if (!motionEnabled || playRequests.get(film) !== request) return;
     film.closest('[data-studio-study]')?.classList.add('video-paused');
     motionEnabled = false;
-    studioFilms.forEach((item) => item.pause());
+    studioFilms.forEach(pauseFilm);
     updateMotionControl();
   });
 }
@@ -40,13 +49,25 @@ function setMotionEnabled(enabled) {
   studioFilms.forEach(syncFilm);
 }
 
-const filmObserver = new IntersectionObserver((entries) => {
-  entries.forEach(({ target }) => syncFilm(target));
-}, { rootMargin: '25% 0px', threshold: 0.15 });
+function syncVisibleFilms() {
+  studioFilms.forEach(syncFilm);
+}
 
-studioFilms.forEach((film) => filmObserver.observe(film));
+if ('IntersectionObserver' in window) {
+  const filmObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ target }) => syncFilm(target));
+  }, { rootMargin: '0px', threshold: 0 });
+  studioFilms.forEach((film) => filmObserver.observe(film));
+} else {
+  addEventListener('scroll', syncVisibleFilms, { passive: true });
+  addEventListener('resize', syncVisibleFilms);
+  syncVisibleFilms();
+}
+
 motionToggle?.addEventListener('click', () => setMotionEnabled(!motionEnabled));
-motionPreference.addEventListener('change', (event) => setMotionEnabled(!event.matches));
+const syncMotionPreference = (event) => setMotionEnabled(!event.matches);
+if (typeof motionPreference.addEventListener === 'function') motionPreference.addEventListener('change', syncMotionPreference);
+else if (typeof motionPreference.addListener === 'function') motionPreference.addListener(syncMotionPreference);
 updateMotionControl();
 
 window.moteMotion = { setMotionEnabled, isEnabled: () => motionEnabled };
