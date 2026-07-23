@@ -20,7 +20,7 @@ test('defines truthful local inserts for the complete cleanup story', () => {
   assert.doesNotMatch(plates, /\b(?:sent|paid|signed|booked automatically)\b/i);
 });
 
-test('starts an auditable opening-film manifest without claiming generation', () => {
+test('maintains an auditable opening-film generation ledger', () => {
   const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-manifest.json'));
   assert.equal(manifest.schema, 'mote-ops-opening/v1');
   assert.ok([
@@ -43,7 +43,15 @@ test('starts an auditable opening-film manifest without claiming generation', ()
     'cleanup-control',
     'beach-payoff',
   ]);
-  assert.ok(manifest.generation.shots.every(({ jobId }) => jobId === null));
+  for (const shot of manifest.generation.shots) {
+    if (shot.status === 'not-generated') {
+      assert.equal(shot.jobId, null);
+      assert.equal(shot.credits, null);
+    } else {
+      assert.equal(typeof shot.jobId, 'string');
+      assert.ok(Number.isInteger(shot.credits));
+    }
+  }
   assert.equal(manifest.disclosure, 'AI-generated film · fictional business scenario featuring Mike Mote.');
 });
 
