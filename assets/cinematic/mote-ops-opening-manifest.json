@@ -150,6 +150,16 @@
     "approval-queue",
     "beach-end-card"
   ],
+  "postProduction": {
+    "monitorComposite": {
+      "generatedCredits": 0,
+      "backgroundSource": "accepted cleanup-control footage at 0.8 seconds",
+      "outerMonitorWidth": 1344,
+      "interfaceScreen": "1280x720",
+      "transitionFrames": 7,
+      "stableHoldSeconds": 1.8
+    }
+  },
   "outputs": {
     "master1080": {
       "path": "assets/cinematic/mote-ops-opening-1080.mp4",
@@ -158,8 +168,8 @@
       "height": 1080,
       "frameRate": 24,
       "durationSeconds": 26.8,
-      "sizeBytes": 11113052,
-      "sha256": "b5d9a969b96f2d33024e9508a5be88e85a31f704d6873bb0e5ed3ef4469730b5",
+      "sizeBytes": 11415547,
+      "sha256": "c543b52b348c1cc920c71f42951fa5e8035bcb93b40b077759f24aaf9e18f445",
       "audio": false,
       "faststart": true
     },
@@ -170,8 +180,8 @@
       "height": 720,
       "frameRate": 24,
       "durationSeconds": 26.8,
-      "sizeBytes": 3932353,
-      "sha256": "ef1e8d6aed0ec50485dc84083d20cc4a29ab8df19271961b2bb10f615a25b3bd",
+      "sizeBytes": 4087813,
+      "sha256": "38644eea2470b0d527efb33647b247722bab8885b1092552882a7e4ae1d3551f",
       "audio": false,
       "faststart": true
     },
@@ -207,6 +217,7 @@
       8.01,
       8.5,
       9,
+      9.1,
       9.39,
       9.41,
       10.3,
@@ -221,6 +232,7 @@
       15.7,
       16.59,
       16.61,
+      16.89,
       17.5,
       18.79,
       18.81,
@@ -236,6 +248,6 @@
       26.79
     ],
     "result": "passed",
-    "reviewFile": ".superpowers/sdd/opening-film-frame-review.md"
+    "reviewFile": ".superpowers/sdd/opening-monitor-frame-review.md"
   }
 }

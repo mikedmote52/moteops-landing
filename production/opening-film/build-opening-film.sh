@@ -59,16 +59,16 @@ ffmpeg -hide_banner -loglevel warning -y \
     [s2a]trim=start=0:end=1.4,setpts=PTS-STARTPTS[v2];
     [3:v]${normalize},trim=duration=${transition_plate},setpts=PTS-STARTPTS,
     scale=w='trunc(1920*(1+0.012*min(n\,7)/7)/2)*2':h='trunc(1080*(1+0.012*min(n\,7)/7)/2)*2':eval=frame,
-    crop=1920:1080[v3];
+    crop=1920:1080,setsar=1[v3];
     [4:v]${normalize},trim=duration=${interface_hold},setpts=PTS-STARTPTS[v4];
     [5:v]${normalize},trim=duration=${interface_hold},setpts=PTS-STARTPTS[v5];
     [6:v]${normalize},trim=duration=${transition_plate},setpts=PTS-STARTPTS,
     scale=w='trunc(1920*(1.012-0.012*min(n\,7)/7)/2)*2':h='trunc(1080*(1.012-0.012*min(n\,7)/7)/2)*2':eval=frame,
-    crop=1920:1080[v6];
+    crop=1920:1080,setsar=1[v6];
     [s2b]trim=start=5.8:end=8.0,setpts=PTS-STARTPTS[v7];
     [7:v]${normalize},trim=start=0:end=8.0,setpts=PTS-STARTPTS[v8];
     [v2][v3]xfade=transition=fade:duration=${transition}:offset=1.108333[monitor_in];
-    [monitor_in][v4][v5][v6]concat=n=4:v=1:a=0[monitor_sequence];
+    [monitor_in][v4][v5][v6]concat=n=4:v=1:a=0,settb=1/24[monitor_sequence];
     [monitor_sequence][v7]xfade=transition=fade:duration=${transition}:offset=8.600000[cleanup];
     [v0][v1][cleanup][v8]concat=n=4:v=1:a=0[story];
     [8:v]fps=24,format=rgba[pressure0];

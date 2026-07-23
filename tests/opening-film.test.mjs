@@ -117,6 +117,14 @@ test('maintains an auditable opening-film generation ledger', () => {
     }
   }
   assert.equal(manifest.disclosure, 'AI-generated film · fictional business scenario featuring Mike Mote.');
+  assert.deepEqual(manifest.postProduction.monitorComposite, {
+    generatedCredits: 0,
+    backgroundSource: 'accepted cleanup-control footage at 0.8 seconds',
+    outerMonitorWidth: 1344,
+    interfaceScreen: '1280x720',
+    transitionFrames: 7,
+    stableHoldSeconds: 1.8,
+  });
 });
 
 test('keeps production sources out of release uploads', () => {
@@ -162,6 +170,8 @@ test('assembles monitor composites with seven-frame transitions and full reading
   assert.match(buildScript, /offset=8\.600000/);
   assert.match(buildScript, /scale=w='trunc\(1920\*\(1\+0\.012\*min\(n\\,7\)\/7\)\/2\)\*2'/);
   assert.match(buildScript, /scale=w='trunc\(1920\*\(1\.012-0\.012\*min\(n\\,7\)\/7\)\/2\)\*2'/);
+  assert.equal((buildScript.match(/crop=1920:1080,setsar=1\[v[36]\]/g) || []).length, 2);
+  assert.match(buildScript, /concat=n=4:v=1:a=0,settb=1\/24\[monitor_sequence\]/);
 });
 
 test('centers a constrained opening film on desktop without shrinking phone layout', () => {
