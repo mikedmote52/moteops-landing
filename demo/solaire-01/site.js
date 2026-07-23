@@ -5,6 +5,7 @@ const motionToggle = document.querySelector('[data-motion-toggle]');
 const form = document.querySelector('#schedule-form');
 const scheduleRegion = document.querySelector('[aria-live]');
 let motionEnabled = !motionPreference.matches;
+let motionGeneration = 0;
 
 function filmIsVisible(film) {
   const rect = film.getBoundingClientRect();
@@ -17,24 +18,41 @@ function updateMotionToggle() {
   motionToggle.querySelector('[data-motion-label]').textContent = motionEnabled ? 'Motion on' : 'Motion off';
 }
 
-function stopMotionAfterPlaybackFailure(film) {
+function stopMotionAfterPlaybackFailure(film, generation) {
+  if (generation !== motionGeneration || !motionEnabled) return;
   film.closest('.chapter').classList.add('video-paused');
-  motionEnabled = false;
-  films.forEach((item) => item.pause());
-  updateMotionToggle();
+  setMotionEnabled(false);
 }
 
-function setMotionEnabled(enabled) {
-  motionEnabled = enabled;
-  updateMotionToggle();
+function playFilm(film) {
+  const generation = motionGeneration;
+  let attempt;
+  try { attempt = film.play(); } catch (error) { stopMotionAfterPlaybackFailure(film, generation); return; }
+  Promise.resolve(attempt)
+    .then(() => {
+      if (generation === motionGeneration && motionEnabled) film.closest('.chapter').classList.remove('video-paused');
+    })
+    .catch(() => stopMotionAfterPlaybackFailure(film, generation));
+}
+
+function syncFilms() {
   for (const film of films) {
     if (!motionEnabled || !filmIsVisible(film)) film.pause();
-    else film.play().then(() => film.closest('.chapter').classList.remove('video-paused')).catch(() => stopMotionAfterPlaybackFailure(film));
+    else playFilm(film);
   }
 }
 
+function setMotionEnabled(enabled) {
+  motionEnabled = Boolean(enabled);
+  motionGeneration += 1;
+  updateMotionToggle();
+  syncFilms();
+  if (!motionEnabled) root.style.setProperty('--day', '0');
+}
+
 motionToggle.addEventListener('click', () => setMotionEnabled(!motionEnabled));
-motionPreference.addEventListener('change', (event) => setMotionEnabled(!event.matches));
+if (typeof motionPreference.addEventListener === 'function') motionPreference.addEventListener('change', (event) => setMotionEnabled(!event.matches));
+else if (typeof motionPreference.addListener === 'function') motionPreference.addListener((event) => setMotionEnabled(!event.matches));
 
 function buildSchedule({ program, sessionMinutes }) {
   const total = Math.max(60, Math.min(360, Number(sessionMinutes) || 120));
@@ -67,24 +85,31 @@ form.addEventListener('reset', () => requestAnimationFrame(() => {
 renderSchedule();
 
 for (const film of films) film.addEventListener('error', () => film.closest('.chapter').classList.add('video-error'));
-const observer = new IntersectionObserver((entries) => {
-  for (const entry of entries) {
-    if (!motionEnabled || !entry.isIntersecting) entry.target.pause();
-    else entry.target.play().catch(() => stopMotionAfterPlaybackFailure(entry.target));
-  }
-}, { threshold: 0.3 });
-films.forEach((film) => observer.observe(film));
-setMotionEnabled(motionEnabled);
+if (typeof IntersectionObserver === 'function') {
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!motionEnabled || !entry.isIntersecting) entry.target.pause();
+      else playFilm(entry.target);
+    }
+  }, { threshold: 0.3 });
+  films.forEach((film) => observer.observe(film));
+} else {
+  addEventListener('scroll', syncFilms, { passive: true });
+  addEventListener('resize', syncFilms, { passive: true });
+}
 
 let framePending = false;
 function setLightPosition() {
-  const ratio = scrollY / Math.max(1, document.body.scrollHeight - innerHeight);
-  document.documentElement.style.setProperty('--day', ratio.toFixed(4));
+  if (motionEnabled) {
+    const ratio = scrollY / Math.max(1, document.body.scrollHeight - innerHeight);
+    root.style.setProperty('--day', ratio.toFixed(4));
+  }
   framePending = false;
 }
 addEventListener('scroll', () => {
-  if (!framePending) { framePending = true; requestAnimationFrame(setLightPosition); }
+  if (motionEnabled && !framePending) { framePending = true; requestAnimationFrame(setLightPosition); }
 }, { passive: true });
 setLightPosition();
+setMotionEnabled(motionEnabled);
 
 window.buildSchedule = buildSchedule;

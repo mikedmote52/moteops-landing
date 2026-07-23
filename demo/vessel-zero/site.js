@@ -4,6 +4,7 @@ const films = [...document.querySelectorAll('[data-autoplay]')];
 const motionToggle = document.querySelector('[data-motion-toggle]');
 const statusRegion = document.querySelector('[aria-live]');
 let motionEnabled = !motionPreference.matches;
+let motionGeneration = 0;
 
 function filmIsVisible(film) {
   const rect = film.getBoundingClientRect();
@@ -16,24 +17,78 @@ function updateMotionToggle() {
   motionToggle.querySelector('[data-motion-label]').textContent = motionEnabled ? 'Motion on' : 'Motion off';
 }
 
-function stopMotionAfterPlaybackFailure(film) {
+function stopMotionAfterPlaybackFailure(film, generation) {
+  if (generation !== motionGeneration || !motionEnabled) return;
   film.closest('.chapter').classList.add('video-paused');
-  motionEnabled = false;
-  films.forEach((item) => item.pause());
-  updateMotionToggle();
+  setMotionEnabled(false);
 }
 
-function setMotionEnabled(enabled) {
-  motionEnabled = enabled;
-  updateMotionToggle();
+function playFilm(film) {
+  const generation = motionGeneration;
+  let attempt;
+  try { attempt = film.play(); } catch (error) { stopMotionAfterPlaybackFailure(film, generation); return; }
+  Promise.resolve(attempt)
+    .then(() => {
+      if (generation === motionGeneration && motionEnabled) film.closest('.chapter').classList.remove('video-paused');
+    })
+    .catch(() => stopMotionAfterPlaybackFailure(film, generation));
+}
+
+function syncFilms() {
   for (const film of films) {
     if (!motionEnabled || !filmIsVisible(film)) film.pause();
-    else film.play().then(() => film.closest('.chapter').classList.remove('video-paused')).catch(() => stopMotionAfterPlaybackFailure(film));
+    else playFilm(film);
   }
 }
 
+let particleFrame = 0;
+const canvas = document.querySelector('#particle-field');
+const context = canvas.getContext('2d');
+let particles = [];
+
+function sizeCanvas() {
+  const dpr = Math.min(devicePixelRatio || 1, 1.5);
+  canvas.width = innerWidth * dpr;
+  canvas.height = innerHeight * dpr;
+  canvas.style.width = `${innerWidth}px`;
+  canvas.style.height = `${innerHeight}px`;
+  context.setTransform(dpr, 0, 0, dpr, 0, 0);
+  particles = Array.from({ length: Math.min(46, Math.floor(innerWidth / 22)) }, () => ({
+    x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: Math.random() * 1.2 + 0.2, v: Math.random() * 0.18 + 0.04,
+  }));
+}
+
+function drawParticles() {
+  particleFrame = 0;
+  context.clearRect(0, 0, innerWidth, innerHeight);
+  context.fillStyle = 'rgba(232,236,233,.34)';
+  for (const particle of particles) {
+    particle.y -= particle.v;
+    if (particle.y < -2) particle.y = innerHeight + 2;
+    context.beginPath(); context.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2); context.fill();
+  }
+  if (motionEnabled) particleFrame = requestAnimationFrame(drawParticles);
+}
+
+function syncParticles() {
+  if (!motionEnabled) {
+    if (particleFrame) cancelAnimationFrame(particleFrame);
+    particleFrame = 0;
+  } else if (!particleFrame) drawParticles();
+}
+
+function setMotionEnabled(enabled) {
+  motionEnabled = Boolean(enabled);
+  motionGeneration += 1;
+  updateMotionToggle();
+  syncFilms();
+  syncParticles();
+  if (!motionEnabled) root.style.setProperty('--scroll', '0');
+}
+
 motionToggle.addEventListener('click', () => setMotionEnabled(!motionEnabled));
-motionPreference.addEventListener('change', (event) => setMotionEnabled(!event.matches));
+if (typeof motionPreference.addEventListener === 'function') motionPreference.addEventListener('change', (event) => setMotionEnabled(!event.matches));
+else if (typeof motionPreference.addListener === 'function') motionPreference.addListener((event) => setMotionEnabled(!event.matches));
 
 const ROUTES = {
   shelf: { hours: 3.5, energy: 38, packageName: 'Optical survey package' },
@@ -77,60 +132,37 @@ form.addEventListener('submit', (event) => {
 });
 form.addEventListener('reset', resetMission);
 
-for (const film of films) {
-  film.addEventListener('error', () => film.closest('.chapter').classList.add('video-error'));
+for (const film of films) film.addEventListener('error', () => film.closest('.chapter').classList.add('video-error'));
+if (typeof IntersectionObserver === 'function') {
+  const mediaObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!motionEnabled || !entry.isIntersecting) entry.target.pause();
+      else playFilm(entry.target);
+    }
+  }, { threshold: 0.25 });
+  films.forEach((film) => mediaObserver.observe(film));
+} else {
+  addEventListener('scroll', syncFilms, { passive: true });
+  addEventListener('resize', syncFilms, { passive: true });
 }
-
-const mediaObserver = new IntersectionObserver((entries) => {
-  for (const entry of entries) {
-    const film = entry.target;
-    if (!motionEnabled || !entry.isIntersecting) film.pause();
-    else film.play().catch(() => stopMotionAfterPlaybackFailure(film));
-  }
-}, { threshold: 0.25 });
-films.forEach((film) => mediaObserver.observe(film));
 
 let ticking = false;
 function updateScroll() {
-  const progress = scrollY / Math.max(1, document.body.scrollHeight - innerHeight);
-  root.style.setProperty('--scroll', progress.toFixed(4));
+  if (motionEnabled) {
+    const progress = scrollY / Math.max(1, document.body.scrollHeight - innerHeight);
+    root.style.setProperty('--scroll', progress.toFixed(4));
+  }
   ticking = false;
 }
 addEventListener('scroll', () => {
-  if (!ticking) {
+  if (motionEnabled && !ticking) {
     ticking = true;
     requestAnimationFrame(updateScroll);
   }
 }, { passive: true });
-updateScroll();
-
-const canvas = document.querySelector('#particle-field');
-const context = canvas.getContext('2d');
-let particles = [];
-function sizeCanvas() {
-  const dpr = Math.min(devicePixelRatio || 1, 1.5);
-  canvas.width = innerWidth * dpr;
-  canvas.height = innerHeight * dpr;
-  canvas.style.width = `${innerWidth}px`;
-  canvas.style.height = `${innerHeight}px`;
-  context.setTransform(dpr, 0, 0, dpr, 0, 0);
-  particles = Array.from({ length: Math.min(46, Math.floor(innerWidth / 22)) }, () => ({
-    x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: Math.random() * 1.2 + 0.2, v: Math.random() * 0.18 + 0.04,
-  }));
-}
-function drawParticles() {
-  context.clearRect(0, 0, innerWidth, innerHeight);
-  context.fillStyle = 'rgba(232,236,233,.34)';
-  for (const p of particles) {
-    p.y -= p.v;
-    if (p.y < -2) p.y = innerHeight + 2;
-    context.beginPath(); context.arc(p.x, p.y, p.r, 0, Math.PI * 2); context.fill();
-  }
-  if (!motionPreference.matches) requestAnimationFrame(drawParticles);
-}
-addEventListener('resize', sizeCanvas, { passive: true });
+addEventListener('resize', () => { sizeCanvas(); if (motionEnabled) syncParticles(); }, { passive: true });
 sizeCanvas();
-drawParticles();
+updateScroll();
 setMotionEnabled(motionEnabled);
 
 window.calculateMission = calculateMission;

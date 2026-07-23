@@ -7,7 +7,15 @@
       "poster": "media/so-01.webp",
       "width": 1920,
       "height": 1080,
-      "duration": 8.041667
+      "duration": 8.041667,
+      "audit": {
+        "provider": "not recorded",
+        "generationJob": "not recorded",
+        "reviewStatus": "reviewed for private preview",
+        "fictionalDisclosure": "AI-generated film · fictional scenario/study",
+        "video": { "codec": "h264", "resolution": "1920x1080", "frameRate": "24/1", "audio": "none", "faststart": true, "sha256": "7bf162fc948bbc612b2ed1ed039cb0fd75d943c877782db5175d3e64cbcdd552" },
+        "poster": { "resolution": "1600x900", "sha256": "dba876ba163689565ff5c9428bbadd63a83501d9b420297d8639ddf809616f7c" }
+      }
     },
     {
       "id": "so-02",
@@ -16,7 +24,15 @@
       "poster": "media/so-02.webp",
       "width": 1920,
       "height": 1080,
-      "duration": 8.041667
+      "duration": 8.041667,
+      "audit": {
+        "provider": "not recorded",
+        "generationJob": "not recorded",
+        "reviewStatus": "reviewed for private preview",
+        "fictionalDisclosure": "AI-generated film · fictional scenario/study",
+        "video": { "codec": "h264", "resolution": "1920x1080", "frameRate": "24/1", "audio": "none", "faststart": true, "sha256": "c47e764ee8dfdb958615de33c85ff5d02b3ca03f41435fd3d53cc8f551a1c351" },
+        "poster": { "resolution": "1600x900", "sha256": "33df3c71f9662488e4ec86e00795a2aa5af9bc5dff6f12be072a3776a7dc9ea1" }
+      }
     },
     {
       "id": "so-03",
@@ -26,7 +42,15 @@
       "width": 1920,
       "height": 1080,
       "duration": 8.041667,
-      "note": "Reverse close-down edit from the approved SO-02 Seedance source"
+      "note": "Reverse close-down edit from the approved SO-02 Seedance source",
+      "audit": {
+        "provider": "not recorded",
+        "generationJob": "not recorded",
+        "reviewStatus": "reviewed for private preview",
+        "fictionalDisclosure": "AI-generated film · fictional scenario/study",
+        "video": { "codec": "h264", "resolution": "1920x1080", "frameRate": "24/1", "audio": "none", "faststart": true, "sha256": "db3bb0100e7c5b74f0b0855691ea81263470f9298351c6f43c45a50dabf8f2a6" },
+        "poster": { "resolution": "1600x900", "sha256": "a78e9a4e19da75941261ebcc4f326ced55e7a4158d8eba6a9eb680a94be81093" }
+      }
     }
   ]
 }

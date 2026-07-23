@@ -7,7 +7,15 @@
       "poster": "media/vz-01.webp",
       "width": 1920,
       "height": 1080,
-      "duration": 8.041667
+      "duration": 8.041667,
+      "audit": {
+        "provider": "not recorded",
+        "generationJob": "not recorded",
+        "reviewStatus": "reviewed for private preview",
+        "fictionalDisclosure": "AI-generated film · fictional scenario/study",
+        "video": { "codec": "h264", "resolution": "1920x1080", "frameRate": "24/1", "audio": "none", "faststart": true, "sha256": "27971c596ab2aafa8d6087ee61b25ee2518e7328588d0711d631ccaf7b9478fa" },
+        "poster": { "resolution": "1600x900", "sha256": "b82d6819399eafadaf2af8735b4a50c9be81a5af7d990634a12f5cf78f54ba63" }
+      }
     },
     {
       "id": "vz-02",
@@ -16,7 +24,15 @@
       "poster": "media/vz-02.webp",
       "width": 1920,
       "height": 1080,
-      "duration": 8.041667
+      "duration": 8.041667,
+      "audit": {
+        "provider": "not recorded",
+        "generationJob": "not recorded",
+        "reviewStatus": "reviewed for private preview",
+        "fictionalDisclosure": "AI-generated film · fictional scenario/study",
+        "video": { "codec": "h264", "resolution": "1920x1080", "frameRate": "24/1", "audio": "none", "faststart": true, "sha256": "92c6f239aff7b4a6e64c4e03cea08a3131151161b5df5c00c4ffb4bc199ef461" },
+        "poster": { "resolution": "1600x900", "sha256": "0a1d0299c8c05eaa7d19b7db97c71d49457a6f9b35da851a86dcd1703e414d23" }
+      }
     },
     {
       "id": "vz-03",
@@ -25,7 +41,15 @@
       "poster": "media/vz-03.webp",
       "width": 1920,
       "height": 1080,
-      "duration": 8.041667
+      "duration": 8.041667,
+      "audit": {
+        "provider": "not recorded",
+        "generationJob": "not recorded",
+        "reviewStatus": "reviewed for private preview",
+        "fictionalDisclosure": "AI-generated film · fictional scenario/study",
+        "video": { "codec": "h264", "resolution": "1920x1080", "frameRate": "24/1", "audio": "none", "faststart": true, "sha256": "41b865fe16bb47426ea193ebfb059a7d32b1decb07b2219eb135a8e105ff9011" },
+        "poster": { "resolution": "1600x900", "sha256": "5b245e00376fabee4d43b3eb47820435bbcd6e592943886b4a9585f18bd67e64" }
+      }
     }
   ]
 }

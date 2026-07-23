@@ -64,6 +64,11 @@ a {
   background: var(--sand);
   box-shadow: none;
 }
+
+/* Local system stacks keep the review route free of third-party font requests. */
+body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+.wordmark, .approach h1, .section-copy h2, .planner h2, .material-register h3, .schedule li strong { font-family: Georgia, "Times New Roman", serif !important; }
+.motion-toggle { min-height: 44px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .site-header {
   position: fixed;
   z-index: 10;
@@ -417,6 +422,7 @@ a {
   gap: 0.75rem;
 }
 .form-actions button {
+  min-height: 44px;
   border: 1px solid var(--sand);
   background: var(--sand);
   color: var(--charcoal);
@@ -425,6 +431,12 @@ a {
   letter-spacing: 0.1em;
   font: 600 0.65rem "Source Sans 3";
 }
+.planner input,
+.planner select { min-height: 44px; }
+html[data-motion="off"] .chapter-film { display: none; }
+html[data-motion="off"] .approach { background: var(--charcoal) url("media/so-01.webp") center/cover no-repeat; }
+html[data-motion="off"] .aperture { background: var(--night) url("media/so-02.webp") center/cover no-repeat; }
+html[data-motion="off"] .alignment { background: var(--night) url("media/so-03.webp") center/cover no-repeat; }
 .form-actions button + button {
   background: transparent;
   color: var(--chalk);
