@@ -6,16 +6,19 @@ production="$root/production/opening-film"
 raw="$production/raw"
 rendered="$production/rendered"
 output="$root/assets/cinematic"
+interface_hold="1.8"
+transition="0.291667"
+transition_plate="2.091667"
 
 required=(
   "$raw/shot-01-breakdown.mp4"
   "$raw/shot-02-cleanup.mp4"
   "$raw/shot-03-beach.mp4"
   "$rendered/discovery-email.png"
-  "$rendered/organized-inbox.png"
-  "$rendered/calendar-resolution.png"
-  "$rendered/review-packet.png"
-  "$rendered/approval-queue.png"
+  "$rendered/monitor-organized-inbox.png"
+  "$rendered/monitor-calendar-resolution.png"
+  "$rendered/monitor-review-packet.png"
+  "$rendered/monitor-approval-queue.png"
   "$rendered/overlay-pressure-missed.png"
   "$rendered/overlay-pressure-email.png"
   "$rendered/overlay-pressure-texts.png"
@@ -36,10 +39,10 @@ ffmpeg -hide_banner -loglevel warning -y \
   -i "$raw/shot-01-breakdown.mp4" \
   -framerate 24 -loop 1 -t 2.2 -i "$rendered/discovery-email.png" \
   -i "$raw/shot-02-cleanup.mp4" \
-  -framerate 24 -loop 1 -t 1.8 -i "$rendered/organized-inbox.png" \
-  -framerate 24 -loop 1 -t 1.8 -i "$rendered/calendar-resolution.png" \
-  -framerate 24 -loop 1 -t 1.8 -i "$rendered/review-packet.png" \
-  -framerate 24 -loop 1 -t 1.8 -i "$rendered/approval-queue.png" \
+  -framerate 24 -loop 1 -t "$transition_plate" -i "$rendered/monitor-organized-inbox.png" \
+  -framerate 24 -loop 1 -t "$interface_hold" -i "$rendered/monitor-calendar-resolution.png" \
+  -framerate 24 -loop 1 -t "$interface_hold" -i "$rendered/monitor-review-packet.png" \
+  -framerate 24 -loop 1 -t "$transition_plate" -i "$rendered/monitor-approval-queue.png" \
   -i "$raw/shot-03-beach.mp4" \
   -framerate 24 -loop 1 -t 26.8 -i "$rendered/overlay-pressure-missed.png" \
   -framerate 24 -loop 1 -t 26.8 -i "$rendered/overlay-pressure-email.png" \
@@ -54,13 +57,20 @@ ffmpeg -hide_banner -loglevel warning -y \
     [1:v]${normalize},trim=duration=2.2,setpts=PTS-STARTPTS[v1];
     [2:v]${normalize},split=2[s2a][s2b];
     [s2a]trim=start=0:end=1.4,setpts=PTS-STARTPTS[v2];
-    [3:v]${normalize},trim=duration=1.8,setpts=PTS-STARTPTS[v3];
-    [4:v]${normalize},trim=duration=1.8,setpts=PTS-STARTPTS[v4];
-    [5:v]${normalize},trim=duration=1.8,setpts=PTS-STARTPTS[v5];
-    [6:v]${normalize},trim=duration=1.8,setpts=PTS-STARTPTS[v6];
+    [3:v]${normalize},trim=duration=${transition_plate},setpts=PTS-STARTPTS,
+    scale=w='trunc(1920*(1+0.012*min(n\,7)/7)/2)*2':h='trunc(1080*(1+0.012*min(n\,7)/7)/2)*2':eval=frame,
+    crop=1920:1080[v3];
+    [4:v]${normalize},trim=duration=${interface_hold},setpts=PTS-STARTPTS[v4];
+    [5:v]${normalize},trim=duration=${interface_hold},setpts=PTS-STARTPTS[v5];
+    [6:v]${normalize},trim=duration=${transition_plate},setpts=PTS-STARTPTS,
+    scale=w='trunc(1920*(1.012-0.012*min(n\,7)/7)/2)*2':h='trunc(1080*(1.012-0.012*min(n\,7)/7)/2)*2':eval=frame,
+    crop=1920:1080[v6];
     [s2b]trim=start=5.8:end=8.0,setpts=PTS-STARTPTS[v7];
     [7:v]${normalize},trim=start=0:end=8.0,setpts=PTS-STARTPTS[v8];
-    [v0][v1][v2][v3][v4][v5][v6][v7][v8]concat=n=9:v=1:a=0[story];
+    [v2][v3]xfade=transition=fade:duration=${transition}:offset=1.108333[monitor_in];
+    [monitor_in][v4][v5][v6]concat=n=4:v=1:a=0[monitor_sequence];
+    [monitor_sequence][v7]xfade=transition=fade:duration=${transition}:offset=8.600000[cleanup];
+    [v0][v1][cleanup][v8]concat=n=4:v=1:a=0[story];
     [8:v]fps=24,format=rgba[pressure0];
     [9:v]fps=24,format=rgba[pressure1];
     [10:v]fps=24,format=rgba[pressure2];

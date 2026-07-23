@@ -135,10 +135,33 @@ test('clears every pressure label before the discovery email cut', () => {
 
 test('holds four computer interface cuts for 1.8 seconds in a 26.8 second film', () => {
   const buildScript = read('production/opening-film/build-opening-film.sh');
-  assert.equal((buildScript.match(/trim=duration=1\.8/g) || []).length, 4);
+  assert.match(buildScript, /interface_hold="1\.8"/);
+  assert.equal((buildScript.match(/trim=duration=\$\{interface_hold\}/g) || []).length, 2);
+  assert.match(buildScript, /transition_plate="2\.091667"/);
   assert.equal((buildScript.match(/-r 24 -t 26\.8 -movflags/g) || []).length, 2);
   assert.match(buildScript, /between\(t,23\.0,26\.8\)/);
   assert.match(buildScript, /between\(t,24\.8,26\.8\)/);
+});
+
+test('assembles monitor composites with seven-frame transitions and full reading plateaus', () => {
+  const buildScript = read('production/opening-film/build-opening-film.sh');
+  for (const name of [
+    'monitor-organized-inbox.png',
+    'monitor-calendar-resolution.png',
+    'monitor-review-packet.png',
+    'monitor-approval-queue.png',
+  ]) {
+    assert.match(buildScript, new RegExp(name.replace('.', '\\.')));
+  }
+
+  assert.match(buildScript, /interface_hold="1\.8"/);
+  assert.match(buildScript, /transition="0\.291667"/);
+  assert.match(buildScript, /transition_plate="2\.091667"/);
+  assert.equal((buildScript.match(/duration=\$\{transition\}/g) || []).length, 2);
+  assert.match(buildScript, /offset=1\.108333/);
+  assert.match(buildScript, /offset=8\.600000/);
+  assert.match(buildScript, /scale=w='trunc\(1920\*\(1\+0\.012\*min\(n\\,7\)\/7\)\/2\)\*2'/);
+  assert.match(buildScript, /scale=w='trunc\(1920\*\(1\.012-0\.012\*min\(n\\,7\)\/7\)\/2\)\*2'/);
 });
 
 test('centers a constrained opening film on desktop without shrinking phone layout', () => {
