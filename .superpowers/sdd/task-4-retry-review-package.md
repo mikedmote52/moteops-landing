@@ -413,3 +413,7 @@ index f0ad958..efd1cb1 100644
    assert.equal(prompts.references.beachJobId, 'edb3bca7-2cb7-4cae-b1dc-1bcc71ecea1d');
    assert.deepEqual(Object.keys(prompts.shots), [
      'chaos',
+> Superseded recovery artifact: this captured historical diff contains an
+> inaccurate proposed set-dressing value in Attempt 2. The authoritative
+> corrected ledger is the manifest, test, shot review, retry report, and
+> `recovery-2026-07-23.md` at recovery commit `cb2ba7e`.
