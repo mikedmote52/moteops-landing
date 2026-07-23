@@ -16,8 +16,10 @@ function updateMotionControl() {
 }
 
 function loadFilm(film) {
-  const source = film.querySelector('source[data-src]');
-  if (!source || source.src) return;
+  const sources = [...film.querySelectorAll('source[data-src]')];
+  if (sources.some((source) => source.src)) return;
+  const source = sources.find((candidate) => !candidate.media || matchMedia(candidate.media).matches);
+  if (!source) return;
   source.src = source.dataset.src;
   film.load();
 }
@@ -32,8 +34,19 @@ function pauseFilm(film) {
   film.pause();
 }
 
+function filmCompleted(film) {
+  return film.matches('[data-play-once]') && film.dataset.complete === 'true';
+}
+
+function setFilmComplete(film, complete) {
+  film.dataset.complete = String(complete);
+  const replay = film.closest('[data-opening-story]')?.querySelector('[data-replay-story]');
+  if (replay) replay.hidden = !complete;
+}
+
 function syncFilm(film) {
   if (!motionEnabled || !filmIsVisible(film)) return pauseFilm(film);
+  if (filmCompleted(film)) return pauseFilm(film);
   loadFilm(film);
   const request = (playRequests.get(film) ?? 0) + 1;
   playRequests.set(film, request);
@@ -55,6 +68,20 @@ function setMotionEnabled(enabled) {
 function syncVisibleFilms() {
   studioFilms.forEach(syncFilm);
 }
+
+studioFilms.forEach((film) => {
+  if (!film.matches('[data-play-once]')) return;
+  film.addEventListener('ended', () => {
+    pauseFilm(film);
+    setFilmComplete(film, true);
+  });
+  const replay = film.closest('[data-opening-story]')?.querySelector('[data-replay-story]');
+  replay?.addEventListener('click', () => {
+    setFilmComplete(film, false);
+    film.currentTime = 0;
+    syncFilm(film);
+  });
+});
 
 if ('IntersectionObserver' in window) {
   const filmObserver = new IntersectionObserver((entries) => {

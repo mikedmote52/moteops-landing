@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="site.css?v=cinematic-20260722">
   <link rel="stylesheet" href="owner-story.css?v=cinematic-20260722">
   <link rel="stylesheet" href="cinematic-shell.css?v=cinematic-20260722">
+  <link rel="stylesheet" href="opening-film.css?v=opening-20260723">
   <link rel="stylesheet" href="care-hub-showcase.css?v=cinematic-20260722">
   <link rel="stylesheet" href="studio.css?v=cinematic-20260722">
   <script src="site.js?v=cinematic-20260722" defer></script>
@@ -36,37 +37,36 @@
 
   <main id="main">
     <section class="hero workbench-hero" id="top" aria-labelledby="hero-title" data-page-section data-chapter="PRESSURE">
+      <figure class="opening-story" data-opening-story>
+        <div class="opening-story-frame">
+          <video autoplay muted playsinline preload="none"
+            poster="assets/cinematic/mote-ops-opening-poster.webp"
+            data-cinematic-film data-play-once
+            aria-describedby="opening-story-summary opening-story-disclosure">
+            <source data-src="assets/cinematic/mote-ops-opening-1080.mp4"
+              media="(min-width: 761px)" type="video/mp4">
+            <source data-src="assets/cinematic/mote-ops-opening-720.mp4"
+              type="video/mp4">
+          </video>
+          <button type="button" data-replay-story hidden>Replay story</button>
+        </div>
+        <figcaption>
+          <p id="opening-story-summary">A fictional overwhelmed business owner finds Mote Ops, reviews three prepared decisions, closes the laptop, and gets his afternoon back at the beach.</p>
+          <small id="opening-story-disclosure">AI-generated film · fictional business scenario featuring Mike Mote.</small>
+        </figcaption>
+      </figure>
       <div class="hero-copy">
         <p class="eyebrow"><span class="signal-lamp"></span> SMALL-BUSINESS AI OPERATING SYSTEMS</p>
         <h1 id="hero-title">Your people and tools already do the work. <em>Mote Ops helps them work as one.</em></h1>
         <p class="hero-lede">Mote Ops finds the operational drag, organizes the relevant context, prepares useful work, and keeps consequential actions behind approval.</p>
         <div class="hero-actions">
           <a class="button" id="hero-booking" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Book a fit conversation <span aria-hidden="true">↗</span></a>
-          <a class="text-link" href="#owner-story">Watch pressure become clarity <span aria-hidden="true">↓</span></a>
+          <a class="text-link" href="#owner-story">See how the work gets organized <span aria-hidden="true">↓</span></a>
         </div>
         <div class="hero-trust"><span>Built around your existing tools</span><span>Human approval where it matters</span><span>One accountable builder</span></div>
       </div>
-      <section class="owner-story" id="owner-story" data-owner-story data-owner-story-state="pressure" aria-label="From scattered work to one calm operating view">
-        <article class="owner-scene owner-pressure is-active" data-owner-scene="pressure">
-          <div class="owner-photo">
-            <img src="assets/small-business-owner-overwhelmed-v1.webp" alt="An overwhelmed small-business owner seen from behind at a desk with a ringing phone, computer, laptop, paperwork, and unfinished work.">
-            <ul class="owner-signals" aria-label="Common pressures competing for the owner's attention">
-              <li data-owner-signal="calls"><strong>4</strong> missed calls</li>
-              <li data-owner-signal="email"><strong>37</strong> unread emails</li>
-              <li data-owner-signal="texts"><strong>6</strong> unanswered texts</li>
-              <li data-owner-signal="calendar"><strong>2</strong> calendar conflicts</li>
-              <li data-owner-signal="invoice"><strong>1</strong> overdue invoice</li>
-              <li data-owner-signal="sheet">Spreadsheet needs review</li>
-            </ul>
-          </div>
-          <div class="owner-scene-copy">
-            <span>01 · THE BUSINESS IS EVERYWHERE</span>
-            <h2>The owner should not have to be the operating system.</h2>
-            <p>The work is not broken. It is scattered across places that cannot see the whole day, so one person carries the whole day in their head.</p>
-          </div>
-        </article>
-
-        <article class="owner-scene owner-connect" data-owner-scene="connect">
+      <section class="owner-story" id="owner-story" data-owner-story data-owner-story-state="connect" aria-label="From scattered work to one calm operating view">
+        <article class="owner-scene owner-connect is-active" data-owner-scene="connect">
           <div class="owner-scene-copy">
             <span>02 · CONNECT WHAT ALREADY WORKS</span>
             <h2>We organize the work around you.</h2>
@@ -106,13 +106,6 @@
         <p class="owner-story-truth">Illustrative scenario using fictional business information. Connections are configured around each client's approved systems and boundaries.</p>
       </section>
     </section>
-
-    <figure class="operating-transition" aria-label="Illustrative transition from scattered work to one supervised operating view">
-      <video autoplay muted loop playsinline preload="metadata" poster="assets/cinematic/mote-ops-01.webp" data-cinematic-film>
-        <source data-src="assets/cinematic/mote-ops-01.mp4" type="video/mp4">
-      </video>
-      <figcaption><span>PRESSURE → PREPARED WORK</span><strong>The system prepares. The owner decides.</strong><small>AI-generated film · fictional scenario. Illustrative Mote Ops scenario using fictional business information.</small></figcaption>
-    </figure>
 
     <section class="section-pad" id="demo-gallery" aria-labelledby="gallery-title" data-page-section data-chapter="WORKING PROOF">
       <section class="care-showcase" id="care-hub-showcase" aria-labelledby="gallery-title" data-care-root>

@@ -69,13 +69,13 @@ test('positions Mote Ops as the operating layer for existing people and tools', 
 
 test('shows a truthful small-business chaos-to-control story', () => {
   const hero = elementById('top', 'section').source;
-  const heroText = hero.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   assert.doesNotMatch(hero, /hero-system-plate|hero-inputs|hero-core|hero-outputs/i);
+  assert.match(hero, /data-opening-story/i);
+  assert.match(hero, /fictional overwhelmed business owner finds Mote Ops/i);
+  assert.match(hero, /reviews three prepared decisions/i);
+  assert.match(hero, /gets his afternoon back at the beach/i);
   assert.match(hero, /data-owner-story/i);
-  assert.match(hero, /assets\/small-business-owner-overwhelmed-v1\.webp/i);
-  for (const pressure of ['4 missed calls', '37 unread emails', '6 unanswered texts', '2 calendar conflicts', '1 overdue invoice', 'Spreadsheet needs review']) {
-    assert.match(heroText, new RegExp(pressure, 'i'));
-  }
+  assert.doesNotMatch(hero, /assets\/small-business-owner-overwhelmed-v1\.webp/i);
   for (const source of ['Calls \\+ texts', 'Email', 'Calendar', 'Files \\+ spreadsheets', 'Finance']) {
     assert.match(hero, new RegExp(source, 'i'));
   }
@@ -97,7 +97,6 @@ test('shows a truthful small-business chaos-to-control story', () => {
 });
 
 test('isolates and preserves the owner story presentation', () => {
-  assert.ok(existsSync(resolve(root, 'assets/small-business-owner-overwhelmed-v1.webp')));
   assert.ok(existsSync(resolve(root, 'assets/moteops-transformation-hero-v1.png')));
   assert.match(html, /owner-story\.css\?v=cinematic-20260722/i);
   assert.match(html, /owner-story\.js\?v=cinematic-20260722/i);

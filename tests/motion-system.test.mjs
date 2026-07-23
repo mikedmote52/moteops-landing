@@ -6,7 +6,14 @@ import vm from 'node:vm';
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const js = readFileSync(new URL('../motion-system.js', import.meta.url), 'utf8');
 
-function createHarness({ legacyMediaQuery = false, observer = true, rects = [{ top: 720, bottom: 920 }], cinematicRects = [] } = {}) {
+function createHarness({
+  legacyMediaQuery = false,
+  observer = true,
+  rects = [{ top: 720, bottom: 920 }],
+  cinematicRects = [],
+  reducedMotion = false,
+  viewportWidth = 1440,
+} = {}) {
   const documentListeners = new Map();
   const windowListeners = new Map();
   const observers = [];
@@ -21,30 +28,63 @@ function createHarness({ legacyMediaQuery = false, observer = true, rects = [{ t
     addEventListener(type, listener) { motionToggleListeners.set(type, listener); },
     click() { motionToggleListeners.get('click')?.(); },
   };
-  function createFilms(filmRects, prefix) {
+  function createFilms(filmRects, prefix, { playOnce = false, responsive = false } = {}) {
     return filmRects.map((rect, index) => {
-    const source = { dataset: { src: `${prefix}-${index}.mp4` }, src: '' };
-    const scene = { classList: { add() {} } };
-    return {
-      currentTime: 0,
-      paused: true,
-      pauseCalls: 0,
-      loadCalls: 0,
-      rect: { ...rect },
-      querySelector(selector) { return selector === 'source[data-src]' ? source : null; },
-      closest() { return scene; },
-      getBoundingClientRect() { return this.rect; },
-      load() { this.loadCalls += 1; },
-      pause() { this.paused = true; this.pauseCalls += 1; },
-      play() { this.paused = false; this.currentTime += 1; return Promise.resolve(); },
-      source,
-    };
+      const sources = responsive
+        ? [
+          { dataset: { src: `${prefix}-${index}-1080.mp4` }, src: '', media: '(min-width: 761px)' },
+          { dataset: { src: `${prefix}-${index}-720.mp4` }, src: '', media: '' },
+        ]
+        : [{ dataset: { src: `${prefix}-${index}.mp4` }, src: '', media: '' }];
+      const listeners = new Map();
+      const replayListeners = new Map();
+      const replay = {
+        hidden: true,
+        addEventListener(type, listener) { replayListeners.set(type, listener); },
+        click() { replayListeners.get('click')?.(); },
+      };
+      const story = {
+        querySelector(selector) { return selector === '[data-replay-story]' ? replay : null; },
+      };
+      const scene = { classList: { add() {} } };
+      return {
+        currentTime: 0,
+        duration: 24,
+        dataset: {},
+        paused: true,
+        pauseCalls: 0,
+        playCalls: 0,
+        loadCalls: 0,
+        rect: { ...rect },
+        matches(selector) { return selector === '[data-play-once]' && playOnce; },
+        querySelector(selector) { return selector === 'source[data-src]' ? sources[0] : null; },
+        querySelectorAll(selector) { return selector === 'source[data-src]' ? sources : []; },
+        closest(selector) {
+          if (selector === '[data-opening-story]') return story;
+          if (selector === '[data-studio-study]') return scene;
+          return null;
+        },
+        addEventListener(type, listener) { listeners.set(type, listener); },
+        emit(type) { listeners.get(type)?.(); },
+        getBoundingClientRect() { return this.rect; },
+        load() { this.loadCalls += 1; },
+        pause() { this.paused = true; this.pauseCalls += 1; },
+        play() {
+          this.paused = false;
+          this.playCalls += 1;
+          this.currentTime += 1;
+          return Promise.resolve();
+        },
+        source: sources[0],
+        sources,
+        replay,
+      };
     });
   }
   const films = createFilms(rects, 'film');
-  const cinematicFilms = createFilms(cinematicRects, 'cinematic');
+  const cinematicFilms = createFilms(cinematicRects, 'cinematic', { playOnce: true, responsive: true });
   const mediaQuery = {
-    matches: false,
+    matches: reducedMotion,
     addEventListener: legacyMediaQuery ? undefined : (type, listener) => { if (type === 'change') mediaListeners.push(listener); },
     addListener: (listener) => { mediaListeners.push(listener); },
     emit(matches) {
@@ -109,7 +149,9 @@ function createHarness({ legacyMediaQuery = false, observer = true, rects = [{ t
     CustomEvent: class CustomEvent { constructor(type, init) { this.type = type; this.detail = init.detail; } },
     document,
     innerHeight: 600,
-    matchMedia: () => mediaQuery,
+    matchMedia: (query) => query.includes('prefers-reduced-motion')
+      ? mediaQuery
+      : { matches: !query || query.includes('min-width') ? viewportWidth >= 761 : true },
     window,
     addEventListener: window.addEventListener.bind(window),
   };
@@ -167,12 +209,70 @@ test('keeps the cinematic source deferred until visible with motion on and pause
   harness.scrollFilm(film, 550);
   await settle();
 
-  assert.equal(film.source.src, 'cinematic-0.mp4');
+  assert.equal(film.sources[0].src, 'cinematic-0-1080.mp4');
+  assert.equal(film.sources[1].src, '');
   assert.equal(film.paused, false);
   assert.ok(film.currentTime > 0);
 
   harness.context.window.moteMotion.setMotionEnabled(false);
   assert.equal(film.paused, true);
+});
+
+test('reduced motion keeps every opening source deferred', () => {
+  const harness = createHarness({
+    observer: false,
+    rects: [],
+    cinematicRects: [{ top: 40, bottom: 240 }],
+    reducedMotion: true,
+  });
+  harness.run();
+
+  assert.deepEqual(harness.cinematicFilms[0].sources.map(({ src }) => src), ['', '']);
+  assert.equal(harness.cinematicFilms[0].paused, true);
+});
+
+test('ending a play-once opening reveals replay and prevents automatic restart', async () => {
+  const harness = createHarness({
+    observer: false,
+    rects: [],
+    cinematicRects: [{ top: 40, bottom: 240 }],
+  });
+  harness.run();
+  await settle();
+  const film = harness.cinematicFilms[0];
+  const playCallsBeforeEnd = film.playCalls;
+
+  film.emit('ended');
+  harness.context.window.moteMotion.setMotionEnabled(true);
+  await settle();
+
+  assert.equal(film.dataset.complete, 'true');
+  assert.equal(film.replay.hidden, false);
+  assert.equal(film.paused, true);
+  assert.equal(film.playCalls, playCallsBeforeEnd);
+});
+
+test('replay resets and plays a completed opening only when motion is on and visible', async () => {
+  const harness = createHarness({
+    observer: false,
+    rects: [],
+    cinematicRects: [{ top: 40, bottom: 240 }],
+  });
+  harness.run();
+  await settle();
+  const film = harness.cinematicFilms[0];
+  film.emit('ended');
+  film.currentTime = film.duration;
+  const playCallsBeforeReplay = film.playCalls;
+
+  film.replay.click();
+  await settle();
+
+  assert.equal(film.dataset.complete, 'false');
+  assert.equal(film.replay.hidden, true);
+  assert.ok(film.currentTime < film.duration);
+  assert.equal(film.playCalls, playCallsBeforeReplay + 1);
+  assert.equal(film.paused, false);
 });
 
 test('falls back to initial, scroll, and resize syncing without IntersectionObserver', async () => {

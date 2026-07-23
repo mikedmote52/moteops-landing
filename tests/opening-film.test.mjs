@@ -92,6 +92,25 @@ test('clears every pressure label before the discovery email cut', () => {
   assert.match(buildScript, /between\(t,4\.1,5\.75\)/);
 });
 
+test('opens the homepage with one play-once email-to-beach story', () => {
+  const html = read('index.html');
+  const opening = html.indexOf('data-opening-story');
+  const ownerConnect = html.indexOf('data-owner-scene="connect"');
+  const careHub = html.indexOf('id="care-hub-showcase"');
+  const openingFigure = html.slice(opening, html.indexOf('</figure>', opening));
+  assert.ok(opening > 0 && opening < ownerConnect && ownerConnect < careHub);
+  assert.match(html, /mote-ops-opening-1080\.mp4/);
+  assert.match(html, /mote-ops-opening-720\.mp4/);
+  assert.match(html, /mote-ops-opening-poster\.webp/);
+  assert.match(html, /autoplay muted playsinline/);
+  assert.doesNotMatch(openingFigure, /\sloop(?:\s|>)/);
+  assert.match(html, /data-replay-story[^>]*hidden/);
+  assert.match(html, /AI-generated film · fictional business scenario featuring Mike Mote\./);
+  assert.doesNotMatch(html, /owner-pressure/);
+  assert.doesNotMatch(html, /operating-transition/);
+  assert.doesNotMatch(html, /mote-ops-01\.(?:mp4|webp)/);
+});
+
 test('publishes exact silent fast-start opening masters and poster', {
   skip: !hasFfprobe || !hasSips ? 'ffprobe and sips are required for the local media contract' : false,
 }, () => {

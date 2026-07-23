@@ -46,7 +46,7 @@ if (ownerStory) {
       observer?.disconnect();
       observer = undefined;
       ownerStory.classList.remove('is-owner-story-static');
-      setOwnerStoryState('pressure');
+      setOwnerStoryState(scenes[0]?.dataset.ownerScene);
     }
   }
 

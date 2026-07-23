@@ -68,7 +68,7 @@ test('keeps the approved operating line consistent in document and share metadat
 
 test('visibly labels every cinematic study as AI-generated fictional work', () => {
   for (const path of ['index.html', 'demo/vessel-zero/index.html', 'demo/solaire-01/index.html']) {
-    assert.match(readFileSync(resolve(root, path), 'utf8'), /AI-generated film\s*[·&middot;]\s*fictional scenario(?:\/study)?/i, path);
+    assert.match(readFileSync(resolve(root, path), 'utf8'), /AI-generated film\s*[·&middot;]\s*fictional (?:business )?scenario(?:\/study)?/i, path);
   }
 });
 
