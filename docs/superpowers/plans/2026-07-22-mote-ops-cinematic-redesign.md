@@ -113,7 +113,7 @@ Expected: six tests pass and zero fail.
 - Consumes: local study routes created in Task 1.
 - Produces: `#mote-ops-studio`, three `[data-studio-study]` articles, and two `[data-studio-film]` videos for the motion controller in Task 3.
 
-- [ ] **Step 1: Write the failing Studio hierarchy test**
+- [x] **Step 1: Write the failing Studio hierarchy test**
 
 Add to `tests/site-contract.test.mjs`:
 
@@ -137,7 +137,7 @@ test('places three fictional Studio studies after operational evidence', () => {
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run:
 
@@ -147,7 +147,7 @@ node --test tests/site-contract.test.mjs
 
 Expected: FAIL because `#mote-ops-studio` does not exist.
 
-- [ ] **Step 3: Add the Studio stylesheet and section markup**
+- [x] **Step 3: Add the Studio stylesheet and section markup**
 
 Add to `<head>` in `index.html`:
 
@@ -208,7 +208,7 @@ Create `studio.css` with an asymmetric lead-study layout, Mote Ops palette, squa
 @media(prefers-reduced-motion:reduce){.studio-onde-ring{transform:rotateX(64deg) rotateZ(-9deg)}}
 ```
 
-- [ ] **Step 4: Run the contract test**
+- [x] **Step 4: Run the contract test**
 
 Run:
 
