@@ -17,7 +17,7 @@ test('declares the exact seven-shot silent V3 generation contract', () => {
   assert.equal(manifest.generation.firstPassCredits, 450);
   assert.equal(manifest.generation.provisionalCap, 675);
   assert.equal(manifest.generation.approvedCreditCap, 675);
-  assert.equal(manifest.generation.creditsSpent, 110);
+  assert.equal(manifest.generation.creditsSpent, 164);
   assert.deepEqual(
     manifest.generation.shots.map(({ id, durationSeconds, preflightCredits }) => ({
       id, durationSeconds, preflightCredits,
@@ -35,7 +35,7 @@ test('declares the exact seven-shot silent V3 generation contract', () => {
   assert.deepEqual(
     manifest.generation.shots.map(({ id, status }) => ({ id, status })),
     [
-      { id: 'chaos', status: 'rejected' },
+      { id: 'chaos', status: 'accepted' },
       { id: 'discovery', status: 'not-generated' },
       { id: 'onboarding', status: 'not-generated' },
       { id: 'inbox-calendar', status: 'not-generated' },
@@ -56,16 +56,16 @@ test('does not allow V3 generation without exact approved authority', () => {
   assert.equal(manifest.generation.firstPassCredits, 450);
   assert.equal(manifest.generation.approvedCreditCap, 675);
   assert.ok(manifest.generation.approvedCreditCap >= manifest.generation.firstPassCredits);
-  assert.equal(manifest.generation.creditsSpent, 110);
+  assert.equal(manifest.generation.creditsSpent, 164);
 });
 
-test('records two rejected chaos attempts and stops after the controlled retry', () => {
+test('records two rejected chaos attempts and the accepted clean-start retry', () => {
   const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-v3-manifest.json'));
   const shot = manifest.generation.shots.find(({ id }) => id === 'chaos');
-  assert.equal(shot.status, 'rejected');
-  assert.equal(shot.jobId, 'bc199863-0494-4bca-a76a-32781d65f637');
+  assert.equal(shot.status, 'accepted');
+  assert.equal(shot.jobId, 'd7edc581-53cc-412e-9a48-36546b2b734e');
   assert.equal(shot.credits, 54);
-  assert.equal(shot.attempts.length, 2);
+  assert.equal(shot.attempts.length, 3);
   assert.equal(shot.attempts[0].outcome, 'rejected during frame review');
   assert.match(shot.attempts[0].reason, /smartphone.*loose white paper/i);
   assert.equal(
@@ -93,6 +93,21 @@ test('records two rejected chaos attempts and stops after the controlled retry',
     shot.attempts[1].source.sha256,
     '906f0b1dc255584fadbc120cda9e9ed03013fb1cfb585da26e2b14ce43e9dec7'
   );
+  assert.equal(shot.attempts[2].jobId, 'd7edc581-53cc-412e-9a48-36546b2b734e');
+  assert.equal(shot.attempts[2].credits, 54);
+  assert.equal(shot.attempts[2].outcome, 'accepted during frame review');
+  assert.equal(
+    shot.attempts[2].startImageMediaId,
+    '085b50e6-5a13-4bc9-9006-65bd1d4cfd98'
+  );
+  assert.equal(
+    shot.attempts[2].source.path,
+    'production/opening-film-v3/raw/shot-01-chaos-attempt-03.mp4'
+  );
+  assert.equal(
+    shot.attempts[2].source.sha256,
+    'ec15ed9bfb07e84d0b0ef623599f7eecfbbfdeb6ea161cdf3efcf86fa360f8ab'
+  );
   assert.equal(shot.futureProposal.status, 'clean-start-image-accepted');
   assert.equal(shot.futureProposal.type, 'replace-video-reference-with-clean-start-image');
   assert.equal(
@@ -115,7 +130,7 @@ test('records two rejected chaos attempts and stops after the controlled retry',
     'Mike keeps the corded handset at his left ear for the entire six-second shot. His right forearm remains planted on the bare desk edge and his empty right hand stays still. He never reaches toward, touches, lifts, moves, or handles any desk object. Pressure is conveyed only through his expression and the two waiting employees.'
   );
   assert.ok(shot.review.endsWith('opening-v3-shot-01-review.md'));
-  assert.equal(manifest.generation.creditsSpent, 110);
+  assert.equal(manifest.generation.creditsSpent, 164);
   assert.ok(manifest.generation.creditsSpent <= manifest.generation.approvedCreditCap);
 });
 
@@ -147,7 +162,8 @@ test('records the single accepted clean-start prep image and exact credit spend'
     '9ca41cb4ccf8c38923ec36611f3a9752861828b67642a5bb70ed01a68637da55'
   );
   assert.equal(asset.review, '.superpowers/sdd/opening-v3-clean-start-image-review.md');
-  assert.equal(manifest.generation.creditsSpent, 108 + asset.credits);
+  const acceptedRetry = manifest.generation.shots[0].attempts[2];
+  assert.equal(manifest.generation.creditsSpent, 108 + asset.credits + acceptedRetry.credits);
   assert.ok(manifest.generation.creditsSpent <= manifest.generation.approvedCreditCap);
 });
 
@@ -174,8 +190,11 @@ test('defines prompts that lock Mike, office wardrobe, props, and blank screens'
     assert.equal(shot.params.generate_audio, false, id);
   }
   for (const id of ['chaos', 'discovery', 'onboarding', 'inbox-calendar', 'calls-finance', 'control-restored']) {
-    assert.match(prompts.shots[id].prompt, /charcoal long-sleeve button-down/i);
-    assert.match(prompts.shots[id].prompt, /tattoos.*(?:covered|not visible)/i);
+    assert.match(prompts.shots[id].prompt, /charcoal(?: opaque)? long-sleeve button-down/i);
+    assert.match(
+      prompts.shots[id].prompt,
+      /tattoo.*(?:covered|not visible|visibility or bleed-through)/i
+    );
   }
   assert.match(prompts.shots['beach-payoff'].prompt, /white short-sleeve linen shirt/i);
   assert.match(prompts.shots['beach-payoff'].prompt, /tattoos.*reference/i);

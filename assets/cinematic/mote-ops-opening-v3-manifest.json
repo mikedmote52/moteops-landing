@@ -1,6 +1,6 @@
 {
   "schema": "mote-ops-opening/v3",
-  "status": "shot-01-rejected",
+  "status": "shot-01-accepted",
   "title": "Mote Ops continuity-controlled opening",
   "durationSeconds": 50,
   "audio": false,
@@ -13,7 +13,7 @@
     "firstPassCredits": 450,
     "provisionalCap": 675,
     "approvedCreditCap": 675,
-    "creditsSpent": 110,
+    "creditsSpent": 164,
     "prepAssets": [
       {
         "id": "shot-01-clean-start",
@@ -48,8 +48,8 @@
         "id": "chaos",
         "durationSeconds": 6,
         "preflightCredits": 54,
-        "status": "rejected",
-        "jobId": "bc199863-0494-4bca-a76a-32781d65f637",
+        "status": "accepted",
+        "jobId": "d7edc581-53cc-412e-9a48-36546b2b734e",
         "credits": 54,
         "review": ".superpowers/sdd/opening-v3-shot-01-review.md",
         "attempts": [
@@ -87,6 +87,25 @@
               "durationSeconds": 6.041667,
               "sizeBytes": 6042874,
               "sha256": "906f0b1dc255584fadbc120cda9e9ed03013fb1cfb585da26e2b14ce43e9dec7"
+            }
+          },
+          {
+            "jobId": "d7edc581-53cc-412e-9a48-36546b2b734e",
+            "credits": 54,
+            "outcome": "accepted during frame review",
+            "reason": "The clean start image held throughout the six-second shot. Mike kept the handset at his left ear and his empty right hand planted on the desk. Props, wardrobe, tattoo coverage, two employees, and room geometry remained stable with no object transformation or readable generated text.",
+            "changedPromptVariable": "Use the accepted clean start image as the only motion reference. Mike keeps the handset at his left ear while his empty right hand remains planted and still for the entire shot.",
+            "startImageMediaId": "085b50e6-5a13-4bc9-9006-65bd1d4cfd98",
+            "source": {
+              "path": "production/opening-film-v3/raw/shot-01-chaos-attempt-03.mp4",
+              "codec": "H.264",
+              "width": 1920,
+              "height": 1080,
+              "frameRate": 24,
+              "frameCount": 145,
+              "durationSeconds": 6.041667,
+              "sizeBytes": 3618478,
+              "sha256": "ec15ed9bfb07e84d0b0ef623599f7eecfbbfdeb6ea161cdf3efcf86fa360f8ab"
             }
           }
         ],
