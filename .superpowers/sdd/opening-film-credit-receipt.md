@@ -10,3 +10,13 @@
 - Reference: one-off “Mike Mote Opening” Element from Photos 2, 4, and 5
 - Preset decision: Mike explicitly declined the unrelated “IN THE DARK” preset and approved the literal planned office scenes.
 - Replacement rule: stop after any rejected shot; preflight a one-variable replacement and obtain a higher cap before total spend could exceed 216.
+
+## Replacement approval
+
+- Approval time: 2026-07-23T06:04:02Z
+- Rejected first breakdown attempt: 72 credits spent
+- Corrected breakdown replacement: 72 credits
+- Remaining cleanup plate: 72 credits
+- Remaining beach plate: 72 credits
+- Revised approved cap: 288 credits
+- Changed variable: hardware and screen staging only

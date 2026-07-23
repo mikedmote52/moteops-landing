@@ -15,8 +15,8 @@
   },
   "generation": {
     "model": "Seedance 2.0",
-    "creditsSpent": 72,
-    "approvedCreditCap": 216,
+    "creditsSpent": 216,
+    "approvedCreditCap": 288,
     "preflight": [
       {
         "shotId": "breakdown-discovery",
@@ -50,18 +50,19 @@
       {
         "id": "breakdown-discovery",
         "seconds": 8,
-        "jobId": "7a0e0149-42a0-4958-b4b7-70ee6f053617",
+        "jobId": "879db0a2-91d0-4276-ad5d-169a5606b303",
         "credits": 72,
-        "status": "rejected",
+        "status": "accepted",
+        "attemptCount": 2,
         "review": ".superpowers/sdd/opening-shot-01-review.md"
       },
       {
         "id": "cleanup-control",
         "seconds": 8,
-        "jobId": null,
-        "credits": null,
-        "status": "not-generated",
-        "review": null
+        "jobId": "cf893147-f33c-4cba-926f-418d2cb1c15d",
+        "credits": 72,
+        "status": "accepted",
+        "review": ".superpowers/sdd/opening-shot-02-review.md"
       },
       {
         "id": "beach-payoff",
@@ -79,6 +80,39 @@
         "credits": 72,
         "outcome": "rejected during frame review",
         "reason": "The physical stress performance and camera move worked, but multiple moving monitors and the printer exposed generated interface and manufacturer-style marks that could not be cleanly replaced."
+      },
+      {
+        "shotId": "breakdown-discovery",
+        "jobId": "879db0a2-91d0-4276-ad5d-169a5606b303",
+        "credits": 72,
+        "outcome": "accepted during frame review",
+        "changedPromptVariable": "Hardware and screen staging only.",
+        "source": {
+          "path": "production/opening-film/raw/shot-01-breakdown.mp4",
+          "codec": "H.264",
+          "width": 1920,
+          "height": 1080,
+          "frameRate": 24,
+          "durationSeconds": 8.041667,
+          "sizeBytes": 6164867,
+          "sha256": "f3d210c9a9cb10c4f48b9705dbc4f5d14715883207865713ae9a4291e21bbe0c"
+        }
+      },
+      {
+        "shotId": "cleanup-control",
+        "jobId": "cf893147-f33c-4cba-926f-418d2cb1c15d",
+        "credits": 72,
+        "outcome": "accepted during frame review",
+        "source": {
+          "path": "production/opening-film/raw/shot-02-cleanup.mp4",
+          "codec": "H.264",
+          "width": 1920,
+          "height": 1080,
+          "frameRate": 24,
+          "durationSeconds": 8.041667,
+          "sizeBytes": 6003328,
+          "sha256": "1cd69024821e70a3fa6d6d6e918dec99e2bcf0aee03a45171268dd4554d8c144"
+        }
       }
     ],
     "replacementPreflight": [
@@ -87,7 +121,8 @@
         "credits": 72,
         "changedPromptVariable": "Hardware and screen staging only: one hidden laptop display becomes one blank matte-green replacement surface in the final two seconds; all other screens face away and the printer body remains out of frame.",
         "projectedTotalCredits": 288,
-        "status": "awaiting-higher-cap"
+        "status": "accepted",
+        "approvedAt": "2026-07-23T06:04:02Z"
       }
     ]
   },

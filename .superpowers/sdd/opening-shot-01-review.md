@@ -26,4 +26,19 @@ Change only the hardware and screen staging:
 - crop the printer so only an unbranded paper-output tray is visible;
 - keep every other device screen face-down or facing away.
 
-The replacement must be preflighted before submission. No further generation is authorized above the existing 216-credit cap.
+The replacement was preflighted at 72 credits. Mike then increased the total authorization from 216 to 288 credits before submission.
+
+## Replacement result
+
+Accepted after complete half-second frame review.
+
+- Job: `879db0a2-91d0-4276-ad5d-169a5606b303`
+- Mike remains recognizable across the full shot.
+- The phone call, loose papers, active laptop work, and waiting colleague create credible operational pressure.
+- Hands, phone, paper, and body motion remain physically plausible.
+- The frame contains one laptop screen, which becomes a clean matte-green replacement surface in the final two seconds.
+- No readable generated interface appears.
+- No manufacturer mark is visible at review scale.
+- The final screen is stable and unobstructed enough for the real discovery-email insert.
+
+The accepted local source is 1920×1080 H.264 at 24fps, 8.041667 seconds, with SHA-256 `f3d210c9a9cb10c4f48b9705dbc4f5d14715883207865713ae9a4291e21bbe0c`.
