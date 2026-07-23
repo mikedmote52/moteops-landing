@@ -45,7 +45,7 @@
 - Consumes: current main worktree candidate and feature branch `feat/cinematic-showcase-pair` at `43ade06`.
 - Produces: one recoverable baseline commit plus local `/demo/vessel-zero/` and `/demo/solaire-01/` routes available to homepage links.
 
-- [ ] **Step 1: Verify the current dirty candidate before checkpointing**
+- [x] **Step 1: Verify the current dirty candidate before checkpointing**
 
 Run:
 
@@ -57,7 +57,7 @@ git diff --check
 
 Expected: all tests pass, the static build exits 0, and `git diff --check` prints nothing.
 
-- [ ] **Step 2: Commit only the existing approved candidate files**
+- [x] **Step 2: Commit only the existing approved candidate files**
 
 Run:
 
@@ -68,7 +68,7 @@ git commit -m "feat: checkpoint cinematic Mote Ops homepage candidate"
 
 Expected: the commit contains only the listed homepage, proof, legal, and contract files. Unrelated images, local metadata, and package artifacts remain untouched.
 
-- [ ] **Step 3: Create the isolated redesign worktree**
+- [x] **Step 3: Create the isolated redesign worktree**
 
 Run from the main repository root:
 
@@ -80,7 +80,7 @@ cd .worktrees/moteops-cinematic-redesign
 
 Expected: `.worktrees` is ignored, the new worktree is on `feat/moteops-cinematic-redesign`, and it begins from the checkpoint commit created in Step 2.
 
-- [ ] **Step 4: Import the verified study commits without touching homepage files**
+- [x] **Step 4: Import the verified study commits without touching homepage files**
 
 Run:
 
@@ -90,7 +90,7 @@ git cherry-pick 95a6571 0537e2c 1401a15 dfb55ff 8a8ca70 43ade06
 
 Expected: the two demo directories and their tests are present; `index.html`, `site.css`, `owner-story.css`, and `site.js` show no new cherry-pick diff.
 
-- [ ] **Step 5: Verify the imported study routes**
+- [x] **Step 5: Verify the imported study routes**
 
 Run:
 
