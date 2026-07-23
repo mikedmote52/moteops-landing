@@ -177,6 +177,7 @@ test('composites the invitation and clickthrough into the actor laptop', () => {
   const track = read('production/opening-film/laptop-track.ffscript');
   const discovery = read('production/opening-film/build-laptop-discovery.sh');
   const build = read('production/opening-film/build-opening-film.sh');
+  const laptopCss = read('production/opening-film/laptop-plates.css');
 
   for (const timestamp of ['5.50', '5.75', '6.00', '6.25', '6.50', '6.75']) {
     assert.match(track, new RegExp(`# ${timestamp}`));
@@ -186,10 +187,16 @@ test('composites the invitation and clickthrough into the actor laptop', () => {
   assert.match(discovery, /laptop-email\.png/);
   assert.match(discovery, /laptop-email-click\.png/);
   assert.match(discovery, /laptop-site\.png/);
+  assert.match(discovery, /perspective=/);
+  assert.match(discovery, /sense=destination/);
+  assert.doesNotMatch(discovery, /rotate=/);
+  assert.doesNotMatch(discovery, /scale=w='760/);
   assert.match(discovery, /email_hold="2\.2"/);
   assert.match(discovery, /click_hold="0\.35"/);
   assert.match(discovery, /site_hold="1\.20"/);
   assert.match(discovery, /-t 5\.0/);
+  assert.match(laptopCss, /-apple-system,\s*BlinkMacSystemFont,\s*"Segoe UI"/);
+  assert.doesNotMatch(laptopCss, /\.opened-email h1[\s\S]*?font:\s*700 64px/);
   assert.match(build, /chaos_end="5\.5"/);
   assert.match(build, /interface_hold="1\.8"/);
   assert.match(build, /master_duration="28\.0"/);
