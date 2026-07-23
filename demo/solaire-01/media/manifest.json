@@ -1,0 +1,31 @@
+{
+  "clips": [
+    {
+      "id": "so-01",
+      "source": "source/so-01.mp4",
+      "web": "media/so-01.mp4",
+      "poster": "media/so-01.webp",
+      "width": 1920,
+      "height": 1080,
+      "duration": 8
+    },
+    {
+      "id": "so-02",
+      "source": "source/so-02.mp4",
+      "web": "media/so-02.mp4",
+      "poster": "media/so-02.webp",
+      "width": 1920,
+      "height": 1080,
+      "duration": 8
+    },
+    {
+      "id": "so-03",
+      "source": "source/so-03.mp4",
+      "web": "media/so-03.mp4",
+      "poster": "media/so-03.webp",
+      "width": 1920,
+      "height": 1080,
+      "duration": 8
+    }
+  ]
+}

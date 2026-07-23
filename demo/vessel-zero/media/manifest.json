@@ -1,0 +1,31 @@
+{
+  "clips": [
+    {
+      "id": "vz-01",
+      "source": "source/vz-01.mp4",
+      "web": "media/vz-01.mp4",
+      "poster": "media/vz-01.webp",
+      "width": 1920,
+      "height": 1080,
+      "duration": 8
+    },
+    {
+      "id": "vz-02",
+      "source": "source/vz-02.mp4",
+      "web": "media/vz-02.mp4",
+      "poster": "media/vz-02.webp",
+      "width": 1920,
+      "height": 1080,
+      "duration": 8
+    },
+    {
+      "id": "vz-03",
+      "source": "source/vz-03.mp4",
+      "web": "media/vz-03.mp4",
+      "poster": "media/vz-03.webp",
+      "width": 1920,
+      "height": 1080,
+      "duration": 8
+    }
+  ]
+}
