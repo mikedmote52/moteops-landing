@@ -235,6 +235,22 @@ test('places three fictional Studio studies after operational evidence', () => {
   assert.match(studio.source, /Mote Ops Studio/i);
   assert.match(studio.source, /Systems can work well and still feel exceptional/i);
   assert.equal((studio.source.match(/data-studio-study/gi) ?? []).length, 3);
+  const films = [...studio.source.matchAll(/<video\b[^>]*\bdata-studio-film\b[^>]*>[\s\S]*?<\/video>/gi)].map(([film]) => film);
+  assert.equal(films.length, 2, 'Studio should expose exactly two deferred films');
+  for (const film of films) {
+    const video = film.match(/^<video\b[^>]*>/i)?.[0] ?? '';
+    const poster = attribute(video, 'poster');
+    assert.equal(attribute(video, 'preload'), 'none');
+    assert.ok(poster?.startsWith('demo/'), 'Studio film poster must be local');
+    assert.ok(existsSync(resolve(root, poster)), `missing Studio film poster: ${poster}`);
+    const sources = [...film.matchAll(/<source\b[^>]*>/gi)].map(([source]) => source);
+    assert.equal(sources.length, 1, 'Studio film should have one nested source');
+    const source = sources[0];
+    const dataSrc = attribute(source, 'data-src');
+    assert.ok(dataSrc?.startsWith('demo/'), 'Studio film source must be local and deferred');
+    assert.ok(existsSync(resolve(root, dataSrc)), `missing Studio film source: ${dataSrc}`);
+    assert.doesNotMatch(source, /(?:^|\s)src\s*=/i, 'Studio film source must not eagerly load');
+  }
   for (const route of [
     'demo/onde-halo/index.html',
     'demo/vessel-zero/index.html',
