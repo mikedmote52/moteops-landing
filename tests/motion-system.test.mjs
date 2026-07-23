@@ -6,7 +6,7 @@ import vm from 'node:vm';
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const js = readFileSync(new URL('../motion-system.js', import.meta.url), 'utf8');
 
-function createHarness({ legacyMediaQuery = false, observer = true, rects = [{ top: 720, bottom: 920 }] } = {}) {
+function createHarness({ legacyMediaQuery = false, observer = true, rects = [{ top: 720, bottom: 920 }], cinematicRects = [] } = {}) {
   const documentListeners = new Map();
   const windowListeners = new Map();
   const observers = [];
@@ -21,8 +21,9 @@ function createHarness({ legacyMediaQuery = false, observer = true, rects = [{ t
     addEventListener(type, listener) { motionToggleListeners.set(type, listener); },
     click() { motionToggleListeners.get('click')?.(); },
   };
-  const films = rects.map((rect, index) => {
-    const source = { dataset: { src: `film-${index}.mp4` }, src: '' };
+  function createFilms(filmRects, prefix) {
+    return filmRects.map((rect, index) => {
+    const source = { dataset: { src: `${prefix}-${index}.mp4` }, src: '' };
     const scene = { classList: { add() {} } };
     return {
       currentTime: 0,
@@ -38,7 +39,10 @@ function createHarness({ legacyMediaQuery = false, observer = true, rects = [{ t
       play() { this.paused = false; this.currentTime += 1; return Promise.resolve(); },
       source,
     };
-  });
+    });
+  }
+  const films = createFilms(rects, 'film');
+  const cinematicFilms = createFilms(cinematicRects, 'cinematic');
   const mediaQuery = {
     matches: false,
     addEventListener: legacyMediaQuery ? undefined : (type, listener) => { if (type === 'change') mediaListeners.push(listener); },
@@ -51,7 +55,11 @@ function createHarness({ legacyMediaQuery = false, observer = true, rects = [{ t
   const document = {
     documentElement: { dataset: {} },
     querySelector(selector) { return selector === '[data-motion-toggle]' ? motionToggle : null; },
-    querySelectorAll(selector) { return selector === '[data-studio-film]' ? films : []; },
+    querySelectorAll(selector) {
+      if (selector === '[data-studio-film]') return films;
+      if (selector === '[data-cinematic-film]') return cinematicFilms;
+      return [];
+    },
     addEventListener(type, listener) { documentListeners.set(type, listener); },
     dispatchEvent(event) { documentListeners.get(event.type)?.(event); },
   };
@@ -111,6 +119,7 @@ function createHarness({ legacyMediaQuery = false, observer = true, rects = [{ t
     context,
     document,
     films,
+    cinematicFilms,
     mediaQuery,
     motionToggle,
     run() { vm.runInNewContext(js, context, { filename: 'motion-system.js' }); },
@@ -145,6 +154,25 @@ test('ordinary scrolling assigns a Studio source and starts playback', async () 
   assert.equal(harness.films[0].source.src, 'film-0.mp4');
   assert.ok(harness.films[0].currentTime > 0);
   assert.equal(harness.films[0].paused, false);
+});
+
+test('keeps the cinematic source deferred until visible with motion on and pauses it with motion off', async () => {
+  const harness = createHarness({ rects: [], cinematicRects: [{ top: 720, bottom: 920 }] });
+  harness.run();
+  const film = harness.cinematicFilms[0];
+
+  assert.equal(film.source.src, '');
+  assert.equal(film.paused, true);
+
+  harness.scrollFilm(film, 550);
+  await settle();
+
+  assert.equal(film.source.src, 'cinematic-0.mp4');
+  assert.equal(film.paused, false);
+  assert.ok(film.currentTime > 0);
+
+  harness.context.window.moteMotion.setMotionEnabled(false);
+  assert.equal(film.paused, true);
 });
 
 test('falls back to initial, scroll, and resize syncing without IntersectionObserver', async () => {

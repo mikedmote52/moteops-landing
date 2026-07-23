@@ -2,11 +2,37 @@
   "title": "Mote Ops operating transition film",
   "fictionalScenarioDisclosure": "Illustrative Mote Ops scenario using fictional business information.",
   "generation": {
-    "acceptedSourceJob": "fbf4f283-de62-45a2-bfb1-9bc426dd7d98",
-    "rejectedReplacementJob": "8c30a591-0f17-4b62-8c05-986beb3d5f82",
-    "rejectedReplacementReason": "The replacement showed more obvious generated interface and calendar text artifacts than the accepted composition.",
     "creditsSpent": 72,
-    "creditsApproved": 75
+    "approval": {
+      "currentSessionCreditCap": 75,
+      "firstPreflightCredits": 36,
+      "replacementPreflightCredits": 36,
+      "replacementSubmittedWithinApprovedCap": true,
+      "record": "After the first literal 36-credit preflight, the user approved spending up to 75 credits in this current session. The replacement brought cumulative spend to 72 credits, so no higher cap was needed."
+    },
+    "attempts": [
+      {
+        "jobId": "fbf4f283-de62-45a2-bfb1-9bc426dd7d98",
+        "credits": 36,
+        "outcome": "rejected during frame review",
+        "rejectionReason": "The monitor exposed a manufacturer mark and generated screen text."
+      },
+      {
+        "jobId": "8c30a591-0f17-4b62-8c05-986beb3d5f82",
+        "credits": 36,
+        "preflightCredits": 36,
+        "changedPromptVariable": "The screen and hardware treatment was tightened to require entirely unbranded hardware and softly defocused abstract rows with no readable words, numbers, logos, or interface details.",
+        "unchangedConcept": "The desk scene, stabilized lateral camera move, and cool-to-warm lighting concept remained the same.",
+        "outcome": "rejected during frame review",
+        "rejectionReason": "The replacement produced even more obvious generated screen and calendar interface artifacts."
+      }
+    ],
+    "outputRecovery": {
+      "sourceJob": "fbf4f283-de62-45a2-bfb1-9bc426dd7d98",
+      "timing": "After both raw generations were rejected, the first composition was recovered locally through selective defocus.",
+      "additionalCredits": 0,
+      "noThirdGeneration": true
+    }
   },
   "source": {
     "path": "/tmp/moteops-seedance-review/source.mp4",
@@ -39,7 +65,7 @@
       "sha256": "5eff45a5944e6b22529dbc457931be9c4d69a15dcd58e76aaebb460cc29074a4"
     }
   },
-  "processing": "The accepted clip was scaled from 1280 by 720 to 1920 by 1080 and re-encoded as silent H.264 with faststart. A feathered selective defocus was composited over the monitor and calendar area (source coordinates x=360..1040, y=90..480): luma boxblur radius 8, mask Gaussian feather sigma 28. The mask intentionally leaves the owner, face, hands, phone, and most of the desk unblurred while making generated screen, calendar, and manufacturer-mark detail unreadable.",
+  "processing": "After both raw generations were rejected, the first job clip was locally recovered without another generation. It was scaled from 1280 by 720 to 1920 by 1080 and re-encoded as silent H.264 with faststart. A feathered selective defocus was composited over the monitor and calendar area (source coordinates x=360..1040, y=90..480): luma boxblur radius 8, mask Gaussian feather sigma 28. The mask intentionally leaves the owner, face, hands, phone, and most of the desk unblurred while making generated screen, calendar, and manufacturer-mark detail unreadable.",
   "frameReview": {
     "timesSeconds": [0, 2, 4, 6, 8],
     "result": "Passed. At every reviewed time, monitor and calendar text, numbers, interface detail, and manufacturer mark are unreadable. The owner, hands, face profile, desk geometry, lighting shift, and lateral-move continuity remain acceptable."
