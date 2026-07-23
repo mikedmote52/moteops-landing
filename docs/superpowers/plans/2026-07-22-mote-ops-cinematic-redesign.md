@@ -383,7 +383,7 @@ git commit -m "feat: add accessible cinematic motion system"
 - Consumes: existing three `[data-owner-scene]` states and `mote:motionchange` events.
 - Produces: a full-viewport narrative hero, chapter-numbered page sections, and CSS variables `--page-progress` and `--section-progress`.
 
-- [ ] **Step 1: Update the failing positioning and hierarchy contracts**
+- [x] **Step 1: Update the failing positioning and hierarchy contracts**
 
 Replace the existing hero-positioning assertions in `tests/site-contract.test.mjs` with:
 
@@ -421,7 +421,7 @@ test('stages the existing operating story without hijacking scroll', () => {
 });
 ```
 
-- [ ] **Step 2: Run the focused tests to verify they fail**
+- [x] **Step 2: Run the focused tests to verify they fail**
 
 Run:
 
@@ -431,7 +431,7 @@ node --test tests/site-contract.test.mjs tests/cinematic-shell.test.mjs
 
 Expected: FAIL on the new hero copy and missing cinematic shell.
 
-- [ ] **Step 3: Update hero copy and section chapter attributes**
+- [x] **Step 3: Update hero copy and section chapter attributes**
 
 Use this hero framing in `index.html`:
 
@@ -454,7 +454,7 @@ data-chapter="START"
 
 Use them respectively on `#top`, `#demo-gallery`, `#evidence`, `#mote-ops-studio`, `#method`, and `#start`.
 
-- [ ] **Step 4: Add the cinematic shell assets**
+- [x] **Step 4: Add the cinematic shell assets**
 
 Add versioned stylesheet and script tags in `index.html`.
 
@@ -560,7 +560,7 @@ if (ownerStory) {
 }
 ```
 
-- [ ] **Step 5: Run focused and full tests**
+- [x] **Step 5: Run focused and full tests**
 
 Run:
 
@@ -572,7 +572,7 @@ npm run build
 
 Expected: all tests pass and the build exits 0.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add index.html owner-story.css owner-story.js cinematic-shell.css cinematic-shell.js tests/site-contract.test.mjs tests/cinematic-shell.test.mjs
