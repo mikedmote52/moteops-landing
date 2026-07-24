@@ -247,6 +247,8 @@ test('opens the homepage with one play-once email-to-beach story', () => {
   assert.ok(opening > 0 && opening < ownerConnect && ownerConnect < careHub);
   assert.match(html, /mote-ops-opening-v3-1080\.mp4/);
   assert.match(html, /mote-ops-opening-v3-720\.mp4/);
+  assert.match(html, /mote-ops-opening-v3-1080\.mp4\?v=opening-v3-final-20260723/);
+  assert.match(html, /mote-ops-opening-v3-720\.mp4\?v=opening-v3-final-20260723/);
   assert.match(html, /mote-ops-opening-v3-poster\.jpg/);
   assert.match(html, /autoplay muted playsinline/);
   assert.doesNotMatch(openingFigure, /\sloop(?:\s|>)/);
