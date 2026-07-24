@@ -172,13 +172,13 @@ git commit -m "feat: time opening film consultation link"
 - Consumes: `/tmp/moteops-opening-v3-final-review/mote-ops-opening-v3-50s-review.mp4`
 - Produces: exact silent H.264 production masters at 1920x1080 and 1280x720, 24 fps, 1,200 frames, 50 seconds
 
-- [ ] **Step 1: Prepare and probe the deterministic 720p derivative**
+- [x] **Step 1: Prepare and probe the deterministic 720p derivative**
 
 Encode a temporary 720p fast-start H.264 derivative from the approved review master. Record both files' exact byte sizes and SHA-256 hashes before touching production assets.
 
-- [ ] **Step 2: Write the new expected media contract and confirm RED**
+- [x] **Step 2: Write the new expected media contract and confirm RED**
 
-Update the expected `master1080` and `master720` size/hash values in `tests/opening-film-v3.test.mjs`, and change the expected manifest status to `approved-for-production`, then run:
+Update the expected `master1080` and `master720` size/hash values in `tests/opening-film-v3.test.mjs`, change the expected manifest status to `approved-for-production`, and require the exact four release-revision jobs and 711.5-credit total, then run:
 
 ```bash
 node --test --test-name-pattern="renders exact 50-second" tests/opening-film-v3.test.mjs
@@ -186,11 +186,11 @@ node --test --test-name-pattern="renders exact 50-second" tests/opening-film-v3.
 
 Expected: FAIL because production still contains the previous masters.
 
-- [ ] **Step 3: Replace both production masters and update the manifest**
+- [x] **Step 3: Replace both production masters and update the manifest**
 
-Copy the approved 1080p review master and prepared 720p derivative to their production paths. Update the manifest's output size/hash metadata and set its status to `approved-for-production`.
+Copy the approved 1080p review master and prepared 720p derivative to their production paths. Update the manifest's output size/hash metadata, add the exact Scene 2 and Scene 8 revision ledger, record the final 711.5-credit approved cap and spend, and set its status to `approved-for-production`.
 
-- [ ] **Step 4: Verify the media contract is GREEN**
+- [x] **Step 4: Verify the media contract is GREEN**
 
 Run:
 
@@ -202,7 +202,7 @@ ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,nb_fr
 
 Expected: test PASS; both videos report H.264, 24 fps, 1,200 frames, and 50.000000 seconds with the intended dimensions.
 
-- [ ] **Step 5: Commit the approved masters**
+- [x] **Step 5: Commit the approved masters**
 
 ```bash
 git add assets/cinematic/mote-ops-opening-v3-1080.mp4 assets/cinematic/mote-ops-opening-v3-720.mp4 assets/cinematic/mote-ops-opening-v3-manifest.json tests/opening-film-v3.test.mjs

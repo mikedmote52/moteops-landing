@@ -17,8 +17,8 @@ test('declares the exact seven-shot silent V3 generation contract', () => {
   assert.equal(manifest.generation.resolution, '1080p');
   assert.equal(manifest.generation.firstPassCredits, 450);
   assert.equal(manifest.generation.provisionalCap, 675);
-  assert.equal(manifest.generation.approvedCreditCap, 675);
-  assert.equal(manifest.generation.creditsSpent, 566);
+  assert.equal(manifest.generation.approvedCreditCap, 711.5);
+  assert.equal(manifest.generation.creditsSpent, 711.5);
   assert.deepEqual(
     manifest.generation.shots.map(({ id, durationSeconds, preflightCredits }) => ({
       id, durationSeconds, preflightCredits,
@@ -55,9 +55,9 @@ test('declares the exact seven-shot silent V3 generation contract', () => {
 test('does not allow V3 generation without exact approved authority', () => {
   const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-v3-manifest.json'));
   assert.equal(manifest.generation.firstPassCredits, 450);
-  assert.equal(manifest.generation.approvedCreditCap, 675);
+  assert.equal(manifest.generation.approvedCreditCap, 711.5);
   assert.ok(manifest.generation.approvedCreditCap >= manifest.generation.firstPassCredits);
-  assert.equal(manifest.generation.creditsSpent, 566);
+  assert.equal(manifest.generation.creditsSpent, 711.5);
 });
 
 test('records two rejected chaos attempts and the accepted clean-start retry', () => {
@@ -131,7 +131,7 @@ test('records two rejected chaos attempts and the accepted clean-start retry', (
     'Mike keeps the corded handset at his left ear for the entire six-second shot. His right forearm remains planted on the bare desk edge and his empty right hand stays still. He never reaches toward, touches, lifts, moves, or handles any desk object. Pressure is conveyed only through his expression and the two waiting employees.'
   );
   assert.ok(shot.review.endsWith('opening-v3-shot-01-review.md'));
-  assert.equal(manifest.generation.creditsSpent, 566);
+  assert.equal(manifest.generation.creditsSpent, 711.5);
   assert.ok(manifest.generation.creditsSpent <= manifest.generation.approvedCreditCap);
 });
 
@@ -181,10 +181,46 @@ test('records all accepted prep images and exact credit spend', () => {
     .filter(({ outcome }) => outcome === 'rejected during frame review')
     .reduce((sum, { credits }) => sum + credits, 0);
   const prepCredits = manifest.generation.prepAssets.reduce((sum, { credits }) => sum + credits, 0);
+  const releaseRevisionCredits = manifest.generation.releaseRevisions
+    .reduce((sum, { credits }) => sum + credits, 0);
   assert.equal(manifest.generation.creditsSpent,
-    acceptedShotCredits + rejectedShotCredits + prepCredits);
-  assert.equal(manifest.generation.creditsSpent, 566);
+    acceptedShotCredits + rejectedShotCredits + prepCredits + releaseRevisionCredits);
+  assert.equal(manifest.generation.creditsSpent, 711.5);
   assert.ok(manifest.generation.creditsSpent <= manifest.generation.approvedCreditCap);
+});
+
+test('records the exact final-release revision jobs and outcomes', () => {
+  const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-v3-manifest.json'));
+  assert.deepEqual(manifest.generation.releaseRevisions, [
+    {
+      id: 'scene-02-framing-still',
+      jobId: '3429d560-9352-489b-acd0-cee926eabb8b',
+      model: 'Nano Banana 2',
+      credits: 1.5,
+      outcome: 'accepted as Scene 2 motion start image',
+    },
+    {
+      id: 'scene-02-discovery-motion',
+      jobId: '9a8548cf-3c00-46aa-85ef-0ce2fc2677c7',
+      model: 'Seedance 2.0',
+      credits: 72,
+      outcome: 'accepted in final release',
+    },
+    {
+      id: 'scene-08-beach-attempt',
+      jobId: '23a51949-e3f5-4142-b5b1-d67b492a69c4',
+      model: 'Seedance 2.0',
+      credits: 36,
+      outcome: 'rejected for ponytail or bun hairstyle drift',
+    },
+    {
+      id: 'scene-08-beach-retry',
+      jobId: '85938856-dd72-4ccc-b090-3c0d4c8b31ce',
+      model: 'Seedance 2.0',
+      credits: 36,
+      outcome: 'accepted in final release',
+    },
+  ]);
 });
 
 test('records exact accepted Seedance jobs and source hashes for every final shot', () => {
@@ -351,7 +387,7 @@ test('assembles an exact silent 50-second master with perspective-matched device
 
 test('renders exact 50-second silent 1080p and 720p masters', () => {
   const manifest = JSON.parse(read('assets/cinematic/mote-ops-opening-v3-manifest.json'));
-  assert.equal(manifest.status, 'masters-assembled-awaiting-site-integration');
+  assert.equal(manifest.status, 'approved-for-production');
   assert.deepEqual(manifest.outputs, {
     master1080: {
       path: 'assets/cinematic/mote-ops-opening-v3-1080.mp4',
@@ -360,8 +396,8 @@ test('renders exact 50-second silent 1080p and 720p masters', () => {
       frameRate: 24,
       frameCount: 1200,
       durationSeconds: 50,
-      sizeBytes: 21877931,
-      sha256: 'f6e6073a2ae7d2e627921f42b5954816465807e282b8d21851f367ad4268cb05',
+      sizeBytes: 19041259,
+      sha256: '13438ee4c7ee83135377d849d668c7936480c9e521fe61e99493543f8aa11b34',
     },
     master720: {
       path: 'assets/cinematic/mote-ops-opening-v3-720.mp4',
@@ -370,8 +406,8 @@ test('renders exact 50-second silent 1080p and 720p masters', () => {
       frameRate: 24,
       frameCount: 1200,
       durationSeconds: 50,
-      sizeBytes: 6720682,
-      sha256: 'a7c88ca7372002726260ff78c595d0bf2157dbc3118414153462fd2139989cbf',
+      sizeBytes: 6455253,
+      sha256: '75fbc0baf897a3d20abbcccca91618c2c1cabc8bb7cc0de49fac41e9622b68e4',
     },
     poster: {
       path: 'assets/cinematic/mote-ops-opening-v3-poster.jpg',
