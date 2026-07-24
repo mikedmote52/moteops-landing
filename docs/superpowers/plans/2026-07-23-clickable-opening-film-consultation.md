@@ -30,7 +30,7 @@
 - Consumes: existing `.opening-story-frame` 16:9 coordinate system
 - Produces: `[data-opening-consultation]`, an anchor with `data-active="false"` and `tabindex="-1"`
 
-- [ ] **Step 1: Write the failing markup and style contract**
+- [x] **Step 1: Write the failing markup and style contract**
 
 Add a test requiring:
 
@@ -43,7 +43,7 @@ assert.match(css, /\[data-opening-consultation\][\s\S]*min-height:\s*44px/);
 assert.match(css, /\[data-opening-consultation\]\[data-active="false"\][\s\S]*pointer-events:\s*none/);
 ```
 
-- [ ] **Step 2: Run the focused test and confirm RED**
+- [x] **Step 2: Run the focused test and confirm RED**
 
 Run:
 
@@ -53,7 +53,7 @@ node --test --test-name-pattern="play-once email-to-beach story|clickable consul
 
 Expected: FAIL because `data-opening-consultation` is absent.
 
-- [ ] **Step 3: Add the minimal link and responsive positioning**
+- [x] **Step 3: Add the minimal link and responsive positioning**
 
 Inside `.opening-story-frame`, after the video, add:
 
@@ -69,11 +69,11 @@ Inside `.opening-story-frame`, after the video, add:
 
 Style the link as an absolute hit target over the final card's `moteops.tech` box with `left: 67%`, `top: 56%`, `width: 22%`, and `height: 10%`. Keep it visually transparent except for keyboard focus, use `min-height: 44px`, and disable visibility and pointer events while `data-active="false"`.
 
-- [ ] **Step 4: Run the focused test and confirm GREEN**
+- [x] **Step 4: Run the focused test and confirm GREEN**
 
 Run the focused command from Step 2. Expected: PASS.
 
-- [ ] **Step 5: Commit the semantic action**
+- [x] **Step 5: Commit the semantic action**
 
 ```bash
 git add index.html opening-film.css tests/opening-film.test.mjs

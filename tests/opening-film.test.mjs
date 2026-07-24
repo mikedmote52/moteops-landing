@@ -262,6 +262,20 @@ test('opens the homepage with one play-once email-to-beach story', () => {
   assert.doesNotMatch(html, /mote-ops-01\.(?:mp4|webp)/);
 });
 
+test('makes the final opening-film consultation action a real accessible link', () => {
+  const html = read('index.html');
+  const css = read('opening-film.css');
+  const opening = html.indexOf('data-opening-story');
+  const openingFigure = html.slice(opening, html.indexOf('</figure>', opening));
+
+  assert.match(openingFigure, /data-opening-consultation/);
+  assert.match(openingFigure, /href="https:\/\/calendly\.com\/mikedmote\/30min"/);
+  assert.match(openingFigure, /data-active="false"/);
+  assert.match(openingFigure, /tabindex="-1"/);
+  assert.match(css, /\[data-opening-consultation\][\s\S]*min-height:\s*44px/);
+  assert.match(css, /\[data-opening-consultation\]\[data-active="false"\][\s\S]*pointer-events:\s*none/);
+});
+
 test('publishes exact silent fast-start opening masters and poster', {
   skip: !hasFfprobe || !hasSips ? 'ffprobe and sips are required for the local media contract' : false,
 }, () => {

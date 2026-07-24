@@ -42,6 +42,30 @@
   width: 100%;
 }
 
+.opening-story [data-opening-consultation] {
+  color: transparent;
+  height: 10%;
+  left: 67%;
+  min-height: 44px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: -9999px;
+  top: 56%;
+  width: 22%;
+  z-index: 3;
+}
+
+.opening-story [data-opening-consultation][data-active="false"] {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.opening-story [data-opening-consultation]:focus-visible {
+  border-radius: 2px;
+  outline: 4px solid #f5f1e8;
+  outline-offset: 4px;
+}
+
 .opening-story [data-replay-story] {
   background: #f5f1e8;
   border: 2px solid #181a16;
