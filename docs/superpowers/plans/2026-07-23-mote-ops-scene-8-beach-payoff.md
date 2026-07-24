@@ -252,3 +252,27 @@ Encode exactly 3.5 seconds at 1920 by 1080, 24 fps, silent H.264. Use restrained
 - [x] **Step 3: Publish the card separately**
 
 Publish only the end card to the private review project and stop for approval before joining the 50-second film.
+
+### Task 6: Join the approved exact 50-second review
+
+**Files:**
+- Read: `/tmp/moteops-scene-07-green-close-review/scenes-01-through-07-green-close.mp4`
+- Read: `/tmp/moteops-scene-08-retry/scene-08-beach-payoff-longer-stare.mp4`
+- Read: `/tmp/moteops-final-card/final-consultation-card.mp4`
+- Create: `/tmp/moteops-opening-v3-final-review/mote-ops-opening-v3-50s-review.mp4`
+
+**Interfaces:**
+- Consumes: Mike's approval of Scenes 1–8 and the final consultation card
+- Produces: one exact 50-second private full-film review
+
+- [x] **Step 1: Join the three approved segments**
+
+Join the locked 38.5-second opening, exact eight-second beach payoff, and exact 3.5-second final consultation card. Re-encode once to uniform silent H.264 at 1920 by 1080 and 24 fps.
+
+- [x] **Step 2: Verify the media contract and transitions**
+
+Require exactly 1,200 frames and 50.000000 seconds with no audio. Inspect frames on both sides of the 38.5-second office-to-beach cut and the 46.5-second beach-to-card cut.
+
+- [x] **Step 3: Publish only the private full-film review**
+
+Deploy the complete review to the linked private Vercel review project, verify 390 by 844 playback, run all repository tests, and stop before production.
