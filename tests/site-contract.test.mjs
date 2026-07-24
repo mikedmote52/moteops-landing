@@ -255,6 +255,8 @@ test('places three fictional Studio studies after operational evidence', () => {
     'demo/vessel-zero/index.html',
     'demo/solaire-01/index.html',
   ]) assert.match(studio.source, new RegExp(`href=["']${route.replaceAll('/', '\\/')}["']`, 'i'));
+  assert.match(studio.source, /<img\b[^>]*class=["'][^"']*studio-onde-poster[^"']*["'][^>]*src=["']demo\/onde-halo\/assets\/hyperbelt-poster\.webp["']/i);
+  assert.match(studio.source, /Interactive 3D product/i);
   assert.equal((studio.source.match(/FICTIONAL (?:PRODUCT|DESIGN) (?:CONCEPT|STUDY)/gi) ?? []).length, 3);
   assert.doesNotMatch(studio.source, /client result|measured outcome|production install/i);
   assert.match(studioCss, /\.studio-heading \.kicker\{color:#d37b4c\}/i);

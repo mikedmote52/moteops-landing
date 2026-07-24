@@ -3,46 +3,60 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#090a0b">
-  <meta name="description" content="ONDE HALO: a cinematic fictional product concept and Mote Ops design demonstration.">
-  <title>ONDE HALO — Sound, suspended.</title>
-  <link rel="stylesheet" href="site.css">
+  <meta name="theme-color" content="#080908">
+  <meta name="description" content="ONDE HALO: a cinematic fictional product concept and Mote Ops interactive design demonstration.">
+  <title>ONDE HALO | Sound, suspended.</title>
+  <link rel="stylesheet" href="site.css?v=20260723-task6d">
 </head>
 <body>
-  <a class="skip-link" href="#thesis">Skip product film</a>
+  <a class="skip-link" href="#thesis">Skip product introduction</a>
+
+  <div class="hyperbelt" aria-hidden="true">
+    <video data-hyperbelt-video muted loop playsinline preload="none" poster="assets/hyperbelt-poster.webp">
+      <source src="assets/hyperbelt-seedance.mp4" type="video/mp4">
+    </video>
+    <div class="hyperbelt-poster" data-video-fallback hidden aria-hidden="true"></div>
+    <div class="hyperbelt-vignette"></div>
+  </div>
+
   <canvas id="sound-field" aria-hidden="true"></canvas>
   <div class="noise" aria-hidden="true"></div>
 
   <header class="site-header">
     <a class="wordmark" href="#hero" aria-label="ONDE HALO home"><span>O</span>ONDE</a>
-    <p class="edition">Object 01 / 2026</p>
+    <p class="edition">Object 01 / Spatial audio study</p>
     <button class="sound-control" type="button" data-sound-toggle aria-pressed="false">
       <span class="sound-glyph" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       <span data-sound-label>Sound on</span>
     </button>
   </header>
 
-  <div class="product-stage" aria-hidden="true">
-    <div class="orbital orbital-a"></div>
-    <div class="orbital orbital-b"></div>
-    <div class="halo-product">
-      <div class="product-shadow"></div>
-      <div class="halo-shell">
-        <div class="shell-rim shell-rim-outer"></div>
-        <div class="shell-rim shell-rim-inner"></div>
-        <div class="speaker-mesh"></div>
-        <div class="halo-mark">O</div>
-      </div>
-      <div class="driver-array">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-      </div>
-      <div class="magnet-core"><span></span></div>
-      <div class="copper-plinth">
-        <div class="plinth-top"></div>
-        <div class="plinth-face"><span>HALO</span><i></i></div>
+  <div class="halo-viewport product-stage">
+    <canvas data-halo-canvas tabindex="0" aria-describedby="halo-model-instructions" role="application" aria-label="Interactive 3D model of the fictional ONDE HALO speaker"></canvas>
+    <p class="visually-hidden" id="halo-model-instructions">Use arrow keys to rotate. Use plus or minus keys to zoom.</p>
+    <div class="halo-css-fallback" data-webgl-fallback aria-hidden="true">
+      <div class="orbital orbital-a"></div>
+      <div class="orbital orbital-b"></div>
+      <div class="halo-product">
+        <div class="product-shadow"></div>
+        <div class="halo-shell">
+          <div class="shell-rim shell-rim-outer"></div>
+          <div class="shell-rim shell-rim-inner"></div>
+          <div class="speaker-mesh"></div>
+          <div class="halo-mark">O</div>
+        </div>
+        <div class="driver-array">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="magnet-core"><span></span></div>
+        <div class="copper-plinth">
+          <div class="plinth-top"></div>
+          <div class="plinth-face"><span>HALO</span><i></i></div>
+        </div>
       </div>
     </div>
+    <p class="drag-hint"><span aria-hidden="true">↔</span> Drag the object</p>
   </div>
 
   <main>
@@ -53,17 +67,19 @@
         <p class="lede">A levitating 360-degree loudspeaker shaped around the room, not pointed at it.</p>
       </div>
       <div class="hero-spec" aria-label="Illustrative product highlights">
-        <span>360° array</span><span>Magnetic suspension</span><span>Spatial field</span>
+        <span>12 radial drivers</span>
+        <span>Magnetic suspension</span>
+        <span>Spatial field</span>
       </div>
       <a class="scroll-cue" href="#thesis"><span>Enter the field</span><i aria-hidden="true"></i></a>
     </section>
 
     <section id="thesis" data-stage="thesis" aria-labelledby="thesis-title">
-      <div class="chapter-index" aria-hidden="true">01</div>
+      <p class="chapter-number" aria-hidden="true">01 / Field</p>
       <div class="chapter-copy text-scrim">
         <p class="eyebrow">No front. No back.</p>
         <h2 id="thesis-title">The room becomes<br>the instrument.</h2>
-        <p>Conventional speakers push sound in one direction. HALO arranges twelve micro-drivers around an uninterrupted ring, opening the image in every direction at once.</p>
+        <p>Conventional speakers push sound in one direction. HALO imagines twelve micro-drivers arranged around an uninterrupted ring, opening the image in every direction at once.</p>
       </div>
       <div class="metric-stack" aria-label="Illustrative concept specifications">
         <div><strong>12</strong><span>radial drivers</span></div>
@@ -88,8 +104,8 @@
     <section id="field" data-stage="field" aria-labelledby="field-title">
       <div class="field-copy text-scrim">
         <p class="eyebrow">Living sound field</p>
-        <h2 id="field-title">You do not sit<br>in the sweet spot.</h2>
-        <p>The sweet spot comes to you. Move across the field. Turn sound on. Watch the room answer.</p>
+        <h2 id="field-title">The sweet spot<br>comes to you.</h2>
+        <p>Move around the object. Separate its construction. Turn on the procedural sound field and watch the room answer.</p>
         <button class="inline-sound" type="button" data-sound-toggle aria-pressed="false">
           <span data-sound-label>Activate sound field</span><i aria-hidden="true">↗</i>
         </button>
@@ -116,17 +132,30 @@
       <div class="finale-copy text-scrim">
         <p class="eyebrow">ONDE / HALO</p>
         <h2 id="finale-title">Hear the space<br>between things.</h2>
-        <p class="concept-note">A fictional product concept. A Mote Ops design demonstration.</p>
+        <p class="concept-note">Fictional product concept. Seedance-generated atmosphere. Real-time browser 3D, interface, motion, and sound design by Mote Ops.</p>
         <a class="final-link" href="../../index.html#demo-gallery">See what Mote Ops can build <span aria-hidden="true">↗</span></a>
         <p class="no-commerce">No preorder. No checkout. Just the possibility, made visible.</p>
       </div>
       <footer>
-        <span>Creative direction, interaction, motion, and code by Mote Ops.</span>
+        <span>A Mote Ops design demonstration.</span>
         <span>ONDE and HALO are fictional marks.</span>
       </footer>
     </section>
   </main>
 
-  <script src="site.js" defer></script>
+  <aside class="product-console" aria-label="HALO product inspection controls">
+    <div class="console-head">
+      <span>Object 01</span>
+      <p data-product-status aria-live="polite">Full object view.</p>
+    </div>
+    <div class="mode-controls">
+      <button type="button" data-product-mode="assembled" aria-pressed="true"><i>01</i>Full object</button>
+      <button type="button" data-product-mode="shell" aria-pressed="false"><i>02</i>Acoustic shell</button>
+      <button type="button" data-product-mode="core" aria-pressed="false"><i>03</i>Magnetic core</button>
+      <button type="button" data-product-explode aria-pressed="false"><i>04</i>Explode construction</button>
+    </div>
+  </aside>
+
+  <script type="module" src="site.js?v=20260723-task6e"></script>
 </body>
 </html>
