@@ -37,5 +37,15 @@
       "prompt": "<<<089862a9-bb77-4b46-88dd-14629f777d5c>>> Mike Mote Opening, eight-second natural dry-humor commercial payoff at the same understated beach as the beach video reference. Mike has the exact same face, beard, hair, age, glasses state, and body proportions as the accepted office sequence. He intentionally wears one white short-sleeve linen shirt. Tattoos are visible only on naturally exposed arms and follow the placement and dark ink character in Mike's supplied reference photographs; tattoos do not move, multiply, or change. Mike looks down at a phone for three full seconds, then smiles and looks toward the water as the camera gently widens. The phone display is one flat uninterrupted matte chroma green surface color 0x008a50, stable inside the bezel and unobstructed for tracking. Natural daylight, restrained color, clean negative space on the left for final copy. No luxury-resort staging, no other recognizable person, no malformed hands, no moving tattoos, no generated phone text, no readable generated text or logos.",
       "params": { "duration": 8, "aspect_ratio": "16:9", "resolution": "1080p", "mode": "std", "bitrate_mode": "standard", "genre": "comedy", "generate_audio": false, "count": 1 }
     }
+  },
+  "proposedShots": {
+    "beach-payoff-redesign": {
+      "prompt": "<<<089862a9-bb77-4b46-88dd-14629f777d5c>>> Mote Ops beach payoff, one fresh eight-second continuous photoreal commercial performance at the same understated beach, wardrobe, sunset light, and restrained color as the supplied beach continuity reference. Preserve Mike Mote's exact face, beard, hair, age, body proportions, sunglasses, white short-sleeve linen shirt, and real dark-ink arm tattoo placement. Mike walks naturally into a medium beach frame, settles, reaches into one trouser pocket, pulls out one consistent modern phone, raises it, studies it briefly, gives one small relieved smile, lowers or pockets the phone, and turns his attention toward the ocean. Keep Mike and the phone visible with enough detail from 3.0 through 5.5 seconds for a deliberate close editorial insert. The phone display is one flat uninterrupted matte chroma green surface, exact color 0x008a50, fully contained inside the bezel and unobstructed by fingers. The camera remains on the same side with one restrained steady movement. Natural body motion and hands. No internal scene cuts, morphs, dissolves, time jumps, extra people, extra phones, phone duplication, object transformation, wardrobe change, moving tattoos, tattoo bleed-through, malformed hands, generated text, logos, luxury-resort staging, exaggerated acting, or broad commercial posing.",
+      "params": { "duration": 8, "aspect_ratio": "16:9", "resolution": "1080p", "mode": "std", "bitrate_mode": "high", "genre": "comedy", "generate_audio": false, "count": 1 },
+      "references": { "videoJobId": "edb3bca7-2cb7-4cae-b1dc-1bcc71ecea1d" },
+      "preflightCredits": 72,
+      "approvedProjectCreditsRemaining": 35.5,
+      "status": "blocked-pending-exact-credit-approval"
+    }
   }
 }

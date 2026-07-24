@@ -34,13 +34,13 @@
 - Consumes: completed Mote Ops reference element, existing accepted beach continuity job, approved Scene 8 design
 - Produces: exact prompt package and exact credit cost, with no submitted generation
 
-- [ ] **Step 1: Confirm the model contract**
+- [x] **Step 1: Confirm the model contract**
 
 Use the Higgsfield model catalog to confirm Seedance 2.0 accepts eight seconds, 16:9, standard mode, 1080p, silent output, image references, and video references.
 
-- [ ] **Step 2: Save the exact prompt package**
+- [x] **Step 2: Save the exact prompt package**
 
-Store this prompt under `shots["beach-payoff-redesign"]`:
+Store this prompt under `proposedShots["beach-payoff-redesign"]` so the blocked revision does not enter the accepted seven-shot contract:
 
 ```text
 <<<089862a9-bb77-4b46-88dd-14629f777d5c>>> Mote Ops beach payoff, one fresh eight-second continuous photoreal commercial performance at the same understated beach, wardrobe, sunset light, and restrained color as the supplied beach continuity reference. Preserve Mike Mote's exact face, beard, hair, age, body proportions, sunglasses, white short-sleeve linen shirt, and real dark-ink arm tattoo placement. Mike walks naturally into a medium beach frame, settles, reaches into one trouser pocket, pulls out one consistent modern phone, raises it, studies it briefly, gives one small relieved smile, lowers or pockets the phone, and turns his attention toward the ocean. Keep Mike and the phone visible with enough detail from 3.0 through 5.5 seconds for a deliberate close editorial insert. The phone display is one flat uninterrupted matte chroma green surface, exact color 0x008a50, fully contained inside the bezel and unobstructed by fingers. The camera remains on the same side with one restrained steady movement. Natural body motion and hands. No internal scene cuts, morphs, dissolves, time jumps, extra people, extra phones, phone duplication, object transformation, wardrobe change, moving tattoos, tattoo bleed-through, malformed hands, generated text, logos, luxury-resort staging, exaggerated acting, or broad commercial posing.
@@ -62,11 +62,11 @@ Store these parameters with the prompt:
 }
 ```
 
-- [ ] **Step 3: Run a zero-spend cost preflight**
+- [x] **Step 3: Run a zero-spend cost preflight**
 
 Call Seedance 2.0 with the exact prompt, parameters, existing accepted beach job as `video_references`, and `get_cost: true`. Confirm the response contains a credit cost and no generation job.
 
-- [ ] **Step 4: Enforce the owner gate**
+- [x] **Step 4: Enforce the owner gate**
 
 Report the exact cost and full creative summary to Mike. Stop until he approves that exact spend. If the cost exceeds the recorded 35.5-credit project remainder, do not submit the job.
 
