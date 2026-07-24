@@ -44,6 +44,12 @@
       "params": { "duration": 8, "aspect_ratio": "16:9", "resolution": "1080p", "mode": "std", "bitrate_mode": "high", "genre": "comedy", "generate_audio": false, "count": 1 },
       "references": { "videoJobId": "edb3bca7-2cb7-4cae-b1dc-1bcc71ecea1d" },
       "preflightCredits": 72,
+      "costOptions": {
+        "native1080Standard": 72,
+        "upscaled1080From720Standard": 36,
+        "upscaled1080From720Fast": 28,
+        "upscaled1080From720Mini": 20
+      },
       "approvedProjectCreditsRemaining": 35.5,
       "status": "blocked-pending-exact-credit-approval"
     }
