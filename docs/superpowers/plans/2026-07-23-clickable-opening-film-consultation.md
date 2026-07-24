@@ -228,14 +228,16 @@ Run `npm test`, `npm run build`, `git diff --check`, media probes, and confirm a
 
 At 390x844 and 1440x900, verify the action is unavailable at 46.49 seconds, available at 46.5 seconds, at least 44 pixels high, keyboard focusable, aligned with the final card, and resolves to the exact Calendly URL.
 
-- [ ] **Step 3: Publish the exact verified branch**
+- [x] **Step 3: Publish the exact verified branch**
 
 Fast-forward `main` to the verified branch head and push `origin/main`. Wait for the GitHub Pages deployment to complete.
 
-- [ ] **Step 4: Verify the public site**
+- [x] **Step 4: Verify the public site**
 
 Repeat the phone and desktop checks at `https://moteops.tech/`. Confirm the approved film loads, the timed link works, Calendly resolves correctly, there is no horizontal overflow, and there are no console or media errors.
 
-- [ ] **Step 5: Record the release**
+The first public phone check exposed a stale cached 720p master. Versioned production URLs for both video masters, the motion controller, and opening-film CSS corrected the release. The second deployment passed the complete phone and desktop checks.
+
+- [x] **Step 5: Record the release**
 
 Check every completed step in this plan, commit the plan state, and update the bridge with the production commit, deployment result, media properties, browser metrics, and test count.
