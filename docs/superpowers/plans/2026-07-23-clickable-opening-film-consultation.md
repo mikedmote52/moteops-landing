@@ -90,7 +90,7 @@ git commit -m "feat: add opening film consultation action"
 - Consumes: `[data-opening-consultation]` from Task 1 and `film.currentTime`
 - Produces: `syncOpeningConsultation(film)`, which sets `data-active`, `hidden`, and `tabindex`
 
-- [ ] **Step 1: Extend the real harness and write failing behavior tests**
+- [x] **Step 1: Extend the real harness and write failing behavior tests**
 
 Give each opening story a consultation-link fake and require:
 
@@ -113,7 +113,7 @@ assert.equal(film.consultation.dataset.active, 'false');
 assert.equal(film.consultation.tabIndex, -1);
 ```
 
-- [ ] **Step 2: Run the focused behavior tests and confirm RED**
+- [x] **Step 2: Run the focused behavior tests and confirm RED**
 
 Run:
 
@@ -123,7 +123,7 @@ node --test --test-name-pattern="consultation|replay resets" tests/motion-system
 
 Expected: FAIL because no timed consultation synchronization exists.
 
-- [ ] **Step 3: Add minimal playback synchronization**
+- [x] **Step 3: Add minimal playback synchronization**
 
 Add:
 
@@ -142,7 +142,7 @@ function syncOpeningConsultation(film) {
 
 Call it on `timeupdate`, `seeked`, and `ended`, and immediately after replay resets `currentTime` to zero.
 
-- [ ] **Step 4: Run focused and full tests**
+- [x] **Step 4: Run focused and full tests**
 
 Run:
 
@@ -153,7 +153,7 @@ npm test
 
 Expected: focused tests PASS and all repository tests PASS.
 
-- [ ] **Step 5: Commit playback behavior**
+- [x] **Step 5: Commit playback behavior**
 
 ```bash
 git add motion-system.js tests/motion-system.test.mjs

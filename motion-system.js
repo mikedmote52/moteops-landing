@@ -4,6 +4,7 @@ const studioFilms = [
   ...document.querySelectorAll('[data-studio-film]'),
   ...document.querySelectorAll('[data-cinematic-film]'),
 ];
+const consultationStartSeconds = 46.5;
 const playRequests = new WeakMap();
 let motionEnabled = !motionPreference.matches;
 
@@ -44,6 +45,15 @@ function setFilmComplete(film, complete) {
   if (replay) replay.hidden = !complete;
 }
 
+function syncOpeningConsultation(film) {
+  const action = film.closest('[data-opening-story]')?.querySelector('[data-opening-consultation]');
+  if (!action) return;
+  const active = film.currentTime >= consultationStartSeconds;
+  action.dataset.active = String(active);
+  action.tabIndex = active ? 0 : -1;
+  action.hidden = !active;
+}
+
 function syncFilm(film) {
   if (!motionEnabled || !filmIsVisible(film)) return pauseFilm(film);
   if (filmCompleted(film)) return pauseFilm(film);
@@ -71,7 +81,10 @@ function syncVisibleFilms() {
 
 studioFilms.forEach((film) => {
   if (!film.matches('[data-play-once]')) return;
+  film.addEventListener('timeupdate', () => syncOpeningConsultation(film));
+  film.addEventListener('seeked', () => syncOpeningConsultation(film));
   film.addEventListener('ended', () => {
+    syncOpeningConsultation(film);
     pauseFilm(film);
     setFilmComplete(film, true);
   });
@@ -79,6 +92,7 @@ studioFilms.forEach((film) => {
   replay?.addEventListener('click', () => {
     setFilmComplete(film, false);
     film.currentTime = 0;
+    syncOpeningConsultation(film);
     syncFilm(film);
   });
 });

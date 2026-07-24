@@ -43,8 +43,17 @@ function createHarness({
         addEventListener(type, listener) { replayListeners.set(type, listener); },
         click() { replayListeners.get('click')?.(); },
       };
+      const consultation = {
+        dataset: { active: 'false' },
+        hidden: true,
+        tabIndex: -1,
+      };
       const story = {
-        querySelector(selector) { return selector === '[data-replay-story]' ? replay : null; },
+        querySelector(selector) {
+          if (selector === '[data-replay-story]') return replay;
+          if (selector === '[data-opening-consultation]') return consultation;
+          return null;
+        },
       };
       const scene = { classList: { add() {} } };
       return {
@@ -78,6 +87,7 @@ function createHarness({
         source: sources[0],
         sources,
         replay,
+        consultation,
       };
     });
   }
@@ -273,6 +283,54 @@ test('replay resets and plays a completed opening only when motion is on and vis
   assert.ok(film.currentTime < film.duration);
   assert.equal(film.playCalls, playCallsBeforeReplay + 1);
   assert.equal(film.paused, false);
+});
+
+test('reveals the consultation action only during the final card and keeps it through the ending', async () => {
+  const harness = createHarness({
+    observer: false,
+    rects: [],
+    cinematicRects: [{ top: 40, bottom: 240 }],
+  });
+  harness.run();
+  await settle();
+  const film = harness.cinematicFilms[0];
+
+  film.currentTime = 46.49;
+  film.emit('timeupdate');
+  assert.equal(film.consultation.dataset.active, 'false');
+  assert.equal(film.consultation.hidden, true);
+  assert.equal(film.consultation.tabIndex, -1);
+
+  film.currentTime = 46.5;
+  film.emit('timeupdate');
+  assert.equal(film.consultation.dataset.active, 'true');
+  assert.equal(film.consultation.hidden, false);
+  assert.equal(film.consultation.tabIndex, 0);
+
+  film.emit('ended');
+  assert.equal(film.consultation.dataset.active, 'true');
+  assert.equal(film.consultation.hidden, false);
+});
+
+test('replay hides the final consultation action before restarting the film', async () => {
+  const harness = createHarness({
+    observer: false,
+    rects: [],
+    cinematicRects: [{ top: 40, bottom: 240 }],
+  });
+  harness.run();
+  await settle();
+  const film = harness.cinematicFilms[0];
+
+  film.currentTime = 50;
+  film.emit('timeupdate');
+  film.emit('ended');
+  film.replay.click();
+  await settle();
+
+  assert.equal(film.consultation.dataset.active, 'false');
+  assert.equal(film.consultation.hidden, true);
+  assert.equal(film.consultation.tabIndex, -1);
 });
 
 test('falls back to initial, scroll, and resize syncing without IntersectionObserver', async () => {
