@@ -68,6 +68,26 @@
       "rejection": {
         "reviewedAt": "2026-07-23T21:01:22-07:00",
         "reason": "Seedance changed Mike's swept-back short hairstyle into a visible ponytail or bun. The generated phone faces Mike instead of the camera, and the attempted macro insert from the older tracked phone source distorts the screen treatment when enlarged. The result is not approved for editing, review deployment, film integration, or production."
+      },
+      "retry2": {
+        "prompt": "<<<089862a9-bb77-4b46-88dd-14629f777d5c>>> Mote Ops beach payoff retry, one fresh eight-second continuous photoreal commercial performance beginning exactly from the supplied accepted beach start image. Preserve the exact Mike Mote face, beard, sunglasses, white short-sleeve linen shirt, body proportions, exposed dark-ink arm tattoos, beach, sunset light, and restrained color. Preserve the exact short swept-back haircut visible in the supplied start image for every frame: hair ends above the collar, with no ponytail, no bun, no tied hair, no long hair, and no added hair behind the head. Keep Mike in a front or three-quarter front view. Mike walks naturally a few steps into the beach frame, reaches into his right trouser pocket, pulls out one consistent modern phone, raises it, studies it briefly, gives one small relieved smile, lowers or pockets the phone, and looks toward the ocean. The camera remains on the same side with one restrained steady movement. Natural hands and body motion. No internal cuts, morphs, dissolves, time jumps, profile turn, back-of-head view, extra people, extra phones, phone duplication, object transformation, wardrobe change, moving tattoos, tattoo bleed-through, malformed hands, readable generated text, logos, luxury-resort staging, exaggerated acting, or broad commercial posing.",
+        "params": { "duration": 8, "aspect_ratio": "16:9", "resolution": "720p", "mode": "std", "bitrate_mode": "high", "genre": "comedy", "generate_audio": false, "count": 1 },
+        "startImageMediaId": "bec718be-ea9e-4309-8e90-a42deb885119",
+        "approvedCredits": 36,
+        "approval": {
+          "status": "approved",
+          "approvedAt": "2026-07-23T21:04:29-07:00",
+          "authority": "Mike Mote"
+        },
+        "declinedPresetId": "24bae836-2c4a-48e0-89b6-49fcc0b21612",
+        "preflightCredits": 36,
+        "jobId": "85938856-dd72-4ccc-b090-3c0d4c8b31ce",
+        "creditsSpent": 36,
+        "status": "accepted-for-editing",
+        "acceptance": {
+          "reviewedAt": "2026-07-23T21:16:00-07:00",
+          "reason": "The retry preserves Mike's short swept-back haircut with no ponytail or bun, keeps the white short-sleeve shirt and exposed tattoos stable, and delivers a natural walk, phone check, relieved smile, and ocean look. The dedicated front-screen insert excludes Mike's face and hair and uses deterministic Mote Ops interface text."
+        }
       }
     }
   }

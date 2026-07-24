@@ -107,6 +107,29 @@ Extract two frames per second and inspect the full clip for:
 
 If any acceptance item fails, mark the source rejected and stop. Do not spend credits on a retry without a new explicit approval.
 
+### Task 2B: Generate the explicitly approved locked-hair retry
+
+**Files:**
+- Read: `production/opening-film-v3/raw/shot-07-beach-source.png`
+- Modify: `production/opening-film-v3/generation-prompts.json`
+- Create: `production/opening-film-v3/raw/shot-07-beach-redesign-retry.mp4`
+
+**Interfaces:**
+- Consumes: Mike's explicit approval for exactly 36 additional credits, accepted no-phone beach start image
+- Produces: one corrected eight-second source or one recorded rejection
+
+- [x] **Step 1: Preflight the corrected request**
+
+Use the accepted no-phone beach start image as `start_image`. Remove the older beach video reference. Require the exact short swept-back haircut, no ponytail, no bun, no long hair, front or three-quarter front framing, pocket pull, phone check, smile, and ocean look. Require the cost preflight to return exactly 36 credits.
+
+- [x] **Step 2: Submit one corrected generation**
+
+If and only if the preflight returns exactly 36 credits, submit the identical request once. Record the job identifier before polling. Do not submit an automatic retry.
+
+- [x] **Step 3: Inspect before editing**
+
+Normalize and extract two frames per second. Reject the source if the haircut changes, a ponytail or bun appears, the phone or hands mutate, the wardrobe or tattoos drift, or the pocket-to-phone action fails.
+
 ### Task 3: Build the isolated eight-second edit
 
 **Files:**
