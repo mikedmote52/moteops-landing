@@ -81,19 +81,19 @@ Report the exact cost and full creative summary to Mike. Stop until he approves 
 - Consumes: Mike's exact approved cost and prompt package
 - Produces: one accepted or rejected eight-second continuous beach source
 
-- [ ] **Step 1: Submit exactly one generation**
+- [x] **Step 1: Submit exactly one generation**
 
 Remove `get_cost`, submit the otherwise identical Seedance 2.0 request, and record the returned job identifier before polling.
 
-- [ ] **Step 2: Wait for the submitted job**
+- [x] **Step 2: Wait for the submitted job**
 
 Poll only that job until it reports completed or failed. Do not submit a replacement automatically.
 
-- [ ] **Step 3: Retrieve and normalize the result**
+- [x] **Step 3: Retrieve and normalize the result**
 
 Save the completed result as `production/opening-film-v3/raw/shot-07-beach-redesign.mp4`. Normalize to 1920 by 1080, 24 fps, square pixels, silent H.264 without changing its duration.
 
-- [ ] **Step 4: Inspect every story beat**
+- [x] **Step 4: Inspect every story beat**
 
 Extract two frames per second and inspect the full clip for:
 

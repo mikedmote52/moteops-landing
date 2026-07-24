@@ -51,7 +51,24 @@
         "upscaled1080From720Mini": 20
       },
       "approvedProjectCreditsRemaining": 35.5,
-      "status": "blocked-pending-exact-credit-approval"
+      "approvedOption": {
+        "credits": 36,
+        "resolution": "720p",
+        "mode": "std",
+        "postScale": "1920x1080"
+      },
+      "approval": {
+        "status": "approved",
+        "approvedAt": "2026-07-23T20:52:44-07:00",
+        "authority": "Mike Mote"
+      },
+      "jobId": "23a51949-e3f5-4142-b5b1-d67b492a69c4",
+      "creditsSpent": 36,
+      "status": "rejected-during-frame-review",
+      "rejection": {
+        "reviewedAt": "2026-07-23T21:01:22-07:00",
+        "reason": "Seedance changed Mike's swept-back short hairstyle into a visible ponytail or bun. The generated phone faces Mike instead of the camera, and the attempted macro insert from the older tracked phone source distorts the screen treatment when enlarged. The result is not approved for editing, review deployment, film integration, or production."
+      }
     }
   }
 }
