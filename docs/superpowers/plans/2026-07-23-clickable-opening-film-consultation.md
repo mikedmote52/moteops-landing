@@ -220,11 +220,11 @@ git commit -m "feat: promote approved Mote Ops opening film"
 - Consumes: Tasks 1–3
 - Produces: verified live `https://moteops.tech/`
 
-- [ ] **Step 1: Run release verification**
+- [x] **Step 1: Run release verification**
 
 Run `npm test`, `npm run build`, `git diff --check`, media probes, and confirm a clean worktree.
 
-- [ ] **Step 2: Verify a local production-equivalent page**
+- [x] **Step 2: Verify a local production-equivalent page**
 
 At 390x844 and 1440x900, verify the action is unavailable at 46.49 seconds, available at 46.5 seconds, at least 44 pixels high, keyboard focusable, aligned with the final card, and resolves to the exact Calendly URL.
 
