@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a zero-credit payoff that places the readable dashboard at the end of the established close laptop shot, then cuts to the happy actor with the laptop already closed.
+**Goal:** Build a zero-credit payoff that places the readable dashboard at the end of the established close laptop shot, then cuts to the happy actor naturally closing the original green-screen laptop.
 
-**Architecture:** Extend the approved close laptop workflow with a deterministic `Today is under control.` hold using the same screen geometry. Trim the calm-office source to begin only after the laptop is closed, so its green screen and any cross-angle replacement are never visible. Concatenate the corrected payoff after approved Scenes 1 through 5 and the unchanged Scene 6 calls review, then publish only to the private review project.
+**Architecture:** Extend the approved close laptop workflow with a deterministic `Today is under control.` hold using the same screen geometry. Trim the calm-office source to begin while the original green screen is still open, preserve the natural laptop close, and apply no interface or text overlay to that angle. Concatenate the corrected payoff after approved Scenes 1 through 5 and the unchanged Scene 6 calls review, then publish only to the private review project.
 
 **Tech Stack:** FFmpeg, ffprobe, Python, Pillow, existing HTML dashboard plate, Vercel preview
 
@@ -18,7 +18,7 @@
 
 ---
 
-### Task 1: Prove the rejected transition cause and select the clean cut
+### Task 1: Select the natural laptop-close cut
 
 **Files:**
 - Inspect: `/tmp/moteops-scene-07-natural.mp4`
@@ -27,7 +27,7 @@
 
 **Interfaces:**
 - Consumes: rejected Scene 7 render and its raw source
-- Produces: confirmed evidence that the dashboard changes physical angle at the cut, plus an exact source time where the laptop is already closed
+- Produces: an exact source time that includes the natural green-screen laptop close and relieved performance
 
 - [ ] **Step 1: Probe both clips**
 
@@ -35,11 +35,11 @@ Run `ffprobe` on the close laptop render and calm-office source to confirm resol
 
 - [ ] **Step 2: Compare opening and closing frames**
 
-Extract quarter-second frames around the calm-office laptop close. Select the first frame where the laptop is fully closed and the actor is visibly relieved.
+Extract quarter-second frames around the calm-office laptop close. Select the first frame that clearly shows the original green screen immediately before the actor closes the laptop.
 
 - [ ] **Step 3: Record the single fix**
 
-Keep the dashboard in the close laptop geometry and remove every dashboard frame from the calm-office angle.
+Keep the dashboard in the close laptop geometry and preserve the unmodified raw green screen in the calm-office angle.
 
 ### Task 2: Render the close dashboard payoff
 
@@ -64,23 +64,23 @@ Run `ffprobe` and assert 1920 by 1080, 24 fps, approximately 1.5 seconds, no aud
 
 Compare the final calls frame and first dashboard frame. Confirm the physical laptop, angle, crop, and screen boundary remain fixed while only the interface changes.
 
-### Task 3: Render the closed-laptop exit
+### Task 3: Render the original green-screen laptop close and exit
 
 **Files:**
 - Reuse: `production/opening-film-v3/raw/shot-06-control-restored.mp4`
-- Create: `/tmp/moteops-scene-07-closed-exit.mp4`
+- Create: `/tmp/moteops-scene-07-green-close-exit.mp4`
 
 **Interfaces:**
-- Consumes: calm-office source beginning after the laptop is closed
-- Produces: happy actor smile, stand, and exit with no visible replacement screen
+- Consumes: calm-office source beginning while the original green screen is open
+- Produces: happy actor smile, natural laptop close, stand, and exit with no replacement overlay
 
-- [ ] **Step 1: Trim after the close**
+- [ ] **Step 1: Trim before the close**
 
-Start at the first clean closed-laptop frame and preserve the remaining actor performance through the office exit.
+Start at the first clean green-screen frame immediately before the actor closes the laptop, then preserve the remaining performance through the office exit.
 
-- [ ] **Step 2: Verify no interface is visible**
+- [ ] **Step 2: Verify the source remains unmodified**
 
-Inspect the first, middle, and final frames. Confirm the laptop remains closed and no green or replacement screen appears.
+Inspect the first, middle, and final frames. Confirm the original green screen is visible before the close and no replacement interface or text overlay appears.
 
 ### Task 4: Assemble and publish the private review
 
@@ -90,16 +90,16 @@ Inspect the first, middle, and final frames. Confirm the laptop remains closed a
 - Modify: `/tmp/moteops-transition-card-review/index.html`
 
 **Interfaces:**
-- Consumes: approved Scenes 1 through 6, close dashboard payoff, and closed-laptop exit
+- Consumes: approved Scenes 1 through 6, close dashboard payoff, and original green-screen laptop close and exit
 - Produces: private phone-viewable review deployment
 
 - [ ] **Step 1: Concatenate the clips**
 
-Concatenate approved Scenes 1 through 6, the close dashboard payoff, and the closed-laptop exit without changing any approved preceding content.
+Concatenate approved Scenes 1 through 6, the close dashboard payoff, and the original green-screen laptop close and exit without changing any approved preceding content.
 
 - [ ] **Step 2: Verify the boundary**
 
-Extract frames around both boundaries. Confirm the dashboard appears in the same close screen, then the next office angle begins with the laptop already closed.
+Extract frames around both boundaries. Confirm the dashboard appears in the same close screen, then the next office angle shows the original green screen and natural laptop close with no overlay.
 
 - [ ] **Step 3: Deploy only a preview**
 

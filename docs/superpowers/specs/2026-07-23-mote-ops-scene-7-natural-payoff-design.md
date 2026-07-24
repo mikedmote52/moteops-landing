@@ -8,9 +8,9 @@ Replace the rejected cross-angle dashboard treatment with a simple, readable pay
 
 1. At the end of the approved Scene 6 close laptop view, replace the calls review with `Today is under control.` on that same physical screen.
 2. Hold the close dashboard long enough to read.
-3. Cut to the next office angle only after its laptop is already closed.
-4. Show no replacement interface in the next office angle.
-5. Preserve the actor's natural relieved smile, stand, and office exit.
+3. Cut to the next office angle while its original green-screen laptop is still open.
+4. Show no replacement interface or text overlay in the next office angle.
+5. Preserve the actor's natural relieved smile, laptop close, stand, and office exit.
 
 ## Constraints
 
@@ -25,8 +25,8 @@ Replace the rejected cross-angle dashboard treatment with a simple, readable pay
 ## Acceptance
 
 - `Today is under control.` appears only in the established close laptop view.
-- The next office angle begins after the laptop is closed.
-- No green screen or replacement interface is visible in the next office angle.
+- The next office angle includes the original green screen and natural laptop close.
+- No replacement interface or text overlay is visible in the next office angle.
 - No scale animation or digital zoom is present.
-- The actor smiles, stands, and leaves.
+- The actor smiles, closes the laptop, stands, and leaves.
 - The combined review clip plays on a 390 by 844 phone viewport without horizontal overflow.
