@@ -141,7 +141,7 @@ Normalize and extract two frames per second. Reject the source if the haircut ch
 - Consumes: accepted single-source beach performance
 - Produces: exact eight-second arrival, phone insert, and ocean-payoff edit
 
-- [ ] **Step 1: Build the phone plate**
+- [x] **Step 1: Build the phone plate**
 
 Create a restrained Mote Ops phone screen with exactly:
 
@@ -153,7 +153,7 @@ ENJOY YOUR DAY
 
 Use cream, deep green, rust, and black. Keep all text centered, large, and readable.
 
-- [ ] **Step 2: Select cuts from one source**
+- [x] **Step 2: Select cuts from one source**
 
 Use source windows matching the approved structure:
 
@@ -163,11 +163,11 @@ Use source windows matching the approved structure:
 
 Adjust cut points by at most 0.25 second only to land on complete physical actions. Preserve the exact eight-second total by compensating in the adjacent window.
 
-- [ ] **Step 3: Replace only the phone display**
+- [x] **Step 3: Replace only the phone display**
 
 Track or perspective-match `phone-zero-redesign.png` inside the physical phone bezel during the close insert. Restrict keying and replacement to the device crop so Mike, his hand, shirt, tattoos, sky, and ocean remain untouched.
 
-- [ ] **Step 4: Verify the media contract**
+- [x] **Step 4: Verify the media contract**
 
 Use ffprobe to assert:
 
@@ -180,7 +180,7 @@ frame_rate=24/1
 audio_streams=0
 ```
 
-- [ ] **Step 5: Inspect the edit**
+- [x] **Step 5: Inspect the edit**
 
 Extract one frame per second and eight frames around both cuts. Confirm the action reads as arrival, phone result, and human payoff; the returning Mike frame matches the source before the insert; and no large closing copy appears.
 
@@ -194,15 +194,15 @@ Extract one frame per second and eight frames around both cuts. Confirm the acti
 - Consumes: verified isolated Scene 8
 - Produces: temporary private phone-viewable review link
 
-- [ ] **Step 1: Package the isolated review**
+- [x] **Step 1: Package the isolated review**
 
 Point the private review page only to `scene-08-beach-redesign.mp4`. Label it `Scene 8 · Beach payoff redesign`.
 
-- [ ] **Step 2: Deploy a preview**
+- [x] **Step 2: Deploy a preview**
 
 Deploy the already linked `moteops-cinematic-review` project without `--prod`. Confirm the deployment reports Ready and create a temporary authenticated share URL.
 
-- [ ] **Step 3: Verify phone playback**
+- [x] **Step 3: Verify phone playback**
 
 At 390 by 844, confirm:
 
@@ -217,11 +217,11 @@ At 390 by 844, confirm:
 }
 ```
 
-- [ ] **Step 4: Run repository verification**
+- [x] **Step 4: Run repository verification**
 
 Run `npm test` and require all 99 tests to pass.
 
-- [ ] **Step 5: Stop at the approval gate**
+- [x] **Step 5: Stop at the approval gate**
 
 Send Mike the isolated review link. Do not create the consultation card, join the film, push production, or spend retry credits until Mike responds.
 
@@ -235,7 +235,7 @@ Send Mike the isolated review link. Do not create the consultation card, join th
 - Consumes: Mike's explicit Scene 8 approval
 - Produces: exact 3.5-second silent Mote Ops end card
 
-- [ ] **Step 1: Render the approved copy**
+- [x] **Step 1: Render the approved copy**
 
 Use the existing cream, deep green, rust, and black system with:
 
@@ -245,10 +245,10 @@ Book your free 30-minute consultation.
 moteops.tech
 ```
 
-- [ ] **Step 2: Encode the card**
+- [x] **Step 2: Encode the card**
 
 Encode exactly 3.5 seconds at 1920 by 1080, 24 fps, silent H.264. Use restrained entrance motion and no generated imagery.
 
-- [ ] **Step 3: Publish the card separately**
+- [x] **Step 3: Publish the card separately**
 
 Publish only the end card to the private review project and stop for approval before joining the 50-second film.

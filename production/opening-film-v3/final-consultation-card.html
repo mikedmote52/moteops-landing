@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920,height=1080,initial-scale=1">
+  <title>Mote Ops final consultation card</title>
+  <style>
+    :root {
+      --cream: #f5f1e8;
+      --green: #0d4b3d;
+      --ink: #171813;
+      --rust: #b95c36;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      overflow: hidden;
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .frame {
+      position: relative;
+      width: 1780px;
+      height: 940px;
+      border: 3px solid var(--ink);
+      background: var(--cream);
+      box-shadow: 14px 14px 0 var(--rust);
+    }
+
+    .brand {
+      position: absolute;
+      top: 58px;
+      left: 70px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font: 800 25px/1 Arial, Helvetica, sans-serif;
+      letter-spacing: .2em;
+    }
+
+    .mark {
+      display: flex;
+      align-items: end;
+      gap: 7px;
+      width: 42px;
+      height: 36px;
+    }
+
+    .mark i {
+      display: block;
+      width: 8px;
+      background: var(--green);
+    }
+
+    .mark i:nth-child(1) { height: 21px; }
+    .mark i:nth-child(2) { height: 36px; background: var(--rust); }
+    .mark i:nth-child(3) { height: 28px; }
+
+    main {
+      position: absolute;
+      left: 150px;
+      right: 150px;
+      top: 235px;
+    }
+
+    .signal {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 0 0 36px;
+      color: var(--green);
+      font: 800 20px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .16em;
+    }
+
+    .signal::before {
+      content: "";
+      width: 15px;
+      height: 15px;
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      background: var(--rust);
+    }
+
+    h1 {
+      max-width: 1450px;
+      margin: 0;
+      font: 700 112px/.96 Georgia, "Times New Roman", serif;
+      letter-spacing: -.05em;
+    }
+
+    .rule {
+      width: 100%;
+      height: 3px;
+      margin: 65px 0 45px;
+      background: var(--ink);
+    }
+
+    .action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+    }
+
+    .action p {
+      max-width: 900px;
+      margin: 0;
+      font: 700 43px/1.12 Georgia, "Times New Roman", serif;
+      letter-spacing: -.02em;
+    }
+
+    .url {
+      min-width: 410px;
+      padding: 28px 34px;
+      border: 3px solid var(--ink);
+      background: var(--green);
+      color: var(--cream);
+      text-align: center;
+      font: 800 27px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .08em;
+    }
+  </style>
+</head>
+<body>
+  <section class="frame">
+    <div class="brand">
+      <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>MOTE OPS</span>
+    </div>
+
+    <main>
+      <p class="signal">THE WORK IS HANDLED</p>
+      <h1>This was made by Mote Ops.</h1>
+      <div class="rule"></div>
+      <div class="action">
+        <p>Book your free 30-minute consultation.</p>
+        <div class="url">moteops.tech</div>
+      </div>
+    </main>
+  </section>
+</body>
+</html>
