@@ -295,13 +295,15 @@ test('reveals the consultation action only during the final card and keeps it th
   await settle();
   const film = harness.cinematicFilms[0];
 
-  film.currentTime = 46.49;
+  // The moteops.tech button is absent from the film at 46.6s and fully painted
+  // by 47.0s, so the overlay stays inert until 47.0s.
+  film.currentTime = 46.99;
   film.emit('timeupdate');
   assert.equal(film.consultation.dataset.active, 'false');
   assert.equal(film.consultation.hidden, true);
   assert.equal(film.consultation.tabIndex, -1);
 
-  film.currentTime = 46.5;
+  film.currentTime = 47;
   film.emit('timeupdate');
   assert.equal(film.consultation.dataset.active, 'true');
   assert.equal(film.consultation.hidden, false);

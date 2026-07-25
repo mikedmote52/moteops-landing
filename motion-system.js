@@ -4,7 +4,9 @@ const studioFilms = [
   ...document.querySelectorAll('[data-studio-film]'),
   ...document.querySelectorAll('[data-cinematic-film]'),
 ];
-const consultationStartSeconds = 46.5;
+// The moteops.tech button finishes painting into the film at ~46.9s. Activating
+// the overlay before then would leave an invisible live link over blank canvas.
+const consultationStartSeconds = 47;
 const playRequests = new WeakMap();
 let motionEnabled = !motionPreference.matches;
 

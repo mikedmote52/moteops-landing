@@ -278,6 +278,76 @@ test('makes the final opening-film consultation action a real accessible link', 
   assert.match(css, /\[data-opening-consultation\]\[data-active="false"\][\s\S]*pointer-events:\s*none/);
 });
 
+test('lands the consultation hit target on the button painted into the film', () => {
+  const css = read('opening-film.css');
+  const rule = css.slice(
+    css.indexOf('.opening-story [data-opening-consultation] {'),
+    css.indexOf('}', css.indexOf('.opening-story [data-opening-consultation] {')),
+  );
+  const pct = (property) => {
+    const match = rule.match(new RegExp(`${property}:\\s*([\\d.]+)%`));
+    assert.ok(match, `${property} is declared as a percentage of the film frame`);
+    return Number(match[1]);
+  };
+
+  // Measured from assets/cinematic/mote-ops-opening-v3-1080.mp4 (1920x1080) at
+  // t=47.0s..49.9s: the moteops.tech button holds x 1290..1702, y 696..782.
+  const button = { left: 67.19, right: 88.65, top: 64.44, bottom: 72.41 };
+
+  // The rule is centre-anchored so the 44px floor expands symmetrically.
+  assert.match(rule, /transform:\s*translateY\(-50%\)/);
+  const centreY = pct('top');
+  const height = pct('height');
+  const left = pct('left');
+  const width = pct('width');
+
+  const buttonCentreY = (button.top + button.bottom) / 2;
+  assert.ok(
+    Math.abs(centreY - buttonCentreY) <= 0.5,
+    `hit target centre ${centreY}% sits on the button centre ${buttonCentreY.toFixed(2)}%`,
+  );
+
+  const targetTop = centreY - height / 2;
+  const targetBottom = centreY + height / 2;
+  assert.ok(targetTop >= button.top - 0.6, `hit target top ${targetTop.toFixed(2)}% stays on the button`);
+  assert.ok(targetBottom <= button.bottom + 0.6, `hit target bottom ${targetBottom.toFixed(2)}% stays on the button`);
+  assert.ok(left >= button.left - 0.6, `hit target left ${left}% stays on the button`);
+  assert.ok(left + width <= button.right + 0.6, `hit target right ${(left + width).toFixed(2)}% stays on the button`);
+
+  // Regression guard: the shipped rule was top 56% / height 10%, which overlapped
+  // the painted button by ~16px of its 84px and left the rest dead.
+  assert.ok(targetTop > 60, 'hit target no longer floats above the button');
+});
+
+test('activates the consultation overlay only once the button is painted', () => {
+  const js = read('motion-system.js');
+  const match = js.match(/consultationStartSeconds\s*=\s*([\d.]+)/);
+  assert.ok(match, 'the activation threshold is declared');
+  const start = Number(match[1]);
+  // The button is absent at t=46.6s and fully painted by t=47.0s.
+  assert.ok(start >= 46.9, `activation at ${start}s waits for the painted button`);
+  assert.ok(start < 50, `activation at ${start}s happens before the film ends`);
+});
+
+test('keeps the visible replay control above the invisible consultation target', () => {
+  const css = read('opening-film.css');
+  const zIndex = (selector) => {
+    const start = css.indexOf(selector);
+    assert.notEqual(start, -1, `${selector} is declared`);
+    const rule = css.slice(start, css.indexOf('}', start));
+    const match = rule.match(/z-index:\s*(\d+)/);
+    assert.ok(match, `${selector} declares a z-index`);
+    return Number(match[1]);
+  };
+
+  // On narrow frames the 44px consultation floor reaches into the replay
+  // button, so the replay button has to win the stack.
+  assert.ok(
+    zIndex('.opening-story [data-replay-story] {') > zIndex('.opening-story [data-opening-consultation] {'),
+    'replay stacks above the consultation hit target',
+  );
+});
+
 test('publishes exact silent fast-start opening masters and poster', {
   skip: !hasFfprobe || !hasSips ? 'ffprobe and sips are required for the local media contract' : false,
 }, () => {

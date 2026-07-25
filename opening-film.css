@@ -42,16 +42,25 @@
   width: 100%;
 }
 
+/* Invisible hit target laid over the moteops.tech button painted into the
+   closing frame of the opening film. Geometry is measured from the film
+   master (1920x1080): the button occupies x 1291..1698, y 697..781, i.e.
+   left 67.2%, width 21.3%, height 7.8%, vertical centre 68.4%.
+   Anchored on its centre so the 44px minimum touch target grows
+   symmetrically instead of sliding off the bottom of the button on narrow
+   frames. Pinned by tests/opening-film.test.mjs — remeasure the film before
+   changing these numbers. */
 .opening-story [data-opening-consultation] {
   color: transparent;
-  height: 10%;
-  left: 67%;
+  height: 7.8%;
+  left: 67.2%;
   min-height: 44px;
   overflow: hidden;
   position: absolute;
   text-indent: -9999px;
-  top: 56%;
-  width: 22%;
+  top: 68.4%;
+  transform: translateY(-50%);
+  width: 21.3%;
   z-index: 3;
 }
 
@@ -60,6 +69,9 @@
   visibility: hidden;
 }
 
+/* The target is invisible, so hover and focus are the only signals that the
+   painted button is live. Both draw the same ring. */
+.opening-story [data-opening-consultation]:hover,
 .opening-story [data-opening-consultation]:focus-visible {
   border-radius: 2px;
   outline: 4px solid #f5f1e8;
@@ -80,7 +92,7 @@
   position: absolute;
   right: 28px;
   text-transform: uppercase;
-  z-index: 3;
+  z-index: 4;
 }
 
 .workbench-hero > .hero-copy {
@@ -145,9 +157,13 @@ html[data-motion="off"] .opening-story video {
     display: none;
   }
 
+  /* On narrow frames the film's closing button and the 44px consultation
+     target reach down into the bottom-right corner, so replay moves to the
+     opposite corner rather than sitting on top of the call to action. */
   .opening-story [data-replay-story] {
     bottom: 14px;
-    right: 14px;
+    left: 14px;
+    right: auto;
   }
 
   .workbench-hero > .hero-copy {
