@@ -90,55 +90,27 @@ test('walks a nontechnical owner through one Tuesday with real controls', () => 
   assert.ok(css.includes('.tuesday-beat'), 'site.css must style the walkthrough');
 });
 
-test('shows a truthful small-business chaos-to-control story', () => {
+test('keeps the hero film without the retired owner-story sequence', () => {
   const hero = elementById('top', 'section').source;
   assert.doesNotMatch(hero, /hero-system-plate|hero-inputs|hero-core|hero-outputs/i);
   assert.match(hero, /data-opening-story/i);
   assert.match(hero, /mote-ops-opening-v3-1080\.mp4/i);
   assert.match(hero, /mote-ops-opening-v3-720\.mp4/i);
   assert.doesNotMatch(hero, /<figcaption/i);
-  assert.doesNotMatch(hero, /fictional overwhelmed business owner finds Mote Ops/i);
-  assert.match(hero, /data-owner-story/i);
-  assert.doesNotMatch(hero, /assets\/small-business-owner-overwhelmed-v1\.webp/i);
-  for (const source of ['Calls \\+ texts', 'Email', 'Calendar', 'Files \\+ spreadsheets', 'Finance']) {
-    assert.match(hero, new RegExp(source, 'i'));
-  }
-  assert.match(hero, /organize incoming work/i);
-  assert.match(hero, /prepare useful next steps/i);
-  assert.match(hero, /hold consequential actions for approval/i);
-  assert.match(hero, /class="owner-organize"/i);
-  assert.match(hero, /class="owner-outcome"/i);
-  assert.doesNotMatch(hero, /class="owner-functions"/i);
-  assert.match(hero, /A noisy day becomes three calm decisions\./i);
-  assert.match(hero, /class="owner-decisions"/i);
-  for (const decision of ['Follow up', 'Review payment', 'Confirm schedule']) {
-    assert.match(hero, new RegExp(`<strong>${decision}</strong>`, 'i'));
-  }
-  assert.match(hero, /one calm place looks like for CC's Learning Center/i);
-  assert.match(hero, /href="#care-hub-showcase"/i);
-  assert.match(hero, /Illustrative scenario using fictional business information\./i);
-  assert.doesNotMatch(hero, /moteops-transformation-hero-(?:mobile-)?v1\.png/i);
-});
-
-test('isolates and preserves the owner story presentation', () => {
-  assert.ok(existsSync(resolve(root, 'assets/moteops-transformation-hero-v1.png')));
-  assert.match(html, /owner-story\.css\?v=cinematic-20260722/i);
-  assert.match(html, /owner-story\.js\?v=cinematic-20260722/i);
-  assert.match(ownerCss, /prefers-reduced-motion:\s*reduce/i);
-  assert.match(ownerCss, /@media\s*\(max-width:\s*760px\)/i);
-  assert.doesNotMatch(ownerCss, /\.owner-connect\s*\{[^}]*linear-gradient/si);
+  assert.doesNotMatch(hero, /data-owner-story/i, 'owner story was retired: the Tuesday walkthrough replaced it');
+  assert.doesNotMatch(html, /owner-story\.(?:css|js)/i, 'index must not load retired owner-story assets');
 });
 
 test('uses the approved cinematic section order', () => {
-  const orderedIds = ['top', 'owner-story', 'tuesday', 'pains', 'demo-gallery', 'care-hub-showcase', 'evidence', 'boundaries', 'method', 'capabilities', 'start', 'questions'];
+  const orderedIds = ['top', 'tuesday', 'pains', 'demo-gallery', 'care-hub-showcase', 'evidence', 'boundaries', 'method', 'capabilities', 'start', 'mote-ops-studio', 'questions'];
   let cursor = -1;
   for (const id of orderedIds) {
     const next = html.indexOf(`id="${id}"`);
     assert.ok(next > cursor, `${id} should appear in the approved order`);
     cursor = next;
   }
-  assert.doesNotMatch(html, /id="mote-ops-studio"/i);
-  assert.equal((html.match(/<section\b[^>]*data-page-section\b/gi) ?? []).length, 9);
+  assert.doesNotMatch(html, /id="owner-story"|id="toolbox"|class="case-study"/i, 'retired sections must stay retired');
+  assert.equal((html.match(/<section\b[^>]*data-page-section\b/gi) ?? []).length, 10);
   for (const obsolete of ['id="calculator"', 'id="operator-day"', 'Annual follow-up labor burden', 'equipment-plate']) {
     assert.doesNotMatch(html, new RegExp(obsolete, 'i'));
   }
@@ -319,10 +291,7 @@ test('centers evidence on the real Care Hub build without inflating results', ()
   assert.match(evidence, /href="ai-practices\.html"/i);
   assert.match(evidence, /href="privacy\.html"/i);
   assert.match(evidence, /href="terms\.html"/i);
-  assert.match(evidence, /CC['’]s Care Hub/i);
-  assert.match(evidence, /real client build/i);
-  assert.match(evidence, /public demonstration uses fictional records/i);
-  assert.match(evidence, /measured client results are (?:still )?being established/i);
+  assert.doesNotMatch(evidence, /class="case-study"/i, 'the Care Hub recap card was retired; the demo carries the story');
   assert.match(evidence, /<details\b/i);
   assert.doesNotMatch(evidence.match(/<details\b[^>]*>/i)?.[0] ?? '', /\bopen\b/i);
   assert.match(evidence, /qwen3-coder:30b/i);
@@ -341,28 +310,25 @@ test('presents the Email Organizer as honest beta evidence only', () => {
   assert.doesNotMatch(html, /Billion-Dollar Solo Operator/i);
 });
 
-test('shows a modern toolbox as supporting proof rather than the product', () => {
+test('keeps the technical proof accordion without the retired toolbox catalog', () => {
   const evidence = elementById('evidence', 'section');
-  const toolbox = elementById('toolbox', 'section');
-  assert.ok(toolbox.start >= evidence.start && toolbox.end <= evidence.end);
+  assert.doesNotMatch(evidence.source, /id="toolbox"/i, 'the toolbox catalog was retired; capabilities carries the outcome list');
+  assert.doesNotMatch(evidence.source, /n8n|Ollama(?!\s+qwen)/i, 'tool-name jargon stays off the homepage main path');
+  assert.match(evidence.source, /class="technical-proof"/i);
+  assert.ok(evidence.source.indexOf('class="beta-evidence"') < evidence.source.indexOf('class="technical-proof"'));
+});
 
-  const caseStudyIndex = evidence.source.indexOf('class="case-study"');
-  const toolboxIndex = evidence.source.indexOf('id="toolbox"');
-  const technicalProofIndex = evidence.source.indexOf('class="technical-proof"');
-  assert.ok(caseStudyIndex < toolboxIndex, 'toolbox should follow the real case story');
-  assert.ok(toolboxIndex < technicalProofIndex, 'toolbox should precede the technical proof');
-
-  assert.match(toolbox.source, /THE MOTE OPS TOOLBOX/i);
-  assert.match(toolbox.source, /Built with the right tools\. Never trapped in one\./i);
-  for (const purpose of ['Automate', 'Think', 'Connect', 'Deliver']) {
-    assert.match(toolbox.source, new RegExp(`>${purpose}<`, 'i'));
+test('keeps the portfolio present as a compact studio band before the close', () => {
+  const band = elementById('mote-ops-studio', 'section');
+  assert.match(band.source, /MOTE OPS STUDIO · FICTIONAL DESIGN WORK/i);
+  assert.match(band.source, /Systems can work well and still feel exceptional\./i);
+  for (const route of ['demo/onde-halo/index.html', 'demo/vessel-zero/index.html', 'demo/solaire-01/index.html', 'studio.html']) {
+    assert.match(band.source, new RegExp(`href=["']${route.replaceAll('/', '\\/')}["']`, 'i'));
   }
-  for (const tool of ['n8n', 'OpenAI', 'Claude', 'Codex', 'Ollama', 'Gmail', 'Microsoft 365']) {
-    assert.match(toolbox.source, new RegExp(tool, 'i'));
-  }
-  assert.match(toolbox.source, /You do not need to learn the platforms or decide which model to use/i);
-  assert.match(toolbox.source, /Technology changes quickly\. Your system should keep working\./i);
-  assert.doesNotMatch(toolbox.source, /every (?:client|project|installation) uses/i);
+  assert.doesNotMatch(band.source, /<video\b/i, 'the band stays lightweight; films live on studio.html');
+  const start = elementById('start', 'section');
+  const questions = elementById('questions', 'section');
+  assert.ok(band.start > start.end && band.end < questions.start, 'band sits between the path and the close');
 });
 
 test('publishes one commercial path with the price fixed in writing and no public dollar figures', () => {

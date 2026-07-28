@@ -555,3 +555,12 @@ footer>div nav a{font-size:.8rem}
 .symptom-stat{display:block;margin-top:8px;font:700 .78rem "Arial Narrow","Helvetica Neue",sans-serif;letter-spacing:.05em;color:var(--copper)}
 @media (max-width:640px){.tuesday-beat{grid-template-columns:1fr}}
 .tuesday-section .care-showcase-truth span{background:var(--forest)}
+
+/* ── Studio band (tighten-20260728) ─────────────────── */
+.studio-band-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:34px}
+.studio-band-row a{background:#171713;color:#eee5d1;text-decoration:none;padding:22px 24px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;border:1px solid #171713}
+.studio-band-row a span{font:800 .62rem "Arial Narrow","Helvetica Neue",sans-serif;letter-spacing:.16em;color:#b7ad43}
+.studio-band-row a strong{font-size:1.25rem}
+.studio-band-row a em{font-style:normal;font-size:.85rem;color:#bcb29c}
+.studio-band-row a.studio-band-all{background:var(--forest);border-color:var(--forest)}
+.studio-band-row a:hover strong{text-decoration:underline}

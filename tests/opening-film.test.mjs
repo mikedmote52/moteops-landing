@@ -241,10 +241,10 @@ test('centers a constrained opening film on desktop without shrinking phone layo
 test('opens the homepage with one play-once email-to-beach story', () => {
   const html = read('index.html');
   const opening = html.indexOf('data-opening-story');
-  const ownerConnect = html.indexOf('data-owner-scene="connect"');
+  const tuesday = html.indexOf('id="tuesday"');
   const careHub = html.indexOf('id="care-hub-showcase"');
   const openingFigure = html.slice(opening, html.indexOf('</figure>', opening));
-  assert.ok(opening > 0 && opening < ownerConnect && ownerConnect < careHub);
+  assert.ok(opening > 0 && opening < tuesday && tuesday < careHub);
   assert.match(html, /mote-ops-opening-v3-1080\.mp4/);
   assert.match(html, /mote-ops-opening-v3-720\.mp4/);
   assert.match(html, /mote-ops-opening-v3-1080\.mp4\?v=opening-v3-final-20260723/);
