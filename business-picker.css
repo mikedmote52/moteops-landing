@@ -1,39 +1,34 @@
-/* Business-type picker — "click your small business" section after the opening film.
-   Matches site.css language: paper/soot borders, copper offsets, Arial Narrow headers. */
+/* Business-type picker — "click your small business" doorways after the opening
+   film, plus shared list styles used by the /for/ trade pages.
+   Matches site.css language: paper/soot borders, copper offsets, Arial Narrow. */
 
 .biz-section{background:var(--bone)}
 .biz-truth{margin:-26px 0 34px;color:var(--muted);font-size:.8rem}
 .biz-truth span{margin-right:8px;padding:3px 7px;border:1px solid var(--copper);color:var(--copper);font:800 .62rem "Arial Narrow","Helvetica Neue",sans-serif;letter-spacing:.12em}
 
 .biz-picker{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.biz-card{border:2px solid var(--soot);border-radius:2px;background:var(--paper);box-shadow:4px 4px 0 var(--copper);transition:box-shadow .15s,transform .15s}
-.biz-card[open]{box-shadow:6px 6px 0 var(--signal)}
-.biz-card>summary{display:flex;align-items:center;gap:14px;min-height:64px;padding:16px 20px;list-style:none;cursor:pointer}
-.biz-card>summary::-webkit-details-marker{display:none}
-.biz-card>summary:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
-.biz-face{display:grid;flex:0 0 44px;height:44px;place-items:center;border:2px solid var(--soot);background:var(--bone);font-size:1.3rem}
+.biz-door{display:flex;align-items:center;gap:16px;padding:20px;border:2px solid var(--soot);border-radius:2px;background:var(--paper);box-shadow:4px 4px 0 var(--copper);color:var(--ink);text-decoration:none;transition:transform .15s,box-shadow .15s}
+.biz-door:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--signal)}
+.biz-door:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.biz-face{display:grid;flex:0 0 44px;height:44px;place-items:center;border:2px solid var(--soot);background:var(--bone);font:900 1.05rem "Arial Narrow","Helvetica Neue",sans-serif}
 .biz-name{flex:1}
 .biz-name strong{display:block;font:900 1.15rem "Arial Narrow","Helvetica Neue",sans-serif}
-.biz-name small{color:var(--muted);font-size:.8rem}
-.biz-mark{color:var(--signal);font:900 1.5rem/1 "Arial Narrow","Helvetica Neue",sans-serif;transition:transform .15s}
-.biz-card[open] .biz-mark{transform:rotate(45deg)}
+.biz-name small{display:block;margin-top:4px;color:var(--muted);font-size:.82rem;line-height:1.45}
+.biz-go{flex:0 0 auto;align-self:flex-end;color:var(--copper);font:800 .78rem "Arial Narrow","Helvetica Neue",sans-serif;white-space:nowrap}
+.biz-door:hover .biz-go{color:var(--signal)}
 
-.biz-body{padding:0 20px 20px}
+.biz-footnote{margin:26px 0 0;color:var(--muted);font-size:.85rem}
+
+/* Shared by the /for/ trade pages */
 .biz-uses{margin:0;padding:0;list-style:none}
 .biz-uses li{padding:13px 0;border-top:1px solid var(--rule)}
 .biz-uses strong{display:block;margin-bottom:3px;font:800 .95rem "Arial Narrow","Helvetica Neue",sans-serif}
 .biz-uses p{margin:0;color:var(--muted);font-size:.86rem}
 .biz-sources{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--rule);color:var(--muted);font-size:.74rem}
 .biz-sources a{color:var(--copper);font-weight:700}
-.biz-next{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:16px;padding-top:14px;border-top:2px solid var(--soot)}
-.biz-next .text-link{color:var(--copper)}
-
-.biz-footnote{margin:26px 0 0;color:var(--muted);font-size:.85rem}
 
 @media(max-width:760px){
   .biz-picker{grid-template-columns:1fr}
-  .biz-card>summary{min-height:56px;padding:14px 15px}
-  .biz-body{padding:0 15px 16px}
-  .biz-next{align-items:stretch;flex-direction:column}
-  .biz-next .button{width:100%;justify-content:center}
+  .biz-door{flex-wrap:wrap;padding:16px 15px}
+  .biz-go{align-self:auto;margin-left:60px}
 }

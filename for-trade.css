@@ -1,0 +1,57 @@
+/* Per-trade presentation pages (/for/*.html). Leans on site.css tokens. */
+
+.trade-hero{padding:clamp(60px,8vw,110px) max(22px,calc((100vw - 1180px)/2)) clamp(40px,5vw,70px);background:var(--paper)}
+.trade-hero h1{max-width:900px;margin:0 0 22px;font-size:clamp(2.2rem,5vw,4rem);line-height:1.05}
+.trade-hero h1 em{color:var(--forest);font-style:normal}
+.trade-lede{max-width:720px;color:var(--muted);font-size:1.08rem}
+
+.trade-week{background:var(--bone)}
+.week-beats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--soot);background:var(--paper)}
+.week-beat{padding:26px 24px}
+.week-beat+.week-beat{border-left:1px solid var(--soot)}
+.week-beat time{color:var(--signal);font:900 .82rem ui-monospace,SFMono-Regular,monospace}
+.week-beat h3{margin:10px 0 8px;font-size:1.15rem}
+.week-beat .beat-today,.week-beat .beat-after{margin:8px 0 0;font-size:.88rem}
+.week-beat .beat-today strong,.week-beat .beat-after strong{display:block;font:800 .62rem "Arial Narrow","Helvetica Neue",sans-serif;letter-spacing:.12em}
+.week-beat .beat-today strong{color:var(--muted)}
+.week-beat .beat-after strong{color:var(--forest)}
+.week-beat .beat-today span{color:var(--muted)}
+
+.trade-uses .biz-uses{max-width:840px}
+.trade-uses .biz-uses li{padding:16px 0}
+.trade-uses .biz-uses p{font-size:.92rem}
+
+.trade-try{background:var(--bone)}
+.try-frame{max-width:720px;border:2px solid var(--soot);border-radius:2px;background:var(--paper);box-shadow:5px 6px 0 var(--copper)}
+.try-head{display:flex;justify-content:space-between;gap:16px;padding:14px 20px;border-bottom:2px solid var(--soot);background:var(--forest);color:#fff;font:800 .7rem "Arial Narrow","Helvetica Neue",sans-serif;letter-spacing:.1em}
+.try-body{padding:20px}
+.try-body blockquote{margin:0 0 16px;padding:14px 16px;border-left:5px solid var(--signal);background:var(--bone);font-size:.95rem}
+.try-body textarea{display:none;width:100%;box-sizing:border-box;margin:0 0 14px;padding:12px;border:2px solid var(--soot);background:#fff;font:inherit}
+.try-body textarea.is-editing{display:block}
+.try-actions{display:flex;flex-wrap:wrap;gap:8px}
+.try-actions button{min-height:44px;padding:9px 16px;border:2px solid var(--soot);border-radius:2px;background:var(--signal);color:#fff;font:800 .8rem "Arial Narrow","Helvetica Neue",sans-serif;cursor:pointer}
+.try-actions button.is-ghost{background:var(--paper);color:var(--soot)}
+.try-status{margin:14px 0 0;min-height:1.4em;color:var(--forest);font-weight:700;font-size:.9rem}
+.try-note{max-width:720px;margin:18px 0 0;color:var(--muted);font-size:.85rem}
+
+.trade-first{background:var(--paper)}
+.first-plate{max-width:840px;padding:26px 28px;border:2px solid var(--soot);background:var(--bone);box-shadow:4px 4px 0 var(--copper)}
+.first-plate h3{margin:0 0 10px}
+.first-plate p{margin:0;color:var(--muted)}
+
+.trade-close{background:var(--forest);color:#fff;text-align:center}
+.trade-close h2{max-width:800px;margin:0 auto}
+.trade-close p{max-width:620px;margin:20px auto;color:var(--bone)}
+.trade-close .closing-actions{display:flex;justify-content:center;align-items:center;gap:22px}
+.trade-close .kicker{color:var(--brass)}
+.trade-close .email-link{color:#fff;font-weight:800}
+
+.trade-back{display:inline-block;margin:0 0 26px;color:var(--copper);font:800 .8rem "Arial Narrow","Helvetica Neue",sans-serif;text-decoration:none}
+.trade-back:hover{color:var(--signal)}
+
+@media(max-width:760px){
+  .week-beats{grid-template-columns:1fr}
+  .week-beat+.week-beat{border-left:0;border-top:1px solid var(--soot)}
+  .trade-close .closing-actions{align-items:stretch;flex-direction:column}
+  .trade-close .closing-actions .button{width:100%;justify-content:center}
+}
