@@ -62,9 +62,9 @@ function galleryPanelRanges(gallery) {
 test('positions Mote Ops as the operating layer for existing people and tools', () => {
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
   const hero = elementById('top', 'section').source;
-  assert.match(hero, /The busywork that follows you home\?/i);
-  assert.match(hero, /I build systems that do it for you\./i);
-  assert.match(hero, /nothing, ever, goes out without your approval/i);
+  assert.match(hero, /You've heard AI could help your business\./i);
+  assert.match(hero, /Getting started is the part I do\./i);
+  assert.match(hero, /nothing goes out without your approval/i);
   assert.match(hero, /Book a fit conversation/i);
   assert.match(hero, /href="#tuesday"/i);
   assert.ok(hero.indexOf('hero-copy') < hero.indexOf('data-opening-story'), 'plain pitch must precede the film');
