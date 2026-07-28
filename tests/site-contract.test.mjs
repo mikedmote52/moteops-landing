@@ -102,7 +102,7 @@ test('keeps the hero film without the retired owner-story sequence', () => {
 });
 
 test('uses the approved cinematic section order', () => {
-  const orderedIds = ['top', 'tuesday', 'pains', 'demo-gallery', 'care-hub-showcase', 'evidence', 'boundaries', 'method', 'capabilities', 'start', 'mote-ops-studio', 'questions'];
+  const orderedIds = ['top', 'your-business', 'tuesday', 'pains', 'demo-gallery', 'care-hub-showcase', 'evidence', 'method', 'capabilities', 'start', 'mote-ops-studio', 'questions'];
   let cursor = -1;
   for (const id of orderedIds) {
     const next = html.indexOf(`id="${id}"`);
@@ -110,7 +110,7 @@ test('uses the approved cinematic section order', () => {
     cursor = next;
   }
   assert.doesNotMatch(html, /id="owner-story"|id="toolbox"|class="case-study"/i, 'retired sections must stay retired');
-  assert.equal((html.match(/<section\b[^>]*data-page-section\b/gi) ?? []).length, 10);
+  assert.equal((html.match(/<section\b[^>]*data-page-section\b/gi) ?? []).length, 11);
   for (const obsolete of ['id="calculator"', 'id="operator-day"', 'Annual follow-up labor burden', 'equipment-plate']) {
     assert.doesNotMatch(html, new RegExp(obsolete, 'i'));
   }

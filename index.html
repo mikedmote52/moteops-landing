@@ -17,10 +17,12 @@
   <link rel="stylesheet" href="cinematic-shell.css?v=cinematic-20260722">
   <link rel="stylesheet" href="opening-film.css?v=opening-v3-final-20260723">
   <link rel="stylesheet" href="care-hub-showcase.css?v=cinematic-20260722">
+  <link rel="stylesheet" href="business-picker.css?v=biz-picker-20260728">
   <link rel="stylesheet" href="studio.css?v=cinematic-20260722">
   <script src="site.js?v=resequence-20260727" defer></script>
   <script src="cinematic-shell.js?v=cinematic-20260722" defer></script>
   <script src="care-hub-showcase.js?v=cinematic-20260722" defer></script>
+  <script src="business-picker.js?v=biz-picker-20260728" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -66,6 +68,95 @@
           <button type="button" data-replay-story hidden>Replay story</button>
         </div>
       </figure>
+    </section>
+
+    <section class="biz-section section-pad" id="your-business" aria-labelledby="biz-title" data-page-section data-chapter="YOUR BUSINESS">
+      <div class="section-heading split-heading">
+        <div><p class="kicker">PLUMBER, TEACHER, RESTAURANT, SHOP · THIS PART IS ABOUT YOU</p><h2 id="biz-title">Click your business. See what AI already does for ones like it.</h2></div>
+        <p>Every example below is a tool working in that trade today, with a source you can check. If your business is not listed, the same patterns still apply.</p>
+      </div>
+      <p class="biz-truth"><span>WHAT'S POSSIBLE</span> These are examples of what current tools do in each trade, not Mote Ops client results. The numbers come from the linked vendors and surveys.</p>
+      <div class="biz-picker">
+        <details class="biz-card" data-biz="trades">
+          <summary><span class="biz-face" aria-hidden="true">01</span><span class="biz-name"><strong>Plumbers &amp; home-service trades</strong><small>HVAC, electricians, handypeople</small></span><span class="biz-mark" aria-hidden="true">+</span></summary>
+          <div class="biz-body">
+            <ul class="biz-uses">
+              <li><strong>The call you miss under a sink texts itself back</strong><p>The moment a call rings out, the caller gets a text: sorry we missed you, what do you need? Industry call data shows about a quarter of calls to small service shops go unanswered, and most callers never leave a voicemail. One HVAC shop reported $17,000 recovered in its first month.</p></li>
+              <li><strong>A phone that answers nights and weekends</strong><p>An answering agent picks up around the clock, handles the do-you-service-my-area questions, and books the job into your scheduler. You review booked jobs over coffee instead of returning voicemails.</p></li>
+              <li><strong>Follow-up on estimates that didn't close</strong><p>Every quote that went quiet gets a reminder a few days later, automatically, so jobs stop dying from silence.</p></li>
+              <li><strong>Seasonal tune-up reminders</strong><p>Past customers get an it's-been-six-months text timed to their equipment. Vendors report booking rates near 30% because the message lands on people who already trust you.</p></li>
+            </ul>
+            <p class="biz-sources">Check it yourself: <a href="https://netpartners.marketing/missed-call-text-back-highest-roi-automation-service-businesses/" target="_blank" rel="noopener noreferrer">missed-call data</a> · <a href="https://www.getjobber.com/features/ai-receptionist/" target="_blank" rel="noopener noreferrer">Jobber</a> · <a href="https://www.servicetitan.com/blog/hvac-automation" target="_blank" rel="noopener noreferrer">ServiceTitan</a></p>
+            <div class="biz-next"><a class="text-link" href="#tuesday">Feel what this is like in one Tuesday <span aria-hidden="true">↓</span></a></div>
+          </div>
+        </details>
+        <details class="biz-card" data-biz="restaurants">
+          <summary><span class="biz-face" aria-hidden="true">02</span><span class="biz-name"><strong>Restaurants &amp; cafes</strong><small>The phone rings hardest when nobody can grab it</small></span><span class="biz-mark" aria-hidden="true">+</span></summary>
+          <div class="biz-body">
+            <ul class="biz-uses">
+              <li><strong>A phone that survives the dinner rush</strong><p>An agent takes reservations and answers are-you-open, can-you-seat-ten questions while your staff runs plates. One vendor's research found 85% of restaurant calls go unanswered at peak hours.</p></li>
+              <li><strong>No-show reminder texts</strong><p>Every reservation gets a confirmation and a reminder with a one-tap cancel link so the table can be resold. Restaurants using them report no-shows dropping from the low teens to under 7%; Resy's average sits near 3%.</p></li>
+              <li><strong>Prep lists and ordering from what you actually sold</strong><p>Forecasts built on your own sales history, weather, and local events tell you how much to prep and order, item by item. US restaurants lose over $25 billion a year to preventable food waste; this is the tool that chips at it.</p></li>
+              <li><strong>Schedules that match how busy you'll be</strong><p>Scheduling software forecasts each shift from your history so slow Tuesdays aren't overstaffed and game nights aren't short-handed. Users report labor costs down around 15%.</p></li>
+            </ul>
+            <p class="biz-sources">Check it yourself: <a href="https://resy.com/join/reservations/" target="_blank" rel="noopener noreferrer">Resy</a> · <a href="https://supy.io/blog/ai-in-restaurants-the-clear-2026-guide-to-forecasting-ordering-waste-reduction-menu-profitability" target="_blank" rel="noopener noreferrer">ReFED waste figure</a> · <a href="https://www.7shifts.com/blog/best-scheduling-software-for-toast-pos/" target="_blank" rel="noopener noreferrer">7shifts</a></p>
+            <div class="biz-next"><a class="text-link" href="#tuesday">Feel what this is like in one Tuesday <span aria-hidden="true">↓</span></a></div>
+          </div>
+        </details>
+        <details class="biz-card" data-biz="tutors">
+          <summary><span class="biz-face" aria-hidden="true">03</span><span class="biz-name"><strong>Tutors &amp; teachers</strong><small>Independent tutors, instructors, small learning centers</small></span><span class="biz-mark" aria-hidden="true">+</span></summary>
+          <div class="biz-body">
+            <ul class="biz-uses">
+              <li><strong>Reminders that stop no-shows and chase invoices</strong><p>Lesson reminders go out by text, and unpaid invoices get followed up politely and automatically, so you're not texting parents at 9pm or awkwardly asking to be paid.</p></li>
+              <li><strong>Instant replies to new-student inquiries</strong><p>When a parent messages at 10pm, they get an immediate reply that asks the right questions and offers consultation times, instead of the inquiry cooling off overnight.</p></li>
+              <li><strong>Lesson plans and worksheets you edit, not write</strong><p>Describe the student and topic; get a draft plan or practice set at the right level to shape. A 2025 Gallup survey found 60% of K-12 teachers already use AI, mostly for exactly this. Your edit is still the product.</p></li>
+              <li><strong>Parent progress reports from your session notes</strong><p>Your running notes become the polished monthly report parents judge renewals on. One vendor documents the cycle dropping from about 4 hours to under 20 minutes.</p></li>
+            </ul>
+            <p class="biz-sources">Check it yourself: <a href="https://thirdspacelearning.com/us/blog/ai-in-education/" target="_blank" rel="noopener noreferrer">Gallup figure</a> · <a href="https://www.wise.live/blog/tutorbird-vs-teachworks/" target="_blank" rel="noopener noreferrer">TutorBird</a> · <a href="https://www.fygurs.com/use-cases/tutoring-student-progress-reports" target="_blank" rel="noopener noreferrer">progress reports</a></p>
+            <div class="biz-next"><a class="text-link" href="#tuesday">Feel what this is like in one Tuesday <span aria-hidden="true">↓</span></a></div>
+          </div>
+        </details>
+        <details class="biz-card" data-biz="salons">
+          <summary><span class="biz-face" aria-hidden="true">04</span><span class="biz-name"><strong>Salons &amp; barbershops</strong><small>The chair earns nothing while it sits empty</small></span><span class="biz-mark" aria-hidden="true">+</span></summary>
+          <div class="biz-body">
+            <ul class="biz-uses">
+              <li><strong>Missed calls text themselves back</strong><p>Mid-cut, the phone rings out, and the caller instantly gets a want-to-book-by-text message. Most callers who hit voicemail just call the next shop on the list; this catches them first.</p></li>
+              <li><strong>No-show texts that cut empty chairs</strong><p>Clients confirm, reschedule, or cancel with one tap a day or two ahead. Vendors report automated reminders cutting no-shows by well over half.</p></li>
+              <li><strong>Booking that works after close</strong><p>An industry report found 46% of salon bookings now happen outside operating hours. If you only book when you're open, you're invisible for half your demand.</p></li>
+              <li><strong>Same-day cancellations refill themselves</strong><p>A cancellation triggers texts to your waitlist and overdue regulars, and the slot often refills in minutes. Industry data puts recovery at roughly 40% of otherwise lost revenue.</p></li>
+            </ul>
+            <p class="biz-sources">Check it yourself: <a href="https://blog.salescaptain.com/best-salon-appt-software-in-2025-stop-losing-bookings/" target="_blank" rel="noopener noreferrer">Zenoti 2025 report</a> · <a href="https://regulr.ai/for/salons/sms-marketing" target="_blank" rel="noopener noreferrer">cancellation-fill data</a></p>
+            <div class="biz-next"><a class="text-link" href="#tuesday">Feel what this is like in one Tuesday <span aria-hidden="true">↓</span></a></div>
+          </div>
+        </details>
+        <details class="biz-card" data-biz="landscapers">
+          <summary><span class="biz-face" aria-hidden="true">05</span><span class="biz-name"><strong>Landscapers &amp; lawn care</strong><small>You can't answer the phone from the mower</small></span><span class="biz-mark" aria-hidden="true">+</span></summary>
+          <div class="biz-body">
+            <ul class="biz-uses">
+              <li><strong>A phone that answers while you're on the mower</strong><p>An answering agent recognizes existing clients, captures new leads, and books the estimate straight into your calendar. You come off the job to a booked visit instead of three voicemails.</p></li>
+              <li><strong>Quotes from satellite photos</strong><p>Type in an address and the software measures the lawn, beds, and driveway from satellite imagery, then prices the job before you leave the shop. One case study reports about 90% of measuring time saved.</p></li>
+              <li><strong>Routes that cut windshield time</strong><p>The day's stops get sequenced so crews drive less between yards. Routing vendors report 20 to 30% less travel time, which is fuel and payroll.</p></li>
+              <li><strong>Estimate follow-up that doesn't slip</strong><p>Last week's quotes get a still-want-that-spring-cleanup nudge automatically, so jobs stop dying from silence.</p></li>
+            </ul>
+            <p class="biz-sources">Check it yourself: <a href="https://www.getjobber.com/features/ai-receptionist/" target="_blank" rel="noopener noreferrer">Jobber</a> · <a href="https://attentive.ai/blog/how-creation-landscaping-and-lawn-care-improved-bid-accuracy-with-updated-imagery-from-attentive-property-measurement-tool" target="_blank" rel="noopener noreferrer">measurement case study</a> · <a href="https://deeplawn.com/measurements" target="_blank" rel="noopener noreferrer">Deep Lawn</a></p>
+            <div class="biz-next"><a class="text-link" href="#tuesday">Feel what this is like in one Tuesday <span aria-hidden="true">↓</span></a></div>
+          </div>
+        </details>
+        <details class="biz-card" data-biz="retail">
+          <summary><span class="biz-face" aria-hidden="true">06</span><span class="biz-name"><strong>Shops &amp; boutiques</strong><small>Independent retail, online or on the corner</small></span><span class="biz-mark" aria-hidden="true">+</span></summary>
+          <div class="biz-body">
+            <ul class="biz-uses">
+              <li><strong>Reorder alerts from what actually sold</strong><p>The register watches your sales history and seasonality and pings you before a bestseller runs out, with a suggested quantity. Vendors report meaningfully less overstock and far fewer empty shelves.</p></li>
+              <li><strong>Product listings without a copywriter</strong><p>Draft descriptions in your store's voice and photo cleanup in a click. For a boutique listing 40 new arrivals a week, that's the difference between listing today and listing Friday.</p></li>
+              <li><strong>A dashboard you can ask plain questions</strong><p>Ask what sold best last weekend in ordinary words and get the answer, no spreadsheet exports, no formulas.</p></li>
+              <li><strong>Do you have this in a medium, answered after close</strong><p>A store assistant answers stock, sizing, and hours questions from your actual catalog while you sleep.</p></li>
+            </ul>
+            <p class="biz-sources">Check it yourself: <a href="https://www.shopify.com/blog/ai-for-small-business" target="_blank" rel="noopener noreferrer">Shopify</a> · <a href="https://technologyadvice.com/blog/sales/square-vs-shopify/" target="_blank" rel="noopener noreferrer">Square AI</a></p>
+            <div class="biz-next"><a class="text-link" href="#tuesday">Feel what this is like in one Tuesday <span aria-hidden="true">↓</span></a></div>
+          </div>
+        </details>
+      </div>
+      <p class="biz-footnote">Don't see your business? The same three patterns cover most of them: answer when you can't, keep the calendar full, draft the writing so you only approve it. <a href="email.html">Email me what your week looks like</a> and I'll answer honestly whether AI would help.</p>
     </section>
 
     <section class="tuesday-section section-pad" id="tuesday" aria-labelledby="tuesday-title" data-page-section data-chapter="START HERE">
