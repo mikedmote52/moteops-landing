@@ -527,3 +527,31 @@ footer>div nav a{font-size:.8rem}
 .legal-main article li{margin:8px 0}
 .legal-main article strong{color:var(--soot)}
 .legal-note{margin-top:clamp(34px,5vw,50px);padding:18px 20px;border:1px solid var(--rule);background:var(--bone);color:var(--muted);font-size:.88rem}
+
+/* ── Tuesday walkthrough (resequence-20260727) ─────────────────── */
+.tuesday-picker{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 6px}
+.tuesday-chip{min-height:44px;padding:8px 16px;font:inherit;font-size:.92rem;background:transparent;color:var(--ink);border:2px solid var(--rule);cursor:pointer}
+.tuesday-chip.is-on{background:var(--soot);color:var(--paper);border-color:var(--soot)}
+.tuesday-beats{margin-top:26px;display:grid;gap:22px}
+.tuesday-beat{background:#fffdf6;border:1px solid var(--rule);box-shadow:var(--shadow);padding:26px 28px;display:grid;grid-template-columns:52px 1fr;gap:18px}
+.tuesday-beat h3{margin:0 0 6px;font-size:1.3rem}
+.tuesday-beat p{margin:.3rem 0;max-width:64ch}
+.tuesday-num{font:800 1.5rem "Arial Narrow","Helvetica Neue",sans-serif;color:var(--copper)}
+.tuesday-before{color:var(--muted)}
+.tuesday-before strong,.tuesday-after strong{font:800 .66rem "Arial Narrow","Helvetica Neue",sans-serif;letter-spacing:.14em}
+.tuesday-before strong{color:var(--signal)}
+.tuesday-after strong{color:var(--forest-2)}
+.tuesday-draft{margin-top:14px;border:1px solid var(--rule);background:var(--paper);padding:16px 18px}
+.tuesday-from{font:700 .72rem "Arial Narrow","Helvetica Neue",sans-serif;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin:0}
+.tuesday-draft blockquote{margin:.6rem 0 1rem;padding-left:14px;border-left:3px solid var(--brass);font-style:italic}
+.tuesday-actions{display:flex;gap:10px;flex-wrap:wrap}
+.tuesday-actions button{min-height:44px;padding:9px 20px;border:2px solid var(--soot);background:var(--forest);color:var(--paper);font:700 .95rem inherit;cursor:pointer;box-shadow:4px 5px 0 rgba(0,0,0,.15)}
+.tuesday-actions button.is-ghost{background:transparent;color:var(--ink)}
+.tuesday-actions button:active{transform:translate(2px,2px);box-shadow:none}
+.tuesday-status{margin-top:10px;font:700 .85rem "Arial Narrow","Helvetica Neue",sans-serif;letter-spacing:.06em;color:var(--forest-2);min-height:1.4em}
+.tuesday-beat.is-calm{background:var(--forest);color:var(--bone)}
+.tuesday-beat.is-calm h3{color:#fff}
+.tuesday-beat.is-calm .tuesday-num{color:var(--brass)}
+.symptom-stat{display:block;margin-top:8px;font:700 .78rem "Arial Narrow","Helvetica Neue",sans-serif;letter-spacing:.05em;color:var(--copper)}
+@media (max-width:640px){.tuesday-beat{grid-template-columns:1fr}}
+.tuesday-section .care-showcase-truth span{background:var(--forest)}

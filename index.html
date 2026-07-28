@@ -13,13 +13,13 @@
   <meta property="og:image" content="https://moteops.tech/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="site.css?v=cinematic-20260722">
+  <link rel="stylesheet" href="site.css?v=resequence-20260727">
   <link rel="stylesheet" href="owner-story.css?v=cinematic-20260722">
   <link rel="stylesheet" href="cinematic-shell.css?v=cinematic-20260722">
   <link rel="stylesheet" href="opening-film.css?v=opening-v3-final-20260723">
   <link rel="stylesheet" href="care-hub-showcase.css?v=cinematic-20260722">
   <link rel="stylesheet" href="studio.css?v=cinematic-20260722">
-  <script src="site.js?v=cinematic-20260722" defer></script>
+  <script src="site.js?v=resequence-20260727" defer></script>
   <script src="owner-story.js?v=cinematic-20260722" defer></script>
   <script src="cinematic-shell.js?v=cinematic-20260722" defer></script>
   <script src="care-hub-showcase.js?v=cinematic-20260722" defer></script>
@@ -37,6 +37,16 @@
 
   <main id="main">
     <section class="hero workbench-hero" id="top" aria-labelledby="hero-title" data-page-section data-chapter="PRESSURE">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="signal-lamp"></span> AI FOR SMALL BUSINESS · BUILT AND RUN BY ONE ACCOUNTABLE PERSON</p>
+        <h1 id="hero-title">The busywork that follows you home? <em>I build systems that do it for you.</em></h1>
+        <p class="hero-lede">Drafted replies, chased leads, reminded invoices, found answers. Built around the tools you already use. And nothing, ever, goes out without your approval.</p>
+        <div class="hero-actions">
+          <a class="button" id="hero-booking" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Book a fit conversation <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#tuesday">New to AI? Start with one Tuesday <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-trust"><span>Built around your existing tools</span><span>Human approval where it matters</span><span>One accountable builder</span></div>
+      </div>
       <figure class="opening-story" data-opening-story>
         <div class="opening-story-frame">
           <video autoplay muted playsinline preload="none"
@@ -58,16 +68,6 @@
           <button type="button" data-replay-story hidden>Replay story</button>
         </div>
       </figure>
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="signal-lamp"></span> SMALL-BUSINESS AI OPERATING SYSTEMS</p>
-        <h1 id="hero-title">Your people and tools already do the work. <em>Mote Ops helps them work as one.</em></h1>
-        <p class="hero-lede">Mote Ops finds the operational drag, organizes the relevant context, prepares useful work, and keeps consequential actions behind approval.</p>
-        <div class="hero-actions">
-          <a class="button" id="hero-booking" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Book a fit conversation <span aria-hidden="true">↗</span></a>
-          <a class="text-link" href="#owner-story">See how the work gets organized <span aria-hidden="true">↓</span></a>
-        </div>
-        <div class="hero-trust"><span>Built around your existing tools</span><span>Human approval where it matters</span><span>One accountable builder</span></div>
-      </div>
       <section class="owner-story" id="owner-story" data-owner-story data-owner-story-state="connect" aria-label="From scattered work to one calm operating view">
         <article class="owner-scene owner-connect is-active" data-owner-scene="connect">
           <div class="owner-scene-copy">
@@ -110,11 +110,70 @@
       </section>
     </section>
 
+    <section class="tuesday-section section-pad" id="tuesday" aria-labelledby="tuesday-title" data-page-section data-chapter="START HERE">
+      <div class="section-heading split-heading"><div><p class="kicker">NEW TO AI? · START WITH ONE TUESDAY</p><h2 id="tuesday-title">You don't need to understand AI. You need your Tuesday back.</h2></div><p>No terms to learn, nothing to install, nothing that acts without you. Pick the moment that sounds like your week.</p></div>
+      <p class="care-showcase-truth"><span>DEMO</span> Sample scenarios using fictional business information.</p>
+      <div class="tuesday-picker" role="group" aria-label="Pick the moment that sounds like your week">
+        <button type="button" class="tuesday-chip is-on" aria-pressed="true" data-tuesday="email">The 9pm email</button>
+        <button type="button" class="tuesday-chip" aria-pressed="false" data-tuesday="call">The missed call</button>
+        <button type="button" class="tuesday-chip" aria-pressed="false" data-tuesday="invoice">The unpaid invoice</button>
+        <button type="button" class="tuesday-chip" aria-pressed="false" data-tuesday="doc">The "where is that?" question</button>
+      </div>
+      <div class="tuesday-beats">
+        <article class="tuesday-beat">
+          <span class="tuesday-num">01</span>
+          <div>
+            <h3 data-tuesday-title>A new customer emails at 9pm.</h3>
+            <p class="tuesday-before"><strong>TODAY</strong> <span data-tuesday-before>It sits in the inbox. You see it Thursday, apologize, and hope they haven't called someone else.</span></p>
+            <p class="tuesday-after"><strong>WITH MOTE OPS</strong> <span data-tuesday-after>By breakfast, a reply is already drafted and waiting. Not sent. Waiting.</span></p>
+          </div>
+        </article>
+        <article class="tuesday-beat">
+          <span class="tuesday-num">02</span>
+          <div>
+            <h3>You stay the boss. Try it.</h3>
+            <p>This is the actual control. Nothing ever sends itself; you approve it, change it, or skip it.</p>
+            <div class="tuesday-draft">
+              <p class="tuesday-from" data-tuesday-from>Drafted reply · to: Dana (new inquiry)</p>
+              <blockquote data-tuesday-quote>"Hi Dana, thanks for reaching out about a spring install. I have Tuesday at 10am or Wednesday at 2pm open for a quick look. Which works better?"</blockquote>
+              <div class="tuesday-actions">
+                <button type="button" data-tuesday-act="approve">Approve</button>
+                <button type="button" class="is-ghost" data-tuesday-act="edit">Edit first</button>
+                <button type="button" class="is-ghost" data-tuesday-act="skip">Skip it</button>
+              </div>
+              <p class="tuesday-status" data-tuesday-status aria-live="polite"></p>
+            </div>
+          </div>
+        </article>
+        <article class="tuesday-beat is-calm">
+          <span class="tuesday-num">03</span>
+          <div>
+            <h3>Same pattern, whole business.</h3>
+            <p>Email was one example. The same waiting-for-your-yes pattern runs missed calls, invoice reminders, scheduling, quotes, and finding answers in your own documents. You bring one workflow; I build it and teach your team to run it.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="services-section section-pad" id="pains" aria-labelledby="pains-title" data-page-section data-chapter="WHAT IT FIXES">
+      <div class="section-heading split-heading"><div><p class="kicker">START WITH THE PAIN YOU RECOGNIZE</p><h2 id="pains-title">Bring the workflow that keeps following you home.</h2></div><p>Every card links to a working demonstration further down this page.</p></div>
+      <div class="start-frictions">
+        <ol class="symptom-grid">
+          <li><span>01</span><p>Your inbox has become the company task list.</p><small class="symptom-stat">Owners spend about a third of the week on admin. (TAB survey)</small><a href="#demo-gallery" data-open-demo="operator">See a clearer daily view →</a></li>
+          <li><span>02</span><p>Leads and follow ups disappear between people and tools.</p><small class="symptom-stat">Replying in 5 minutes qualifies ~21x more leads than 30. (HBR / InsideSales)</small><a href="#demo-gallery" data-open-demo="leads">See a supervised response →</a></li>
+          <li><span>03</span><p>Staff keep searching for the same documents and answers.</p><a href="#demo-gallery" data-open-demo="documents">See a cited answer →</a></li>
+          <li><span>04</span><p>Important work depends on what the owner remembers.</p><a href="#demo-gallery" data-open-demo="operator">See what needs attention →</a></li>
+          <li><span>05</span><p>Repetitive updates, reports, and data entry consume the day.</p><a href="#capabilities">See what can be simplified →</a></li>
+          <li><span>06</span><p>You want to use AI but do not know where to start.</p><small class="symptom-stat">82% of owners hit a barrier going deeper with AI. (Goldman Sachs)</small><a href="#method">See how I decide →</a></li>
+        </ol>
+      </div>
+    </section>
+
     <section class="section-pad" id="demo-gallery" aria-labelledby="gallery-title" data-page-section data-chapter="WORKING PROOF">
       <section class="care-showcase" id="care-hub-showcase" aria-labelledby="gallery-title" data-care-root>
         <div class="care-showcase-intro">
-          <div><p class="kicker">A WORKING SMALL-BUSINESS ENVIRONMENT</p><h2 id="gallery-title">Step inside something we built.</h2></div>
-          <p>CC's Care Hub turns scattered enrollment work into one clear place for families, tours, forms, follow-up, and director decisions. Explore the demonstration below.</p>
+          <div><p class="kicker">A WORKING SMALL-BUSINESS ENVIRONMENT</p><h2 id="gallery-title">Here's one we built for a daycare. Yours would look like your business.</h2></div>
+          <p>CC's Learning Center had enrollment scattered across tools and memory. The Care Hub turns it into one clear place for families, tours, forms, follow-up, and director decisions. Click around; it's the real interface.</p>
         </div>
         <p class="care-showcase-truth"><span>DEMO</span> Interactive demonstration using fictional family records. The Care Hub workflow and interface are real; client results are still being measured.</p>
 
@@ -351,31 +410,6 @@
       <details class="technical-proof"><summary>See the technical proof behind these examples <span aria-hidden="true">+</span></summary><div><p>Mike’s current Mac installation includes Ollama qwen3-coder:30b and qwen3:14b, canonical operating context, tested project status routing, working phone access patterns, and human approval controls.</p><p>The public examples use prerecorded responses and fictional records. There is no live connection to Mike’s Mac, no visitor upload, and no production client data.</p><p>Integrations, permissions, retention, model choice, and hardware are configured per client. A local model is one possible tool, not the product.</p></div></details>
     </section>
 
-    <section class="studio-section section-pad" id="mote-ops-studio" aria-labelledby="studio-title" data-page-section data-chapter="STUDIO">
-      <header class="studio-heading">
-        <p class="kicker">MOTE OPS STUDIO · FICTIONAL DESIGN WORK</p>
-        <h2 id="studio-title">Systems can work well and still feel exceptional.</h2>
-        <p>Three original studies in product storytelling, cinematic motion, and interface craft. Fictional products, real design and engineering.</p>
-      </header>
-      <div class="studio-grid">
-        <article class="studio-study studio-onde" data-studio-study>
-          <div class="studio-code">STUDY / 001</div>
-          <div class="studio-preview" aria-hidden="true"><img class="studio-onde-poster" src="demo/onde-halo/assets/hyperbelt-poster.webp" alt="" loading="lazy" decoding="async"><span class="studio-onde-ring"></span></div>
-          <div class="studio-copy"><p>FICTIONAL PRODUCT CONCEPT</p><h3>ONDE HALO</h3><strong>Interactive 3D product, generated atmosphere, and cinematic storytelling.</strong><a href="demo/onde-halo/index.html">Enter the 3D experience <span aria-hidden="true">↗</span></a></div>
-        </article>
-        <article class="studio-study studio-vessel" data-studio-study>
-          <div class="studio-code">STUDY / 002</div>
-          <video class="studio-film" autoplay muted loop playsinline preload="none" poster="demo/vessel-zero/media/vz-01.webp" data-studio-film><source data-src="demo/vessel-zero/media/vz-01.mp4" type="video/mp4"></video>
-          <div class="studio-copy"><p>FICTIONAL DESIGN STUDY</p><h3>VESSEL ZERO</h3><strong>Cinematic scale and technical restraint.</strong><a href="demo/vessel-zero/index.html">Enter the expedition <span aria-hidden="true">↗</span></a></div>
-        </article>
-        <article class="studio-study studio-solaire" data-studio-study>
-          <div class="studio-code">STUDY / 003</div>
-          <video class="studio-film" autoplay muted loop playsinline preload="none" poster="demo/solaire-01/media/so-01.webp" data-studio-film><source data-src="demo/solaire-01/media/so-01.mp4" type="video/mp4"></video>
-          <div class="studio-copy"><p>FICTIONAL DESIGN STUDY</p><h3>SOLAIRE / 01</h3><strong>Editorial architecture and controlled motion.</strong><a href="demo/solaire-01/index.html">Enter the observatory <span aria-hidden="true">↗</span></a></div>
-        </article>
-      </div>
-    </section>
-
     <section class="method-section section-pad" id="method" aria-labelledby="method-title" data-page-section data-chapter="METHOD">
       <div class="section-heading split-heading"><div><p class="kicker">HOW THE WORK GETS DONE</p><h2 id="method-title">A reusable method, adapted to each business.</h2></div><p>Mote Ops is not a dashboard vendor or a generic agent shop. Each stage produces something you can hold, read, and question.</p></div>
       <ol class="method-track">
@@ -410,17 +444,6 @@
         <li><span>04 · YOURS TO RUN</span><h3>Teaching, then optional support</h3><strong>You own the result</strong><p>Your team learns to run the system as part of the install. Monitoring and improvements continue only if you choose them.</p></li>
       </ol>
       <p class="service-note">Diagnosis is one phase of the relationship, not the entire Mote Ops product. Continuing past any step is always a separate decision.</p>
-      <div class="start-frictions">
-        <p class="kicker">NOT SURE WHAT TO BRING? START WITH THE PAIN YOU RECOGNIZE.</p>
-        <ol class="symptom-grid">
-          <li><span>01</span><p>Your inbox has become the company task list.</p><a href="#demo-gallery" data-open-demo="operator">See a clearer daily view →</a></li>
-          <li><span>02</span><p>Leads and follow ups disappear between people and tools.</p><a href="#demo-gallery" data-open-demo="leads">See a supervised response →</a></li>
-          <li><span>03</span><p>Staff keep searching for the same documents and answers.</p><a href="#demo-gallery" data-open-demo="documents">See a cited answer →</a></li>
-          <li><span>04</span><p>Important work depends on what the owner remembers.</p><a href="#demo-gallery" data-open-demo="operator">See what needs attention →</a></li>
-          <li><span>05</span><p>Repetitive updates, reports, and data entry consume the day.</p><a href="#capabilities">See what can be simplified →</a></li>
-          <li><span>06</span><p>You want to use AI but do not know what is worth building.</p><a href="#method">See how I decide →</a></li>
-        </ol>
-      </div>
     </section>
 
     <section class="questions-section section-pad" id="questions" aria-labelledby="questions-title" data-page-section>
@@ -439,7 +462,7 @@
     </section>
   </main>
 
-  <footer><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>MOTE OPS</span></a><p>Practical AI integration for small businesses.<br>Built and run by Mike Mote in California.<br>Mote Ops is a service of West Coast Medical Legal Consult LLC, a California limited liability company.</p><div><nav aria-label="Legal pages"><a href="privacy.html">Privacy</a><a href="terms.html">Website Terms</a><a href="ai-practices.html">AI &amp; Data Practices</a><a href="rebuilds.html">Proof &amp; Ideas</a></nav><a href="email.html">hello@moteops.tech</a><span>© 2026 West Coast Medical Legal Consult LLC, dba Mote Ops</span></div></footer>
+  <footer><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>MOTE OPS</span></a><p>Practical AI integration for small businesses.<br>Built and run by Mike Mote in California.<br>Mote Ops is a service of West Coast Medical Legal Consult LLC, a California limited liability company.</p><div><nav aria-label="Legal pages"><a href="privacy.html">Privacy</a><a href="terms.html">Website Terms</a><a href="ai-practices.html">AI &amp; Data Practices</a><a href="rebuilds.html">Proof &amp; Ideas</a><a href="studio.html">Design studio</a></nav><a href="email.html">hello@moteops.tech</a><span>© 2026 West Coast Medical Legal Consult LLC, dba Mote Ops</span></div></footer>
   <a class="sticky-cta button" data-sticky-cta aria-hidden="true" tabindex="-1" href="https://calendly.com/mikedmote/30min" target="_blank" rel="noopener noreferrer">Book a fit conversation <span>↗</span></a>
   <script src="motion-system.js?v=opening-v3-final-20260723" defer></script>
 </body>

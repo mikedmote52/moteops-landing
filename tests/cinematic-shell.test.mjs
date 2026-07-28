@@ -134,7 +134,7 @@ function createHarness({ observer = true } = {}) {
 }
 
 test('keeps the approved chapters and static no-scroll-hijack guard', () => {
-  for (const chapter of ['PRESSURE', 'WORKING PROOF', 'EVIDENCE', 'STUDIO', 'METHOD', 'START']) {
+  for (const chapter of ['PRESSURE', 'START HERE', 'WHAT IT FIXES', 'WORKING PROOF', 'EVIDENCE', 'METHOD', 'START']) {
     assert.match(html, new RegExp(`data-chapter=["']${chapter}["']`, 'i'));
   }
   assert.doesNotMatch(shellJs, /preventDefault\(\).*scroll|wheel|touchmove/s);

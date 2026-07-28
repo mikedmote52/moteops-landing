@@ -285,3 +285,64 @@ if (operatorRequestButtons.length) setOperatorRequest('attention');
 if (documentTaskButtons.length) runDocumentTask('commitments');
 updateStickyCta();
 requestAnimationFrame(() => requestAnimationFrame(updateStickyCta));
+
+/* ── Tuesday walkthrough (resequence-20260727) ─────────────────── */
+const TUESDAY_SCENARIOS = {
+  email: {
+    title: 'A new customer emails at 9pm.',
+    before: "It sits in the inbox. You see it Thursday, apologize, and hope they haven't called someone else.",
+    after: 'By breakfast, a reply is already drafted and waiting. Not sent. Waiting.',
+    from: 'Drafted reply · to: Dana (new inquiry)',
+    quote: '"Hi Dana, thanks for reaching out about a spring install. I have Tuesday at 10am or Wednesday at 2pm open for a quick look. Which works better?"'
+  },
+  call: {
+    title: "A call comes in while you're on a ladder.",
+    before: 'Voicemail, maybe. Most callers hang up and dial the next name on the list.',
+    after: "The caller gets a text back in seconds with your real availability, and the job details are logged before you're down the ladder.",
+    from: 'Drafted text-back · to: missed caller (job inquiry)',
+    quote: '"Hi, this is the Mote Ops sample office. Sorry we missed you; are you calling about a repair or a new install? I can hold Thursday morning if that helps."'
+  },
+  invoice: {
+    title: 'An invoice quietly turns 30 days old.',
+    before: 'Chasing it feels awkward, so it waits. Cash flow pays the price of politeness.',
+    after: 'A friendly reminder is drafted on day 30, firmer on day 45. You approve each one; the awkwardness is handled.',
+    from: 'Drafted reminder · to: Riverside Office Park (invoice #241)',
+    quote: '"Hi Sam, quick note that invoice #241 from June 26 is still open. Happy to resend it or take a card over the phone, whichever is easier."'
+  },
+  doc: {
+    title: '"Where does it say what our deposit policy is?"',
+    before: 'Whoever wrote the policy gets interrupted. Again. The answer lives in someone\'s head.',
+    after: 'Staff ask in plain English and get the answer with the exact page it came from, out of your own documents.',
+    from: 'Cited answer · from: Service Policy.pdf, p. 3 (fictional source)',
+    quote: '"Deposits are 30% on jobs over $2,000, due at scheduling. Source: Service Policy, page 3, updated March 2026."'
+  }
+};
+const tuesdayChips = [...document.querySelectorAll('[data-tuesday]')];
+const tuesdayStatusMessages = {
+  approve: '✓ Approved in this sample. In the real system this saves a draft; you still press send.',
+  edit: '✎ The draft opens for your changes. Your words, its typing. Nothing sends itself.',
+  skip: 'Skipped. Nothing happens unless you say so. That is the whole point.'
+};
+function setTuesdayScenario(name) {
+  const data = TUESDAY_SCENARIOS[name];
+  if (!data) return;
+  tuesdayChips.forEach((chip) => {
+    const active = chip.dataset.tuesday === name;
+    chip.classList.toggle('is-on', active);
+    chip.setAttribute('aria-pressed', String(active));
+  });
+  const set = (sel, text) => { const el = document.querySelector(sel); if (el) el.textContent = text; };
+  set('[data-tuesday-title]', data.title);
+  set('[data-tuesday-before]', data.before);
+  set('[data-tuesday-after]', data.after);
+  set('[data-tuesday-from]', data.from);
+  set('[data-tuesday-quote]', data.quote);
+  set('[data-tuesday-status]', '');
+}
+tuesdayChips.forEach((chip) => chip.addEventListener('click', () => setTuesdayScenario(chip.dataset.tuesday)));
+document.querySelectorAll('[data-tuesday-act]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const status = document.querySelector('[data-tuesday-status]');
+    if (status) status.textContent = tuesdayStatusMessages[button.dataset.tuesdayAct] ?? '';
+  });
+});

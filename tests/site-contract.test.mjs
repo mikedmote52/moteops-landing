@@ -16,23 +16,26 @@ const studioCss = existsSync(resolve(root, 'studio.css'))
   ? readFileSync(resolve(root, 'studio.css'), 'utf8')
   : '';
 const js = readFileSync(resolve(root, 'site.js'), 'utf8');
+const studioHtml = existsSync(resolve(root, 'studio.html'))
+  ? readFileSync(resolve(root, 'studio.html'), 'utf8')
+  : '';
 
 function attribute(tag, name) {
   return tag.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']*)["']`, 'i'))?.[1] ?? null;
 }
 
-function elementById(id, expectedTag) {
-  const opening = [...html.matchAll(/<([a-z][\w:-]*)\b[^>]*>/gi)].find((match) =>
+function elementById(id, expectedTag, source = html) {
+  const opening = [...source.matchAll(/<([a-z][\w:-]*)\b[^>]*>/gi)].find((match) =>
     (!expectedTag || match[1].toLowerCase() === expectedTag.toLowerCase()) && attribute(match[0], 'id') === id);
   assert.ok(opening, `missing #${id}${expectedTag ? ` ${expectedTag}` : ''}`);
   const tag = opening[1].toLowerCase();
-  const tokens = [...html.slice(opening.index).matchAll(new RegExp(`<\\/?${tag}\\b[^>]*>`, 'gi'))];
+  const tokens = [...source.slice(opening.index).matchAll(new RegExp(`<\\/?${tag}\\b[^>]*>`, 'gi'))];
   let depth = 0;
   for (const token of tokens) {
     depth += /^<\//.test(token[0]) ? -1 : 1;
     if (depth === 0) {
       const end = opening.index + token.index + token[0].length;
-      return { start: opening.index, end, openingTag: opening[0], source: html.slice(opening.index, end) };
+      return { start: opening.index, end, openingTag: opening[0], source: source.slice(opening.index, end) };
     }
   }
   assert.fail(`missing closing </${tag}> for #${id}`);
@@ -59,12 +62,32 @@ function galleryPanelRanges(gallery) {
 test('positions Mote Ops as the operating layer for existing people and tools', () => {
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
   const hero = elementById('top', 'section').source;
-  assert.match(hero, /Your people and tools already do the work\./i);
-  assert.match(hero, /Mote Ops helps them work as one\./i);
-  assert.match(hero, /finds the operational drag/i);
-  assert.match(hero, /keeps consequential actions behind approval/i);
+  assert.match(hero, /The busywork that follows you home\?/i);
+  assert.match(hero, /I build systems that do it for you\./i);
+  assert.match(hero, /nothing, ever, goes out without your approval/i);
   assert.match(hero, /Book a fit conversation/i);
+  assert.match(hero, /href="#tuesday"/i);
+  assert.ok(hero.indexOf('hero-copy') < hero.indexOf('data-opening-story'), 'plain pitch must precede the film');
   assert.doesNotMatch(hero, /MCP|agent runtime|control plane|model routing/i);
+});
+
+test('walks a nontechnical owner through one Tuesday with real controls', () => {
+  const tuesday = elementById('tuesday', 'section').source;
+  assert.match(tuesday, /You don't need to understand AI\. You need your Tuesday back\./i);
+  assert.match(tuesday, /Sample scenarios using fictional business information\./i);
+  assert.equal((tuesday.match(/data-tuesday="/gi) ?? []).length, 4);
+  for (const scenario of ['email', 'call', 'invoice', 'doc']) {
+    assert.match(tuesday, new RegExp(`data-tuesday=["']${scenario}["']`, 'i'));
+  }
+  for (const act of ['approve', 'edit', 'skip']) {
+    assert.match(tuesday, new RegExp(`data-tuesday-act=["']${act}["']`, 'i'));
+  }
+  assert.match(tuesday, /Nothing ever sends itself/i);
+  assert.match(tuesday, /Same pattern, whole business\./i);
+  for (const hook of ['TUESDAY_SCENARIOS', 'data-tuesday-act', 'data-tuesday-status']) {
+    assert.ok(js.includes(hook), `site.js must wire the walkthrough: ${hook}`);
+  }
+  assert.ok(css.includes('.tuesday-beat'), 'site.css must style the walkthrough');
 });
 
 test('shows a truthful small-business chaos-to-control story', () => {
@@ -107,31 +130,38 @@ test('isolates and preserves the owner story presentation', () => {
 });
 
 test('uses the approved cinematic section order', () => {
-  const orderedIds = ['top', 'owner-story', 'demo-gallery', 'care-hub-showcase', 'evidence', 'boundaries', 'mote-ops-studio', 'method', 'capabilities', 'start', 'questions'];
+  const orderedIds = ['top', 'owner-story', 'tuesday', 'pains', 'demo-gallery', 'care-hub-showcase', 'evidence', 'boundaries', 'method', 'capabilities', 'start', 'questions'];
   let cursor = -1;
   for (const id of orderedIds) {
     const next = html.indexOf(`id="${id}"`);
     assert.ok(next > cursor, `${id} should appear in the approved order`);
     cursor = next;
   }
-  assert.equal((html.match(/<section\b[^>]*data-page-section\b/gi) ?? []).length, 8);
+  assert.doesNotMatch(html, /id="mote-ops-studio"/i);
+  assert.equal((html.match(/<section\b[^>]*data-page-section\b/gi) ?? []).length, 9);
   for (const obsolete of ['id="calculator"', 'id="operator-day"', 'Annual follow-up labor burden', 'equipment-plate']) {
     assert.doesNotMatch(html, new RegExp(obsolete, 'i'));
   }
 });
 
-test('keeps six recognizable frictions inside the commercial close', () => {
-  const start = elementById('start', 'section');
-  assert.match(start.source, /class="start-frictions"/i);
+test('keeps six recognizable frictions with sourced stats near the top', () => {
+  const pains = elementById('pains', 'section');
+  assert.match(pains.source, /class="start-frictions"/i);
   for (const phrase of [
     'Your inbox has become the company task list.',
     'Leads and follow ups disappear between people and tools.',
     'Staff keep searching for the same documents and answers.',
     'Important work depends on what the owner remembers.',
     'Repetitive updates, reports, and data entry consume the day.',
-    'You want to use AI but do not know what is worth building.',
-  ]) assert.ok(start.source.includes(phrase), `missing friction: ${phrase}`);
-  assert.doesNotMatch(start.source, /\b(?:LLM|RAG|API|webhook|vector|inference|orchestration|agent runtime)\b/i);
+    'You want to use AI but do not know where to start.',
+  ]) assert.ok(pains.source.includes(phrase), `missing friction: ${phrase}`);
+  for (const stat of ['TAB survey', 'HBR / InsideSales', 'Goldman Sachs']) {
+    assert.ok(pains.source.includes(stat), `missing stat attribution: ${stat}`);
+  }
+  assert.equal((pains.source.match(/symptom-stat/g) ?? []).length, 3);
+  assert.doesNotMatch(pains.source, /\b(?:LLM|RAG|API|webhook|vector|inference|orchestration|agent runtime)\b/i);
+  const start = elementById('start', 'section');
+  assert.doesNotMatch(start.source, /start-frictions/i);
 });
 
 test('presents six outcomes instead of a technical product catalog', () => {
@@ -168,8 +198,8 @@ test('makes the real Care Hub workflow the primary working demonstration', () =>
   const careShowcase = elementById('care-hub-showcase', 'section');
   assert.ok(careShowcase.start >= gallery.start && careShowcase.end <= gallery.end);
   assert.match(careShowcase.source, /A WORKING SMALL-BUSINESS ENVIRONMENT/i);
-  assert.match(careShowcase.source, /Step inside something we built\./i);
-  assert.match(careShowcase.source, /CC['’]s Care Hub turns scattered enrollment work into one clear place/i);
+  assert.match(careShowcase.source, /Here's one we built for a daycare\. Yours would look like your business\./i);
+  assert.match(careShowcase.source, /CC['’]s Learning Center had enrollment scattered across tools and memory/i);
   assert.match(careShowcase.source, /Interactive demonstration using fictional family records/i);
   assert.match(careShowcase.source, /workflow and interface are real; client results are still being measured/i);
   for (const label of ['Today', 'Families', 'Modules', 'Integrations', 'Discovery']) {
@@ -225,12 +255,12 @@ test('keeps three secondary demonstrations accessible but collapsed by default',
   }
 });
 
-test('places three fictional Studio studies after operational evidence', () => {
-  const evidence = elementById('evidence', 'section');
-  const studio = elementById('mote-ops-studio', 'section');
-  const method = elementById('method', 'section');
-  assert.ok(studio.start > evidence.end, 'Studio must follow operational evidence');
-  assert.ok(studio.end < method.start, 'Studio must precede the method');
+test('places three fictional Studio studies on their own page, linked from the footer', () => {
+  assert.ok(studioHtml.length > 0, 'studio.html must exist');
+  assert.match(html, /<footer[\s\S]*href="studio\.html"/i, 'index footer must link the studio page');
+  const studio = elementById('mote-ops-studio', 'section', studioHtml);
+  assert.match(studioHtml, /motion-system\.js/i);
+  assert.match(studioHtml, /studio\.css/i);
   assert.match(studio.source, /Mote Ops Studio/i);
   assert.match(studio.source, /Systems can work well and still feel exceptional/i);
   assert.equal((studio.source.match(/data-studio-study/gi) ?? []).length, 3);
