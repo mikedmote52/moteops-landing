@@ -230,6 +230,7 @@ test('keeps three secondary demonstrations accessible but collapsed by default',
 test('places three fictional Studio studies on their own page, linked from the footer', () => {
   assert.ok(studioHtml.length > 0, 'studio.html must exist');
   assert.match(html, /<footer[\s\S]*href="studio\.html"/i, 'index footer must link the studio page');
+  assert.equal((studioHtml.match(/<h1\b/gi) ?? []).length, 1, 'studio page must expose one primary heading');
   const studio = elementById('mote-ops-studio', 'section', studioHtml);
   assert.match(studioHtml, /motion-system\.js/i);
   assert.match(studioHtml, /studio\.css/i);
